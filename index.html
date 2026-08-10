@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>岡山四國五日遊｜購物美食拍照攻略</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ai-deep: #14213B;      /* 藍染 深靛 */
+    --ai-mid: #24365C;       /* 藍染 中靛 */
+    --ai-line: #3E5688;      /* 藍染 淺線 */
+    --washi: #F3EDE0;        /* 和紙米白 */
+    --washi-warm: #EBE2CF;   /* 和紙暖米 */
+    --momiji: #BD4B28;       /* 楓紅 */
+    --momiji-deep: #8F3319;  /* 深楓紅 */
+    --kincha: #B8892B;       /* 金茶（鳥居金） */
+    --matcha: #6C7A4A;       /* 抹茶綠 */
+    --ink: #1E2430;
+    --paper-line: rgba(30,36,48,0.10);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--washi);
+    color:var(--ink);
+    font-family:'Noto Sans TC', sans-serif;
+    font-weight:400;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3,.disp{
+    font-family:'Noto Serif TC', serif;
+    letter-spacing:.02em;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:
+      radial-gradient(ellipse at 18% 20%, rgba(184,137,43,0.16), transparent 55%),
+      linear-gradient(180deg, var(--ai-deep) 0%, var(--ai-mid) 100%);
+    color:var(--washi);
+    padding:6.5rem 1.5rem 5rem;
+    overflow:hidden;
+    text-align:center;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(243,237,224,0.035) 0 1px, transparent 1px 64px);
+    pointer-events:none;
+  }
+  .hero .kicker{
+    font-size:.82rem;
+    letter-spacing:.4em;
+    color:var(--kincha);
+    margin-bottom:1.4rem;
+    font-weight:500;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem, 5vw, 3.4rem);
+    font-weight:900;
+    margin:0 0 1rem;
+    line-height:1.35;
+  }
+  .hero h1 span{ color:var(--kincha); }
+  .hero p.sub{
+    color:rgba(243,237,224,0.72);
+    font-size:1.02rem;
+    max-width:34rem;
+    margin:0 auto;
+    font-weight:300;
+  }
+  .hero .dates{
+    margin-top:2.4rem;
+    display:inline-flex;
+    gap:.7rem;
+    align-items:center;
+    font-family:'Noto Serif TC',serif;
+    font-size:.95rem;
+    color:var(--washi);
+    border:1px solid rgba(243,237,224,0.28);
+    padding:.6rem 1.4rem;
+    border-radius:999px;
+    background:rgba(243,237,224,0.04);
+  }
+  .dot{width:5px;height:5px;border-radius:50%;background:var(--momiji);display:inline-block;}
+
+  /* Torii divider */
+  .torii{
+    width:100%; height:56px;
+    display:block;
+    margin:0 auto;
+  }
+
+  /* ---------- NAV DOTS ---------- */
+  .trail{
+    display:flex;
+    justify-content:center;
+    gap:0;
+    background:var(--ai-deep);
+    padding:1.1rem 1rem;
+    position:sticky; top:0; z-index:50;
+    box-shadow:0 6px 18px rgba(20,33,59,0.18);
+  }
+  .trail a{
+    color:rgba(243,237,224,0.55);
+    text-decoration:none;
+    font-family:'Noto Serif TC',serif;
+    font-size:.82rem;
+    padding:.35rem .9rem;
+    border-right:1px solid rgba(243,237,224,0.15);
+    transition:color .2s;
+    white-space:nowrap;
+  }
+  .trail a:last-child{border-right:none;}
+  .trail a:hover{color:var(--kincha);}
+
+  /* ---------- DAY SECTIONS ---------- */
+  .day{
+    position:relative;
+    padding:4.5rem 1.5rem;
+    scroll-margin-top:70px;
+  }
+  .day.paper{ background:var(--washi); }
+  .day.ink{ background:linear-gradient(180deg, var(--ai-deep), var(--ai-mid)); color:var(--washi); }
+
+  .day-inner{ max-width:880px; margin:0 auto; }
+
+  .day-head{
+    display:flex;
+    align-items:baseline;
+    gap:1.3rem;
+    margin-bottom:.4rem;
+  }
+  .day-num{
+    font-family:'Noto Serif TC',serif;
+    font-weight:900;
+    font-size:3.6rem;
+    line-height:1;
+    color:var(--momiji);
+    letter-spacing:0;
+  }
+  .ink .day-num{ color:var(--kincha); }
+  .day-title-wrap{ flex:1; }
+  .day-eyebrow{
+    font-size:.76rem;
+    letter-spacing:.32em;
+    opacity:.6;
+    margin-bottom:.35rem;
+    font-weight:500;
+  }
+  .day-title{
+    font-size:1.55rem;
+    font-weight:700;
+    margin:0;
+  }
+  .day-date{
+    font-family:'Noto Serif TC',serif;
+    font-size:.85rem;
+    opacity:.55;
+    margin-top:.3rem;
+  }
+
+  .rule{
+    height:1px;
+    background:linear-gradient(90deg, var(--momiji), transparent 70%);
+    margin:1.6rem 0 2.2rem;
+  }
+  .ink .rule{ background:linear-gradient(90deg, var(--kincha), transparent 70%); }
+
+  /* Spot blocks */
+  .spot{
+    margin-bottom:2.6rem;
+  }
+  .spot:last-child{margin-bottom:0;}
+  .spot-name{
+    font-family:'Noto Serif TC',serif;
+    font-size:1.15rem;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+    margin-bottom:.9rem;
+  }
+  .spot-name::before{
+    content:"";
+    width:8px;height:8px;
+    background:var(--momiji);
+    display:inline-block;
+    transform:rotate(45deg);
+    flex-shrink:0;
+  }
+  .ink .spot-name::before{ background:var(--kincha); }
+
+  .tag-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:1rem;
+  }
+  .tag-card{
+    background:rgba(30,36,48,0.03);
+    border:1px solid var(--paper-line);
+    border-radius:2px;
+    padding:1.05rem 1.15rem;
+    position:relative;
+  }
+  .ink .tag-card{
+    background:rgba(243,237,224,0.05);
+    border-color:rgba(243,237,224,0.14);
+  }
+  .tag-label{
+    display:inline-block;
+    font-family:'Noto Serif TC',serif;
+    font-size:.72rem;
+    font-weight:700;
+    letter-spacing:.18em;
+    padding:.15rem .55rem;
+    margin-bottom:.6rem;
+    border-radius:2px;
+  }
+  .tag-buy .tag-label{ background:rgba(184,137,43,0.16); color:var(--kincha-deep,#8a651c); }
+  .tag-eat .tag-label{ background:rgba(189,75,40,0.13); color:var(--momiji-deep); }
+  .tag-shot .tag-label{ background:rgba(108,122,74,0.16); color:var(--matcha); }
+  .ink .tag-buy .tag-label{ background:rgba(184,137,43,0.22); color:#E3C173; }
+  .ink .tag-eat .tag-label{ background:rgba(189,75,40,0.22); color:#E4876A; }
+  .ink .tag-shot .tag-label{ background:rgba(108,122,74,0.24); color:#B7C795; }
+
+  .tag-card ul{
+    margin:0; padding-left:1.1rem;
+    font-size:.92rem;
+  }
+  .tag-card li{ margin-bottom:.4rem; }
+  .tag-card li:last-child{ margin-bottom:0; }
+  .tag-card p{ margin:0; font-size:.92rem; }
+
+  .note{
+    margin-top:1rem;
+    font-size:.85rem;
+    padding:.8rem 1rem;
+    border-left:3px solid var(--momiji);
+    background:rgba(189,75,40,0.06);
+    opacity:.92;
+  }
+  .ink .note{
+    border-left-color:var(--kincha);
+    background:rgba(184,137,43,0.08);
+  }
+
+  /* signature: seasonal thread motif between days */
+  .thread{
+    position:relative;
+    height:64px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .thread svg{ width:100%; max-width:880px; height:64px; opacity:.5; }
+
+  /* ---------- SUMMARY ---------- */
+  .summary{
+    background:var(--washi-warm);
+    padding:4.5rem 1.5rem 5.5rem;
+  }
+  .summary-inner{ max-width:880px; margin:0 auto; }
+  .summary h2{
+    font-size:1.7rem;
+    margin-bottom:2rem;
+    display:flex;
+    align-items:center;
+    gap:.8rem;
+  }
+  .summary h2::before{
+    content:"";
+    width:26px;height:2px;
+    background:var(--momiji);
+    display:inline-block;
+  }
+  .summary-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:1.6rem;
+    margin-bottom:2.4rem;
+  }
+  .sum-card{
+    background:var(--washi);
+    border:1px solid var(--paper-line);
+    padding:1.5rem 1.4rem;
+  }
+  .sum-card h3{
+    font-size:1rem;
+    margin:0 0 .8rem;
+    color:var(--momiji-deep);
+  }
+  .sum-card p, .sum-card li{ font-size:.9rem; margin:0 0 .5rem;}
+  .sum-card ul{ padding-left:1.1rem; margin:0;}
+
+  footer{
+    background:var(--ai-deep);
+    color:rgba(243,237,224,0.55);
+    text-align:center;
+    padding:2.8rem 1.5rem;
+    font-size:.78rem;
+    line-height:2;
+  }
+  footer strong{ color:var(--kincha); font-weight:500; }
+
+  @media (max-width: 600px){
+    .day-num{ font-size:2.6rem; }
+    .trail{ overflow-x:auto; justify-content:flex-start; }
+    .hero{ padding:5rem 1.2rem 3.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+  }
+
+  /* ---------- SECTION HEADERS (shared) ---------- */
+  .sect{ padding:4.5rem 1.5rem; }
+  .sect.paper{ background:var(--washi); }
+  .sect.ink{ background:linear-gradient(180deg, var(--ai-deep), var(--ai-mid)); color:var(--washi); }
+  .sect.warm{ background:var(--washi-warm); }
+  .sect-inner{ max-width:880px; margin:0 auto; }
+  .sect-eyebrow{
+    font-size:.78rem; letter-spacing:.32em; opacity:.6; margin-bottom:.5rem; font-weight:500;
+  }
+  .sect h2{
+    font-size:1.75rem; font-weight:800; margin:0 0 .3rem;
+  }
+  .sect .sect-sub{
+    font-size:.92rem; opacity:.65; margin-bottom:2.2rem; max-width:36rem;
+  }
+
+  /* ---------- FLIGHT CARDS ---------- */
+  .flight-row{
+    display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; margin-bottom:2.6rem;
+  }
+  @media (max-width:640px){ .flight-row{ grid-template-columns:1fr; } }
+  .flight-card{
+    border:1px solid var(--paper-line);
+    background:rgba(30,36,48,0.02);
+    padding:1.4rem 1.5rem;
+    position:relative;
+  }
+  .flight-tag{
+    font-family:'Noto Serif TC',serif; font-size:.72rem; font-weight:700;
+    letter-spacing:.16em; color:var(--kincha); margin-bottom:.7rem; text-transform:uppercase;
+  }
+  .flight-route{
+    display:flex; align-items:center; gap:.9rem; font-family:'Noto Serif TC',serif;
+    font-size:1.35rem; font-weight:700; color:var(--ai-deep); margin-bottom:.5rem;
+  }
+  .flight-route .arrow{ color:var(--momiji); font-size:1.1rem; }
+  .flight-meta{ font-size:.85rem; opacity:.7; }
+  .flight-meta b{ color:var(--ink); font-weight:600; }
+
+  /* ---------- STAY TABLE ---------- */
+  .stay-table{ width:100%; border-collapse:collapse; font-size:.86rem; margin-bottom:1rem; }
+  .stay-table th{
+    text-align:left; font-family:'Noto Serif TC',serif; font-weight:700;
+    font-size:.78rem; letter-spacing:.08em; color:var(--kincha);
+    padding:.6rem .8rem; border-bottom:2px solid var(--momiji);
+  }
+  .stay-table td{
+    padding:.75rem .8rem; border-bottom:1px solid var(--paper-line); vertical-align:top;
+  }
+  .stay-table tr:last-child td{ border-bottom:none; }
+  .stay-table .dcell{ font-family:'Noto Serif TC',serif; font-weight:700; color:var(--ai-deep); white-space:nowrap; }
+  .stay-table .meal-b{ color:var(--matcha); }
+  .stay-table .meal-l,.meal-d{ color:var(--momiji-deep); }
+
+  /* ---------- CHECKLIST (prep) ---------- */
+  .prep-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.3rem;
+  }
+  .prep-card{
+    background:rgba(243,237,224,0.05);
+    border:1px solid rgba(243,237,224,0.15);
+    padding:1.4rem 1.5rem;
+  }
+  .prep-card h3{
+    font-family:'Noto Serif TC',serif; font-size:1.02rem; margin:0 0 .8rem;
+    color:var(--kincha); display:flex; align-items:center; gap:.5rem;
+  }
+  .prep-card h3::before{ content:"◆"; font-size:.6rem; color:var(--momiji); }
+  .prep-card ul{ margin:0; padding-left:1.1rem; font-size:.87rem; }
+  .prep-card li{ margin-bottom:.55rem; opacity:.9; }
+  .prep-card li:last-child{ margin-bottom:0; }
+  .prep-card strong{ color:var(--washi); }
+
+  /* ---------- REMINDER CARDS ---------- */
+  .remind-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.4rem;
+  }
+  .remind-card{
+    background:var(--washi);
+    border-top:3px solid var(--momiji);
+    box-shadow:0 2px 10px rgba(20,33,59,0.06);
+    padding:1.4rem 1.5rem;
+  }
+  .remind-card.gold{ border-top-color:var(--kincha); }
+  .remind-card.green{ border-top-color:var(--matcha); }
+  .remind-card.indigo{ border-top-color:var(--ai-line); }
+  .remind-card h3{
+    font-family:'Noto Serif TC',serif; font-size:1rem; margin:0 0 .7rem; color:var(--ai-deep);
+  }
+  .remind-card ul{ margin:0; padding-left:1.1rem; font-size:.86rem; }
+  .remind-card li{ margin-bottom:.5rem; }
+  .remind-card li:last-child{ margin-bottom:0; }
+  .remind-card p{ font-size:.86rem; margin:0; }
+
+  .agency-box{
+    margin-top:3rem;
+    border:1px solid var(--paper-line);
+    background:rgba(30,36,48,0.02);
+    padding:1.6rem 1.8rem;
+    display:flex; flex-wrap:wrap; gap:2rem; justify-content:space-between; align-items:center;
+  }
+  .agency-box .name{
+    font-family:'Noto Serif TC',serif; font-weight:700; font-size:1.1rem; color:var(--ai-deep);
+  }
+  .agency-box .meta{ font-size:.85rem; opacity:.75; line-height:1.9; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="kicker">SETOUCHI ITINERARY · 團號 NPY111805IT6</div>
+  <h1>岡山四國<span>五日</span>紀行<br>購物・美食・拍照全攻略</h1>
+  <p class="sub">宮島海上鳥居・尾道千光寺・倉敷美觀地區・道後溫泉，一路從瀨戶內海的潮汐走到讚岐平原的楓紅。</p>
+  <div class="dates"><span class="dot"></span>2026.11.18 — 11.22　台北桃園 ⇄ 岡山</div>
+</section>
+
+<!-- NAV -->
+<nav class="trail">
+  <a href="#d1">D1 岡山</a>
+  <a href="#d2">D2 尾道</a>
+  <a href="#d3">D3 宮島・松山</a>
+  <a href="#d4">D4 琴平・栗林</a>
+  <a href="#d5">D5 倉敷</a>
+  <a href="#logistics">航班住宿</a>
+  <a href="#prep">行前準備</a>
+  <a href="#reminders">貼心提醒</a>
+  <a href="#summary">總覽建議</a>
+</nav>
+
+<!-- D1 -->
+<section class="day paper" id="d1">
+  <div class="day-inner">
+    <div class="day-head">
+      <div class="day-num">01</div>
+      <div class="day-title-wrap">
+        <div class="day-eyebrow">ARRIVAL · 抵達晴天之國</div>
+        <h2 class="day-title">桃園 → 岡山機場・AEON MALL 永旺夢樂城岡山</h2>
+        <div class="day-date">11/18（三）</div>
+      </div>
+    </div>
+    <div class="rule"></div>
+
+    <div class="spot">
+      <div class="spot-name">AEON MALL 永旺夢樂城岡山</div>
+      <div class="tag-grid">
+        <div class="tag-card tag-buy">
+          <span class="tag-label">買</span>
+          <ul>
+            <li>吉備糰子、白桃／麝香葡萄造型甜點、桃太郎餅乾、岡山布丁</li>
+            <li>B1 藥妝／免稅區：合利他命EX、EVE止痛藥、休足時間、面膜</li>
+            <li>B1 超市白桃、麝香葡萄，¥398 起，傍晚常降價</li>
+          </ul>
+        </div>
+        <div class="tag-card tag-eat">
+          <span class="tag-label">吃</span>
+          <p>6樓牛舌專賣「たん屋びぜん」、燒肉「肉匠松屋」；B1熟食區傍晚特價便當／壽司／生魚片，CP值最高。</p>
+        </div>
+        <div class="tag-card tag-shot">
+          <span class="tag-label">拍</span>
+          <p>剛落地體力尚可，免稅區排隊人多，建議先逛後買；生鮮／甜點留到最後採買，避免壓壞行李。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="thread">
+  <svg viewBox="0 0 880 64" preserveAspectRatio="none"><path d="M0,32 C220,4 320,60 440,32 C560,4 660,60 880,32" fill="none" stroke="#BD4B28" stroke-width="1.5"/></svg>
+</div>
+
+<!-- D2 -->
+<section class="day ink" id="d2">
+  <div class="day-inner">
+    <div class="day-head">
+      <div class="day-num">02</div>
+      <div class="day-title-wrap">
+        <div class="day-eyebrow">ONOMICHI · 貓與海的坡道之城</div>
+        <h2 class="day-title">尾道站前商店街・千光寺公園・原爆和平紀念公園・廣島本通商店街</h2>
+        <div class="day-date">11/19（四）</div>
+      </div>
+    </div>
+    <div class="rule"></div>
+
+    <div class="spot">
+      <div class="spot-name">尾道本通商店街</div>
+      <p style="opacity:.75;font-size:.88rem;margin:-.4rem 0 1rem;">全長1.2公里、約210家店，有頂棚不怕雨</p>
+      <div class="tag-grid">
+        <div class="tag-card tag-buy">
+          <span class="tag-label">買</span>
+          <ul>
+            <li>花林糖饅頭、八朔大福</li>
+            <li>貓咪造型鱈魚香絲（貓控必買）</li>
+            <li>尾道拉麵料理包</li>
+          </ul>
+        </div>
+        <div class="tag-card tag-eat">
+          <span class="tag-label">吃</span>
+          <p>尾道拉麵（醬油底＋豬背脂）；小野貓點心舖尾道布丁，建議 10:00 開店前排隊，淋檸檬醬汁口味最人氣。</p>
+        </div>
+        <div class="tag-card tag-shot">
+          <span class="tag-label">拍</span>
+          <p>屋頂遮陽適合陰雨天散步；貓之細道沿途有貓咪塗鴉牆，運氣好能拍到真貓出沒。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot">
+      <div class="spot-name">千光寺公園（單程纜車）</div>
+      <div class="tag-grid" style="grid-template-columns:1fr;">
+        <div class="tag-card tag-shot">
+          <span class="tag-label">拍</span>
+          <p>山頂展望台俯瞰尾道港與瀨戶內海全景，是尾道最經典的一張「空拍感」照片。建議上午～中午前順光時段前往，逆光會讓海面反光過曝。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">廣島本通商店街這站會發放代金 2000 日幣方便逛街，記得留意店家是否收此券。當日餐食含日式旬彩套餐、廣島燒套餐。</div>
+  </div>
+</section>
+
+<div class="thread">
+  <svg viewBox="0 0 880 64" preserveAspectRatio="none"><path d="M0,32 C220,60 320,4 440,32 C560,60 660,4 880,32" fill="none" stroke="#B8892B" stroke-width="1.5"/></svg>
+</div>
+
+<!-- D3 -->
+<section class="day paper" id="d3">
+  <div class="day-inner">
+    <div class="day-head">
+      <div class="day-num">03</div>
+      <div class="day-title-wrap">
+        <div class="day-eyebrow">MIYAJIMA & MATSUYAMA · 潮汐與古湯</div>
+        <h2 class="day-title">宮島表參道・嚴島神社・島波海道・松山城纜車・少爺音樂鐘・道後溫泉本館</h2>
+        <div class="day-date">11/20（五）</div>
+      </div>
+    </div>
+    <div class="rule"></div>
+
+    <div class="spot">
+      <div class="spot-name">宮島表參道商店街</div>
+      <div class="tag-grid">
+        <div class="tag-card tag-buy">
+          <span class="tag-label">買</span>
+          <ul>
+            <li>紅葉饅頭：「紅葉堂本店」百年老舖，炸紅葉饅頭有紅豆／抹茶／起司／奶油／瀨戶內檸檬5種口味，票券機購買、趁熱吃</li>
+            <li>宮島張子（招財貓、達摩、小鹿手工紙塑）－「博多屋」</li>
+            <li>「勝谷菓子パン舗」夾心麵包，常大排長龍</li>
+          </ul>
+        </div>
+        <div class="tag-card tag-eat">
+          <span class="tag-label">吃</span>
+          <ul>
+            <li>現烤廣島牡蠣（全日本牡蠣過半產自廣島）</li>
+            <li>星鰻飯（あなごめし）</li>
+            <li>GEBURA 檸檬飲料，帶杯子回去續杯只要¥200</li>
+          </ul>
+        </div>
+        <div class="tag-card tag-shot">
+          <span class="tag-label">拍</span>
+          <p>商店街營業時間較早關店（約傍晚），建議把拍照與採買排在較早時段。</p>
+        </div>
+      </div>
+      <div class="note">嚴島神社鳥居隨潮汐變化：漲潮如浮在海上、退潮可走到鳥居下方近拍。行前查一下 11/20 當天廣島潮汐時刻，抓最佳拍攝時段。行程規定若遇漲潮無法入內參拜，每人退費 300 日幣。</div>
+    </div>
+
+    <div class="spot">
+      <div class="spot-name">松山城纜車（不上天守閣）</div>
+      <div class="tag-grid" style="grid-template-columns:1fr;">
+        <div class="tag-card tag-shot">
+          <span class="tag-label">拍</span>
+          <p>纜車上升途中可俯瞰松山市街，天氣好時能遠望瀨戶內海。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot">
+      <div class="spot-name">道後溫泉本館（外觀拍照）</div>
+      <div class="tag-grid">
+        <div class="tag-card tag-shot">
+          <span class="tag-label">拍</span>
+          <p>明治木造建築代表作，正面台階＋唐破風屋頂是經典角度。「少爺音樂鐘」8:00–22:00 每整點報時，鐘體隨音樂緩緩上升，可提前5分鐘卡位拍動態過程。</p>
+        </div>
+        <div class="tag-card tag-buy">
+          <span class="tag-label">買</span>
+          <ul>
+            <li>少爺糰子（紅豆／蛋黃／抹茶三色，一六本舖等處有售）</li>
+            <li>柑橘伴手禮：POM蜜柑果汁、蜜柑寒天凍飲、蜜柑酒（未滿18歲勿飲）</li>
+            <li>みきゃん（愛媛吉祥物蜜柑犬）周邊小物</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="thread">
+  <svg viewBox="0 0 880 64" preserveAspectRatio="none"><path d="M0,32 C220,4 320,60 440,32 C560,4 660,60 880,32" fill="none" stroke="#BD4B28" stroke-width="1.5"/></svg>
+</div>
+
+<!-- D4 -->
+<section class="day ink" id="d4">
+  <div class="day-inner">
+    <div class="day-head">
+      <div class="day-num">04</div>
+      <div class="day-title-wrap">
+        <div class="day-eyebrow">KOTOHIRA & RITSURIN · 石階與名園</div>
+        <h2 class="day-title">免稅商店・金刀比羅宮（表參道）・栗林公園・AEON MALL 岡山</h2>
+        <div class="day-date">11/21（六）</div>
+      </div>
+    </div>
+    <div class="rule"></div>
+
+    <div class="spot">
+      <div class="spot-name">金刀比羅宮表參道（785級石階至本宮）</div>
+      <div class="tag-grid">
+        <div class="tag-card tag-buy">
+          <span class="tag-label">買</span>
+          <ul>
+            <li>讚岐烏龍麵乾麵禮盒</li>
+            <li>加美代飴（700年傳承糖果）</li>
+            <li>金陵清酒（「金陵之鄉」酒藏可試飲）</li>
+            <li>和三盆糖（香川高級砂糖點心）</li>
+          </ul>
+        </div>
+        <div class="tag-card tag-eat">
+          <span class="tag-label">吃</span>
+          <p>表參道百年木造老店手打讚岐烏龍麵（建築本身即文化財）；こんぴらプリン布丁。</p>
+        </div>
+        <div class="tag-card tag-shot">
+          <span class="tag-label">拍</span>
+          <p>石階兩旁店家林立適合邊走邊拍；11月下旬楓紅沿途上鏡；本宮前廣場可俯瞰讚岐平原。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot">
+      <div class="spot-name">栗林公園（米其林三星庭園）</div>
+      <div class="tag-grid">
+        <div class="tag-card tag-shot">
+          <span class="tag-label">拍｜經典機位</span>
+          <ul>
+            <li><strong>飛來峰</strong>：俯瞰偃月橋＋掬月亭，全園最多人拍的構圖</li>
+            <li><strong>偃月橋</strong>：木造拱橋倒影，秋楓點綴更美</li>
+            <li>鶴龜松、屏風松等職人修剪松景，適合特寫</li>
+          </ul>
+        </div>
+        <div class="tag-card tag-buy">
+          <span class="tag-label">買 / 吃</span>
+          <p>南門「栗林庵」物產館買伴手禮；掬月亭或皐月亭付費（約¥600–800）喝抹茶配和菓子賞景，時間允許很推薦。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">第二次抵達 AEON MALL 岡山：若 D1 已採買過，這次可補買冷藏水果、當天現做熟食，或挑選漏買的伴手禮。</div>
+  </div>
+</section>
+
+<div class="thread">
+  <svg viewBox="0 0 880 64" preserveAspectRatio="none"><path d="M0,32 C220,60 320,4 440,32 C560,60 660,4 880,32" fill="none" stroke="#6C7A4A" stroke-width="1.5"/></svg>
+</div>
+
+<!-- D5 -->
+<section class="day paper" id="d5">
+  <div class="day-inner">
+    <div class="day-head">
+      <div class="day-num">05</div>
+      <div class="day-title-wrap">
+        <div class="day-eyebrow">KURASHIKI · 白壁與運河的道別</div>
+        <h2 class="day-title">倉敷美觀地區・岡山機場 → 桃園</h2>
+        <div class="day-date">11/22（日）</div>
+      </div>
+    </div>
+    <div class="rule"></div>
+
+    <div class="spot">
+      <div class="spot-name">倉敷美觀地區</div>
+      <div class="tag-grid">
+        <div class="tag-card tag-buy">
+          <span class="tag-label">買</span>
+          <ul>
+            <li>廣榮堂「吉備糰子」－岡山必買 NO.1 伴手禮</li>
+            <li>牡蠣仙貝（喜歡海鮮的人激推，價格較高，適合挑人送）</li>
+            <li>くらしき桃子：布丁、果凍、禮盒，包裝精美</li>
+            <li>TANE 紙膠帶（mt紙膠帶控必買）</li>
+            <li>SNOOPY Chocolat 倉敷限定丹寧配色聯名</li>
+          </ul>
+        </div>
+        <div class="tag-card tag-eat">
+          <span class="tag-label">吃</span>
+          <p>倉敷牛仔街周邊小吃、金獎炸肉餅；果物小町竹林裡的白桃霜淇淋。</p>
+        </div>
+        <div class="tag-card tag-shot">
+          <span class="tag-label">拍</span>
+          <p>倉敷川沿岸白牆倉庫＋垂柳＋遊船是全程最上鏡的老街景，建議一早先衝這裡（人少光線柔和）。「倉敷物語館」免費參觀常有人穿和服拍照；大原美術館外觀＋隔壁 Cafe El Greco 樹屋也是熱門拍照點。</p>
+        </div>
+      </div>
+      <div class="note">這天是回程日，行李和時間都緊，建議心中先排好必買順序（吉備糰子 → 桃子甜點 → 紙膠帶優先），時間不夠時捨棄非必要的店家。</div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGISTICS: 航班與每日住宿餐食 -->
+<section class="sect paper" id="logistics">
+  <div class="sect-inner">
+    <div class="sect-eyebrow">FLIGHTS & STAYS</div>
+    <h2>航班與每日住宿餐食</h2>
+    <p class="sect-sub">台灣虎航直飛岡山，實際航班以團體確認為準；飯店為同級房型輪替，最終住宿以行前說明會資料為準。</p>
+
+    <div class="flight-row">
+      <div class="flight-card">
+        <div class="flight-tag">去程 · 2026/11/18（三）</div>
+        <div class="flight-route">台北桃園 <span class="arrow">✈</span> 岡山縣</div>
+        <div class="flight-meta">台灣虎航 <b>IT214</b>　11:10 起飛 → 14:35 抵達</div>
+      </div>
+      <div class="flight-card">
+        <div class="flight-tag">回程 · 2026/11/22（日）</div>
+        <div class="flight-route">岡山縣 <span class="arrow">✈</span> 台北桃園</div>
+        <div class="flight-meta">台灣虎航 <b>IT215</b>　15:25 起飛 → 17:30 抵達</div>
+      </div>
+    </div>
+
+    <table class="stay-table">
+      <tr>
+        <th>天數</th><th>早餐</th><th>午餐</th><th>晚餐</th><th>當晚住宿（同級旅館輪替）</th>
+      </tr>
+      <tr>
+        <td class="dcell">D1</td><td class="meal-b">－</td><td class="meal-l">機上簡餐</td><td class="meal-d">敬請自理</td>
+        <td>岡山國際／岡山VIA INN／岡山華盛頓／DAIWA ROYNET岡山站前／倉敷皇家藝術／鷲羽山下電 等同級</td>
+      </tr>
+      <tr>
+        <td class="dcell">D2</td><td class="meal-b">飯店早餐</td><td class="meal-l">日式旬彩套餐</td><td class="meal-d">廣島燒套餐（發放代金2000日幣方便逛街）</td>
+        <td>廣島CANDEO／WeBase／廣島華盛頓／廣島大和／東急REI／廣島Dormy INN 等同級</td>
+      </tr>
+      <tr>
+        <td class="dcell">D3</td><td class="meal-b">飯店早餐</td><td class="meal-l">四國御膳料理 或 瀨戶內海風味料理</td><td class="meal-d">飯店自助晚餐／會席料理／日式御膳料理（依飯店安排）</td>
+        <td>大江戶溫泉物語道後／奧道後壹湯之守／松山日和／松山全日空／今治國際 等同級</td>
+      </tr>
+      <tr>
+        <td class="dcell">D4</td><td class="meal-b">飯店早餐</td><td class="meal-l">骨付雞料理／讚岐烏龍麵風味料理／日式鍋物料理（依安排）</td><td class="meal-d">方便逛街，敬請自理</td>
+        <td>高松中央公園前DORMY INN／高松國際／高松PEARL GARDEN／倉敷DORMY INN 等同級</td>
+      </tr>
+      <tr>
+        <td class="dcell">D5</td><td class="meal-b">飯店早餐</td><td class="meal-l">敬請自理</td><td class="meal-d">機上餐食</td>
+        <td>溫暖的家 🏠</td>
+      </tr>
+    </table>
+    <div class="note" style="border-left-color:var(--kincha); background:rgba(184,137,43,0.07);">
+      團體行程實際安排會綜合當地食宿交通狀況調整順序，若遇塞車、天災等不可抗力，將以行程安全順暢為考量調整餐食與行程，敬請理解。
+    </div>
+  </div>
+</section>
+
+<div class="thread">
+  <svg viewBox="0 0 880 64" preserveAspectRatio="none"><path d="M0,32 C220,4 320,60 440,32 C560,4 660,60 880,32" fill="none" stroke="#3E5688" stroke-width="1.5"/></svg>
+</div>
+
+<!-- PREP: 行前準備清單 -->
+<section class="sect ink" id="prep">
+  <div class="sect-inner">
+    <div class="sect-eyebrow" style="color:var(--kincha);">BEFORE YOU GO</div>
+    <h2>行前準備清單</h2>
+    <p class="sect-sub" style="color:rgba(243,237,224,0.65);">出發前把這幾件事確認過一輪，現場才不會手忙腳亂。</p>
+
+    <div class="prep-grid">
+      <div class="prep-card">
+        <h3>護照簽證</h3>
+        <ul>
+          <li>護照效期須「自返國日起算6個月以上」，空白頁至少2–3頁</li>
+          <li>持中華民國護照（護照上有記載身分證字號者）赴日<strong>免簽證</strong>，停留不得超過90天</li>
+          <li>護照不得有汙損、缺頁、擅自塗改或加蓋圖戳</li>
+          <li>役男（19–36歲、尚未履行兵役）須先向戶籍地公所或內政部役政署官網申請「出境許可」</li>
+        </ul>
+      </div>
+      <div class="prep-card">
+        <h3>行李與託運</h3>
+        <ul>
+          <li>建議起飛前 2–3 小時抵達機場</li>
+          <li>託運行李：單件限重 <strong>20公斤</strong>；手提行李：一件+個人隨身物品共兩件，合計不超過 <strong>10公斤</strong>（三邊尺寸需小於54×38×23cm）</li>
+          <li>團體座位由航空公司安排，無法預先選位</li>
+        </ul>
+      </div>
+      <div class="prep-card">
+        <h3>液體與鋰電池（登機規定）</h3>
+        <ul>
+          <li>隨身液體、膠狀、噴霧類單件不超過100毫升，需放入不超過1公升的透明夾鏈袋</li>
+          <li><strong>行動電源、相機電池等鋰電池只能手提、不可託運</strong>，且須為100瓦小時以下規格</li>
+          <li>防狼噴霧劑不可隨身或手提上機</li>
+        </ul>
+      </div>
+      <div class="prep-card">
+        <h3>貨幣與退稅</h3>
+        <ul>
+          <li>攜帶現金上限：新台幣10萬元／美金1萬元／人民幣2萬元，超過須向海關申報</li>
+          <li>退稅：同店同日消費滿5,000日圓（未稅）可退約10%，需出示護照現場辦理</li>
+          <li>消耗品（食品、藥妝）退稅後須封入免稅專用透明袋，離境前不可拆封使用</li>
+        </ul>
+      </div>
+      <div class="prep-card">
+        <h3>通訊與電壓</h3>
+        <ul>
+          <li>已含上網卡：每日2GB高速4G，超量降速128kb，每日0點恢復（依台灣時間起算開卡日）</li>
+          <li>SIM卡不含通話簡訊；支援熱點分享，建議一機一卡使用</li>
+          <li>日本電壓100V，插座為雙腳插頭，台灣電器多可直接使用</li>
+          <li>時差：比台灣快1小時</li>
+        </ul>
+      </div>
+      <div class="prep-card">
+        <h3>回台入境提醒</h3>
+        <ul>
+          <li>禁止攜帶電子菸入境</li>
+          <li>酒類免稅1.5公升（滿18歲）／捲菸200支或雪茄25支（滿20歲）</li>
+          <li>自用行李免稅總值不得超過台幣3萬5千元，超出部分課稅</li>
+          <li>3C產品每人上限5部</li>
+          <li><strong>禁止攜帶生鮮水果、活動植物、肉類及其加工品</strong>（含真空包裝）入境，違規肉製品最高罰100萬元</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="thread">
+  <svg viewBox="0 0 880 64" preserveAspectRatio="none"><path d="M0,32 C220,60 320,4 440,32 C560,60 660,4 880,32" fill="none" stroke="#B8892B" stroke-width="1.5"/></svg>
+</div>
+
+<!-- REMINDERS: 貼心提醒 -->
+<section class="sect warm" id="reminders">
+  <div class="sect-inner">
+    <div class="sect-eyebrow" style="color:var(--momiji-deep);">GOOD TO KNOW</div>
+    <h2>貼心提醒</h2>
+    <p class="sect-sub">團體旅遊的眉角，先知道心裡比較有底。</p>
+
+    <div class="remind-grid">
+      <div class="remind-card">
+        <h3>特殊需求請提前告知</h3>
+        <ul>
+          <li>70歲以上或行動不便且無親友陪同者</li>
+          <li>未滿18歲且未與法定代理人同行者（需備妥定型化契約書）</li>
+          <li>孕婦（需主動告知週數，並攜帶診斷證明文件）</li>
+          <li>攜嬰幼兒同行、特殊餐食（如素食）者</li>
+        </ul>
+        <p style="margin-top:.6rem; opacity:.7;">出發前3個工作日內臨時提出，可能加收必要費用；特殊餐食需求最遲<strong>出發前7日</strong>告知。</p>
+      </div>
+      <div class="remind-card gold">
+        <h3>小費行情</h3>
+        <p>領隊、導遊、司機小費：每位貴賓每日新台幣300元 × 天數（本行程5天，建議約1,500元台幣）。</p>
+      </div>
+      <div class="remind-card green">
+        <h3>動植物檢疫（回台時）</h3>
+        <ul>
+          <li>不得攜帶新鮮水果、活體動物、土壤入境</li>
+          <li>肉類及其加工品（含真空包裝、泡麵含肉粉等）一律禁止，非洲豬瘟防疫重罰</li>
+          <li>未申報遭查獲，最低罰新台幣3,000元起</li>
+        </ul>
+      </div>
+      <div class="remind-card indigo">
+        <h3>行動不便旅客</h3>
+        <p>本行程為團體旅遊，若有坐輪椅、拄拐杖或行走困難情形，恕不建議報名，以確保全團旅遊品質及旅客安全；未告知報名者，公司有權取消參團資格。</p>
+      </div>
+      <div class="remind-card">
+        <h3>住宿與安全小提醒</h3>
+        <ul>
+          <li>飯店房內多禁菸，違規恐自行負擔罰鍰</li>
+          <li>電熱水壺僅供煮水，勿放入咖啡粉、茶葉、泡麵料等物品</li>
+          <li>入住後請先確認緊急出口與逃生路線位置</li>
+        </ul>
+      </div>
+      <div class="remind-card gold">
+        <h3>旅遊防疫小提醒</h3>
+        <ul>
+          <li>出國前可至疾病管制署網站查詢國際疫情資訊</li>
+          <li>返國後21天內若有身體不適，就醫時請告知醫師旅遊史</li>
+          <li>勤洗手、吃熟食、喝瓶裝水，必要時配戴口罩</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="agency-box">
+      <div>
+        <div class="name">辰果旅行社有限公司</div>
+        <div class="meta">服務專員：黃榮香　｜　統一編號：28011491</div>
+      </div>
+      <div class="meta">
+        公司電話：02-2585-1575　｜　手機：0936-121-877<br>
+        地址：台北市復興北路290號3樓之3
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="thread">
+  <svg viewBox="0 0 880 64" preserveAspectRatio="none"><path d="M0,32 C220,4 320,60 440,32 C560,4 660,60 880,32" fill="none" stroke="#BD4B28" stroke-width="1.5"/></svg>
+</div>
+
+<!-- SUMMARY -->
+<section class="summary" id="summary">
+  <div class="summary-inner">
+    <h2>整體購物・拍照建議彙整</h2>
+    <div class="summary-grid">
+      <div class="sum-card">
+        <h3>免稅／退稅重點</h3>
+        <ul>
+          <li>同店同日消費滿 ¥5,000（未稅）可退稅約10%，需出示護照現場辦理</li>
+          <li>消耗品（食品／藥妝）退稅後須放入免稅專用透明袋，不可在日本境內拆封使用</li>
+        </ul>
+      </div>
+      <div class="sum-card">
+        <h3>行李空間建議</h3>
+        <ul>
+          <li>易碎品（清酒、布丁、玻璃罐裝物）建議手提或用衣物包裹置於行李箱中間</li>
+          <li>生鮮水果（桃子、葡萄）留到 D5 倉敷或最後一次 AEON 採買，避免路上顛壞</li>
+        </ul>
+      </div>
+      <div class="sum-card">
+        <h3>拍照時段建議</h3>
+        <ul>
+          <li>順光：千光寺公園、嚴島神社、栗林公園飛來峰－建議上午～中午前</li>
+          <li>夕陽／打燈：倉敷美觀地區、道後溫泉商店街最有氣氛，但 D5 為回程日恐無法留到傍晚</li>
+        </ul>
+      </div>
+      <div class="sum-card">
+        <h3>最大變數：宮島潮汐</h3>
+        <p>出發前查 11/20 當天廣島／宮島潮汐時刻表，決定要拍「海上飄浮鳥居」還是「近距離走到鳥居下」。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  景點購物美食資料來源：WAmazing Discover・樂吃購！日本 letsgojp・journey.tw・MATCHA，及部落客實訪紀錄<br>
+  航班／住宿／注意事項資料來源：辰果旅行社行程頁面（團號 NPY111805IT6）<br>
+  以上資訊僅供行前參考，實際航班、住宿、行程順序與注意事項請以旅行社行前說明會資料為準
+</footer>
+
+</body>
+</html>
