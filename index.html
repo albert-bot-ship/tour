@@ -123,6 +123,7 @@
   }
   .trail a:last-child{border-right:none;}
   .trail a:hover{color:var(--kincha);}
+  .trail a.active{ color:var(--kincha); font-weight:700; }
 
   /* ---------- DAY SECTIONS ---------- */
   .day{
@@ -488,6 +489,91 @@
     font-size:.95rem;
   }
   .leaflet-popup-content a{ color:var(--momiji); }
+
+  /* ---------- BACK TO TOP ---------- */
+  #backToTop{
+    position:fixed;
+    right:22px; bottom:22px;
+    width:46px; height:46px;
+    border-radius:50%;
+    background:var(--ai-deep);
+    color:var(--washi);
+    border:1px solid rgba(243,237,224,0.25);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.1rem;
+    cursor:pointer;
+    box-shadow:0 4px 14px rgba(20,33,59,0.35);
+    opacity:0; visibility:hidden;
+    transform:translateY(10px);
+    transition:opacity .25s, transform .25s, visibility .25s;
+    z-index:999;
+  }
+  #backToTop.show{ opacity:1; visibility:visible; transform:translateY(0); }
+  #backToTop:hover{ background:var(--momiji); }
+
+  /* ---------- CHECKLIST ITEMS ---------- */
+  .tag-card li.checkitem{
+    list-style:none;
+    margin-left:-1.1rem;
+    display:flex; align-items:flex-start; gap:.55rem;
+    cursor:pointer;
+  }
+  .tag-card li.checkitem input{
+    margin-top:.32rem;
+    accent-color:var(--momiji);
+    flex-shrink:0;
+    cursor:pointer;
+  }
+  .tag-card li.checkitem span{ flex:1; }
+  .tag-card li.checkitem.done span{
+    text-decoration:line-through;
+    opacity:.45;
+  }
+
+  /* ---------- MAP NUMBER MARKERS ---------- */
+  .num-marker{
+    width:24px; height:24px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--washi);
+    font-family:'Noto Serif TC',serif;
+    font-weight:700;
+    font-size:.78rem;
+    border:2px solid var(--washi);
+    box-shadow:0 1px 4px rgba(0,0,0,0.3);
+  }
+
+  .day-transit{
+    margin-top:1rem;
+    padding:.9rem 1.1rem;
+    background:rgba(30,36,48,0.03);
+    border:1px dashed var(--paper-line);
+    font-size:.82rem;
+    line-height:2;
+  }
+  .day-transit b{ color:var(--ai-deep); }
+
+  /* ---------- PRINT ---------- */
+  @media print{
+    .trail, #backToTop, .map-hint, .map-tabs, .hero .kicker, footer a { display:none !important; }
+    body{ background:#fff; color:#000; }
+    .hero, .day.ink, .sect.ink{
+      background:#fff !important;
+      color:#000 !important;
+    }
+    .hero *, .day.ink *, .sect.ink *{ color:#000 !important; }
+    .day-num, .spot-name, h2, .day-title{ color:#000 !important; -webkit-print-color-adjust:exact; }
+    .tag-card{ border:1px solid #ccc !important; background:#fff !important; break-inside:avoid; }
+    .spot{ break-inside:avoid; }
+    .thread{ display:none; }
+    #leaflet-map{ height:320px; }
+    a{ color:#000 !important; text-decoration:underline; }
+    .note{ background:#f2f2f2 !important; border-left-color:#999 !important; }
+  }
+
+  @media (max-width:600px){
+    #leaflet-map{ height:340px; }
+  }
 </style>
 </head>
 <body>
@@ -501,7 +587,7 @@
 </section>
 
 <!-- NAV -->
-<nav class="trail">
+<nav class="trail" id="trailNav">
   <a href="#d1">D1 岡山</a>
   <a href="#d2">D2 尾道</a>
   <a href="#d3">D3 宮島・松山</a>
@@ -513,6 +599,8 @@
   <a href="#reminders">貼心提醒</a>
   <a href="#summary">總覽建議</a>
 </nav>
+
+<button id="backToTop" aria-label="回到頂端" title="回到頂端">↑</button>
 
 <!-- D1 -->
 <section class="day paper" id="d1">
@@ -646,7 +734,7 @@
           <p>商店街營業時間較早關店（約傍晚），建議把拍照與採買排在較早時段。</p>
         </div>
       </div>
-      <div class="note">嚴島神社鳥居隨潮汐變化：漲潮如浮在海上、退潮可走到鳥居下方近拍。行前查一下 11/20 當天廣島潮汐時刻，抓最佳拍攝時段。行程規定若遇漲潮無法入內參拜，每人退費 300 日幣。</div>
+      <div class="note">嚴島神社鳥居隨潮汐變化：漲潮如浮在海上、退潮可走到鳥居下方近拍。行前查一下 11/20 當天廣島潮汐時刻，抓最佳拍攝時段。行程規定若遇漲潮無法入內參拜，每人退費 300 日幣。<br>→ <a href="https://www.data.jma.go.jp/kaiyou/db/tide/suisan/index.php" target="_blank" rel="noopener" style="color:var(--momiji-deep); font-weight:600;">氣象廳潮汐預報查詢（選廣島）</a></div>
     </div>
 
     <div class="spot">
@@ -807,6 +895,7 @@
       <span><i style="background:#6C7A4A;"></i> 公園／庭園</span>
       <span><i style="background:#14213B;"></i> 機場／交通</span>
     </div>
+    <div class="day-transit" id="dayTransit"></div>
   </div>
 </section>
 
@@ -913,6 +1002,7 @@
           <li>SIM卡不含通話簡訊；支援熱點分享，建議一機一卡使用</li>
           <li>日本電壓100V，插座為雙腳插頭，台灣電器多可直接使用</li>
           <li>時差：比台灣快1小時</li>
+          <li>11月瀨戶內海一帶氣候約在10–19°C，早晚溫差較大：建議洋蔥式穿搭，薄外套＋長袖，早晚可再加一件保暖層</li>
         </ul>
       </div>
       <div class="prep-card">
@@ -1056,40 +1146,40 @@
       label: "D1 岡山",
       stops: [
         { name:"岡山機場（桃太郎機場）", lat:34.7579784, lng:133.8558042, cat:"transit", note:"下飛機點，11/18 14:35 抵達", place_id:"ChIJa2konp4DVDURCbtFf9tz9bM" },
-        { name:"AEON MALL 永旺夢樂城岡山", lat:34.6619963, lng:133.9176284, cat:"shop", note:"購物、B1藥妝免稅、超市生鮮", place_id:"ChIJkyqZELMHVDUREhwbsCvO-I0" }
+        { name:"AEON MALL 永旺夢樂城岡山", lat:34.6619963, lng:133.9176284, cat:"shop", note:"購物、B1藥妝免稅、超市生鮮", place_id:"ChIJkyqZELMHVDUREhwbsCvO-I0", transit:"機場 → 商場：巴士約20分鐘" }
       ]
     },
     {
       label: "D2 尾道・廣島",
       stops: [
-        { name:"尾道本通商店街", lat:34.4058114, lng:133.1956763, cat:"shop", note:"尾道拉麵、貓咪雜貨、尾道布丁", place_id:"ChIJU8Ju9koAUTURzlKbNR-HkJw" },
-        { name:"千光寺公園", lat:34.4109947, lng:133.1964444, cat:"park", note:"單程纜車，山頂俯瞰尾道港全景", place_id:"ChIJnS1jvbUBUTURJcFZNsJy7Qs" },
-        { name:"平和記念公園", lat:34.3926867, lng:132.4522012, cat:"park", note:"原爆和平紀念公園", place_id:"ChIJgzAzVG2iWjURZRZ1udXOKeE" },
-        { name:"廣島本通商店街", lat:34.392868, lng:132.4604881, cat:"shop", note:"發放代金2000日幣逛街", place_id:"ChIJx9XW-g6iWjURM9NQxHzUtLw" }
+        { name:"尾道本通商店街", lat:34.4058114, lng:133.1956763, cat:"shop", note:"尾道拉麵、貓咪雜貨、尾道布丁" , place_id:"ChIJU8Ju9koAUTURzlKbNR-HkJw" },
+        { name:"千光寺公園", lat:34.4109947, lng:133.1964444, cat:"park", note:"單程纜車，山頂俯瞰尾道港全景", place_id:"ChIJnS1jvbUBUTURJcFZNsJy7Qs", transit:"商店街 → 公園：步行至纜車站約5分＋纜車3分" },
+        { name:"平和記念公園", lat:34.3926867, lng:132.4522012, cat:"park", note:"原爆和平紀念公園", place_id:"ChIJgzAzVG2iWjURZRZ1udXOKeE", transit:"尾道 → 廣島：巴士車程約1小時" },
+        { name:"廣島本通商店街", lat:34.392868, lng:132.4604881, cat:"shop", note:"發放代金2000日幣逛街", place_id:"ChIJx9XW-g6iWjURM9NQxHzUtLw", transit:"公園 → 商店街：步行約10分鐘" }
       ]
     },
     {
       label: "D3 宮島・松山",
       stops: [
         { name:"嚴島神社", lat:34.2959896, lng:132.3198285, cat:"shrine", note:"海上鳥居，注意潮汐時間", place_id:"ChIJj23HfgTjGmARkNW10PcocjU" },
-        { name:"宮島表參道商店街", lat:34.2989747, lng:132.3218356, cat:"shop", note:"紅葉饅頭、現烤牡蠣、星鰻飯", place_id:"ChIJ1zjNPLGwWjURgwBo1M8ikLw" },
-        { name:"松山城纜車", lat:33.8441496, lng:132.7680609, cat:"transit", note:"長者ヶ平站，俯瞰松山市街", place_id:"ChIJAQAUDevlTzURxEU3PfUYWEM" },
-        { name:"道後溫泉本館", lat:33.8520748, lng:132.7864098, cat:"shrine", note:"外觀拍照，少爺音樂鐘在旁", place_id:"ChIJ84F-kHjmTzURebGHHI1YWXw" }
+        { name:"宮島表參道商店街", lat:34.2989747, lng:132.3218356, cat:"shop", note:"紅葉饅頭、現烤牡蠣、星鰻飯", place_id:"ChIJ1zjNPLGwWjURgwBo1M8ikLw", transit:"神社 → 表參道：同區域步行約5分鐘" },
+        { name:"松山城纜車", lat:33.8441496, lng:132.7680609, cat:"transit", note:"長者ヶ平站，俯瞰松山市街", place_id:"ChIJAQAUDevlTzURxEU3PfUYWEM", transit:"宮島 → 松山：經島波海道，巴士車程約3～3.5小時（依交通狀況）" },
+        { name:"道後溫泉本館", lat:33.8520748, lng:132.7864098, cat:"shrine", note:"外觀拍照，少爺音樂鐘在旁", place_id:"ChIJ84F-kHjmTzURebGHHI1YWXw", transit:"松山城 → 道後溫泉：車程約15分鐘" }
       ]
     },
     {
       label: "D4 琴平・栗林",
       stops: [
         { name:"金刀比羅宮", lat:34.1839981, lng:133.8095371, cat:"shrine", note:"785級石階至本宮，表參道購物", place_id:"ChIJtSRHH0IkGWARqTAo4c715o0" },
-        { name:"栗林公園", lat:34.3299036, lng:134.0457696, cat:"park", note:"飛來峰俯瞰偃月橋，米其林三星庭園", place_id:"ChIJUc4SILrrUzURFEFMQod9v7g" },
-        { name:"AEON MALL 永旺夢樂城岡山", lat:34.6619963, lng:133.9176284, cat:"shop", note:"第二次採買時段", place_id:"ChIJkyqZELMHVDUREhwbsCvO-I0" }
+        { name:"栗林公園", lat:34.3299036, lng:134.0457696, cat:"park", note:"飛來峰俯瞰偃月橋，米其林三星庭園", place_id:"ChIJUc4SILrrUzURFEFMQod9v7g", transit:"琴平 → 栗林公園：巴士車程約40分鐘" },
+        { name:"AEON MALL 永旺夢樂城岡山", lat:34.6619963, lng:133.9176284, cat:"shop", note:"第二次採買時段", place_id:"ChIJkyqZELMHVDUREhwbsCvO-I0", transit:"高松 → 岡山：巴士車程約1小時" }
       ]
     },
     {
       label: "D5 倉敷",
       stops: [
         { name:"倉敷美觀地區", lat:34.5957392, lng:133.7717651, cat:"park", note:"白牆倉庫、河岸垂柳，一早人少最好拍", place_id:"ChIJ1do4lkdWUTURvg3rFkFpzhE" },
-        { name:"岡山機場（桃太郎機場）", lat:34.7579784, lng:133.8558042, cat:"transit", note:"11/22 17:30 返程", place_id:"ChIJa2konp4DVDURCbtFf9tz9bM" }
+        { name:"岡山機場（桃太郎機場）", lat:34.7579784, lng:133.8558042, cat:"transit", note:"11/22 17:30 返程", place_id:"ChIJa2konp4DVDURCbtFf9tz9bM", transit:"倉敷 → 機場：巴士車程約40分鐘" }
       ]
     }
   ];
@@ -1114,6 +1204,16 @@
 
   let currentLayer = null;
 
+  function numberedIcon(n, color){
+    return L.divIcon({
+      className: '',
+      html: '<div class="num-marker" style="background:' + color + ';">' + n + '</div>',
+      iconSize: [24,24],
+      iconAnchor: [12,12],
+      popupAnchor: [0,-12]
+    });
+  }
+
   function renderDay(idx){
     if (currentLayer) { map.removeLayer(currentLayer); }
     currentLayer = L.layerGroup().addTo(map);
@@ -1123,13 +1223,7 @@
 
     stops.forEach((s, i) => {
       const color = CAT[s.cat] || "#BD4B28";
-      const marker = L.circleMarker([s.lat, s.lng], {
-        radius: 9,
-        color: "#F3EDE0",
-        weight: 2,
-        fillColor: color,
-        fillOpacity: 1
-      }).addTo(currentLayer);
+      const marker = L.marker([s.lat, s.lng], { icon: numberedIcon(i+1, color) }).addTo(currentLayer);
 
       const gmaps = "https://www.google.com/maps/place/?q=place_id:" + s.place_id;
       marker.bindPopup(
@@ -1145,6 +1239,15 @@
 
     const bounds = L.latLngBounds(latlngs);
     map.fitBounds(bounds, { padding:[40,40] });
+
+    // 交通時間資訊面板
+    const transitEl = document.getElementById('dayTransit');
+    const lines = stops
+      .map((s, i) => s.transit ? ("<b>" + i + "→" + (i+1) + "</b>　" + s.transit) : null)
+      .filter(Boolean);
+    transitEl.innerHTML = lines.length
+      ? ("🚌 站間交通參考（約略時間，依實際路況調整）<br>" + lines.join("<br>"))
+      : "本日僅單一地點，無站間移動。";
   }
 
   // ---------- TABS ----------
@@ -1162,6 +1265,62 @@
   });
 
   renderDay(0);
+
+  // ---------- SCROLLSPY：導覽列自動高亮 ----------
+  (function(){
+    const navLinks = Array.from(document.querySelectorAll('#trailNav a'));
+    const sections = navLinks
+      .map(a => document.querySelector(a.getAttribute('href')))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = '#' + entry.target.id;
+        const link = navLinks.find(a => a.getAttribute('href') === id);
+        if (!link) return;
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+    sections.forEach(sec => observer.observe(sec));
+  })();
+
+  // ---------- 回到頂端按鈕 ----------
+  (function(){
+    const btn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 600) btn.classList.add('show');
+      else btn.classList.remove('show');
+    });
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  })();
+
+  // ---------- 購物清單打勾功能 ----------
+  (function(){
+    const lists = document.querySelectorAll('.tag-buy ul, .tag-eat ul');
+    lists.forEach(ul => {
+      ul.querySelectorAll('li').forEach(li => {
+        li.classList.add('checkitem');
+        const text = li.innerHTML;
+        li.innerHTML = '';
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        const span = document.createElement('span');
+        span.innerHTML = text;
+        li.appendChild(cb);
+        li.appendChild(span);
+        li.addEventListener('click', (e) => {
+          if (e.target !== cb) cb.checked = !cb.checked;
+          li.classList.toggle('done', cb.checked);
+        });
+      });
+    });
+  })();
 </script>
 </body>
 </html>
