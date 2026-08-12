@@ -170,6 +170,18 @@
     opacity:.55;
     margin-top:.3rem;
   }
+  .view-map-btn{
+    display:inline-block;
+    margin-top:.6rem;
+    font-family:'Noto Sans TC',sans-serif;
+    font-size:.78rem;
+    color:var(--momiji);
+    text-decoration:none;
+    border-bottom:1px dashed var(--momiji);
+    transition:opacity .2s;
+  }
+  .view-map-btn:hover{ opacity:.7; }
+  .ink .view-map-btn{ color:var(--kincha); border-bottom-color:var(--kincha); }
 
   .rule{
     height:1px;
@@ -439,9 +451,47 @@
   .collapsible{
     max-height:0;
     overflow:hidden;
-    transition:max-height .3s ease;
+    transition:max-height .32s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .collapsible.open{ max-height:900px; }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{ display:flex; flex-direction:column; gap:.7rem; }
+  .faq-item{ border:1px solid var(--paper-line); background:rgba(30,36,48,0.015); }
+  .faq-q{
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    padding:1rem 1.2rem;
+    font-family:'Noto Serif TC',serif;
+    font-size:.95rem;
+    font-weight:700;
+    color:var(--ai-deep);
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .faq-q::after{
+    content:"+";
+    font-size:1.2rem;
+    color:var(--momiji);
+    transition:transform .25s;
+    flex-shrink:0;
+    margin-left:1rem;
+  }
+  .faq-item.open .faq-q::after{ transform:rotate(45deg); }
+  .faq-a{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .32s cubic-bezier(0.4, 0, 0.2, 1), padding-bottom .32s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size:.87rem;
+    line-height:1.8;
+    color:var(--ink);
+    opacity:.85;
+    padding:0 1.2rem;
+  }
+  .faq-a.open{ padding-bottom:1.1rem; }
 
   /* ---------- CASH CARD ---------- */
   .cash-headline{
@@ -583,6 +633,88 @@
     font-family:'Noto Serif TC',serif;
     border-radius:3px;
   }
+  .fx-status{
+    font-size:.76rem;
+    padding:.25rem .6rem;
+    border-radius:999px;
+    background:rgba(243,237,224,0.08);
+  }
+  .fx-status.fx-live{ color:#B7C795; }
+  .fx-status.fx-offline{
+    color:#E4876A;
+    background:rgba(228,135,106,0.15);
+    border:1px solid rgba(228,135,106,0.4);
+    font-weight:700;
+  }
+  .fx-status.fx-manual{ color:var(--kincha); }
+
+  /* ---------- SEARCH BAR ---------- */
+  .search-wrap{
+    position:relative;
+    max-width:880px;
+    margin:1.2rem auto 0;
+    padding:0 1.5rem;
+  }
+  #siteSearch{
+    width:100%;
+    box-sizing:border-box;
+    padding:.7rem 1rem;
+    border:1px solid var(--paper-line);
+    background:var(--washi);
+    color:var(--ink);
+    font-family:'Noto Sans TC',sans-serif;
+    font-size:.9rem;
+    border-radius:6px;
+  }
+  #siteSearch:focus{ outline:none; border-color:var(--momiji); }
+  .search-results{
+    position:absolute;
+    left:1.5rem; right:1.5rem;
+    top:calc(100% + 4px);
+    background:var(--washi);
+    border:1px solid var(--paper-line);
+    box-shadow:0 8px 24px rgba(20,33,59,0.15);
+    z-index:400;
+    max-height:340px;
+    overflow-y:auto;
+    display:none;
+  }
+  .search-results.show{ display:block; }
+  .search-result-item{
+    padding:.65rem 1rem;
+    cursor:pointer;
+    border-bottom:1px solid var(--paper-line);
+    font-size:.85rem;
+  }
+  .search-result-item:last-child{ border-bottom:none; }
+  .search-result-item:hover{ background:rgba(189,75,40,0.06); }
+  .search-result-item .sr-text{ color:var(--ink); }
+  .search-result-item .sr-section{
+    display:block; font-size:.72rem; color:var(--kincha); margin-top:.15rem;
+  }
+  .search-empty{ padding:.8rem 1rem; font-size:.82rem; opacity:.6; }
+  .flash-highlight{
+    animation: flashBg 1.6s ease;
+  }
+  @keyframes flashBg{
+    0%{ background:rgba(189,75,40,0.25); }
+    100%{ background:transparent; }
+  }
+
+  /* ---------- DAY BANNER ---------- */
+  .day-banner{
+    max-width:880px;
+    margin:1rem auto 0;
+    padding:.8rem 1.5rem;
+    background:var(--momiji);
+    color:var(--washi);
+    font-family:'Noto Serif TC',serif;
+    font-size:.88rem;
+    text-align:center;
+    border-radius:6px;
+    cursor:pointer;
+  }
+  .day-banner:hover{ background:var(--momiji-deep); }
 
   /* ---------- PHRASE LIST ---------- */
   .phrase-list{ list-style:none; margin:0; padding:0; }
@@ -653,6 +785,15 @@
     height:480px;
     border:1px solid var(--paper-line);
     filter:saturate(0.85) contrast(1.02);
+    transition:box-shadow .3s;
+  }
+  #leaflet-map.map-flash{
+    animation: mapPulse 1.2s ease;
+  }
+  @keyframes mapPulse{
+    0%{ box-shadow:0 0 0 0 rgba(189,75,40,0.5); }
+    30%{ box-shadow:0 0 0 8px rgba(189,75,40,0.15); }
+    100%{ box-shadow:0 0 0 0 rgba(189,75,40,0); }
   }
   .map-wrap{ position:relative; }
   .map-hint{
@@ -780,7 +921,10 @@
 
   /* ---------- PRINT ---------- */
   @media print{
-    .trail, #backToTop, #themeToggle, #printBtn, .map-hint, .map-tabs, .hero .kicker, footer a { display:none !important; }
+    .trail, #backToTop, #themeToggle, #printBtn, .map-hint, .map-tabs, .hero .kicker, footer a,
+    .search-wrap, .day-banner, .view-map-btn, .prep-tabs, .expand-toggle, .faq-q::after { display:none !important; }
+    /* 強制取消深色模式的反色濾鏡，避免列印出全黑或色彩錯亂 */
+    body.night-mode{ filter:none !important; background:#fff !important; }
     body{ background:#fff; color:#000; }
     .hero, .day.ink, .sect.ink{
       background:#fff !important;
@@ -794,10 +938,28 @@
     #leaflet-map{ height:320px; }
     a{ color:#000 !important; text-decoration:underline; }
     .note{ background:#f2f2f2 !important; border-left-color:#999 !important; }
+    /* 列印時所有收合內容一律展開，確保紙本內容完整 */
+    .collapsible, .faq-a{ max-height:none !important; padding:0 1.2rem 1rem !important; }
+    .prep-grid{ display:grid !important; }
+    .prep-grid[data-group]{ display:grid !important; margin-bottom:1.5rem; }
   }
 
   @media (max-width:600px){
     #leaflet-map{ height:340px; }
+    .search-wrap{ padding:0 1rem; margin-top:1rem; }
+    .search-results{ left:1rem; right:1rem; }
+    #siteSearch{ font-size:.85rem; padding:.6rem .85rem; }
+    .day-banner{ margin:.8rem 1rem 0; padding:.7rem 1rem; font-size:.82rem; }
+    .fx-input-row{ flex-direction:column; align-items:flex-start; gap:.5rem; }
+    .faq-q{ font-size:.88rem; padding:.85rem 1rem; }
+    .faq-a{ padding:0 1rem; }
+    .faq-a.open{ padding-bottom:1rem; }
+    .prep-tabs{ gap:.4rem; }
+    .prep-tab{ font-size:.78rem; padding:.42rem .9rem; }
+    #themeToggle, #printBtn, #backToTop{ width:42px; height:42px; font-size:.95rem; }
+    #backToTop{ right:16px; bottom:16px; }
+    #themeToggle{ right:16px; bottom:70px; }
+    #printBtn{ right:16px; bottom:124px; }
   }
 </style>
 </head>
@@ -824,8 +986,16 @@
   <a href="#packing">打包清單</a>
   <a href="#reminders">貼心提醒</a>
   <a href="#tools">匯率/日文</a>
+  <a href="#faq">常見問題</a>
   <a href="#summary">總覽建議</a>
 </nav>
+
+<div class="search-wrap">
+  <input type="text" id="siteSearch" placeholder="🔍 搜尋景點、店家、關鍵字…（例如：紅葉饅頭、行動電源）">
+  <div id="searchResults" class="search-results"></div>
+</div>
+
+<div id="dayBanner" class="day-banner" style="display:none;"></div>
 
 <button id="backToTop" aria-label="回到頂端" title="回到頂端">↑</button>
 <button id="themeToggle" aria-label="切換護眼模式" title="切換護眼模式">☀️</button>
@@ -840,6 +1010,7 @@
         <div class="day-eyebrow">ARRIVAL · 抵達晴天之國</div>
         <h2 class="day-title">桃園 → 岡山機場・AEON MALL 永旺夢樂城岡山</h2>
         <div class="day-date">11/18（三）</div>
+        <a href="#mapview" class="view-map-btn" data-day-idx="0">📍 查看本日地圖 →</a>
       </div>
     </div>
     <div class="rule"></div>
@@ -881,6 +1052,7 @@
         <div class="day-eyebrow">ONOMICHI · 貓與海的坡道之城</div>
         <h2 class="day-title">尾道站前商店街・千光寺公園・原爆和平紀念公園・廣島本通商店街</h2>
         <div class="day-date">11/19（四）</div>
+        <a href="#mapview" class="view-map-btn" data-day-idx="1">📍 查看本日地圖 →</a>
       </div>
     </div>
     <div class="rule"></div>
@@ -935,6 +1107,7 @@
         <div class="day-eyebrow">MIYAJIMA & MATSUYAMA · 潮汐與古湯</div>
         <h2 class="day-title">宮島表參道・嚴島神社・島波海道・松山城纜車・少爺音樂鐘・道後溫泉本館</h2>
         <div class="day-date">11/20（五）</div>
+        <a href="#mapview" class="view-map-btn" data-day-idx="2">📍 查看本日地圖 →</a>
       </div>
     </div>
     <div class="rule"></div>
@@ -1009,6 +1182,7 @@
         <div class="day-eyebrow">KOTOHIRA & RITSURIN · 石階與名園</div>
         <h2 class="day-title">免稅商店・金刀比羅宮（表參道）・栗林公園・AEON MALL 岡山</h2>
         <div class="day-date">11/21（六）</div>
+        <a href="#mapview" class="view-map-btn" data-day-idx="3">📍 查看本日地圖 →</a>
       </div>
     </div>
     <div class="rule"></div>
@@ -1071,6 +1245,7 @@
         <div class="day-eyebrow">KURASHIKI · 白壁與運河的道別</div>
         <h2 class="day-title">倉敷美觀地區・岡山機場 → 桃園</h2>
         <div class="day-date">11/22（日）</div>
+        <a href="#mapview" class="view-map-btn" data-day-idx="4">📍 查看本日地圖 →</a>
       </div>
     </div>
     <div class="rule"></div>
@@ -1194,6 +1369,7 @@
       <button class="prep-tab active" data-group="finance">證件財務</button>
       <button class="prep-tab" data-group="luggage">行李裝備</button>
       <button class="prep-tab" data-group="comms">通訊入境</button>
+      <button class="prep-tab" data-group="daily">生活小提醒</button>
     </div>
 
     <div class="prep-grid" data-group="finance">
@@ -1297,6 +1473,17 @@
         </table>
         <p class="cash-note" style="margin-top:.6rem;">規定原始單位是 <strong>Wh</strong>，換算會因電壓略有差異，上表以市售最常見3.7V鋰電芯估算。行動電源背面通常直接標示Wh，登機前先確認清楚。</p>
       </div>
+      <div class="prep-card">
+        <h3>保養品攜帶規定</h3>
+        <ul>
+          <li>化妝水、乳液、精華液、乳霜、面膜液這類<strong>液狀／膠狀保養品都算在100毫升液體限制內</strong>，單瓶超過100ml就不能手提，要放託運行李</li>
+          <li>所有隨身液體保養品加總，需全部裝進<strong>一個不超過1公升的透明夾鏈袋</strong>，安檢時要拿出來單獨過X光</li>
+          <li>唇膏、粉餅、蜜粉、腮紅等<strong>固態／粉狀彩妝不算液體限制</strong>，可直接放包包</li>
+          <li>香水也算液體限制內，同樣要100ml以下</li>
+          <li>回程在AEON、藥妝店買的保養品，若單瓶超過100ml，記得直接放進<strong>託運行李</strong>，不要留在手提行李被攔下</li>
+          <li>機場管制區內（安檢後）免稅店買的液體保養品，會用<strong>免稅專用透明封口袋</strong>裝好並附收據，這種可以手提，但如果回程有轉機需再過一次安檢，某些機場可能要求出示收據或重新檢查</li>
+        </ul>
+      </div>
     </div>
 
     <div class="prep-grid" data-group="comms" style="display:none;">
@@ -1318,6 +1505,42 @@
           <li>自用行李免稅總值不得超過台幣3萬5千元，超出部分課稅</li>
           <li>3C產品每人上限5部</li>
           <li><strong>禁止攜帶生鮮水果、活動植物、肉類及其加工品</strong>（含真空包裝）入境，違規肉製品最高罰100萬元</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="prep-grid" data-group="daily" style="display:none;">
+      <div class="prep-card">
+        <h3>垃圾分類基本常識</h3>
+        <ul>
+          <li>日本垃圾分類比台灣細，飯店房間垃圾桶通常已幫忙分好可燃／不可燃，直接丟即可，不用自己再分類</li>
+          <li>路上、車站的垃圾桶很少，喝完的寶特瓶、包裝紙建議隨身帶著，回飯店或找到販賣機旁的回收桶再丟</li>
+          <li>超商結帳時常會被問「要不要湯匙／筷子」，這是因為餐具需要另外主動要，環保考量下不主動附上</li>
+        </ul>
+      </div>
+      <div class="prep-card">
+        <h3>超商／藥妝購物用語</h3>
+        <ul>
+          <li>結帳時店員常問「レジ袋（購物袋）要不要」，日本購物袋需另外付費，不需要可直接說「いりません」</li>
+          <li>退稅（免税）：跟店員說「免税でお願いします」，需出示護照，退稅品會封入專用袋，離境前不能拆封</li>
+          <li>藥妝店常見會員／集點卡是給常客用的，短期旅遊不需要辦理，直接結帳即可</li>
+          <li>超商咖啡、熱食通常要自己在櫃台前操作機器或跟店員說品項，不熟悉的話直接出示商品指給店員看最快</li>
+        </ul>
+      </div>
+      <div class="prep-card">
+        <h3>消費稅 8%／10% 小知識</h3>
+        <ul>
+          <li>日本消費稅原則上是10%，但「食品外帶」適用8%的<strong>輕減稅率</strong></li>
+          <li>超商、速食店結帳常被問「內用還是外帶」（店内／お持ち帰り），內用算10%、外帶算8%，價格會因此有微妙差異</li>
+          <li>這跟免稅（Tax-free，給外國旅客的退稅）是兩回事：8%/10%是日本國內消費稅制度，免稅是另外針對外國旅客消費滿額退還的部分</li>
+        </ul>
+      </div>
+      <div class="prep-card">
+        <h3>小費文化澄清</h3>
+        <ul>
+          <li>日本整體<strong>沒有給小費的習慣</strong>，餐廳、飯店房務、計程車都不用另外給小費，硬塞給對方有時反而會讓店家困擾</li>
+          <li>唯一例外是團體旅遊的<strong>導遊／司機小費</strong>（前面提過每人每日約300元台幣），這是旅遊業界的慣例，跟日本當地文化無關</li>
+          <li>飯店大廳、餐廳看到的服務費通常已內含在帳單裡，不需要再額外加給</li>
         </ul>
       </div>
     </div>
@@ -1494,7 +1717,7 @@
   <div class="sect-inner">
     <div class="sect-eyebrow" style="color:var(--kincha);">QUICK TOOLS</div>
     <h2>匯率換算・常用日文</h2>
-    <p class="sect-sub" style="color:rgba(243,237,224,0.65);">出發前先輸入當天實際匯率，現場換算更準。</p>
+    <p class="sect-sub" style="color:rgba(243,237,224,0.65);">開啟網頁自動抓即時匯率，也可以手動微調。</p>
 
     <div class="prep-grid">
       <div class="prep-card">
@@ -1502,6 +1725,7 @@
         <div class="fx-input-row">
           <label for="fxRate">目前匯率（1日圓＝多少台幣）</label>
           <input type="number" id="fxRate" value="0.22" step="0.001" min="0.1" max="0.5">
+          <span id="fxStatus" class="fx-status">抓取即時匯率中…</span>
         </div>
         <table class="cash-table" id="fxTable">
           <tr><th>日圓</th><th>約合台幣</th></tr>
@@ -1511,7 +1735,7 @@
           <tr><td>¥10,000</td><td data-jpy="10000"></td></tr>
           <tr><td>¥25,000</td><td data-jpy="25000"></td></tr>
         </table>
-        <p class="cash-note">匯率僅供快速估算，實際請以出發前銀行牌告匯率為準。</p>
+        <p class="cash-note">開啟網頁會自動嘗試抓即時匯率；若裝置離線或抓取失敗，會沿用參考匯率，可自行手動調整。</p>
       </div>
       <div class="prep-card">
         <h3>旅遊常用日文</h3>
@@ -1525,12 +1749,72 @@
           <li><b>すみません</b><span>su-mi-ma-sen／不好意思／抱歉（也可用來叫店員）</span></li>
         </ul>
       </div>
+      <div class="prep-card">
+        <h3>緊急就醫用語</h3>
+        <ul class="phrase-list">
+          <li><b>気分が悪いです</b><span>ki-bun ga wa-ru-i de-su／我身體不舒服</span></li>
+          <li><b>お腹が痛いです</b><span>o-na-ka ga i-ta-i de-su／我肚子痛</span></li>
+          <li><b>頭が痛いです</b><span>a-ta-ma ga i-ta-i de-su／我頭痛</span></li>
+          <li><b>薬局はどこですか</b><span>ya-kkyo-ku wa do-ko de-su ka／請問藥局在哪</span></li>
+          <li><b>病院に連れて行ってください</b><span>byo-in ni tsu-re-te i-tte ku-da-sa-i／請帶我去醫院</span></li>
+          <li><b>救急車を呼んでください</b><span>kyu-kyu-sha o yo-n-de ku-da-sa-i／請幫我叫救護車</span></li>
+          <li><b>台湾人です／台湾から来ました</b><span>tai-wan-jin de-su／我是台灣人（可搭配出示護照）</span></li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
 <div class="thread">
-  <svg viewBox="0 0 880 64" preserveAspectRatio="none"><path d="M0,32 C220,4 320,60 440,32 C560,4 660,60 880,32" fill="none" stroke="#BD4B28" stroke-width="1.5"/></svg>
+  <svg viewBox="0 0 880 64" preserveAspectRatio="none"><path d="M0,32 C220,4 320,60 440,32 C560,4 660,60 880,32" fill="none" stroke="#B8892B" stroke-width="1.5"/></svg>
+</div>
+
+<!-- FAQ -->
+<section class="sect paper" id="faq">
+  <div class="sect-inner">
+    <div class="sect-eyebrow">FAQ</div>
+    <h2>常見問題</h2>
+    <p class="sect-sub">把散落各處大家常問的問題收在這裡，點題目展開答案。</p>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">大部分地方可以刷卡嗎？</button>
+        <div class="faq-a">AEON MALL、藥妝連鎖、栗林庵這類大型店家可以刷卡；街邊小吃、神社香油錢、部分門票纜車、自理餐大多只收現金，建議帶約¥25,000現金應付這些。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">要不要先換好日幣，還是可以到當地領現金？</button>
+        <div class="faq-a">建議出發前在台灣先換好大部分現金（匯率通常較優），日本當地7-11、LAWSON等超商ATM可跨國提款救急，適合當備用方案而非主要換匯管道。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">需要帶雨具嗎？</button>
+        <div class="faq-a">11月瀨戶內海一帶偶有陣雨，建議帶輕便雨衣或折疊傘；尾道本通商店街跟宮島表參道都有遮頂棚，下雨天影響較小。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">行動電源可以帶多大顆？</button>
+        <div class="faq-a">100Wh（約2.7萬mAh）以下可手提，100–160Wh需航空公司同意且限帶2顆，超過160Wh全面禁止。市售常見的1–2萬mAh行動電源完全沒問題。詳見「行前準備 → 行李裝備」頁籤。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">保養品可以帶多少？</button>
+        <div class="faq-a">液狀、膠狀保養品（化妝水、乳液、精華液）算液體限制，單瓶100ml以下才能手提，且全部要裝進一個1公升透明夾鏈袋；超過100ml要放託運行李。粉狀、固態彩妝（唇膏、粉餅）不算在此限制內。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">宮島嚴島神社會不會看不到海上鳥居？</button>
+        <div class="faq-a">會受潮汐影響，漲潮時鳥居如浮在海上、退潮則可走到鳥居下方近拍。建議出發前查11/20當天廣島潮汐時刻，若遇漲潮無法入內參拜，行程會退費300日幣。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">要幫團員買什麼日本才有的必買伴手禮？</button>
+        <div class="faq-a">岡山必買NO.1是廣榮堂「吉備糰子」，倉敷還有桃子甜點禮盒、TANE紙膠帶；金刀比羅宮表參道可以買讚岐烏龍麵乾麵、加美代飴；宮島紅葉饅頭則是廣島代表性伴手禮。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">網頁內容可以印出來帶著走嗎？</button>
+        <div class="faq-a">可以，右下角🖨️按鈕點下去會叫出列印/存PDF視窗，深色底的段落會自動轉成白底黑字省墨水，適合出發前印一份紙本備用。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="thread">
+  <svg viewBox="0 0 880 64" preserveAspectRatio="none"><path d="M0,32 C220,60 320,4 440,32 C560,60 660,4 880,32" fill="none" stroke="#6C7A4A" stroke-width="1.5"/></svg>
 </div>
 
 <!-- SUMMARY -->
@@ -1763,11 +2047,13 @@
     });
   })();
 
-  // ---------- 匯率快速換算 ----------
+  // ---------- 匯率快速換算（自動抓即時匯率） ----------
   (function(){
     const rateInput = document.getElementById('fxRate');
+    const statusEl = document.getElementById('fxStatus');
     if (!rateInput) return;
     const cells = document.querySelectorAll('#fxTable td[data-jpy]');
+
     function update(){
       const rate = parseFloat(rateInput.value) || 0;
       cells.forEach(td => {
@@ -1776,21 +2062,204 @@
         td.textContent = 'NT$ ' + twd.toLocaleString();
       });
     }
-    rateInput.addEventListener('input', update);
+    rateInput.addEventListener('input', () => {
+      update();
+      if (statusEl) { statusEl.textContent = '手動調整'; statusEl.className = 'fx-status fx-manual'; }
+    });
     update();
+
+    // 嘗試抓即時匯率（開放式免金鑰 API），失敗則沿用預設值
+    fetch('https://open.er-api.com/v6/latest/JPY')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.rates && data.rates.TWD) {
+          rateInput.value = data.rates.TWD.toFixed(4);
+          update();
+          const now = new Date();
+          const hh = String(now.getHours()).padStart(2,'0');
+          const mm = String(now.getMinutes()).padStart(2,'0');
+          if (statusEl) {
+            statusEl.textContent = '✅ 即時匯率（' + hh + ':' + mm + ' 更新）';
+            statusEl.className = 'fx-status fx-live';
+          }
+        } else {
+          throw new Error('no rate');
+        }
+      })
+      .catch(() => {
+        if (statusEl) {
+          statusEl.textContent = '⚠️ 無法連線，暫用參考匯率 0.22（請自行確認實際匯率）';
+          statusEl.className = 'fx-status fx-offline';
+        }
+      });
   })();
 
-  // ---------- 展開／收合卡片 ----------
+  // ---------- 展開／收合卡片（用實際內容高度，動畫才會順） ----------
+  function smoothToggle(target, onOpen){
+    const isOpen = target.classList.contains('open');
+    if (isOpen) {
+      // 收合：先鎖定目前高度，下一影格再收到0，確保動畫從正確高度開始
+      target.style.maxHeight = target.scrollHeight + 'px';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => { target.style.maxHeight = '0px'; });
+      });
+      target.classList.remove('open');
+      if (onOpen) onOpen(false);
+    } else {
+      target.classList.add('open');
+      target.style.maxHeight = target.scrollHeight + 'px';
+      const clearHeight = () => {
+        target.style.maxHeight = 'none';
+        target.removeEventListener('transitionend', clearHeight);
+      };
+      target.addEventListener('transitionend', clearHeight);
+      if (onOpen) onOpen(true);
+    }
+  }
+
   (function(){
     document.querySelectorAll('.expand-toggle').forEach(btn => {
       const target = document.getElementById(btn.getAttribute('data-target'));
       if (!target) return;
       btn.addEventListener('click', () => {
-        const isOpen = target.classList.toggle('open');
-        btn.classList.toggle('open', isOpen);
-        btn.querySelector('.et-label').textContent = isOpen
-          ? '收合逐日花費分配'
-          : '展開查看 ¥50,000 逐日花費分配';
+        smoothToggle(target, (isOpen) => {
+          btn.classList.toggle('open', isOpen);
+          btn.querySelector('.et-label').textContent = isOpen
+            ? '收合逐日花費分配'
+            : '展開查看 ¥50,000 逐日花費分配';
+        });
+      });
+    });
+  })();
+
+  // ---------- 每日進度感（今天是第幾天） ----------
+  (function(){
+    const banner = document.getElementById('dayBanner');
+    if (!banner) return;
+    const tripDays = [
+      { date: '2026-11-18', label: 'D1', anchor: '#d1' },
+      { date: '2026-11-19', label: 'D2', anchor: '#d2' },
+      { date: '2026-11-20', label: 'D3', anchor: '#d3' },
+      { date: '2026-11-21', label: 'D4', anchor: '#d4' },
+      { date: '2026-11-22', label: 'D5', anchor: '#d5' }
+    ];
+    const today = new Date();
+    const todayStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
+    const tripStart = new Date(tripDays[0].date);
+    const tripEnd = new Date(tripDays[tripDays.length-1].date);
+    const todayDate = new Date(todayStr);
+
+    const match = tripDays.find(d => d.date === todayStr);
+    if (match) {
+      banner.textContent = '✈️ 今天就是行程第 ' + match.label + ' 天！點這裡跳到今日行程 →';
+      banner.dataset.anchor = match.anchor;
+      banner.style.display = 'block';
+    } else if (todayDate < tripStart) {
+      const diffDays = Math.ceil((tripStart - todayDate) / 86400000);
+      banner.textContent = '📅 距離出發還有 ' + diffDays + ' 天';
+      banner.dataset.anchor = '#d1';
+      banner.style.display = 'block';
+    } else if (todayDate > tripEnd) {
+      banner.style.display = 'none';
+    }
+    banner.addEventListener('click', () => {
+      const anchor = banner.dataset.anchor;
+      if (anchor) document.querySelector(anchor)?.scrollIntoView({ behavior:'smooth' });
+    });
+  })();
+
+  // ---------- 搜尋功能 ----------
+  (function(){
+    const input = document.getElementById('siteSearch');
+    const resultsBox = document.getElementById('searchResults');
+    if (!input || !resultsBox) return;
+
+    const sectionLabels = {
+      d1:'D1 岡山', d2:'D2 尾道・廣島', d3:'D3 宮島・松山', d4:'D4 琴平・栗林', d5:'D5 倉敷',
+      mapview:'地圖總覽', logistics:'航班住宿', prep:'行前準備', packing:'打包清單',
+      reminders:'貼心提醒', tools:'匯率/日文', faq:'常見問題', summary:'總覽建議'
+    };
+
+    function buildIndex(){
+      const selectors = '.spot-name, .day-title, section h2, .prep-card h3, .e-label, .cash-headline, .tag-card li, .packlist li, .faq-q, .phrase-list li';
+      const nodes = document.querySelectorAll(selectors);
+      const idx = [];
+      nodes.forEach(el => {
+        let anchor = el.closest('section[id]');
+        if (!anchor) return;
+        const text = el.textContent.trim().replace(/\s+/g,' ');
+        if (!text) return;
+        idx.push({ text, id: anchor.id, el });
+      });
+      return idx;
+    }
+    const index = buildIndex();
+
+    function renderResults(query){
+      const q = query.trim().toLowerCase();
+      if (!q) { resultsBox.classList.remove('show'); resultsBox.innerHTML=''; return; }
+      const matches = index.filter(item => item.text.toLowerCase().includes(q)).slice(0, 10);
+      if (matches.length === 0) {
+        resultsBox.innerHTML = '<div class="search-empty">找不到符合的內容</div>';
+      } else {
+        resultsBox.innerHTML = matches.map((m, i) =>
+          '<div class="search-result-item" data-idx="' + i + '"><span class="sr-text">' + m.text + '</span><span class="sr-section">' + (sectionLabels[m.id] || m.id) + '</span></div>'
+        ).join('');
+        resultsBox.querySelectorAll('.search-result-item').forEach((elm, i) => {
+          elm.addEventListener('click', () => {
+            const target = matches[i].el;
+            target.scrollIntoView({ behavior:'smooth', block:'center' });
+            target.classList.add('flash-highlight');
+            setTimeout(() => target.classList.remove('flash-highlight'), 1600);
+            resultsBox.classList.remove('show');
+            input.value = '';
+          });
+        });
+      }
+      resultsBox.classList.add('show');
+    }
+
+    input.addEventListener('input', () => renderResults(input.value));
+    input.addEventListener('focus', () => { if (input.value) renderResults(input.value); });
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.search-wrap')) resultsBox.classList.remove('show');
+    });
+  })();
+
+  // ---------- 地圖跟每日行程連動 ----------
+  (function(){
+    document.querySelectorAll('.view-map-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-day-idx'), 10);
+        setTimeout(() => {
+          const tab = document.querySelectorAll('.map-tab')[idx];
+          if (tab) tab.click();
+          const mapEl = document.getElementById('leaflet-map');
+          if (mapEl) {
+            mapEl.classList.add('map-flash');
+            setTimeout(() => mapEl.classList.remove('map-flash'), 1200);
+          }
+        }, 400);
+      });
+    });
+  })();
+
+  // ---------- FAQ 手風琴 ----------
+  (function(){
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const q = item.querySelector('.faq-q');
+      const a = item.querySelector('.faq-a');
+      q.addEventListener('click', () => {
+        const isOpen = a.classList.contains('open');
+        // 手風琴效果：先收合其他已展開的項目
+        document.querySelectorAll('.faq-item.open').forEach(o => {
+          if (o !== item) {
+            o.classList.remove('open');
+            smoothToggle(o.querySelector('.faq-a'));
+          }
+        });
+        item.classList.toggle('open', !isOpen);
+        smoothToggle(a);
       });
     });
   })();
