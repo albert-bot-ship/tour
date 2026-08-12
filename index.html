@@ -395,6 +395,29 @@
   .prep-card li:last-child{ margin-bottom:0; }
   .prep-card strong{ color:var(--washi); }
 
+  /* ---------- PREP TABS ---------- */
+  .prep-tabs{
+    display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1.8rem;
+  }
+  .prep-tab{
+    font-family:'Noto Serif TC',serif;
+    font-size:.85rem;
+    padding:.5rem 1.2rem;
+    border:1px solid rgba(243,237,224,0.25);
+    background:transparent;
+    color:rgba(243,237,224,0.65);
+    cursor:pointer;
+    border-radius:999px;
+    transition:all .2s;
+  }
+  .prep-tab:hover{ border-color:var(--kincha); color:var(--kincha); }
+  .prep-tab.active{
+    background:var(--kincha);
+    border-color:var(--kincha);
+    color:var(--ai-deep);
+    font-weight:700;
+  }
+
   /* ---------- CASH CARD ---------- */
   .cash-headline{
     font-family:'Noto Serif TC',serif;
@@ -1142,7 +1165,13 @@
     <h2>行前準備清單</h2>
     <p class="sect-sub" style="color:rgba(243,237,224,0.65);">出發前把這幾件事確認過一輪，現場才不會手忙腳亂。</p>
 
-    <div class="prep-grid">
+    <div class="prep-tabs" id="prepTabs">
+      <button class="prep-tab active" data-group="finance">證件財務</button>
+      <button class="prep-tab" data-group="luggage">行李裝備</button>
+      <button class="prep-tab" data-group="comms">通訊入境</button>
+    </div>
+
+    <div class="prep-grid" data-group="finance">
       <div class="prep-card">
         <h3>護照簽證</h3>
         <ul>
@@ -1151,37 +1180,6 @@
           <li>護照不得有汙損、缺頁、擅自塗改或加蓋圖戳</li>
           <li>役男（19–36歲、尚未履行兵役）須先向戶籍地公所或內政部役政署官網申請「出境許可」</li>
         </ul>
-      </div>
-      <div class="prep-card">
-        <h3>行李與託運</h3>
-        <ul>
-          <li>建議起飛前 2–3 小時抵達機場</li>
-          <li>託運行李：單件限重 <strong>20公斤</strong>；手提行李：一件+個人隨身物品共兩件，合計不超過 <strong>10公斤</strong>（三邊尺寸需小於54×38×23cm）</li>
-          <li>團體座位由航空公司安排，無法預先選位</li>
-        </ul>
-      </div>
-      <div class="prep-card">
-        <h3>液體與鋰電池（登機規定）</h3>
-        <ul>
-          <li>隨身液體、膠狀、噴霧類單件不超過100毫升，需放入不超過1公升的透明夾鏈袋</li>
-          <li><strong>行動電源、相機電池等鋰電池只能手提、不可託運</strong></li>
-          <li>防狼噴霧劑不可隨身或手提上機</li>
-        </ul>
-        <table class="powerbank-table">
-          <tr><th>額定能量</th><th>可否攜帶</th></tr>
-          <tr><td>≤ 100Wh<br><span class="pb-sub">（約2.7萬mAh以下，依3.7V換算）</span></td><td class="pb-ok">可手提，數量合理即可</td></tr>
-          <tr><td>100Wh–160Wh<br><span class="pb-sub">（約2.7萬～4.3萬mAh）</span></td><td class="pb-warn">需航空公司同意，每人限帶2顆</td></tr>
-          <tr><td>&gt; 160Wh<br><span class="pb-sub">（約4.3萬mAh以上）</span></td><td class="pb-no">禁止攜帶（手提、託運皆不行）</td></tr>
-        </table>
-        <table class="powerbank-table" style="margin-top:.6rem;">
-          <tr><th>常見 mAh 標示</th><th>約合 Wh</th><th>可否攜帶</th></tr>
-          <tr><td>10,000mAh</td><td>約37Wh</td><td class="pb-ok">✅ 沒問題</td></tr>
-          <tr><td>20,000mAh</td><td>約74Wh</td><td class="pb-ok">✅ 沒問題</td></tr>
-          <tr><td>27,000mAh</td><td>約100Wh</td><td class="pb-warn">⚠️ 臨界值</td></tr>
-          <tr><td>30,000mAh</td><td>約111Wh</td><td class="pb-warn">⚠️ 需申請，限2顆</td></tr>
-          <tr><td>43,000mAh</td><td>約160Wh</td><td class="pb-no">🚫 上限</td></tr>
-        </table>
-        <p class="cash-note" style="margin-top:.6rem;">規定原始單位是 <strong>Wh（瓦時）</strong>，不是直接訂 mAh 上限；mAh 換算 Wh 會因電壓不同略有差異，上表以市售最常見的3.7V鋰電芯估算，僅供快速對照。行動電源背面通常會直接標示 Wh，登機前建議先確認清楚，看不到容量標示的可能會被要求在安檢口丟棄。</p>
       </div>
       <div class="prep-card">
         <h3>貨幣與退稅</h3>
@@ -1207,14 +1205,71 @@
           <tr><td>備用金（刷卡機故障、臨時採買）</td><td>¥4,000</td></tr>
           <tr class="cash-total"><td>合計</td><td>約 ¥20,000</td></tr>
         </table>
-        <p class="cash-note">抓整數帶 <b>¥25,000</b> 換匯方便、也留一點餘裕。如果你想額外買清酒、和菓子這類現金伴手禮，再加帶 <b>¥10,000–15,000</b>。</p>
-        <table class="cash-table eval-table" style="margin-top:1rem;">
+        <p class="cash-note">抓整數帶 <b>¥25,000</b> 換匯方便、也留一點餘裕。</p>
+      </div>
+      <div class="prep-card cash-card">
+        <h3>不同預算怎麼花</h3>
+        <table class="cash-table eval-table">
           <tr><th>攜帶金額</th><th>評估</th></tr>
           <tr><td>¥25,000</td><td>剛好打平必要現金支出，不夠買太多現金伴手禮</td></tr>
           <tr><td>¥50,000</td><td>必要支出＋盡情買現金伴手禮＋留一些備用，較平衡的折衷值</td></tr>
           <tr><td>¥100,000</td><td>偏多，除非打算大量現金購買清酒、和牛等，否則用不完；金額遠低於日本海關¥1,000,000免申報上限，帶這麼多沒有法規問題，但遺失風險較高、建議分開存放</td></tr>
         </table>
+        <p class="cash-note" style="margin-top:.8rem;">👉 抓 <b>¥50,000</b> 的逐日花費分配：</p>
+        <table class="cash-table eval-table">
+          <tr><th>天數／地點</th><th>建議金額／備註</th></tr>
+          <tr><td>D2 尾道本通商店街</td><td>¥2,500　貓咪造型鱈魚香絲、花林糖饅頭、尾道布丁</td></tr>
+          <tr><td>D3 宮島表參道</td><td>¥3,500　紅葉饅頭、現烤牡蠣、宮島張子小物</td></tr>
+          <tr><td>D3 道後溫泉商店街</td><td>¥2,000　少爺糰子、蜜柑製品</td></tr>
+          <tr><td>D4 金刀比羅宮表參道</td><td>¥4,000　讚岐烏龍麵乾麵、加美代飴、金陵清酒</td></tr>
+          <tr><td>D4 栗林公園</td><td>¥800　掬月亭抹茶配和菓子賞景</td></tr>
+          <tr><td>D5 倉敷美觀地區</td><td>¥12,200　吉備糰子、桃子甜點、紙膠帶（重頭戲，優先買）</td></tr>
+        </table>
+        <p class="cash-note" style="margin-top:.6rem;">D5倉敷是花費最大的一天；想買貴一點的清酒、和牛，建議排在D4或D5前段決定，現金越到後面越緊。</p>
       </div>
+    </div>
+
+    <div class="prep-grid" data-group="luggage" style="display:none;">
+      <div class="prep-card">
+        <h3>行李與託運</h3>
+        <ul>
+          <li>建議起飛前 2–3 小時抵達機場</li>
+          <li>託運行李：單件限重 <strong>20公斤</strong>；手提行李：一件+個人隨身物品共兩件，合計不超過 <strong>10公斤</strong>（三邊尺寸需小於54×38×23cm）</li>
+          <li>團體座位由航空公司安排，無法預先選位</li>
+        </ul>
+      </div>
+      <div class="prep-card">
+        <h3>液體與鋰電池（登機規定）</h3>
+        <ul>
+          <li>隨身液體、膠狀、噴霧類單件不超過100毫升，需放入不超過1公升的透明夾鏈袋</li>
+          <li><strong>行動電源、相機電池等鋰電池只能手提、不可託運</strong></li>
+          <li>防狼噴霧劑不可隨身或手提上機</li>
+        </ul>
+      </div>
+      <div class="prep-card">
+        <h3>行動電源容量規定</h3>
+        <table class="powerbank-table">
+          <tr><th>額定能量</th><th>可否攜帶</th></tr>
+          <tr><td>≤ 100Wh<br><span class="pb-sub">（約2.7萬mAh以下，依3.7V換算）</span></td><td class="pb-ok">可手提，數量合理即可</td></tr>
+          <tr><td>100Wh–160Wh<br><span class="pb-sub">（約2.7萬～4.3萬mAh）</span></td><td class="pb-warn">需航空公司同意，每人限帶2顆</td></tr>
+          <tr><td>&gt; 160Wh<br><span class="pb-sub">（約4.3萬mAh以上）</span></td><td class="pb-no">禁止攜帶（手提、託運皆不行）</td></tr>
+        </table>
+      </div>
+      <div class="prep-card">
+        <h3>mAh 對照 Wh 快查</h3>
+        <table class="powerbank-table">
+          <tr><th>常見 mAh 標示</th><th>約合 Wh</th><th>可否攜帶</th></tr>
+          <tr><td>10,000mAh</td><td>約37Wh</td><td class="pb-ok">✅ 沒問題</td></tr>
+          <tr><td>20,000mAh</td><td>約74Wh</td><td class="pb-ok">✅ 沒問題</td></tr>
+          <tr><td>27,000mAh</td><td>約100Wh</td><td class="pb-warn">⚠️ 臨界值</td></tr>
+          <tr><td>30,000mAh</td><td>約111Wh</td><td class="pb-warn">⚠️ 需申請，限2顆</td></tr>
+          <tr><td>43,000mAh</td><td>約160Wh</td><td class="pb-no">🚫 上限</td></tr>
+        </table>
+        <p class="cash-note" style="margin-top:.6rem;">規定原始單位是 <strong>Wh</strong>，換算會因電壓略有差異，上表以市售最常見3.7V鋰電芯估算。行動電源背面通常直接標示Wh，登機前先確認清楚。</p>
+      </div>
+    </div>
+
+    <div class="prep-grid" data-group="comms" style="display:none;">
       <div class="prep-card">
         <h3>通訊與電壓</h3>
         <ul>
@@ -1693,6 +1748,22 @@
     }
     rateInput.addEventListener('input', update);
     update();
+  })();
+
+  // ---------- 行前準備 分類頁籤 ----------
+  (function(){
+    const tabs = document.querySelectorAll('.prep-tab');
+    const groups = document.querySelectorAll('.prep-grid[data-group]');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const g = tab.getAttribute('data-group');
+        groups.forEach(grp => {
+          grp.style.display = (grp.getAttribute('data-group') === g) ? 'grid' : 'none';
+        });
+      });
+    });
   })();
 
   // ---------- 深色／淺色模式切換 ----------
