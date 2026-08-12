@@ -454,6 +454,21 @@
     border:1px solid var(--paper-line);
     filter:saturate(0.85) contrast(1.02);
   }
+  .map-wrap{ position:relative; }
+  .map-hint{
+    position:absolute;
+    top:12px; right:12px;
+    z-index:500;
+    background:rgba(20,33,59,0.82);
+    color:var(--washi);
+    font-family:'Noto Sans TC',sans-serif;
+    font-size:.76rem;
+    padding:.4rem .8rem;
+    border-radius:999px;
+    letter-spacing:.03em;
+    pointer-events:none;
+    box-shadow:0 2px 8px rgba(0,0,0,0.15);
+  }
   .map-legend{
     display:flex; flex-wrap:wrap; gap:1.2rem;
     margin-top:1rem; font-size:.82rem; opacity:.75;
@@ -782,7 +797,10 @@
     <p class="sect-sub">點選天數切換每日路線，點地圖上的標記可看景點說明與 Google 地圖連結。</p>
 
     <div class="map-tabs" id="mapTabs"></div>
-    <div id="leaflet-map"></div>
+    <div class="map-wrap">
+      <div id="leaflet-map"></div>
+      <div class="map-hint">⌃ Ctrl ＋ 滾輪　縮放地圖</div>
+    </div>
     <div class="map-legend">
       <span><i style="background:#BD4B28;"></i> 景點／神社</span>
       <span><i style="background:#B8892B;"></i> 商店街／購物</span>
@@ -1082,6 +1100,17 @@
     maxZoom: 18,
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
+
+  // Ctrl + 滾輪縮放地圖，其餘狀況滾輪照常滾動網頁
+  const mapContainer = map.getContainer();
+  mapContainer.addEventListener('wheel', function(e){
+    if (!e.ctrlKey) return;
+    e.preventDefault();
+    const point = map.mouseEventToContainerPoint(e);
+    const latlng = map.containerPointToLatLng(point);
+    const targetZoom = map.getZoom() + (e.deltaY < 0 ? 1 : -1);
+    map.setZoomAround(latlng, targetZoom, { animate:true });
+  }, { passive:false });
 
   let currentLayer = null;
 
