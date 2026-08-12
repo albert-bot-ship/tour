@@ -395,6 +395,140 @@
   .prep-card li:last-child{ margin-bottom:0; }
   .prep-card strong{ color:var(--washi); }
 
+  /* ---------- CASH CARD ---------- */
+  .cash-headline{
+    font-family:'Noto Serif TC',serif;
+    font-size:1.15rem;
+    font-weight:700;
+    color:var(--washi);
+    margin-bottom:1rem;
+    line-height:1.6;
+  }
+  .cash-headline b{
+    color:var(--kincha);
+    font-size:1.5rem;
+    font-weight:900;
+  }
+  .cash-headline span{
+    display:block;
+    font-family:'Noto Sans TC',sans-serif;
+    font-size:.8rem;
+    font-weight:400;
+    color:rgba(243,237,224,0.6);
+    margin-top:.35rem;
+  }
+  .cash-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.85rem;
+    margin-bottom:1rem;
+  }
+  .cash-table th{
+    text-align:left;
+    font-family:'Noto Serif TC',serif;
+    font-weight:700;
+    font-size:.76rem;
+    letter-spacing:.06em;
+    color:var(--kincha);
+    padding:.5rem .2rem;
+    border-bottom:1px solid rgba(243,237,224,0.25);
+  }
+  .cash-table td{
+    padding:.55rem .2rem;
+    border-bottom:1px solid rgba(243,237,224,0.1);
+    color:rgba(243,237,224,0.88);
+  }
+  .cash-table td:last-child, .cash-table th:last-child{
+    text-align:right;
+    white-space:nowrap;
+    font-family:'Noto Serif TC',serif;
+  }
+  .cash-table tr.cash-total td{
+    border-bottom:none;
+    border-top:2px solid var(--kincha);
+    font-weight:700;
+    color:var(--washi);
+    padding-top:.7rem;
+  }
+  .cash-note{
+    font-size:.82rem;
+    color:rgba(243,237,224,0.75);
+    margin:0;
+    line-height:1.8;
+  }
+  .cash-note b{ color:var(--kincha); }
+
+  .powerbank-table{
+    width:100%; border-collapse:collapse; font-size:.83rem; margin-top:.8rem;
+  }
+  .powerbank-table th{
+    text-align:left; font-family:'Noto Serif TC',serif; font-weight:700;
+    font-size:.74rem; letter-spacing:.05em; color:var(--kincha);
+    padding:.45rem .3rem; border-bottom:1px solid rgba(243,237,224,0.25);
+  }
+  .powerbank-table td{
+    padding:.55rem .3rem; border-bottom:1px solid rgba(243,237,224,0.1);
+    color:rgba(243,237,224,0.88); vertical-align:top;
+  }
+  .pb-sub{ font-size:.72rem; opacity:.6; }
+  .pb-ok{ color:#B7C795; }
+  .pb-warn{ color:#E3C173; }
+  .pb-no{ color:#E4876A; font-weight:700; }
+
+  .pack-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:1.2rem;
+  }
+  @media (max-width:640px){ .pack-grid{ grid-template-columns:1fr; } .pack-grid > div[style]{ grid-column:auto !important; } }
+
+  /* ---------- EMERGENCY CARD ---------- */
+  .emergency-card{
+    margin-top:1rem;
+    border:2px solid var(--momiji);
+    background:rgba(189,75,40,0.04);
+    padding:1.4rem 1.6rem;
+  }
+  .emergency-title{
+    font-family:'Noto Serif TC',serif;
+    font-weight:700;
+    font-size:1.05rem;
+    color:var(--momiji-deep);
+    margin-bottom:1rem;
+  }
+  .emergency-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.2rem;
+  }
+  .e-label{ font-size:.78rem; opacity:.7; margin-bottom:.3rem; }
+  .e-num{
+    font-family:'Noto Serif TC',serif; font-weight:700; font-size:1.15rem;
+    color:var(--ai-deep); letter-spacing:.02em;
+  }
+  .e-sub{ font-size:.76rem; opacity:.6; margin-top:.25rem; }
+
+  /* ---------- FX CONVERTER ---------- */
+  .fx-input-row{
+    display:flex; align-items:center; gap:.7rem; margin-bottom:1rem;
+    font-size:.85rem; color:rgba(243,237,224,0.8); flex-wrap:wrap;
+  }
+  .fx-input-row input{
+    background:rgba(243,237,224,0.08);
+    border:1px solid rgba(243,237,224,0.3);
+    color:var(--washi);
+    padding:.4rem .6rem;
+    width:6rem;
+    font-family:'Noto Serif TC',serif;
+    border-radius:3px;
+  }
+
+  /* ---------- PHRASE LIST ---------- */
+  .phrase-list{ list-style:none; margin:0; padding:0; }
+  .phrase-list li{
+    padding:.55rem 0; border-bottom:1px solid rgba(243,237,224,0.1);
+    display:flex; flex-direction:column; gap:.2rem;
+  }
+  .phrase-list li:last-child{ border-bottom:none; }
+  .phrase-list b{ font-family:'Noto Serif TC',serif; color:var(--washi); font-size:.98rem; }
+  .phrase-list span{ font-size:.78rem; color:rgba(243,237,224,0.6); }
+
   /* ---------- REMINDER CARDS ---------- */
   .remind-grid{
     display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.4rem;
@@ -511,6 +645,32 @@
   #backToTop.show{ opacity:1; visibility:visible; transform:translateY(0); }
   #backToTop:hover{ background:var(--momiji); }
 
+  #themeToggle, #printBtn{
+    position:fixed;
+    right:22px;
+    width:46px; height:46px;
+    border-radius:50%;
+    background:var(--ai-deep);
+    color:var(--washi);
+    border:1px solid rgba(243,237,224,0.25);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.05rem;
+    cursor:pointer;
+    box-shadow:0 4px 14px rgba(20,33,59,0.35);
+    z-index:999;
+    transition:background .2s;
+  }
+  #themeToggle:hover, #printBtn:hover{ background:var(--momiji); }
+  #themeToggle{ bottom:78px; }
+  #printBtn{ bottom:134px; }
+
+  body.night-mode{ filter:invert(1) hue-rotate(180deg); background:#111; }
+  body.night-mode #leaflet-map,
+  body.night-mode .leaflet-container,
+  body.night-mode .leaflet-tile-pane{
+    filter:invert(1) hue-rotate(180deg);
+  }
+
   /* ---------- CHECKLIST ITEMS ---------- */
   .tag-card li.checkitem{
     list-style:none;
@@ -555,7 +715,7 @@
 
   /* ---------- PRINT ---------- */
   @media print{
-    .trail, #backToTop, .map-hint, .map-tabs, .hero .kicker, footer a { display:none !important; }
+    .trail, #backToTop, #themeToggle, #printBtn, .map-hint, .map-tabs, .hero .kicker, footer a { display:none !important; }
     body{ background:#fff; color:#000; }
     .hero, .day.ink, .sect.ink{
       background:#fff !important;
@@ -596,11 +756,15 @@
   <a href="#mapview">地圖總覽</a>
   <a href="#logistics">航班住宿</a>
   <a href="#prep">行前準備</a>
+  <a href="#packing">打包清單</a>
   <a href="#reminders">貼心提醒</a>
+  <a href="#tools">匯率/日文</a>
   <a href="#summary">總覽建議</a>
 </nav>
 
 <button id="backToTop" aria-label="回到頂端" title="回到頂端">↑</button>
+<button id="themeToggle" aria-label="切換護眼模式" title="切換護眼模式">☀️</button>
+<button id="printBtn" aria-label="列印／存成PDF" title="列印／存成PDF">🖨️</button>
 
 <!-- D1 -->
 <section class="day paper" id="d1">
@@ -983,9 +1147,16 @@
         <h3>液體與鋰電池（登機規定）</h3>
         <ul>
           <li>隨身液體、膠狀、噴霧類單件不超過100毫升，需放入不超過1公升的透明夾鏈袋</li>
-          <li><strong>行動電源、相機電池等鋰電池只能手提、不可託運</strong>，且須為100瓦小時以下規格</li>
+          <li><strong>行動電源、相機電池等鋰電池只能手提、不可託運</strong></li>
           <li>防狼噴霧劑不可隨身或手提上機</li>
         </ul>
+        <table class="powerbank-table">
+          <tr><th>額定能量</th><th>可否攜帶</th></tr>
+          <tr><td>≤ 100Wh<br><span class="pb-sub">（約等於2萬mAh以下，依3.7V換算）</span></td><td class="pb-ok">可手提，數量合理即可</td></tr>
+          <tr><td>100Wh–160Wh</td><td class="pb-warn">需航空公司同意，每人限帶2顆</td></tr>
+          <tr><td>&gt; 160Wh</td><td class="pb-no">禁止攜帶（手提、託運皆不行）</td></tr>
+        </table>
+        <p class="cash-note" style="margin-top:.6rem;">行動電源背面通常會標示 Wh（瓦時）或 mAh＋電壓，登機前建議先確認清楚；市售常見1萬mAh行動電源約37Wh，一般旅遊用量沒問題，但看不到容量標示的行動電源可能會被要求在安檢口丟棄。</p>
       </div>
       <div class="prep-card">
         <h3>貨幣與退稅</h3>
@@ -995,16 +1166,23 @@
           <li>消耗品（食品、藥妝）退稅後須封入免稅專用透明袋，離境前不可拆封使用</li>
         </ul>
       </div>
-      <div class="prep-card">
+      <div class="prep-card cash-card">
         <h3>現金該帶多少</h3>
-        <ul>
-          <li>AEON MALL、藥妝連鎖、栗林庵等大型土產店多可刷卡，不必特別準備現金</li>
-          <li>神社香油錢／抽籤／御守、街邊小吃（尾道拉麵、宮島現烤牡蠣、少爺糰子攤）、多數纜車與門票、自理餐，大多只收現金</li>
-          <li><strong>精簡型</strong>（伴手禮主力刷卡）：約¥15,000–20,000</li>
-          <li><strong>一般型</strong>（含少量現金採買清酒、和菓子）：約¥25,000–35,000</li>
-          <li><strong>重度購物型</strong>（吉備糰子、紙膠帶、清酒等大量現金購買）：¥40,000以上</li>
-          <li>建議出發前先在台灣換好大部分現金（匯率通常較優），日本當地超商ATM（7-11、LAWSON）可提款救急；記得換一些千円鈔與百円硬幣應付神社香油錢、寄物櫃、投幣式纜車</li>
-        </ul>
+        <div class="cash-headline">
+          建議帶 <b>¥25,000</b> 現金
+          <span>大型店家（AEON、藥妝、栗林庵等）刷卡就好，這筆現金是用來應付「只收現金」的地方</span>
+        </div>
+        <table class="cash-table">
+          <tr><th>項目</th><th>建議金額</th></tr>
+          <tr><td>門票／纜車（千光寺、松山城、嚴島神社、栗林公園等）</td><td>¥5,000</td></tr>
+          <tr><td>街邊小吃（尾道拉麵、宮島牡蠣、糰子等）</td><td>¥4,000</td></tr>
+          <tr><td>自理餐（D1晚餐、D4晚餐、D5午餐）</td><td>¥4,000</td></tr>
+          <tr><td>神社香油錢／御守／抽籤</td><td>¥1,500</td></tr>
+          <tr><td>零錢雜項（寄物櫃、販賣機）</td><td>¥1,500</td></tr>
+          <tr><td>備用金（刷卡機故障、臨時採買）</td><td>¥4,000</td></tr>
+          <tr class="cash-total"><td>合計</td><td>約 ¥20,000</td></tr>
+        </table>
+        <p class="cash-note">抓整數帶 <b>¥25,000</b> 換匯方便、也留一點餘裕。如果你想額外買清酒、和菓子這類現金伴手禮，再加帶 <b>¥10,000–15,000</b>。</p>
       </div>
       <div class="prep-card">
         <h3>通訊與電壓</h3>
@@ -1031,7 +1209,73 @@
 </section>
 
 <div class="thread">
-  <svg viewBox="0 0 880 64" preserveAspectRatio="none"><path d="M0,32 C220,60 320,4 440,32 C560,60 660,4 880,32" fill="none" stroke="#B8892B" stroke-width="1.5"/></svg>
+  <svg viewBox="0 0 880 64" preserveAspectRatio="none"><path d="M0,32 C220,4 320,60 440,32 C560,4 660,60 880,32" fill="none" stroke="#BD4B28" stroke-width="1.5"/></svg>
+</div>
+
+<!-- PACKING CHECKLIST -->
+<section class="sect paper" id="packing">
+  <div class="sect-inner">
+    <div class="sect-eyebrow">PACKING LIST</div>
+    <h2>行李打包檢查清單</h2>
+    <p class="sect-sub">出發前對著這份清單勾一輪，勾完再關行李箱。</p>
+
+    <div class="pack-grid">
+      <div class="tag-card tag-gold">
+        <span class="tag-label" style="background:rgba(184,137,43,0.16); color:#8A5A15;">證件與金錢</span>
+        <ul class="packlist">
+          <li>護照（效期6個月以上）</li>
+          <li>護照影本／電子檔備份</li>
+          <li>身分證</li>
+          <li>日幣現金</li>
+          <li>信用卡（記得開通海外交易）</li>
+          <li>機票／訂房電子憑證截圖</li>
+        </ul>
+      </div>
+      <div class="tag-card tag-eat">
+        <span class="tag-label">電子用品</span>
+        <ul class="packlist">
+          <li>手機＋充電線</li>
+          <li>行動電源（100Wh以下，手提不託運）</li>
+          <li>轉接頭（日本為雙腳插頭，多數台灣電器可直接用）</li>
+          <li>上網卡／SIM卡工具針</li>
+          <li>相機／記憶卡</li>
+        </ul>
+      </div>
+      <div class="tag-card tag-shot">
+        <span class="tag-label">藥品與清潔</span>
+        <ul class="packlist">
+          <li>個人常備藥（腸胃藥、止痛藥、暈車藥）</li>
+          <li>隱形眼鏡藥水／眼鏡</li>
+          <li>牙刷牙膏、保養品（液體需分裝100ml以下）</li>
+          <li>口罩、酒精濕紙巾</li>
+        </ul>
+      </div>
+      <div class="tag-card tag-buy">
+        <span class="tag-label">衣物</span>
+        <ul class="packlist">
+          <li>外套（11月早晚涼，建議洋蔥式穿搭）</li>
+          <li>雨具（輕便雨衣或折疊傘）</li>
+          <li>舒適好走的鞋（金刀比羅宮785級石階）</li>
+          <li>備用內衣褲、襪子</li>
+          <li>飯店拖鞋若怕不習慣可自備</li>
+        </ul>
+      </div>
+      <div class="tag-card" style="grid-column: span 2;">
+        <span class="tag-label" style="background:rgba(108,122,74,0.16); color:#4B5636;">其他雜項</span>
+        <ul class="packlist">
+          <li>環保購物袋（裝戰利品，也可應付店家不主動給袋子）</li>
+          <li>免稅專用透明夾鏈袋（退稅消耗品用）</li>
+          <li>耳塞、眼罩（團體飯店隔音不一定好）</li>
+          <li>輕便折疊袋（伴手禮多可當備用行李袋）</li>
+          <li>暈車藥（D3宮島到松山車程較長）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="thread">
+  <svg viewBox="0 0 880 64" preserveAspectRatio="none"><path d="M0,32 C220,60 320,4 440,32 C560,60 660,4 880,32" fill="none" stroke="#6C7A4A" stroke-width="1.5"/></svg>
 </div>
 
 <!-- REMINDERS: 貼心提醒 -->
@@ -1086,6 +1330,32 @@
       </div>
     </div>
 
+    <div class="emergency-card">
+      <div class="emergency-title">🆘 緊急聯絡卡片（存進手機相簿，離線也看得到）</div>
+      <div class="emergency-grid">
+        <div class="emergency-item">
+          <div class="e-label">辰果旅行社（團體服務）</div>
+          <div class="e-num">02-2585-1575</div>
+          <div class="e-sub">手機：0936-121-877（服務專員 黃榮香）</div>
+        </div>
+        <div class="emergency-item">
+          <div class="e-label">台北駐日經濟文化代表處</div>
+          <div class="e-num">+81-3-3280-7811</div>
+          <div class="e-sub">緊急聯絡：+81-80-6552-4764（護照遺失、意外事故等）</div>
+        </div>
+        <div class="emergency-item">
+          <div class="e-label">外交部海外急難救助</div>
+          <div class="e-num">001-800-0885-0885</div>
+          <div class="e-sub">從日本撥打，24小時緊急救助專線</div>
+        </div>
+        <div class="emergency-item">
+          <div class="e-label">日本當地報警／救護</div>
+          <div class="e-num">110（警察）／119（救護、火災）</div>
+          <div class="e-sub">緊急狀況直接撥打</div>
+        </div>
+      </div>
+    </div>
+
     <div class="agency-box">
       <div>
         <div class="name">辰果旅行社有限公司</div>
@@ -1094,6 +1364,50 @@
       <div class="meta">
         公司電話：02-2585-1575　｜　手機：0936-121-877<br>
         地址：台北市復興北路290號3樓之3
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="thread">
+  <svg viewBox="0 0 880 64" preserveAspectRatio="none"><path d="M0,32 C220,4 320,60 440,32 C560,4 660,60 880,32" fill="none" stroke="#14213B" stroke-width="1.5"/></svg>
+</div>
+
+<!-- QUICK TOOLS: 匯率換算 + 常用日文 -->
+<section class="sect ink" id="tools">
+  <div class="sect-inner">
+    <div class="sect-eyebrow" style="color:var(--kincha);">QUICK TOOLS</div>
+    <h2>匯率換算・常用日文</h2>
+    <p class="sect-sub" style="color:rgba(243,237,224,0.65);">出發前先輸入當天實際匯率，現場換算更準。</p>
+
+    <div class="prep-grid">
+      <div class="prep-card">
+        <h3>快速匯率換算</h3>
+        <div class="fx-input-row">
+          <label for="fxRate">目前匯率（1日圓＝多少台幣）</label>
+          <input type="number" id="fxRate" value="0.22" step="0.001" min="0.1" max="0.5">
+        </div>
+        <table class="cash-table" id="fxTable">
+          <tr><th>日圓</th><th>約合台幣</th></tr>
+          <tr><td>¥1,000</td><td data-jpy="1000"></td></tr>
+          <tr><td>¥3,000</td><td data-jpy="3000"></td></tr>
+          <tr><td>¥5,000</td><td data-jpy="5000"></td></tr>
+          <tr><td>¥10,000</td><td data-jpy="10000"></td></tr>
+          <tr><td>¥25,000</td><td data-jpy="25000"></td></tr>
+        </table>
+        <p class="cash-note">匯率僅供快速估算，實際請以出發前銀行牌告匯率為準。</p>
+      </div>
+      <div class="prep-card">
+        <h3>旅遊常用日文</h3>
+        <ul class="phrase-list">
+          <li><b>これをください</b><span>ko-re o ku-da-sa-i／請給我這個</span></li>
+          <li><b>いくらですか</b><span>i-ku-ra de-su ka／請問多少錢</span></li>
+          <li><b>免税できますか</b><span>men-zei de-ki-ma-su ka／可以退稅嗎</span></li>
+          <li><b>トイレはどこですか</b><span>toi-re wa do-ko de-su ka／請問廁所在哪</span></li>
+          <li><b>カードは使えますか</b><span>ka-do wa tsu-ka-e-ma-su ka／可以刷卡嗎</span></li>
+          <li><b>ありがとうございます</b><span>a-ri-ga-to go-zai-ma-su／謝謝</span></li>
+          <li><b>すみません</b><span>su-mi-ma-sen／不好意思／抱歉（也可用來叫店員）</span></li>
+        </ul>
       </div>
     </div>
   </div>
@@ -1313,7 +1627,7 @@
 
   // ---------- 購物清單打勾功能 ----------
   (function(){
-    const lists = document.querySelectorAll('.tag-buy ul, .tag-eat ul');
+    const lists = document.querySelectorAll('.tag-buy ul, .tag-eat ul, .packlist');
     lists.forEach(ul => {
       ul.querySelectorAll('li').forEach(li => {
         li.classList.add('checkitem');
@@ -1331,6 +1645,40 @@
         });
       });
     });
+  })();
+
+  // ---------- 匯率快速換算 ----------
+  (function(){
+    const rateInput = document.getElementById('fxRate');
+    if (!rateInput) return;
+    const cells = document.querySelectorAll('#fxTable td[data-jpy]');
+    function update(){
+      const rate = parseFloat(rateInput.value) || 0;
+      cells.forEach(td => {
+        const jpy = parseFloat(td.getAttribute('data-jpy'));
+        const twd = Math.round(jpy * rate);
+        td.textContent = 'NT$ ' + twd.toLocaleString();
+      });
+    }
+    rateInput.addEventListener('input', update);
+    update();
+  })();
+
+  // ---------- 深色／淺色模式切換 ----------
+  (function(){
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      document.body.classList.toggle('night-mode');
+      btn.textContent = document.body.classList.contains('night-mode') ? '🌙' : '☀️';
+    });
+  })();
+
+  // ---------- 列印／存成PDF ----------
+  (function(){
+    const btn = document.getElementById('printBtn');
+    if (!btn) return;
+    btn.addEventListener('click', () => window.print());
   })();
 </script>
 </body>
