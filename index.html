@@ -418,6 +418,31 @@
     font-weight:700;
   }
 
+  /* ---------- COLLAPSIBLE CARD SECTION ---------- */
+  .expand-toggle{
+    width:100%;
+    display:flex; align-items:center; justify-content:space-between;
+    background:rgba(243,237,224,0.06);
+    border:1px solid rgba(243,237,224,0.2);
+    color:var(--kincha);
+    font-family:'Noto Sans TC',sans-serif;
+    font-size:.82rem;
+    padding:.6rem .9rem;
+    margin-top:.9rem;
+    border-radius:3px;
+    cursor:pointer;
+    transition:background .2s;
+  }
+  .expand-toggle:hover{ background:rgba(243,237,224,0.12); }
+  .expand-toggle .et-arrow{ transition:transform .25s; }
+  .expand-toggle.open .et-arrow{ transform:rotate(180deg); }
+  .collapsible{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .3s ease;
+  }
+  .collapsible.open{ max-height:900px; }
+
   /* ---------- CASH CARD ---------- */
   .cash-headline{
     font-family:'Noto Serif TC',serif;
@@ -1213,19 +1238,24 @@
           <tr><th>攜帶金額</th><th>評估</th></tr>
           <tr><td>¥25,000</td><td>剛好打平必要現金支出，不夠買太多現金伴手禮</td></tr>
           <tr><td>¥50,000</td><td>必要支出＋盡情買現金伴手禮＋留一些備用，較平衡的折衷值</td></tr>
-          <tr><td>¥100,000</td><td>偏多，除非打算大量現金購買清酒、和牛等，否則用不完；金額遠低於日本海關¥1,000,000免申報上限，帶這麼多沒有法規問題，但遺失風險較高、建議分開存放</td></tr>
+          <tr><td>¥100,000</td><td>偏多，除非打算大量現金購買清酒、和牛等，否則用不完；遠低於日本海關¥1,000,000免申報上限，但遺失風險較高</td></tr>
         </table>
-        <p class="cash-note" style="margin-top:.8rem;">👉 抓 <b>¥50,000</b> 的逐日花費分配：</p>
-        <table class="cash-table eval-table">
-          <tr><th>天數／地點</th><th>建議金額／備註</th></tr>
-          <tr><td>D2 尾道本通商店街</td><td>¥2,500　貓咪造型鱈魚香絲、花林糖饅頭、尾道布丁</td></tr>
-          <tr><td>D3 宮島表參道</td><td>¥3,500　紅葉饅頭、現烤牡蠣、宮島張子小物</td></tr>
-          <tr><td>D3 道後溫泉商店街</td><td>¥2,000　少爺糰子、蜜柑製品</td></tr>
-          <tr><td>D4 金刀比羅宮表參道</td><td>¥4,000　讚岐烏龍麵乾麵、加美代飴、金陵清酒</td></tr>
-          <tr><td>D4 栗林公園</td><td>¥800　掬月亭抹茶配和菓子賞景</td></tr>
-          <tr><td>D5 倉敷美觀地區</td><td>¥12,200　吉備糰子、桃子甜點、紙膠帶（重頭戲，優先買）</td></tr>
-        </table>
-        <p class="cash-note" style="margin-top:.6rem;">D5倉敷是花費最大的一天；想買貴一點的清酒、和牛，建議排在D4或D5前段決定，現金越到後面越緊。</p>
+        <button class="expand-toggle" data-target="dailySpend">
+          <span class="et-label">展開查看 ¥50,000 逐日花費分配</span>
+          <span class="et-arrow">▾</span>
+        </button>
+        <div class="collapsible" id="dailySpend">
+          <table class="cash-table eval-table" style="margin-top:.8rem;">
+            <tr><th>天數／地點</th><th>建議金額／備註</th></tr>
+            <tr><td>D2 尾道本通商店街</td><td>¥2,500　貓咪造型鱈魚香絲、花林糖饅頭、尾道布丁</td></tr>
+            <tr><td>D3 宮島表參道</td><td>¥3,500　紅葉饅頭、現烤牡蠣、宮島張子小物</td></tr>
+            <tr><td>D3 道後溫泉商店街</td><td>¥2,000　少爺糰子、蜜柑製品</td></tr>
+            <tr><td>D4 金刀比羅宮表參道</td><td>¥4,000　讚岐烏龍麵乾麵、加美代飴、金陵清酒</td></tr>
+            <tr><td>D4 栗林公園</td><td>¥800　掬月亭抹茶配和菓子賞景</td></tr>
+            <tr><td>D5 倉敷美觀地區</td><td>¥12,200　吉備糰子、桃子甜點、紙膠帶（重頭戲，優先買）</td></tr>
+          </table>
+          <p class="cash-note" style="margin-top:.6rem;">D5倉敷是花費最大的一天；想買貴一點的清酒、和牛，建議排在D4或D5前段決定，現金越到後面越緊。</p>
+        </div>
       </div>
     </div>
 
@@ -1748,6 +1778,21 @@
     }
     rateInput.addEventListener('input', update);
     update();
+  })();
+
+  // ---------- 展開／收合卡片 ----------
+  (function(){
+    document.querySelectorAll('.expand-toggle').forEach(btn => {
+      const target = document.getElementById(btn.getAttribute('data-target'));
+      if (!target) return;
+      btn.addEventListener('click', () => {
+        const isOpen = target.classList.toggle('open');
+        btn.classList.toggle('open', isOpen);
+        btn.querySelector('.et-label').textContent = isOpen
+          ? '收合逐日花費分配'
+          : '展開查看 ¥50,000 逐日花費分配';
+      });
+    });
   })();
 
   // ---------- 行前準備 分類頁籤 ----------
