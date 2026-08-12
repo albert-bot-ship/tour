@@ -2174,6 +2174,41 @@
     const resultsBox = document.getElementById('searchResults');
     if (!input || !resultsBox) return;
 
+    // 跳轉前先確保目標元素「看得見」：展開所在頁籤／FAQ／收合區塊
+    function revealAndScroll(target){
+      let needsWait = false;
+
+      // 1. 如果在行前準備的隱藏頁籤裡，先切換到該頁籤
+      const hiddenGrid = target.closest('.prep-grid[data-group]');
+      if (hiddenGrid && getComputedStyle(hiddenGrid).display === 'none') {
+        const group = hiddenGrid.getAttribute('data-group');
+        const tabBtn = document.querySelector('.prep-tab[data-group="' + group + '"]');
+        if (tabBtn) { tabBtn.click(); needsWait = true; }
+      }
+
+      // 2. 如果在FAQ收合的答案裡，先展開該FAQ項目
+      const faqItem = target.closest('.faq-item');
+      if (faqItem && !faqItem.classList.contains('open')) {
+        const q = faqItem.querySelector('.faq-q');
+        if (q) { q.click(); needsWait = true; }
+      }
+
+      // 3. 如果在「展開查看」收合區塊裡，先點開該區塊
+      const collapsible = target.closest('.collapsible');
+      if (collapsible && !collapsible.classList.contains('open')) {
+        const toggleBtn = document.querySelector('.expand-toggle[data-target="' + collapsible.id + '"]');
+        if (toggleBtn) { toggleBtn.click(); needsWait = true; }
+      }
+
+      const doScroll = () => {
+        target.scrollIntoView({ behavior:'smooth', block:'center' });
+        target.classList.add('flash-highlight');
+        setTimeout(() => target.classList.remove('flash-highlight'), 1600);
+      };
+      // 展開動畫需要一點時間才能取得正確位置，等一個影格再捲動
+      if (needsWait) { setTimeout(doScroll, 260); } else { doScroll(); }
+    }
+
     const sectionLabels = {
       d1:'D1 岡山', d2:'D2 尾道・廣島', d3:'D3 宮島・松山', d4:'D4 琴平・栗林', d5:'D5 倉敷',
       mapview:'地圖總覽', logistics:'航班住宿', prep:'行前準備', packing:'打包清單',
@@ -2208,9 +2243,7 @@
         resultsBox.querySelectorAll('.search-result-item').forEach((elm, i) => {
           elm.addEventListener('click', () => {
             const target = matches[i].el;
-            target.scrollIntoView({ behavior:'smooth', block:'center' });
-            target.classList.add('flash-highlight');
-            setTimeout(() => target.classList.remove('flash-highlight'), 1600);
+            revealAndScroll(target);
             resultsBox.classList.remove('show');
             input.value = '';
           });
