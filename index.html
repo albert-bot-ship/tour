@@ -450,6 +450,23 @@
     color:var(--washi);
     padding-top:.7rem;
   }
+  /* 用於長句評估內容的表格，取消強制不換行與靠右對齊 */
+  .cash-table.eval-table{ table-layout:fixed; }
+  .cash-table.eval-table td:last-child, .cash-table.eval-table th:last-child{
+    text-align:left;
+    white-space:normal;
+    font-family:'Noto Sans TC', sans-serif;
+    line-height:1.7;
+    word-break:break-word;
+  }
+  .cash-table.eval-table td:first-child{
+    white-space:nowrap;
+    font-family:'Noto Serif TC',serif;
+    font-weight:700;
+    vertical-align:top;
+    padding-right:1rem;
+    width:5.5rem;
+  }
   .cash-note{
     font-size:.82rem;
     color:rgba(243,237,224,0.75);
@@ -1191,7 +1208,7 @@
           <tr class="cash-total"><td>合計</td><td>約 ¥20,000</td></tr>
         </table>
         <p class="cash-note">抓整數帶 <b>¥25,000</b> 換匯方便、也留一點餘裕。如果你想額外買清酒、和菓子這類現金伴手禮，再加帶 <b>¥10,000–15,000</b>。</p>
-        <table class="cash-table" style="margin-top:1rem;">
+        <table class="cash-table eval-table" style="margin-top:1rem;">
           <tr><th>攜帶金額</th><th>評估</th></tr>
           <tr><td>¥25,000</td><td>剛好打平必要現金支出，不夠買太多現金伴手禮</td></tr>
           <tr><td>¥50,000</td><td>必要支出＋盡情買現金伴手禮＋留一些備用，較平衡的折衷值</td></tr>
