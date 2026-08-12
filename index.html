@@ -6,6 +6,8 @@
 <title>岡山四國五日遊｜購物美食拍照攻略</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <style>
   :root{
     --ai-deep: #14213B;      /* 藍染 深靛 */
@@ -424,6 +426,53 @@
     font-family:'Noto Serif TC',serif; font-weight:700; font-size:1.1rem; color:var(--ai-deep);
   }
   .agency-box .meta{ font-size:.85rem; opacity:.75; line-height:1.9; }
+
+  /* ---------- MAP VIEW ---------- */
+  .map-tabs{
+    display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1.4rem;
+  }
+  .map-tab{
+    font-family:'Noto Serif TC',serif;
+    font-size:.85rem;
+    padding:.5rem 1.1rem;
+    border:1px solid var(--paper-line);
+    background:var(--washi);
+    color:var(--ink);
+    cursor:pointer;
+    border-radius:999px;
+    transition:all .2s;
+  }
+  .map-tab:hover{ border-color:var(--momiji); color:var(--momiji-deep); }
+  .map-tab.active{
+    background:var(--ai-deep);
+    border-color:var(--ai-deep);
+    color:var(--washi);
+  }
+  #leaflet-map{
+    width:100%;
+    height:480px;
+    border:1px solid var(--paper-line);
+    filter:saturate(0.85) contrast(1.02);
+  }
+  .map-legend{
+    display:flex; flex-wrap:wrap; gap:1.2rem;
+    margin-top:1rem; font-size:.82rem; opacity:.75;
+  }
+  .map-legend span{ display:inline-flex; align-items:center; gap:.4rem; }
+  .map-legend i{
+    width:10px; height:10px; border-radius:50%; display:inline-block;
+  }
+  .leaflet-popup-content{
+    font-family:'Noto Sans TC', sans-serif;
+    font-size:.85rem;
+    line-height:1.6;
+  }
+  .leaflet-popup-content b{
+    font-family:'Noto Serif TC',serif;
+    color:var(--ai-deep);
+    font-size:.95rem;
+  }
+  .leaflet-popup-content a{ color:var(--momiji); }
 </style>
 </head>
 <body>
@@ -443,6 +492,7 @@
   <a href="#d3">D3 宮島・松山</a>
   <a href="#d4">D4 琴平・栗林</a>
   <a href="#d5">D5 倉敷</a>
+  <a href="#mapview">地圖總覽</a>
   <a href="#logistics">航班住宿</a>
   <a href="#prep">行前準備</a>
   <a href="#reminders">貼心提醒</a>
@@ -720,6 +770,28 @@
   </div>
 </section>
 
+<div class="thread">
+  <svg viewBox="0 0 880 64" preserveAspectRatio="none"><path d="M0,32 C220,60 320,4 440,32 C560,60 660,4 880,32" fill="none" stroke="#6C7A4A" stroke-width="1.5"/></svg>
+</div>
+
+<!-- MAP VIEW -->
+<section class="sect paper" id="mapview">
+  <div class="sect-inner">
+    <div class="sect-eyebrow">ROUTE MAP</div>
+    <h2>地圖總覽</h2>
+    <p class="sect-sub">點選天數切換每日路線，點地圖上的標記可看景點說明與 Google 地圖連結。</p>
+
+    <div class="map-tabs" id="mapTabs"></div>
+    <div id="leaflet-map"></div>
+    <div class="map-legend">
+      <span><i style="background:#BD4B28;"></i> 景點／神社</span>
+      <span><i style="background:#B8892B;"></i> 商店街／購物</span>
+      <span><i style="background:#6C7A4A;"></i> 公園／庭園</span>
+      <span><i style="background:#14213B;"></i> 機場／交通</span>
+    </div>
+  </div>
+</section>
+
 <!-- LOGISTICS: 航班與每日住宿餐食 -->
 <section class="sect paper" id="logistics">
   <div class="sect-inner">
@@ -952,5 +1024,115 @@
   以上資訊僅供行前參考，實際航班、住宿、行程順序與注意事項請以旅行社行前說明會資料為準
 </footer>
 
+<script>
+  // ---------- ITINERARY DATA ----------
+  const CAT = {
+    shrine:  "#BD4B28",
+    shop:    "#B8892B",
+    park:    "#6C7A4A",
+    transit: "#14213B"
+  };
+
+  const days = [
+    {
+      label: "D1 岡山",
+      stops: [
+        { name:"岡山機場（桃太郎機場）", lat:34.7579784, lng:133.8558042, cat:"transit", note:"下飛機點，11/18 14:35 抵達", place_id:"ChIJa2konp4DVDURCbtFf9tz9bM" },
+        { name:"AEON MALL 永旺夢樂城岡山", lat:34.6619963, lng:133.9176284, cat:"shop", note:"購物、B1藥妝免稅、超市生鮮", place_id:"ChIJkyqZELMHVDUREhwbsCvO-I0" }
+      ]
+    },
+    {
+      label: "D2 尾道・廣島",
+      stops: [
+        { name:"尾道本通商店街", lat:34.4058114, lng:133.1956763, cat:"shop", note:"尾道拉麵、貓咪雜貨、尾道布丁", place_id:"ChIJU8Ju9koAUTURzlKbNR-HkJw" },
+        { name:"千光寺公園", lat:34.4109947, lng:133.1964444, cat:"park", note:"單程纜車，山頂俯瞰尾道港全景", place_id:"ChIJnS1jvbUBUTURJcFZNsJy7Qs" },
+        { name:"平和記念公園", lat:34.3926867, lng:132.4522012, cat:"park", note:"原爆和平紀念公園", place_id:"ChIJgzAzVG2iWjURZRZ1udXOKeE" },
+        { name:"廣島本通商店街", lat:34.392868, lng:132.4604881, cat:"shop", note:"發放代金2000日幣逛街", place_id:"ChIJx9XW-g6iWjURM9NQxHzUtLw" }
+      ]
+    },
+    {
+      label: "D3 宮島・松山",
+      stops: [
+        { name:"嚴島神社", lat:34.2959896, lng:132.3198285, cat:"shrine", note:"海上鳥居，注意潮汐時間", place_id:"ChIJj23HfgTjGmARkNW10PcocjU" },
+        { name:"宮島表參道商店街", lat:34.2989747, lng:132.3218356, cat:"shop", note:"紅葉饅頭、現烤牡蠣、星鰻飯", place_id:"ChIJ1zjNPLGwWjURgwBo1M8ikLw" },
+        { name:"松山城纜車", lat:33.8441496, lng:132.7680609, cat:"transit", note:"長者ヶ平站，俯瞰松山市街", place_id:"ChIJAQAUDevlTzURxEU3PfUYWEM" },
+        { name:"道後溫泉本館", lat:33.8520748, lng:132.7864098, cat:"shrine", note:"外觀拍照，少爺音樂鐘在旁", place_id:"ChIJ84F-kHjmTzURebGHHI1YWXw" }
+      ]
+    },
+    {
+      label: "D4 琴平・栗林",
+      stops: [
+        { name:"金刀比羅宮", lat:34.1839981, lng:133.8095371, cat:"shrine", note:"785級石階至本宮，表參道購物", place_id:"ChIJtSRHH0IkGWARqTAo4c715o0" },
+        { name:"栗林公園", lat:34.3299036, lng:134.0457696, cat:"park", note:"飛來峰俯瞰偃月橋，米其林三星庭園", place_id:"ChIJUc4SILrrUzURFEFMQod9v7g" },
+        { name:"AEON MALL 永旺夢樂城岡山", lat:34.6619963, lng:133.9176284, cat:"shop", note:"第二次採買時段", place_id:"ChIJkyqZELMHVDUREhwbsCvO-I0" }
+      ]
+    },
+    {
+      label: "D5 倉敷",
+      stops: [
+        { name:"倉敷美觀地區", lat:34.5957392, lng:133.7717651, cat:"park", note:"白牆倉庫、河岸垂柳，一早人少最好拍", place_id:"ChIJ1do4lkdWUTURvg3rFkFpzhE" },
+        { name:"岡山機場（桃太郎機場）", lat:34.7579784, lng:133.8558042, cat:"transit", note:"11/22 17:30 返程", place_id:"ChIJa2konp4DVDURCbtFf9tz9bM" }
+      ]
+    }
+  ];
+
+  // ---------- MAP INIT ----------
+  const map = L.map('leaflet-map', { scrollWheelZoom:false });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  let currentLayer = null;
+
+  function renderDay(idx){
+    if (currentLayer) { map.removeLayer(currentLayer); }
+    currentLayer = L.layerGroup().addTo(map);
+
+    const stops = days[idx].stops;
+    const latlngs = [];
+
+    stops.forEach((s, i) => {
+      const color = CAT[s.cat] || "#BD4B28";
+      const marker = L.circleMarker([s.lat, s.lng], {
+        radius: 9,
+        color: "#F3EDE0",
+        weight: 2,
+        fillColor: color,
+        fillOpacity: 1
+      }).addTo(currentLayer);
+
+      const gmaps = "https://www.google.com/maps/place/?q=place_id:" + s.place_id;
+      marker.bindPopup(
+        "<b>" + (i+1) + ". " + s.name + "</b><br>" + s.note +
+        "<br><a href='" + gmaps + "' target='_blank' rel='noopener'>在 Google 地圖開啟 →</a>"
+      );
+      latlngs.push([s.lat, s.lng]);
+    });
+
+    if (latlngs.length > 1) {
+      L.polyline(latlngs, { color:"#BD4B28", weight:2, dashArray:"6 6", opacity:.7 }).addTo(currentLayer);
+    }
+
+    const bounds = L.latLngBounds(latlngs);
+    map.fitBounds(bounds, { padding:[40,40] });
+  }
+
+  // ---------- TABS ----------
+  const tabWrap = document.getElementById('mapTabs');
+  days.forEach((d, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'map-tab' + (idx === 0 ? ' active' : '');
+    btn.textContent = d.label;
+    btn.onclick = () => {
+      document.querySelectorAll('.map-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderDay(idx);
+    };
+    tabWrap.appendChild(btn);
+  });
+
+  renderDay(0);
+</script>
 </body>
 </html>
