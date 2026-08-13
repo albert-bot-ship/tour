@@ -626,19 +626,22 @@
   /* 用於長句評估內容的表格，取消強制不換行與靠右對齊 */
   .cash-table.eval-table{ table-layout:fixed; }
   .cash-table.eval-table td:last-child, .cash-table.eval-table th:last-child{
+    width:62%;
     text-align:left;
     white-space:normal;
     font-family:'Noto Sans TC', sans-serif;
     line-height:1.7;
     word-break:break-word;
   }
-  .cash-table.eval-table td:first-child{
-    white-space:nowrap;
+  .cash-table.eval-table td:first-child, .cash-table.eval-table th:first-child{
+    width:38%;
+    white-space:normal;
+    word-break:break-word;
     font-family:'Noto Serif TC',serif;
     font-weight:700;
     vertical-align:top;
-    padding-right:1rem;
-    width:5.5rem;
+    padding-right:.8rem;
+    line-height:1.5;
   }
   .cash-note{
     font-size:.82rem;
