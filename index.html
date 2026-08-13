@@ -1051,6 +1051,51 @@
     opacity:.45;
   }
 
+  /* ---------- 食安／攜帶提醒 徽章 ---------- */
+  .food-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:.25rem;
+    font-family:'Noto Sans TC',sans-serif;
+    font-size:.72rem;
+    font-weight:700;
+    padding:.12rem .55rem;
+    border-radius:999px;
+    margin-left:.4rem;
+    white-space:nowrap;
+    vertical-align:middle;
+  }
+  .food-badge.no{
+    background:rgba(189,75,40,0.14);
+    color:var(--momiji-deep);
+    border:1px solid rgba(189,75,40,0.35);
+  }
+  .food-badge.check{
+    background:rgba(184,137,43,0.14);
+    color:#8A5A15;
+    border:1px solid rgba(184,137,43,0.35);
+  }
+  .food-badge.ok{
+    background:rgba(108,122,74,0.14);
+    color:var(--matcha);
+    border:1px solid rgba(108,122,74,0.35);
+  }
+  .ink .food-badge.no{ color:#E4876A; }
+  .ink .food-badge.check{ color:#E3C173; }
+  .ink .food-badge.ok{ color:#B7C795; }
+
+  .badge-legend{
+    display:flex; flex-wrap:wrap; align-items:center; gap:1rem;
+    margin:1.2rem 0 1.6rem;
+    padding:.7rem 1rem;
+    background:rgba(30,36,48,0.03);
+    border:1px dashed var(--paper-line);
+    font-size:.78rem;
+  }
+  .badge-legend > span{ display:inline-flex; align-items:center; gap:.4rem; }
+  .badge-legend .food-badge{ margin-left:0; }
+  .bl-note{ opacity:.6; font-size:.76rem; }
+
   /* ---------- MAP NUMBER MARKERS ---------- */
   .num-marker{
     width:24px; height:24px;
@@ -1227,6 +1272,13 @@
       </div>
     </div>
 
+    <div class="badge-legend">
+      <span><span class="food-badge no">🚫</span> 不能帶回台灣</span>
+      <span><span class="food-badge check">⚠️</span> 需確認成分</span>
+      <span><span class="food-badge ok">✅</span> 可安心帶回</span>
+      <span class="bl-note">（下面「買」清單裡，食品類伴手禮會標示這些提醒）</span>
+    </div>
+
     <div class="spot">
       <div class="spot-name">AEON MALL 永旺夢樂城岡山</div>
       <div class="tag-grid">
@@ -1235,7 +1287,7 @@
           <ul>
             <li>吉備糰子、白桃／麝香葡萄造型甜點、桃太郎餅乾、岡山布丁</li>
             <li>B1 藥妝／免稅區：合利他命EX、EVE止痛藥、休足時間、面膜</li>
-            <li>B1 超市白桃、麝香葡萄，¥398 起，傍晚常降價</li>
+            <li>B1 超市白桃、麝香葡萄，¥398 起，傍晚常降價<span class="food-badge no">🚫 不可帶回台灣</span>（生鮮水果一律禁止入境，當地買了要當天／隔天吃完）</li>
           </ul>
         </div>
         <div class="tag-card tag-eat">
@@ -1284,8 +1336,8 @@
           <span class="tag-label">買</span>
           <ul>
             <li>花林糖饅頭、八朔大福</li>
-            <li>貓咪造型鱈魚香絲（貓控必買）</li>
-            <li>尾道拉麵料理包（<strong>若湯底或調味包含豬肉成分，不能帶回台灣</strong>，購買前建議跟店員確認或看包裝標示，也可選擇醬油／鹽味等非豚骨湯底口味）</li>
+            <li>貓咪造型鱈魚香絲（貓控必買）<span class="food-badge ok">✅ 海鮮製品可帶</span></li>
+            <li>尾道拉麵料理包<span class="food-badge no">🚫 多數含豬肉</span>（尾道拉麵招牌特色是豚背脂/豬背油，湯底調味包通常含豬肉成分，不能帶回台灣；若真的想買，選標示醬油／鹽味且確認無肉類成分的款式）</li>
           </ul>
         </div>
         <div class="tag-card tag-eat">
@@ -1386,7 +1438,7 @@
           <span class="tag-label">買</span>
           <ul>
             <li>少爺糰子（紅豆／蛋黃／抹茶三色，一六本舖等處有售）</li>
-            <li>柑橘伴手禮：POM蜜柑果汁、蜜柑寒天凍飲、蜜柑酒（未滿18歲勿飲）</li>
+            <li>柑橘伴手禮：POM蜜柑果汁、蜜柑寒天凍飲、蜜柑酒（未滿18歲勿飲）<span class="food-badge ok">✅ 加工品可帶</span></li>
             <li>みきゃん（愛媛吉祥物蜜柑犬）周邊小物</li>
           </ul>
         </div>
@@ -1426,7 +1478,7 @@
         <div class="tag-card tag-buy">
           <span class="tag-label">買</span>
           <ul>
-            <li>讚岐烏龍麵乾麵禮盒</li>
+            <li>讚岐烏龍麵乾麵禮盒<span class="food-badge check">⚠️ 沾醬需確認</span>（麵條本身沒問題，但附贈的沾醬／高湯包少數會用柴魚＋豬肉萃取調味，購買時可留意成分標示或詢問店員）</li>
             <li>加美代飴（700年傳承糖果）</li>
             <li>金陵清酒（「金陵之鄉」酒藏可試飲）</li>
             <li>和三盆糖（香川高級砂糖點心）</li>
@@ -1497,8 +1549,8 @@
           <span class="tag-label">買</span>
           <ul>
             <li>廣榮堂「吉備糰子」－岡山必買 NO.1 伴手禮</li>
-            <li>牡蠣仙貝（喜歡海鮮的人激推，價格較高，適合挑人送）</li>
-            <li>くらしき桃子：布丁、果凍、禮盒，包裝精美</li>
+            <li>牡蠣仙貝（喜歡海鮮的人激推，價格較高，適合挑人送）<span class="food-badge ok">✅ 海鮮製品可帶</span></li>
+            <li>くらしき桃子：布丁、果凍、禮盒，包裝精美<span class="food-badge ok">✅ 加工品可帶</span>（是熟製甜點不是生鮮水果，不受水果禁令限制）</li>
             <li>TANE 紙膠帶（mt紙膠帶控必買）</li>
             <li>SNOOPY Chocolat 倉敷限定丹寧配色聯名</li>
           </ul>
