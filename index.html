@@ -832,11 +832,23 @@
   }
   .expense-list .ei-del:hover{ opacity:.9; color:var(--momiji); }
   .expense-empty{ font-size:.85rem; opacity:.5; padding:.6rem 0; }
+  .expense-btn-row{ display:flex; gap:.7rem; flex-wrap:wrap; }
   .expense-clear-btn{
     background:none; border:1px solid var(--paper-line); color:var(--ink);
     opacity:.6; font-size:.78rem; padding:.4rem .9rem; border-radius:3px; cursor:pointer;
   }
   .expense-clear-btn:hover{ opacity:1; border-color:var(--momiji); color:var(--momiji); }
+  .expense-export-btn{
+    background:var(--ai-deep); color:var(--washi); border:1px solid var(--ai-deep);
+    font-size:.78rem; padding:.4rem .9rem; border-radius:3px; cursor:pointer;
+    font-family:'Noto Sans TC',sans-serif; transition:background .2s;
+  }
+  .expense-export-btn:hover{ background:var(--momiji); border-color:var(--momiji); }
+  .expense-export-hint{
+    margin-top:.6rem; font-size:.78rem; color:var(--matcha); opacity:0;
+    transition:opacity .3s;
+  }
+  .expense-export-hint.show{ opacity:1; }
 
   /* ---------- SEARCH BAR ---------- */
   .search-wrap{
@@ -1158,25 +1170,36 @@
   @media print{
     .trail, #backToTop, #themeToggle, #printBtn, .map-hint, .map-tabs, .hero .kicker, footer a,
     .search-wrap, .day-banner, .view-map-btn, .prep-tabs, .expand-toggle, .faq-q::after { display:none !important; }
-    /* 強制取消深色模式的反色濾鏡，避免列印出全黑或色彩錯亂 */
-    body.night-mode{ filter:none !important; background:#fff !important; }
-    body{ background:#fff; color:#000; }
-    .hero, .day.ink, .sect.ink{
-      background:#fff !important;
-      color:#000 !important;
-    }
-    .hero *, .day.ink *, .sect.ink *{ color:#000 !important; }
-    .day-num, .spot-name, h2, .day-title{ color:#000 !important; -webkit-print-color-adjust:exact; }
-    .tag-card{ border:1px solid #ccc !important; background:#fff !important; break-inside:avoid; }
+
+    /* 保留網頁原本的配色與設計，不轉黑白 */
+    *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; color-adjust:exact !important; }
+    body.night-mode{ filter:none !important; }
+
+    .tag-card{ break-inside:avoid; }
     .spot{ break-inside:avoid; }
+    .prep-card{ break-inside:avoid; }
+    .remind-card{ break-inside:avoid; }
+    .day{ break-inside:avoid-page; }
     .thread{ display:none; }
-    #leaflet-map{ height:320px; }
-    a{ color:#000 !important; text-decoration:underline; }
-    .note{ background:#f2f2f2 !important; border-left-color:#999 !important; }
-    /* 列印時所有收合內容一律展開，確保紙本內容完整 */
+
+    /* 列印時所有收合內容一律展開，確保紙本內容完整（頁籤與FAQ都會全部印出） */
     .collapsible, .faq-a{ max-height:none !important; padding:0 1.2rem 1rem !important; }
     .prep-grid{ display:grid !important; }
     .prep-grid[data-group]{ display:grid !important; margin-bottom:1.5rem; }
+
+    /* 地圖是互動元件，列印只能印出當下選取的那一天 */
+    .map-print-note{
+      display:block !important;
+      font-size:.8rem;
+      color:#8A5A15;
+      background:#FBF3E3;
+      border:1px dashed #B8892B;
+      padding:.6rem .9rem;
+      margin-bottom:1rem;
+    }
+    #leaflet-map{ height:320px; }
+
+    a{ text-decoration:underline; }
   }
 
   @media (max-width:600px){
@@ -1616,6 +1639,7 @@
     <p class="sect-sub">點選天數切換每日路線，點地圖上的標記可看景點說明與 Google 地圖連結。</p>
 
     <div class="map-tabs" id="mapTabs"></div>
+    <p class="map-print-note" style="display:none;">📋 列印小提醒：地圖是互動元件，這張紙只會印出你列印當下選取的那一天。想要五天地圖都印出來，請切換到D1分頁列印一次，再切到D2列印一次，依序完成D1~D5。</p>
     <div class="map-wrap">
       <div id="leaflet-map"></div>
       <div class="map-hint">⌃ Ctrl ＋ 滾輪　縮放地圖</div>
@@ -2046,14 +2070,22 @@
           <div class="step-num">1</div>
           <div class="step-body">
             <div class="step-title">結帳前確認金額</div>
-            <div class="step-desc">同一店家、同一天消費滿¥5,000（未稅）才能退稅，結帳前先跟店員說「免税でお願いします」（menzei de onegaishimasu）。</div>
+            <div class="step-desc">同一店家、同一天消費滿¥5,000（未稅）才能退稅，結帳前先跟店員說「免税でお願いします」（menzei de onegaishimasu）。<strong>退稅只能在購買當下辦理</strong>，事後或隔天回去都無法補辦，法律規定不可以隔天辦理。</div>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num">2</div>
           <div class="step-body">
-            <div class="step-title">出示護照</div>
-            <div class="step-desc">店員會掃描或登記護照資料，退稅紀錄會同步到日本海關系統，結帳金額直接折抵約10%，不用另外跑窗口。</div>
+            <div class="step-title">出示護照結帳</div>
+            <div class="step-desc">店員會掃描或登記護照資料，退稅紀錄同步到日本海關系統。付款方式因店家系統而異，詳見下方對照表。</div>
+            <table class="cash-table eval-table" style="margin-top:.9rem;">
+              <tr><th>付款方式</th><th>實際情況</th></tr>
+              <tr><td>現金／刷卡（當場折扣制）</td><td>絕大多數連鎖店與百貨（AEON、藥妝店等）都是這種：結帳金額<strong>直接扣除約10%</strong>，你付的就是折扣後的金額，現金付跟刷卡付結果一樣，不用等退款</td></tr>
+              <tr><td>現金（先收後退制）</td><td>少數傳統店家會先收「含稅全額」現金，再當場找零退還免稅金額給你，等於還是當場拿到錢，只是多一道手續</td></tr>
+              <tr><td>刷卡（先收後退制）</td><td>少數店家會先刷「含稅全額」，退稅金額<strong>另外退回你的信用卡</strong>，通常要等數天到數週才會實際出現在帳單上，不是當場折抵</td></tr>
+              <tr><td>刷卡結帳的小陷阱</td><td>刷卡機若跳出「要用日圓結算還是台幣結算」，<strong>務必選日圓（JPY）</strong>；選台幣通常會被收單行多收一筆貨幣轉換手續費（DCC），實際換算會比較不划算</td></tr>
+            </table>
+            <p class="cash-note" style="margin-top:.6rem;">部分店家會在退稅金額中酌收約1–2%手續費，所以實際退稅可能略低於10%，這跟付現或刷卡無關，是店家個別政策。信用卡持卡人姓名建議跟護照拼音一致，避免結帳時被要求多解釋。</p>
           </div>
         </div>
         <div class="step-item">
@@ -2331,7 +2363,11 @@
       </div>
 
       <ul class="expense-list" id="expList"></ul>
-      <button id="expClearBtn" class="expense-clear-btn">清空全部紀錄</button>
+      <div class="expense-btn-row">
+        <button id="expExportBtn" class="expense-export-btn">📋 匯出文字（複製到剪貼簿）</button>
+        <button id="expClearBtn" class="expense-clear-btn">清空全部紀錄</button>
+      </div>
+      <p class="expense-export-hint" id="expExportHint" style="display:none;">已複製！可以貼到手機備忘錄或LINE跟自己對話存起來。</p>
     </div>
   </div>
 </section>
@@ -2854,6 +2890,8 @@
     const noteInput = document.getElementById('expNote');
     const addBtn = document.getElementById('expAddBtn');
     const clearBtn = document.getElementById('expClearBtn');
+    const exportBtn = document.getElementById('expExportBtn');
+    const exportHint = document.getElementById('expExportHint');
     const listEl = document.getElementById('expList');
     const spentEl = document.getElementById('expSpent');
     const remainEl = document.getElementById('expRemain');
@@ -2912,6 +2950,55 @@
     clearBtn.addEventListener('click', () => {
       if (entries.length === 0) return;
       if (confirm('確定要清空所有花費紀錄嗎？')) { entries = []; render(); }
+    });
+
+    exportBtn.addEventListener('click', () => {
+      const total = entries.reduce((sum, e) => sum + e.amount, 0);
+      const budget = parseFloat(budgetInput.value);
+      const now = new Date();
+      const dateStr = now.getFullYear() + '/' + String(now.getMonth()+1).padStart(2,'0') + '/' + String(now.getDate()).padStart(2,'0')
+        + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+
+      let text = '【岡山四國五日遊｜花費紀錄】\n';
+      text += '匯出時間：' + dateStr + '\n\n';
+      text += '預算：' + (budget ? '¥' + budget.toLocaleString() : '未設定') + '\n';
+      text += '已花費：¥' + total.toLocaleString() + '\n';
+      if (budget) { text += '剩餘：¥' + (budget - total).toLocaleString() + '\n'; }
+      text += '\n────────────────\n';
+      if (entries.length === 0) {
+        text += '（尚無紀錄）\n';
+      } else {
+        entries.forEach((e, i) => {
+          text += (i+1) + '. ' + (e.note || '未命名項目') + '　¥' + e.amount.toLocaleString() + '\n';
+        });
+      }
+      text += '────────────────\n';
+      text += '共 ' + entries.length + ' 筆紀錄';
+
+      const showHint = () => {
+        exportHint.classList.add('show');
+        exportHint.style.display = 'block';
+        setTimeout(() => exportHint.classList.remove('show'), 2500);
+      };
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(showHint).catch(() => {
+          fallbackCopy(text); showHint();
+        });
+      } else {
+        fallbackCopy(text); showHint();
+      }
+
+      function fallbackCopy(t){
+        const ta = document.createElement('textarea');
+        ta.value = t;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch(e) {}
+        document.body.removeChild(ta);
+      }
     });
 
     render();
