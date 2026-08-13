@@ -670,8 +670,10 @@
     margin:0 0 1.1rem;
     padding-bottom:.6rem;
     border-bottom:2px solid var(--momiji);
+    display:none; /* 平常隱藏，只在列印時顯示，見 @media print 規則 */
   }
   @media (max-width:640px){ .pack-grid{ grid-template-columns:1fr; } .pack-grid > div[style]{ grid-column:auto !important; } }
+  .pack-tab-content{ position:relative; }
 
   /* ---------- EMERGENCY CARD ---------- */
   .emergency-card{
@@ -1202,6 +1204,15 @@
     .collapsible, .faq-a{ max-height:none !important; padding:0 1.2rem 1rem !important; }
     .prep-grid{ display:grid !important; }
     .prep-grid[data-group]{ display:grid !important; margin-bottom:1.5rem; }
+    .pack-grid[data-pack-group]{ display:grid !important; margin-bottom:1.5rem; }
+    .pack-subhead{
+      display:block !important;
+      font-family:'Noto Serif TC',serif;
+      font-weight:700;
+      font-size:1.05rem;
+      margin:1.6rem 0 .8rem;
+      color:var(--ai-deep);
+    }
 
     /* 地圖是互動元件，列印只能印出當下選取的那一天 */
     .map-print-note{
@@ -1943,8 +1954,14 @@
     <h2>行李打包檢查清單</h2>
     <p class="sect-sub">出發前對著這份清單勾一輪，勾完再關行李箱。分成隨身手提跟託運兩大類，對照登機規定不會漏東西。</p>
 
+    <div class="prep-tabs pack-tabs" id="packTabs">
+      <button class="prep-tab active" data-pack-group="carry">🎒 隨身手提行李</button>
+      <button class="prep-tab" data-pack-group="checked">🧳 託運行李</button>
+    </div>
+
+    <div class="pack-tab-content" id="packTabContent">
     <h3 class="pack-subhead">🎒 隨身手提行李</h3>
-    <div class="pack-grid">
+    <div class="pack-grid" data-pack-group="carry">
       <div class="tag-card tag-gold">
         <span class="tag-label" style="background:rgba(184,137,43,0.16); color:#8A5A15;">證件與金錢</span>
         <ul class="packlist">
@@ -1999,7 +2016,7 @@
     </div>
 
     <h3 class="pack-subhead">🧳 託運行李</h3>
-    <div class="pack-grid">
+    <div class="pack-grid" data-pack-group="checked" style="display:none;">
       <div class="tag-card tag-gold">
         <span class="tag-label" style="background:rgba(184,137,43,0.16); color:#8A5A15;">衣物寢具</span>
         <ul class="packlist">
@@ -2051,6 +2068,7 @@
           <li>備用可折疊手提袋：戰利品買太多、行李箱裝不下時，可當額外一件隨身行李（注意仍需符合手提行李件數與重量限制）</li>
         </ul>
       </div>
+    </div>
     </div>
 
     <div class="note" style="margin-top:1.5rem;">
@@ -2802,6 +2820,14 @@
         if (tabBtn) { tabBtn.click(); needsWait = true; }
       }
 
+      // 1b. 如果在打包清單的隱藏頁籤裡（隨身／託運），先切換到該頁籤
+      const hiddenPackGrid = target.closest('.pack-grid[data-pack-group]');
+      if (hiddenPackGrid && getComputedStyle(hiddenPackGrid).display === 'none') {
+        const packGroup = hiddenPackGrid.getAttribute('data-pack-group');
+        const packTabBtn = document.querySelector('.prep-tab[data-pack-group="' + packGroup + '"]');
+        if (packTabBtn) { packTabBtn.click(); needsWait = true; }
+      }
+
       // 2. 如果在FAQ收合的答案裡，先展開該FAQ項目
       const faqItem = target.closest('.faq-item');
       if (faqItem && !faqItem.classList.contains('open')) {
@@ -3032,6 +3058,51 @@
     });
 
     render();
+  })();
+
+  // ---------- 打包清單 隨身／託運頁籤（固定高度，下方提示框不跳動） ----------
+  (function(){
+    const tabs = document.querySelectorAll('#packTabs .prep-tab');
+    const groups = document.querySelectorAll('.pack-grid[data-pack-group]');
+    const wrapper = document.getElementById('packTabContent');
+    if (!wrapper) return;
+
+    function lockHeight(){
+      // 量測兩個頁籤內容各自的實際高度，取較高的那個當作容器固定高度
+      let maxH = 0;
+      groups.forEach(grp => {
+        const prevDisplay = grp.style.display;
+        // 暫時強制顯示但不影響版面（visibility hidden + position absolute），量完高度再還原
+        grp.style.display = 'grid';
+        grp.style.visibility = 'hidden';
+        grp.style.position = 'absolute';
+        grp.style.width = wrapper.offsetWidth + 'px';
+        maxH = Math.max(maxH, grp.offsetHeight);
+        grp.style.position = '';
+        grp.style.width = '';
+        grp.style.visibility = '';
+        grp.style.display = prevDisplay;
+      });
+      wrapper.style.minHeight = maxH + 'px';
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const g = tab.getAttribute('data-pack-group');
+        groups.forEach(grp => {
+          grp.style.display = (grp.getAttribute('data-pack-group') === g) ? 'grid' : 'none';
+        });
+      });
+    });
+
+    lockHeight();
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(lockHeight, 200);
+    });
   })();
 
   // ---------- 行前準備 分類頁籤 ----------
