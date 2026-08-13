@@ -599,6 +599,21 @@
     color:var(--washi);
     padding-top:.7rem;
   }
+  /* 淺色底（paper／warm）情境下，cash-table 預設的淺色文字要換成深色，避免看不見 */
+  .paper .cash-table td, .warm .cash-table td{
+    color:var(--ink);
+    border-bottom:1px solid var(--paper-line);
+  }
+  .paper .cash-table th, .warm .cash-table th{
+    border-bottom:1px solid var(--paper-line);
+  }
+  .paper .cash-table tr.cash-total td, .warm .cash-table tr.cash-total td{
+    color:var(--ai-deep);
+  }
+  .paper .pb-sub, .warm .pb-sub{ opacity:.55; }
+  .paper .pb-ok, .warm .pb-ok{ color:#4B7A3A; }
+  .paper .pb-warn, .warm .pb-warn{ color:#8A5A15; }
+  .paper .pb-no, .warm .pb-no{ color:var(--momiji-deep); }
   /* 用於長句評估內容的表格，取消強制不換行與靠右對齊 */
   .cash-table.eval-table{ table-layout:fixed; }
   .cash-table.eval-table td:last-child, .cash-table.eval-table th:last-child{
@@ -623,6 +638,7 @@
     line-height:1.8;
   }
   .cash-note b{ color:var(--kincha); }
+  .paper .cash-note, .warm .cash-note{ color:rgba(30,36,48,0.75); }
 
   .powerbank-table{
     width:100%; border-collapse:collapse; font-size:.83rem; margin-top:.8rem;
