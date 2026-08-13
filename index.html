@@ -465,7 +465,7 @@
   .prep-tab{
     font-family:'Noto Serif TC',serif;
     font-size:.85rem;
-    padding:.5rem 1.2rem;
+    padding:.5rem 1.15rem;
     border:1px solid rgba(243,237,224,0.25);
     background:transparent;
     color:rgba(243,237,224,0.65);
@@ -485,20 +485,29 @@
   .expand-toggle{
     width:100%;
     display:flex; align-items:center; justify-content:space-between;
-    background:rgba(243,237,224,0.06);
-    border:1px solid rgba(243,237,224,0.2);
+    background:none;
+    border:none;
+    border-top:1px dashed rgba(243,237,224,0.25);
     color:var(--kincha);
-    font-family:'Noto Sans TC',sans-serif;
-    font-size:.82rem;
-    padding:.6rem .9rem;
+    font-family:'Noto Serif TC',serif;
+    font-weight:700;
+    font-size:.85rem;
+    padding:.9rem 0 0;
     margin-top:.9rem;
-    border-radius:3px;
     cursor:pointer;
-    transition:background .2s;
+    transition:opacity .2s;
   }
-  .expand-toggle:hover{ background:rgba(243,237,224,0.12); }
-  .expand-toggle .et-arrow{ transition:transform .25s; }
+  .expand-toggle:hover{ opacity:.7; background:none; }
+  .expand-toggle .et-arrow{
+    transition:transform .25s;
+    font-weight:400;
+    font-size:1rem;
+  }
   .expand-toggle.open .et-arrow{ transform:rotate(180deg); }
+  .paper .expand-toggle, .warm .expand-toggle{
+    color:var(--momiji-deep);
+    border-top:1px dashed var(--paper-line);
+  }
   .collapsible{
     max-height:0;
     overflow:hidden;
@@ -986,7 +995,7 @@
   .map-tab{
     font-family:'Noto Serif TC',serif;
     font-size:.85rem;
-    padding:.5rem 1.1rem;
+    padding:.5rem 1.15rem;
     border:1px solid var(--paper-line);
     background:var(--washi);
     color:var(--ink);
@@ -1682,7 +1691,7 @@
 </section>
 
 <!-- LOGISTICS: 航班與每日住宿餐食 -->
-<section class="sect paper" id="logistics">
+<section class="sect warm" id="logistics">
   <div class="sect-inner">
     <div class="sect-eyebrow">FLIGHTS & STAYS</div>
     <h2>航班與每日住宿餐食</h2>
@@ -2378,7 +2387,7 @@
 </div>
 
 <!-- EXPENSE TRACKER -->
-<section class="sect paper" id="expenses">
+<section class="sect warm" id="expenses">
   <div class="sect-inner">
     <div class="sect-eyebrow">EXPENSE TRACKER</div>
     <h2>簡易花費追蹤</h2>
