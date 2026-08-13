@@ -710,6 +710,41 @@
   }
   .fx-status.fx-manual{ color:var(--kincha); }
 
+  /* ---------- 雙向匯率換算器 ---------- */
+  .fx-convert-box{
+    display:flex; align-items:flex-end; gap:1rem; flex-wrap:wrap;
+    margin-bottom:.4rem;
+  }
+  .fx-convert-field{ flex:1; min-width:9rem; }
+  .fx-convert-field label{
+    display:block; font-size:.76rem; color:rgba(243,237,224,0.6); margin-bottom:.35rem;
+  }
+  .fx-input-wrap{
+    display:flex; align-items:center;
+    background:rgba(243,237,224,0.08);
+    border:1px solid rgba(243,237,224,0.3);
+    border-radius:3px;
+    padding:0 .6rem;
+  }
+  .fx-prefix{
+    font-family:'Noto Serif TC',serif;
+    color:var(--kincha);
+    font-size:.9rem;
+    margin-right:.35rem;
+  }
+  .fx-input-wrap input{
+    background:none; border:none; color:var(--washi);
+    font-family:'Noto Serif TC',serif; font-size:1.05rem;
+    padding:.55rem 0; width:100%; outline:none;
+  }
+  .fx-convert-arrow{
+    color:var(--kincha); font-size:1.2rem; padding-bottom:.6rem; flex-shrink:0;
+  }
+  @media (max-width:480px){
+    .fx-convert-box{ flex-direction:column; align-items:stretch; }
+    .fx-convert-arrow{ align-self:center; padding:0; transform:rotate(90deg); }
+  }
+
   /* ---------- EXPENSE TRACKER ---------- */
   .expense-box{
     border:1px solid var(--paper-line);
@@ -2148,6 +2183,26 @@
           <input type="number" id="fxRate" value="0.22" step="0.001" min="0.1" max="0.5">
           <span id="fxStatus" class="fx-status">抓取即時匯率中…</span>
         </div>
+
+        <div class="fx-convert-box">
+          <div class="fx-convert-field">
+            <label for="fxJPY">日圓 JPY</label>
+            <div class="fx-input-wrap">
+              <span class="fx-prefix">¥</span>
+              <input type="number" id="fxJPY" placeholder="輸入日圓金額" min="0" step="100">
+            </div>
+          </div>
+          <div class="fx-convert-arrow">⇄</div>
+          <div class="fx-convert-field">
+            <label for="fxTWD">新台幣 TWD</label>
+            <div class="fx-input-wrap">
+              <span class="fx-prefix">NT$</span>
+              <input type="number" id="fxTWD" placeholder="輸入台幣金額" min="0" step="10">
+            </div>
+          </div>
+        </div>
+        <p class="cash-note" style="margin-top:.5rem;">在任一欄位輸入金額，另一邊會自動換算，方便你出發前抓要換多少現金。</p>
+
         <table class="cash-table" id="fxTable">
           <tr><th>日圓</th><th>約合台幣</th></tr>
           <tr><td>¥1,000</td><td data-jpy="1000"></td></tr>
@@ -2521,6 +2576,9 @@
     const statusEl = document.getElementById('fxStatus');
     if (!rateInput) return;
     const cells = document.querySelectorAll('#fxTable td[data-jpy]');
+    const jpyInput = document.getElementById('fxJPY');
+    const twdInput = document.getElementById('fxTWD');
+    let lastEdited = null; // 'jpy' 或 'twd'，記錄最後是哪個欄位在輸入，換匯率時才知道要重算哪邊
 
     function update(){
       const rate = parseFloat(rateInput.value) || 0;
@@ -2529,12 +2587,36 @@
         const twd = Math.round(jpy * rate);
         td.textContent = 'NT$ ' + twd.toLocaleString();
       });
+      // 匯率變動時，依最後編輯的欄位重新換算雙向計算機
+      if (jpyInput && twdInput && rate > 0) {
+        if (lastEdited === 'twd' && twdInput.value) {
+          jpyInput.value = Math.round(parseFloat(twdInput.value) / rate);
+        } else if (jpyInput.value) {
+          twdInput.value = Math.round(parseFloat(jpyInput.value) * rate);
+        }
+      }
     }
     rateInput.addEventListener('input', () => {
       update();
       if (statusEl) { statusEl.textContent = '手動調整'; statusEl.className = 'fx-status fx-manual'; }
     });
     update();
+
+    // 雙向換算計算機
+    if (jpyInput && twdInput) {
+      jpyInput.addEventListener('input', () => {
+        lastEdited = 'jpy';
+        const rate = parseFloat(rateInput.value) || 0;
+        if (jpyInput.value === '') { twdInput.value = ''; return; }
+        twdInput.value = Math.round(parseFloat(jpyInput.value) * rate);
+      });
+      twdInput.addEventListener('input', () => {
+        lastEdited = 'twd';
+        const rate = parseFloat(rateInput.value) || 0;
+        if (twdInput.value === '' || rate === 0) { jpyInput.value = ''; return; }
+        jpyInput.value = Math.round(parseFloat(twdInput.value) / rate);
+      });
+    }
 
     // 嘗試抓即時匯率（開放式免金鑰 API），失敗則沿用預設值
     fetch('https://open.er-api.com/v6/latest/JPY')
