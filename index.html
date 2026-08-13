@@ -319,6 +319,38 @@
     background:rgba(184,137,43,0.08);
   }
 
+  .mini-alert{
+    margin-top:1rem;
+    font-size:.82rem;
+    padding:.6rem .9rem;
+    background:rgba(184,137,43,0.1);
+    border:1px dashed var(--kincha);
+    border-radius:4px;
+    color:#8A5A15;
+  }
+  .ink .mini-alert{ color:#E3C173; background:rgba(184,137,43,0.14); }
+
+  .context-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:.3rem;
+    font-family:'Noto Sans TC',sans-serif;
+    font-size:.72rem;
+    font-weight:700;
+    padding:.15rem .6rem;
+    border-radius:999px;
+    margin-left:.7rem;
+    vertical-align:middle;
+    background:rgba(184,137,43,0.14);
+    color:#8A5A15;
+    border:1px solid rgba(184,137,43,0.35);
+  }
+  .context-tag.night{
+    background:rgba(30,36,48,0.85);
+    color:#E3C173;
+    border-color:rgba(30,36,48,0.85);
+  }
+
   /* signature: seasonal thread motif between days */
   .thread{
     position:relative;
@@ -1480,6 +1512,7 @@
           <p>山頂展望台俯瞰尾道港與瀨戶內海全景，是尾道最經典的一張「空拍感」照片。建議上午～中午前順光時段前往，逆光會讓海面反光過曝。</p>
         </div>
       </div>
+      <p class="mini-alert">⚠️ 山頂展望台「PEAK」只有紀念品店，沒有超商；想買水或零食，建議在山下尾道站前商店街先買好再搭纜車上山。</p>
     </div>
 
     <div class="note">廣島本通商店街這站會發放代金 2000 日幣方便逛街，記得留意店家是否收此券。當日餐食含日式旬彩套餐、廣島燒套餐。</div>
@@ -2225,6 +2258,36 @@
           <li>勤洗手、吃熟食、喝瓶裝水，必要時配戴口罩</li>
         </ul>
       </div>
+    </div>
+
+    <div class="spot" style="margin-bottom:2rem;">
+      <div class="spot-name">各景點附近有超商嗎<span class="context-tag">☀️ 白天景點版</span></div>
+      <table class="cash-table eval-table">
+        <tr><th>天數／地點</th><th>附近有超商嗎</th></tr>
+        <tr><td>D1 岡山機場／AEON MALL</td><td>✅ 有。機場航廈內、AEON MALL周邊都很多，市區密度高</td></tr>
+        <tr><td>D2 尾道本通商店街</td><td>✅ 有。尾道車站周邊商圈，超商密集</td></tr>
+        <tr><td>D2 千光寺公園（山頂）</td><td>⚠️ <strong>沒有</strong>。山頂展望台「PEAK」只有紀念品店，沒有超商，要買東西建議在山下尾道市區先買好再上山</td></tr>
+        <tr><td>D2 廣島本通商店街</td><td>✅ 有。廣島市中心商圈，超商密集</td></tr>
+        <tr><td>D3 宮島（嚴島神社・表參道）</td><td>✅ 有，2023年才開幕。宮島棧橋出來就看得到LAWSON；宮島口候船大廳一樓也有一間7-11</td></tr>
+        <tr><td>D3 松山城纜車／道後溫泉</td><td>✅ 有。松山市中心，道後溫泉商店街周邊超商不少</td></tr>
+        <tr><td>D4 金刀比羅宮表參道</td><td>✅ 有。琴平車站周邊有7-11跟LAWSON，距參道入口徒步約5–10分鐘</td></tr>
+        <tr><td>D4 栗林公園</td><td>✅ 有。高松市中心，公園周邊都市化程度高</td></tr>
+        <tr><td>D5 倉敷美觀地區</td><td>✅ 有。倉敷車站周邊商圈，超商密集</td></tr>
+      </table>
+      <p class="cash-note" style="margin-top:.6rem;">整趟行程唯一要注意的只有<strong>千光寺公園山頂</strong>，其他地方基本上都不用擔心，日本超商密度本來就高，這趟行程幾乎都在市區或車站周邊活動。</p>
+    </div>
+
+    <div class="spot" style="margin-bottom:2rem;">
+      <div class="spot-name">晚上住宿飯店周邊超商方便嗎<span class="context-tag night">🌙 夜間住宿版</span></div>
+      <table class="cash-table eval-table">
+        <tr><th>天數／住宿區域</th><th>晚上溜出去逛超商方便嗎</th></tr>
+        <tr><td>D1 岡山市區／倉敷</td><td>✅ 候選飯店都在車站周邊或市中心，24小時超商密度很高，很方便</td></tr>
+        <tr><td>D2 廣島市區</td><td>✅ 候選飯店集中在市中心（八丁堀、紙屋町、廣島站周邊），這區超商多到不用特別找</td></tr>
+        <tr><td>D3 道後溫泉／松山市區</td><td>✅ 道後溫泉本身是成熟的溫泉街，周邊有超商；松山市區的飯店更不用說</td></tr>
+        <tr><td>D4 高松市區／倉敷</td><td>✅ 高松車站、市中心一帶飯店，超商密集</td></tr>
+      </table>
+      <p class="cash-note" style="margin-top:.6rem;">候選飯店清單幾乎都是「車站前」或「市中心」等級（團體旅遊選飯店的常見邏輯，方便集合與交通），這種等級的日本城市中心24小時超商密度非常高，晚上想買點宵夜飲料，走幾分鐘就能找到。精確距離要等確定入住哪一間飯店才能查，目前都還是同級旅館候選清單。</p>
+      <div class="mini-alert" style="margin-top:.8rem;">🌙 半夜出門小提醒：記得帶<strong>房卡</strong>（不然回不了房間）；手機存好<strong>飯店地址跟名稱</strong>（萬一迷路要叫車或問路）；道後溫泉這種傳統溫泉街，部分商店晚上會提早打烊，超商營業時間才是穩定的。</div>
     </div>
 
     <div class="emergency-card">
