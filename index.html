@@ -439,6 +439,30 @@
   .stay-table .meal-b{ color:var(--matcha); }
   .stay-table .meal-l,.meal-d{ color:var(--momiji-deep); }
 
+  /* ---------- 自理餐點 特殊標示 ---------- */
+  .self-arrange{
+    display:inline-flex;
+    align-items:center;
+    gap:.3rem;
+    background:rgba(184,137,43,0.14);
+    color:#8A5A15;
+    border:1px solid rgba(184,137,43,0.4);
+    border-radius:4px;
+    padding:.2rem .55rem;
+    font-size:.78rem;
+    font-weight:700;
+    font-family:'Noto Sans TC',sans-serif;
+    white-space:nowrap;
+  }
+  .self-arrange::before{ content:"🍴"; font-size:.85em; }
+  .self-arrange-note{
+    display:block;
+    font-size:.78rem;
+    opacity:.75;
+    margin-top:.3rem;
+    font-weight:400;
+  }
+
   /* ---------- CHECKLIST (prep) ---------- */
   .prep-grid{
     display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.3rem;
@@ -1718,7 +1742,7 @@
         <th>天數</th><th>早餐</th><th>午餐</th><th>晚餐</th><th>當晚住宿（同級旅館輪替）</th>
       </tr>
       <tr>
-        <td class="dcell">D1</td><td class="meal-b">－</td><td class="meal-l">機上簡餐</td><td class="meal-d">敬請自理</td>
+        <td class="dcell">D1</td><td class="meal-b">－</td><td class="meal-l">機上簡餐</td><td class="meal-d"><span class="self-arrange">自理</span></td>
         <td>岡山國際／岡山VIA INN／岡山華盛頓／DAIWA ROYNET岡山站前／倉敷皇家藝術／鷲羽山下電 等同級</td>
       </tr>
       <tr>
@@ -1730,11 +1754,11 @@
         <td>大江戶溫泉物語道後／奧道後壹湯之守／松山日和／松山全日空／今治國際 等同級</td>
       </tr>
       <tr>
-        <td class="dcell">D4</td><td class="meal-b">飯店早餐</td><td class="meal-l">骨付雞料理／讚岐烏龍麵風味料理／日式鍋物料理（依安排）</td><td class="meal-d">方便逛街，敬請自理</td>
+        <td class="dcell">D4</td><td class="meal-b">飯店早餐</td><td class="meal-l">骨付雞料理／讚岐烏龍麵風味料理／日式鍋物料理（依安排）</td><td class="meal-d"><span class="self-arrange">自理</span><span class="self-arrange-note">方便逛街</span></td>
         <td>高松中央公園前DORMY INN／高松國際／高松PEARL GARDEN／倉敷DORMY INN 等同級</td>
       </tr>
       <tr>
-        <td class="dcell">D5</td><td class="meal-b">飯店早餐</td><td class="meal-l">敬請自理</td><td class="meal-d">機上餐食</td>
+        <td class="dcell">D5</td><td class="meal-b">飯店早餐</td><td class="meal-l"><span class="self-arrange">自理</span></td><td class="meal-d">機上餐食</td>
         <td>溫暖的家 🏠</td>
       </tr>
     </table>
