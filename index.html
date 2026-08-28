@@ -33,6 +33,7 @@
     font-weight:400;
     line-height:1.75;
     -webkit-font-smoothing:antialiased;
+    transition:background-color .35s ease, color .35s ease;
   }
 
   h1,h2,h3,.disp{
@@ -446,6 +447,7 @@
 
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior:auto; }
+    body{ transition:none; }
   }
 
   /* ---------- SECTION HEADERS (shared) ---------- */
@@ -842,6 +844,11 @@
     border:1px solid rgba(243,237,224,0.3);
     border-radius:3px;
     padding:0 .6rem;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .fx-input-wrap:focus-within{
+    border-color:var(--kincha);
+    box-shadow:0 0 0 2px rgba(184,137,43,0.25);
   }
   .fx-prefix{
     font-family:'Noto Serif TC',serif;
@@ -882,6 +889,19 @@
     font-size:.95rem;
     width:9rem;
     border-radius:3px;
+    transition:border-color .2s;
+  }
+  .expense-input-row input.input-error{
+    border-color:var(--momiji);
+    animation:inputShake .32s ease;
+  }
+  @keyframes inputShake{
+    0%,100%{ transform:translateX(0); }
+    25%{ transform:translateX(-4px); }
+    75%{ transform:translateX(4px); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .expense-input-row input.input-error{ animation:none; }
   }
   .expense-summary{
     display:flex; gap:2.5rem; margin-bottom:.8rem;
@@ -1189,11 +1209,71 @@
   #themeToggle{ bottom:78px; }
   #printBtn{ bottom:134px; }
 
-  body.night-mode{ filter:invert(1) hue-rotate(180deg); background:#111; }
+  /* 深色模式：改用獨立配色變數覆寫，而非整頁反轉，讓楓紅／金茶／抹茶等色彩維持設計語意 */
+  /* ---------- 自訂確認框（取代原生 confirm()）---------- */
+  .confirm-overlay{
+    position:fixed; inset:0; z-index:1200;
+    background:rgba(20,33,59,0.55);
+    display:flex; align-items:center; justify-content:center;
+    padding:1.2rem;
+    opacity:0; visibility:hidden;
+    transition:opacity .2s;
+  }
+  .confirm-overlay.show{ opacity:1; visibility:visible; }
+  .confirm-overlay[hidden]{ display:flex; }
+  .confirm-box{
+    background:var(--washi);
+    color:var(--ink);
+    max-width:22rem;
+    width:100%;
+    padding:1.6rem 1.5rem 1.3rem;
+    border-radius:4px;
+    border:1px solid var(--paper-line);
+    box-shadow:0 12px 40px rgba(20,33,59,0.35);
+    transform:translateY(8px) scale(.98);
+    transition:transform .2s;
+  }
+  .confirm-overlay.show .confirm-box{ transform:translateY(0) scale(1); }
+  .confirm-msg{
+    font-family:'Noto Serif TC',serif;
+    font-size:.98rem;
+    line-height:1.7;
+    margin:0 0 1.3rem;
+  }
+  .confirm-btn-row{ display:flex; justify-content:flex-end; gap:.7rem; }
+  .confirm-btn{
+    font-family:'Noto Serif TC',serif;
+    font-size:.87rem;
+    padding:.55rem 1.3rem;
+    border-radius:3px;
+    cursor:pointer;
+    border:1px solid var(--paper-line);
+  }
+  .confirm-btn-cancel{ background:none; color:var(--ink); opacity:.7; }
+  .confirm-btn-cancel:hover{ opacity:1; border-color:var(--ink); }
+  .confirm-btn-ok{ background:var(--momiji); color:var(--washi); border-color:var(--momiji); font-weight:700; }
+  .confirm-btn-ok:hover{ background:var(--momiji-deep); }
+  @media (prefers-reduced-motion: reduce){
+    .confirm-overlay, .confirm-box{ transition:none; }
+  }
+
+  body.night-mode{
+    --ai-deep: #0B1526;
+    --ai-mid: #16223B;
+    --ai-line: #2C4066;
+    --washi: #1C1A16;
+    --washi-warm: #24211A;
+    --momiji: #E2734A;
+    --momiji-deep: #C85A34;
+    --kincha: #DDB157;
+    --matcha: #93A46B;
+    --ink: #EAE3D3;
+    --paper-line: rgba(234,227,211,0.14);
+  }
   body.night-mode #leaflet-map,
   body.night-mode .leaflet-container,
   body.night-mode .leaflet-tile-pane{
-    filter:invert(1) hue-rotate(180deg);
+    filter:brightness(.72) contrast(1.05) saturate(.85);
   }
 
   /* ---------- CHECKLIST ITEMS ---------- */
@@ -1340,7 +1420,7 @@
     .faq-a.open{ padding-bottom:1rem; }
     .prep-tabs{ gap:.4rem; }
     .prep-tab{ font-size:.78rem; padding:.42rem .9rem; }
-    #themeToggle, #printBtn, #backToTop{ width:42px; height:42px; font-size:.95rem; }
+    #themeToggle, #printBtn, #backToTop{ width:44px; height:44px; font-size:.95rem; }
     #backToTop{ right:16px; bottom:16px; }
     #themeToggle{ right:16px; bottom:70px; }
     #printBtn{ right:16px; bottom:124px; }
@@ -1386,6 +1466,16 @@
 <button id="backToTop" aria-label="回到頂端" title="回到頂端">↑</button>
 <button id="themeToggle" aria-label="切換護眼模式" title="切換護眼模式">☀️</button>
 <button id="printBtn" aria-label="列印／存成PDF" title="列印／存成PDF">🖨️</button>
+
+<div id="confirmOverlay" class="confirm-overlay" role="alertdialog" aria-modal="true" aria-labelledby="confirmMsg" hidden>
+  <div class="confirm-box">
+    <p id="confirmMsg" class="confirm-msg"></p>
+    <div class="confirm-btn-row">
+      <button id="confirmCancel" class="confirm-btn confirm-btn-cancel">取消</button>
+      <button id="confirmOk" class="confirm-btn confirm-btn-ok">確定</button>
+    </div>
+  </div>
+</div>
 
 <!-- D1 -->
 <section class="day paper" id="d1">
@@ -1801,7 +1891,7 @@
     <h2>地圖總覽</h2>
     <p class="sect-sub">點選天數切換每日路線，點地圖上的標記可看景點說明與 Google 地圖連結。</p>
 
-    <div class="map-tabs" id="mapTabs"></div>
+    <div class="map-tabs" id="mapTabs" role="tablist"></div>
     <p class="map-print-note" style="display:none;">📋 列印小提醒：地圖是互動元件，這張紙只會印出你列印當下選取的那一天。想要五天地圖都印出來，請切換到D1分頁列印一次，再切到D2列印一次，依序完成D1~D5。</p>
     <div class="map-wrap">
       <div id="leaflet-map"></div>
@@ -1879,11 +1969,11 @@
     <h2>行前準備清單</h2>
     <p class="sect-sub" style="color:rgba(243,237,224,0.65);">出發前把這幾件事確認過一輪，現場才不會手忙腳亂。</p>
 
-    <div class="prep-tabs" id="prepTabs">
-      <button class="prep-tab active" data-group="finance">證件財務</button>
-      <button class="prep-tab" data-group="luggage">行李裝備</button>
-      <button class="prep-tab" data-group="comms">通訊入境</button>
-      <button class="prep-tab" data-group="daily">生活小提醒</button>
+    <div class="prep-tabs" id="prepTabs" role="tablist">
+      <button class="prep-tab active" data-group="finance" role="tab" aria-selected="true">證件財務</button>
+      <button class="prep-tab" data-group="luggage" role="tab" aria-selected="false">行李裝備</button>
+      <button class="prep-tab" data-group="comms" role="tab" aria-selected="false">通訊入境</button>
+      <button class="prep-tab" data-group="daily" role="tab" aria-selected="false">生活小提醒</button>
     </div>
 
     <div class="prep-grid" data-group="finance">
@@ -1931,7 +2021,7 @@
           <tr><td>¥50,000</td><td>必要支出＋盡情買現金伴手禮＋留一些備用，較平衡的折衷值</td></tr>
           <tr><td>¥100,000</td><td>偏多，除非打算大量現金購買清酒、和牛等，否則用不完；遠低於日本海關¥1,000,000免申報上限，但遺失風險較高</td></tr>
         </table>
-        <button class="expand-toggle" data-target="dailySpend">
+        <button class="expand-toggle" data-target="dailySpend" aria-expanded="false" aria-controls="dailySpend">
           <span class="et-label">展開查看 ¥50,000 逐日花費分配</span>
           <span class="et-arrow">▾</span>
         </button>
@@ -2101,9 +2191,9 @@
     <h2>行李打包檢查清單</h2>
     <p class="sect-sub">出發前對著這份清單勾一輪，勾完再關行李箱。分成隨身手提跟託運兩大類，對照登機規定不會漏東西。</p>
 
-    <div class="prep-tabs pack-tabs" id="packTabs">
-      <button class="prep-tab active" data-pack-group="carry">🎒 隨身手提行李</button>
-      <button class="prep-tab" data-pack-group="checked">🧳 託運行李</button>
+    <div class="prep-tabs pack-tabs" id="packTabs" role="tablist">
+      <button class="prep-tab active" data-pack-group="carry" role="tab" aria-selected="true">🎒 隨身手提行李</button>
+      <button class="prep-tab" data-pack-group="checked" role="tab" aria-selected="false">🧳 託運行李</button>
     </div>
 
     <div class="pack-tab-content" id="packTabContent">
@@ -2511,39 +2601,39 @@
 
     <div class="faq-list">
       <div class="faq-item">
-        <button class="faq-q">大部分地方可以刷卡嗎？</button>
+        <button class="faq-q" aria-expanded="false">大部分地方可以刷卡嗎？</button>
         <div class="faq-a">AEON MALL、藥妝連鎖、栗林庵這類大型店家可以刷卡；街邊小吃、神社香油錢、部分門票纜車、自理餐大多只收現金，建議帶約¥25,000現金應付這些。</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">要不要先換好日幣，還是可以到當地領現金？</button>
+        <button class="faq-q" aria-expanded="false">要不要先換好日幣，還是可以到當地領現金？</button>
         <div class="faq-a">建議出發前在台灣先換好大部分現金（匯率通常較優），日本當地7-11、LAWSON等超商ATM可跨國提款救急，適合當備用方案而非主要換匯管道。</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">需要帶雨具嗎？</button>
+        <button class="faq-q" aria-expanded="false">需要帶雨具嗎？</button>
         <div class="faq-a">11月瀨戶內海一帶偶有陣雨，建議帶輕便雨衣或折疊傘；尾道本通商店街跟宮島表參道都有遮頂棚，下雨天影響較小。</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">行動電源可以帶多大顆？</button>
+        <button class="faq-q" aria-expanded="false">行動電源可以帶多大顆？</button>
         <div class="faq-a">100Wh（約2.7萬mAh）以下可手提，100–160Wh需航空公司同意且限帶2顆，超過160Wh全面禁止。市售常見的1–2萬mAh行動電源完全沒問題。詳見「行前準備 → 行李裝備」頁籤。</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">保養品可以帶多少？</button>
+        <button class="faq-q" aria-expanded="false">保養品可以帶多少？</button>
         <div class="faq-a">液狀、膠狀保養品（化妝水、乳液、精華液）算液體限制，單瓶100ml以下才能手提，且全部要裝進一個1公升透明夾鏈袋；超過100ml要放託運行李。粉狀、固態彩妝（唇膏、粉餅）不算在此限制內。</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">宮島嚴島神社會不會看不到海上鳥居？</button>
+        <button class="faq-q" aria-expanded="false">宮島嚴島神社會不會看不到海上鳥居？</button>
         <div class="faq-a">會受潮汐影響，漲潮時鳥居如浮在海上、退潮則可走到鳥居下方近拍。建議出發前查11/20當天廣島潮汐時刻，若遇漲潮無法入內參拜，行程會退費300日幣。</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">要幫團員買什麼日本才有的必買伴手禮？</button>
+        <button class="faq-q" aria-expanded="false">要幫團員買什麼日本才有的必買伴手禮？</button>
         <div class="faq-a">岡山必買NO.1是廣榮堂「吉備糰子」，倉敷還有桃子甜點禮盒、TANE紙膠帶；金刀比羅宮表參道可以買讚岐烏龍麵乾麵、加美代飴；宮島紅葉饅頭則是廣島代表性伴手禮。</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">網頁內容可以印出來帶著走嗎？</button>
+        <button class="faq-q" aria-expanded="false">網頁內容可以印出來帶著走嗎？</button>
         <div class="faq-a">可以，右下角🖨️按鈕點下去會叫出列印/存PDF視窗，深色底的段落會自動轉成白底黑字省墨水，適合出發前印一份紙本備用。</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">出發前忘記帶東西怎麼辦？</button>
+        <button class="faq-q" aria-expanded="false">出發前忘記帶東西怎麼辦？</button>
         <div class="faq-a">別緊張，日本超商（7-11、LAWSON、FamilyMart）跟藥妝店幾乎能救援大部分日常用品：雨傘、免洗內褲、充電線、豆腐頭、常備藥（止痛藥、感冒藥、OK繃）、旅行組洗面乳/化妝水/乳液、牙刷牙膏、刮鬍刀、隱形眼鏡藥水，甚至還能買到暖暖包。真正麻煩的只有護照、機票／訂房證明這類證件文件，這幾樣出發前務必再三確認。</div>
       </div>
     </div>
@@ -2765,9 +2855,15 @@
     const btn = document.createElement('button');
     btn.className = 'map-tab' + (idx === 0 ? ' active' : '');
     btn.textContent = d.label;
+    btn.setAttribute('role', 'tab');
+    btn.setAttribute('aria-selected', idx === 0 ? 'true' : 'false');
     btn.onclick = () => {
-      document.querySelectorAll('.map-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.map-tab').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
       btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
       renderDay(idx);
     };
     tabWrap.appendChild(btn);
@@ -2905,6 +3001,43 @@
       });
   })();
 
+  // ---------- 自訂確認框（取代原生 confirm()） ----------
+  function customConfirm(message){
+    return new Promise((resolve) => {
+      const overlay = document.getElementById('confirmOverlay');
+      const msgEl = document.getElementById('confirmMsg');
+      const okBtn = document.getElementById('confirmOk');
+      const cancelBtn = document.getElementById('confirmCancel');
+      if (!overlay) { resolve(window.confirm(message)); return; }
+
+      msgEl.textContent = message;
+      overlay.hidden = false;
+      requestAnimationFrame(() => overlay.classList.add('show'));
+      const prevFocus = document.activeElement;
+      okBtn.focus();
+
+      function cleanup(result){
+        overlay.classList.remove('show');
+        setTimeout(() => { overlay.hidden = true; }, 200);
+        okBtn.removeEventListener('click', onOk);
+        cancelBtn.removeEventListener('click', onCancel);
+        overlay.removeEventListener('click', onOverlayClick);
+        document.removeEventListener('keydown', onKeydown);
+        if (prevFocus && prevFocus.focus) prevFocus.focus();
+        resolve(result);
+      }
+      function onOk(){ cleanup(true); }
+      function onCancel(){ cleanup(false); }
+      function onOverlayClick(e){ if (e.target === overlay) cleanup(false); }
+      function onKeydown(e){ if (e.key === 'Escape') cleanup(false); }
+
+      okBtn.addEventListener('click', onOk);
+      cancelBtn.addEventListener('click', onCancel);
+      overlay.addEventListener('click', onOverlayClick);
+      document.addEventListener('keydown', onKeydown);
+    });
+  }
+
   // ---------- 展開／收合卡片（用實際內容高度，動畫才會順） ----------
   function smoothToggle(target, onOpen){
     const isOpen = target.classList.contains('open');
@@ -2935,6 +3068,7 @@
       btn.addEventListener('click', () => {
         smoothToggle(target, (isOpen) => {
           btn.classList.toggle('open', isOpen);
+          btn.setAttribute('aria-expanded', String(isOpen));
           btn.querySelector('.et-label').textContent = isOpen
             ? '收合逐日花費分配'
             : '展開查看 ¥50,000 逐日花費分配';
@@ -3081,10 +3215,34 @@
 
   // ---------- 地圖跟每日行程連動 ----------
   (function(){
+    // 等實際捲動真的停下來再切換頁籤，而不是猜一個固定時間
+    // （不同裝置/捲動距離下，瀏覽器的平滑捲動時間並不固定）
+    function afterScrollSettles(callback){
+      let lastY = window.scrollY;
+      let stillFrames = 0;
+      const maxWait = 1200; // 保險上限，避免萬一偵測不到時卡住不觸發
+      const startedAt = performance.now();
+      function check(){
+        const y = window.scrollY;
+        if (y === lastY) {
+          stillFrames++;
+        } else {
+          stillFrames = 0;
+          lastY = y;
+        }
+        if (stillFrames >= 3 || performance.now() - startedAt > maxWait) {
+          callback();
+        } else {
+          requestAnimationFrame(check);
+        }
+      }
+      requestAnimationFrame(check);
+    }
+
     document.querySelectorAll('.view-map-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const idx = parseInt(btn.getAttribute('data-day-idx'), 10);
-        setTimeout(() => {
+        afterScrollSettles(() => {
           const tab = document.querySelectorAll('.map-tab')[idx];
           if (tab) tab.click();
           const mapEl = document.getElementById('leaflet-map');
@@ -3092,7 +3250,7 @@
             mapEl.classList.add('map-flash');
             setTimeout(() => mapEl.classList.remove('map-flash'), 1200);
           }
-        }, 400);
+        });
       });
     });
   })();
@@ -3108,10 +3266,12 @@
         document.querySelectorAll('.faq-item.open').forEach(o => {
           if (o !== item) {
             o.classList.remove('open');
+            o.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
             smoothToggle(o.querySelector('.faq-a'));
           }
         });
         item.classList.toggle('open', !isOpen);
+        q.setAttribute('aria-expanded', String(!isOpen));
         smoothToggle(a);
       });
     });
@@ -3171,19 +3331,28 @@
 
     addBtn.addEventListener('click', () => {
       const amount = parseFloat(amountInput.value);
-      if (!amount || amount <= 0) { amountInput.focus(); return; }
+      if (!amount || amount <= 0) {
+        amountInput.classList.remove('input-error');
+        void amountInput.offsetWidth; // 重新觸發動畫
+        amountInput.classList.add('input-error');
+        amountInput.focus();
+        return;
+      }
       entries.push({ amount, note: noteInput.value.trim() });
       amountInput.value = '';
       noteInput.value = '';
+      amountInput.classList.remove('input-error');
       amountInput.focus();
       render();
     });
+    amountInput.addEventListener('input', () => amountInput.classList.remove('input-error'));
     amountInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') addBtn.click(); });
     noteInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') addBtn.click(); });
     budgetInput.addEventListener('input', render);
-    clearBtn.addEventListener('click', () => {
+    clearBtn.addEventListener('click', async () => {
       if (entries.length === 0) return;
-      if (confirm('確定要清空所有花費紀錄嗎？')) { entries = []; render(); }
+      const ok = await customConfirm('確定要清空所有花費紀錄嗎？此動作無法復原。');
+      if (ok) { entries = []; render(); }
     });
 
     exportBtn.addEventListener('click', () => {
@@ -3266,8 +3435,9 @@
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
         tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
         const g = tab.getAttribute('data-pack-group');
         groups.forEach(grp => {
           grp.style.display = (grp.getAttribute('data-pack-group') === g) ? 'grid' : 'none';
@@ -3285,12 +3455,13 @@
 
   // ---------- 行前準備 分類頁籤 ----------
   (function(){
-    const tabs = document.querySelectorAll('.prep-tab');
+    const tabs = document.querySelectorAll('#prepTabs .prep-tab');
     const groups = document.querySelectorAll('.prep-grid[data-group]');
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
         tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
         const g = tab.getAttribute('data-group');
         groups.forEach(grp => {
           grp.style.display = (grp.getAttribute('data-group') === g) ? 'grid' : 'none';
