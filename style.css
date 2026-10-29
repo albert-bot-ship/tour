@@ -1646,4 +1646,24 @@
   .hm-src{ opacity:.6; font-size:.72rem; }
   .hm-off{ display:inline-block; margin-left:.4rem; padding:.05rem .45rem; border-radius:999px;
     font-size:.7rem; background:#BD4B28; color:#fff; vertical-align:middle; }
-  .hm-item.is-off .hm-name{ opacity:.6; }
+  .hm-item.is-off .hm-name{ color:#8A8478; }
+
+  /* ---------- 飯店周邊：分類標題色塊（顏色同地圖圖例） ---------- */
+  .hm-group h3{
+    font-size:1.08rem; color:#fff; border-bottom:none;
+    padding:.45rem .8rem; margin:0 0 .7rem; border-radius:6px;
+    background:#7A7A7A;
+  }
+  .hm-group[data-cat="conv"] h3{ background:#3E7C59; }
+  .hm-group[data-cat="eat"]  h3{ background:#BD4B28; }
+  .hm-group[data-cat="shop"] h3{ background:#B8892B; }
+  .hm-group[data-cat="walk"] h3{ background:#3E5688; }
+  @media print{
+    .hm-group h3{ background:none !important; color:inherit; border-bottom:1px solid #999; padding-left:0; }
+  }
+
+  /* ---------- 飯店周邊：Google 地圖搜尋列（深靛工具框） ---------- */
+  .hm-findrow{ background:#14213B; border:none; border-radius:8px; padding:.8rem 1rem; }
+  .hm-findrow b{ display:block; width:100%; color:#F3EDE0; font-size:.85rem; margin:0 0 .2rem; }
+  .hm-find{ background:#F3EDE0; color:#14213B; border-color:#F3EDE0; font-weight:500; }
+  .hm-find:hover{ border-color:#C9A24B; }
