@@ -1688,3 +1688,7 @@
   .hb-jpy{ font-size:1.35rem; font-weight:600; }
   .hb-twd{ font-size:.8rem; opacity:.85; }
   @media print{ .hm-budget{ display:none !important; } }
+  .hb-tier{ cursor:default; align-items:center; }
+  .hb-pills{ display:flex; flex-wrap:wrap; gap:.3rem; justify-content:flex-end; max-width:12.5rem; }
+  .hb-pill{ font:inherit; font-size:.75rem; padding:.3rem .6rem; border-radius:999px; border:1px solid var(--paper-line); background:var(--washi); color:var(--ink); cursor:pointer; white-space:nowrap; }
+  .hb-pill.on{ background:#14213B; color:#F3EDE0; border-color:#14213B; }
