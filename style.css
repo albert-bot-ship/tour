@@ -1667,3 +1667,24 @@
   .hm-findrow b{ display:block; width:100%; color:#F3EDE0; font-size:.85rem; margin:0 0 .2rem; }
   .hm-find{ background:#F3EDE0; color:#14213B; border-color:#F3EDE0; font-weight:500; }
   .hm-find:hover{ border-color:#C9A24B; }
+
+  /* ---------- 飯店周邊：每晚自由活動預算試算 ---------- */
+  .hm-budget{ border:1px solid var(--paper-line); border-radius:8px; padding:.9rem 1rem; margin:0 0 1rem; background:rgba(255,255,255,.45); }
+  .hb-head{ display:flex; justify-content:space-between; align-items:baseline; gap:.5rem; }
+  .hb-head b{ font-size:.95rem; }
+  .hb-head span{ font-size:.78rem; opacity:.7; }
+  .hb-note{ font-size:.75rem; opacity:.65; margin:.2rem 0 .5rem; }
+  .hb-row{ display:flex; align-items:flex-start; gap:.6rem; padding:.55rem 0; border-top:1px solid var(--paper-line); cursor:pointer; font-size:.88rem; }
+  .hb-row input{ margin-top:.25rem; width:1.05rem; height:1.05rem; accent-color:#14213B; }
+  .hb-text{ flex:1; display:flex; flex-direction:column; }
+  .hb-desc{ font-size:.72rem; opacity:.6; }
+  .hb-amt{ font-size:.82rem; white-space:nowrap; color:var(--kincha); }
+  .hb-qty{ align-items:center; cursor:default; }
+  .hb-qty .hb-name{ flex:1; }
+  .hb-btn{ width:2rem; height:2rem; border-radius:50%; border:1px solid var(--paper-line); background:var(--washi); color:var(--ink); font-size:1rem; line-height:1; cursor:pointer; }
+  .hb-q{ min-width:1.4rem; text-align:center; font-weight:600; }
+  .hb-total{ display:flex; flex-direction:column; margin-top:.4rem; padding:.7rem .8rem; border-radius:6px; background:#14213B; color:#F3EDE0; }
+  .hb-label{ font-size:.75rem; opacity:.8; }
+  .hb-jpy{ font-size:1.35rem; font-weight:600; }
+  .hb-twd{ font-size:.8rem; opacity:.85; }
+  @media print{ .hm-budget{ display:none !important; } }
