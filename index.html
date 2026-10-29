@@ -1445,6 +1445,91 @@
     }
   }
 
+  /* ---------- 飯店周邊地圖 ---------- */
+  #hotel-map{
+    width:100%; height:480px;
+    border:1px solid var(--paper-line);
+    filter:saturate(0.85) contrast(1.02);
+  }
+  @media (max-width:600px){ #hotel-map{ height:380px; } }
+  .hm-chips{ display:flex; flex-wrap:wrap; gap:.5rem; margin:-.4rem 0 1rem; }
+  .hm-chip{
+    font-family:'Noto Sans TC',sans-serif; font-size:.8rem;
+    padding:.4rem .9rem; border-radius:999px; cursor:pointer;
+    border:1px solid var(--paper-line); background:none; color:var(--ink);
+    opacity:.55; transition:all .2s;
+  }
+  .hm-chip[aria-pressed="true"]{ opacity:1; border-color:var(--ai-deep); background:rgba(20,33,59,0.07); font-weight:700; }
+  .hm-legend{ margin-bottom:.4rem; }
+  .hm-note{ margin:.6rem 0 1.4rem; }
+  .hm-marker{
+    width:24px; height:24px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:.72rem; font-weight:700; line-height:1;
+    border:2px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.35);
+    font-family:'Noto Sans TC',sans-serif;
+  }
+  .hm-marker.hm-hotel{ width:30px; height:30px; font-size:.85rem; }
+  .leaflet-tooltip.hm-dist{
+    background:rgba(255,255,255,0.92); color:#1E2430; border:0;
+    box-shadow:0 1px 3px rgba(0,0,0,.25);
+    font-size:.68rem; padding:.05rem .35rem; font-family:'Noto Sans TC',sans-serif;
+  }
+  .leaflet-tooltip.hm-ring{
+    background:none; border:0; box-shadow:none; color:#4a4f5c;
+    font-size:.68rem; font-weight:700; padding:0; text-shadow:0 0 3px #fff,0 0 3px #fff;
+  }
+  .hm-panel{ display:none; }
+  .hm-panel.active{ display:block; }
+  .hm-findrow{
+    display:flex; flex-wrap:wrap; align-items:center; gap:.5rem;
+    margin:0 0 1.2rem; padding:.8rem 1rem;
+    border:1px dashed var(--paper-line); font-size:.82rem;
+  }
+  .hm-findrow b{ margin-right:.3rem; }
+  .hm-find{
+    font-family:'Noto Sans TC',sans-serif; font-size:.78rem; text-decoration:none;
+    padding:.3rem .75rem; border-radius:999px; border:1px solid var(--paper-line);
+    color:var(--ink); background:var(--washi); transition:border-color .2s;
+  }
+  .hm-find:hover{ border-color:var(--kincha); }
+  .hm-group{ margin:0 0 1.6rem; }
+  .hm-group h3{
+    font-family:'Noto Serif TC',serif; font-size:1rem; margin:0 0 .6rem;
+    padding-bottom:.35rem; border-bottom:1px solid var(--paper-line);
+  }
+  .hm-item{
+    padding:.7rem 0; border-bottom:1px solid var(--paper-line);
+  }
+  .hm-item:last-child{ border-bottom:0; }
+  .hm-row{ display:flex; justify-content:space-between; gap:1rem; align-items:baseline; }
+  .hm-name{ font-weight:700; font-size:.92rem; }
+  .hm-dist-text{ font-family:'Noto Serif TC',serif; color:var(--momiji-deep); white-space:nowrap; font-size:.85rem; }
+  .hm-hours{ font-size:.8rem; opacity:.7; margin:.15rem 0 .4rem; }
+  .hm-links{ display:flex; flex-wrap:wrap; gap:.5rem; }
+  .hm-links a{
+    font-size:.78rem; text-decoration:none; padding:.3rem .75rem;
+    border-radius:999px; border:1px solid var(--paper-line); color:var(--ink);
+  }
+  .hm-links a:hover{ border-color:var(--kincha); color:var(--kincha); }
+  @media print{
+    .hm-tabs, .hm-chips, .hm-findrow{ display:none !important; }
+    .hm-panel{ display:block !important; }
+  }
+
+  /* 分頁內導覽：膠囊按鈕，放在內容正上方 */
+  .trail{ gap:.5rem; padding:.65rem 1rem; }
+  .trail a{
+    border:1px solid rgba(243,237,224,0.4) !important;
+    border-radius:999px;
+    padding:.45rem 1.05rem; font-size:.9rem;
+    color:rgba(243,237,224,0.9);
+  }
+  .trail a:hover{ border-color:var(--kincha) !important; }
+  .trail a.active{
+    background:var(--kincha); border-color:var(--kincha) !important;
+    color:var(--ai-deep); font-weight:700;
+  }
   /* ---------- 分頁式版面：底部分頁列＋分頁內導覽 ---------- */
   :root{ --tabbar-h: calc(64px + env(safe-area-inset-bottom, 0px)); }
   body{ padding-bottom: var(--tabbar-h); }
@@ -1562,9 +1647,6 @@
   <div class="dates"><span class="dot"></span>2026.11.18 — 11.22　台北桃園 ⇄ 岡山</div>
 </section>
 
-<!-- NAV -->
-<nav class="trail" id="trailNav" aria-label="分頁內導覽"></nav>
-
 <div class="search-wrap">
   <input type="text" id="siteSearch" placeholder="🔍 搜尋景點、店家、關鍵字…（例如：紅葉饅頭、行動電源）" autocomplete="off">
   <span class="search-kbd-hint" id="searchKbdHint">⌘K</span>
@@ -1597,6 +1679,7 @@
   </div>
 </div>
 
+<nav class="trail" id="trailNav" aria-label="分頁內導覽"></nav>
 <div id="tabAnchor"></div>
 
 <!-- D1 -->
@@ -2027,6 +2110,34 @@
       <span><i style="background:#7A5C8E;"></i> 當晚住宿</span>
     </div>
     <div class="day-transit" id="dayTransit"></div>
+  </div>
+</section>
+
+<!-- HOTEL MAP: 飯店周邊 -->
+<section class="sect paper" id="hotelmap">
+  <div class="sect-inner">
+    <div class="sect-eyebrow">AROUND THE HOTEL</div>
+    <h2>飯店周邊地圖</h2>
+    <p class="sect-sub">每晚住宿周邊的超商、居酒屋與餐廳、可以買東西的店、晚上可逛的地方，標出各點與飯店的距離。</p>
+
+    <div class="map-tabs hm-tabs" id="hmTabs" role="tablist"></div>
+    <div class="hm-chips" id="hmChips" role="group" aria-label="顯示類別"></div>
+    <div class="map-wrap">
+      <div id="hotel-map"></div>
+      <div class="map-hint">⌃ Ctrl ＋ 滾輪　縮放地圖</div>
+    </div>
+    <div class="map-legend hm-legend">
+      <span><i style="background:#7A5C8E;"></i> 住宿</span>
+      <span><i style="background:#E8710A;"></i> 7-Eleven（7）</span>
+      <span><i style="background:#1E63B8;"></i> Lawson（L）</span>
+      <span><i style="background:#1F9D55;"></i> FamilyMart（F）</span>
+      <span><i style="background:#C0392B;"></i> Ministop（M）</span>
+      <span><i style="background:#BD4B28;"></i> 居酒屋・餐廳（食）</span>
+      <span><i style="background:#B8892B;"></i> 購物（買）</span>
+      <span><i style="background:#3E5688;"></i> 可逛（逛）</span>
+    </div>
+    <p class="cash-note hm-note">虛線與圓圈是從飯店出發的<strong>直線距離</strong>（250公尺、500公尺），實際走路會比較遠，想知道真正的步行路線請按下方清單的「步行導航」。營業時間來自 Google，現場可能不同，仍以店家公告為準。</p>
+    <div id="hmPanels"></div>
   </div>
 </section>
 
@@ -3071,10 +3182,258 @@
 
   renderDay(0);
 
+  // ---------- 飯店周邊地圖 ----------
+  // cat: conv 超商／eat 居酒屋餐廳／shop 購物／walk 可逛。h = 營業時間（Google 資料，依入住當晚的星期）
+  const HOTEL_AREAS = [
+    { id:'D1', label:'D1 倉敷水島', name:'倉敷水島 ROUTE INN', lat:34.5338919, lng:133.7436342, pid:'ChIJNbZBPbdZUTURBgfu604ONp0', night:'11/18（三）',
+      pois:[
+        { n:'Lawson 水島榮', cat:'conv', lat:34.5361178, lng:133.7427802, pid:'ChIJt3QmCQBZUTUREtdUGINiH1k', h:'24小時營業（2026年9月新開）' },
+        { n:'7-Eleven 水島西常盤町', cat:'conv', lat:34.532975, lng:133.7396066, pid:'ChIJLed9tJtZUTURMHaAeDAMy6k', h:'24小時營業' },
+        { n:'FamilyMart 水島南幸町', cat:'conv', lat:34.5378236, lng:133.7377864, pid:'ChIJBaP__KRZUTURE7AS3GkiQ88', h:'24小時營業' },
+        { n:'Lawson 北瀨2丁目', cat:'conv', lat:34.5396241, lng:133.7465582, pid:'ChIJ7cVLk7ZZUTURFOaFCbjQhkc', h:'24小時營業' },
+        { n:'7-Eleven 中洲10丁目', cat:'conv', lat:34.5335086, lng:133.7512249, pid:'ChIJQyXO5rJZUTUR37SoxeTOAoE', h:'24小時營業' },
+        { n:'酒と創菜 八寅（居酒屋）', cat:'eat', lat:34.5357404, lng:133.7423541, pid:'ChIJcWU7qB9ZUTURnc9k-Xx1Su4', h:'週三 17:30–22:30（週日休）' },
+        { n:'小倉敷（居酒屋）', cat:'eat', lat:34.5387842, lng:133.7437412, pid:'ChIJjS_b6h9ZUTURuhQXtJssBA0', h:'週三 17:00–22:00（週四休）' },
+        { n:'酒處やさこいわ（居酒屋）', cat:'eat', lat:34.5366539, lng:133.7432622, pid:'ChIJWXsYHbBZUTURbGyEnMYkkQo', h:'週三公休' },
+        { n:'居酒屋 秘密基地', cat:'eat', lat:34.5347943, lng:133.7402479, pid:'ChIJJSvVCwBZUTURHbV6B37zdBY', h:'週三公休' },
+        { n:'酒場 水島ギャラリー', cat:'eat', lat:34.5397019, lng:133.7442566, pid:'ChIJCT_GN7dZUTURKcoSm1mxCNU', h:'週三公休' },
+        { n:'AEON Town 水島（內有 Daiso）', cat:'shop', lat:34.5305059, lng:133.7363479, pid:'ChIJqWSN6aBZUTURq3HHfTkfIzQ', h:'10:00–20:00' },
+        { n:'Nishina Food Basket 中洲店（超市）', cat:'shop', lat:34.531675, lng:133.7517825, pid:'ChIJ3QX_prJZUTURMhPqevac3x4', h:'9:00–22:00' }
+      ] },
+    { id:'D2', label:'D2 廣島', name:'廣島東急 REI', lat:34.3888666, lng:132.4616614, pid:'ChIJWeRpGRCiWjURyQymaclecBw', night:'11/19（四）',
+      pois:[
+        { n:'Lawson 三川町', cat:'conv', lat:34.3893355, lng:132.4617597, pid:'ChIJz7DK4w-iWjUR24N6WNVEYIQ', h:'24小時營業' },
+        { n:'7-Eleven 三川町', cat:'conv', lat:34.3891498, lng:132.4624422, pid:'ChIJP5lrAhCiWjURlU4F9PN0LkU', h:'24小時營業' },
+        { n:'FamilyMart 中央通（內附 Subway）', cat:'conv', lat:34.390244, lng:132.462178, pid:'ChIJU2M9jQ-iWjURAdxiDTak96A', h:'24小時營業' },
+        { n:'7-Eleven 中町', cat:'conv', lat:34.3897999, lng:132.4597982, pid:'ChIJbzQY1BGiWjURH0fi3wdsNBs', h:'24小時營業' },
+        { n:'7-Eleven 寶町', cat:'conv', lat:34.3854497, lng:132.4619598, pid:'ChIJJ4DJohCiWjURyApTpwNnD1c', h:'24小時營業' },
+        { n:'Negian 流川（居酒屋・廣島燒）', cat:'eat', lat:34.3887924, lng:132.4626518, pid:'ChIJXXsJABCiWjURuWo_hNjzZ1I', h:'週四 17:00–翌2:00' },
+        { n:'廣島お好み村（廣島燒）', cat:'eat', lat:34.3914342, lng:132.4619014, pid:'ChIJ8wsenQ-iWjUR1opIxHCTeBM', h:'Google 沒列營業時間，請現場確認' },
+        { n:'Junior（居酒屋・廣島燒）', cat:'eat', lat:34.3940465, lng:132.4597853, pid:'ChIJvwgGeA-iWjURTonz_PWKasc', h:'週四 12:00–14:00、18:15–22:00（約8席，要早到）' },
+        { n:'長田屋（廣島燒）', cat:'eat', lat:34.394216, lng:132.454485, pid:'ChIJOaWjGw2iWjUR5RdB0fPip1Q', h:'11:00–20:00（週二休，常排隊）' },
+        { n:'廣島 PARCO', cat:'shop', lat:34.3921942, lng:132.4619845, pid:'ChIJf19ybw-iWjURVJoVxhaS5fg', h:'10:00–20:30' },
+        { n:'Don Quijote 廣島八丁堀', cat:'shop', lat:34.3911739, lng:132.4623201, pid:'ChIJQ4cLgg-iWjURzARrjEKBd94', h:'10:00–翌5:00' },
+        { n:'Don Quijote 八丁堀西店', cat:'shop', lat:34.3946723, lng:132.4620996, pid:'ChIJr-gdJSejWjURvgu33L2KiGw', h:'9:00–23:45' },
+        { n:'Daiso 本通', cat:'shop', lat:34.3926579, lng:132.4617735, pid:'ChIJKTu2rx6jWjURbzUQDtSD4g4', h:'9:30–21:00（共4層）' },
+        { n:'惠比壽通商店街', cat:'walk', lat:34.3927179, lng:132.4639523, pid:'ChIJ6e-TUgCjWjURyqp0lOLrD_E', h:'連接流川夜生活區，入夜人潮才多' },
+        { n:'本通商店街', cat:'walk', lat:34.3935158, lng:132.4573627, pid:'ChIJbcfO9qejWjURXfZSsD8vtI0', h:'10:00–20:00' }
+      ] },
+    { id:'D3', label:'D3 道後', name:'大江戶溫泉物語 道後', lat:33.849218, lng:132.7907172, pid:'ChIJG6bZKXrmTzURuJd-UIKKekU', night:'11/20（五）',
+      pois:[
+        { n:'FamilyMart 石手', cat:'conv', lat:33.8467219, lng:132.794243, pid:'ChIJTd0ekHrmTzURDV4luqT71OE', h:'24小時營業' },
+        { n:'Lawson 道後站前', cat:'conv', lat:33.8507366, lng:132.7852112, pid:'ChIJ3RZr6NflTzUR80olOoAjDfA', h:'24小時營業（評論提到有橘子汁水龍頭）' },
+        { n:'Lawson 道後ハイカラ通り', cat:'conv', lat:33.8521182, lng:132.7852749, pid:'ChIJwXhwLtblTzURdZjnfN-aq08', h:'24小時營業' },
+        { n:'FamilyMart 道後湯之町', cat:'conv', lat:33.8523657, lng:132.7837932, pid:'ChIJ4c0GrdflTzURSVuIlOFW5SY', h:'24小時營業' },
+        { n:'7-Eleven 道後北町', cat:'conv', lat:33.8520925, lng:132.7824959, pid:'ChIJSQO8E9flTzUR4OdqVvo2YT8', h:'24小時營業' },
+        { n:'KINBEI 金兵衛（瀨戶內料理）', cat:'eat', lat:33.8519689, lng:132.784786, pid:'ChIJR7u-yvrlTzURGe8wvDgXXEw', h:'週五 17:00–24:00' },
+        { n:'麺工房 遥海（油拌麵）', cat:'eat', lat:33.8505938, lng:132.7876419, pid:'ChIJRza1CgDnTzURVQsS9CAP4BI', h:'週五 11:00–14:30、18:00–21:00' },
+        { n:'十五万石 MASARU（伴手禮）', cat:'shop', lat:33.8521444, lng:132.7853996, pid:'ChIJfz8hL9blTzURYJBbkS9QbNM', h:'9:30–20:00（道後最大的伴手禮店）' },
+        { n:'Rilakkuma 道後溫泉店', cat:'shop', lat:33.851988, lng:132.7860235, pid:'ChIJyw33-DznTzURmEqldCLJ_ZM', h:'10:00–18:00' },
+        { n:'業務超市 道後', cat:'shop', lat:33.8523769, lng:132.7832375, pid:'ChIJ_7MyqNflTzURA9-Y_sB_kwo', h:'9:00–22:00' },
+        { n:'Daiso 道後（Fuji 道後店 2F）', cat:'shop', lat:33.8478743, lng:132.7833943, pid:'ChIJq6pq_tjlTzUR24dxP2WR9nU', h:'9:00–21:00' },
+        { n:'道後溫泉本館', cat:'walk', lat:33.8520748, lng:132.7864098, pid:'ChIJ84F-kHjmTzURebGHHI1YWXw', h:'6:00–23:00，夜間點燈' },
+        { n:'道後空中散步道・足湯', cat:'walk', lat:33.851675, lng:132.7866785, pid:'ChIJOekIkHjmTzURpOw0RvFnr34', h:'6:00–21:00，免費足湯，可俯瞰本館' },
+        { n:'道後ハイカラ通商店街', cat:'walk', lat:33.8520951, lng:132.785232, pid:'ChIJEad90dflTzURT5wlf1EytpY', h:'標示營業到23:30，各店實際打烊時間不一' }
+      ] },
+    { id:'D4', label:'D4 高松', name:'高松兵庫町 JR CLEMENT INN', lat:34.3462138, lng:134.0480805, pid:'ChIJZe9jj4_rUzURy3II9I9V_7A', night:'11/21（六）',
+      pois:[
+        { n:'Lawson 兵庫町', cat:'conv', lat:34.3463342, lng:134.0481679, pid:'ChIJteTkhY_rUzURsK639RZ8H3U', h:'24小時營業（飯店隔壁）' },
+        { n:'FamilyMart 研屋町', cat:'conv', lat:34.3448982, lng:134.0486267, pid:'ChIJpZkzGpvrUzURCDNpHwv0-4o', h:'24小時營業' },
+        { n:'FamilyMart 片原町', cat:'conv', lat:34.345739, lng:134.0518684, pid:'ChIJb5rpQwDrUzURfQBKGnFAg4k', h:'24小時營業' },
+        { n:'7-Eleven 丸龜町', cat:'conv', lat:34.343484, lng:134.0500303, pid:'ChIJ6YQFI4XrUzURO_2ftnK2ZYY', h:'24小時營業' },
+        { n:'Ministop 高松站', cat:'conv', lat:34.3497143, lng:134.0474201, pid:'ChIJp8Kpt4jrUzURC0dggK1iwFA', h:'24小時營業' },
+        { n:'FamilyMart 丸龜町', cat:'conv', lat:34.3427072, lng:134.0497074, pid:'ChIJQx_Yv5rrUzUR1Rkyf_7-ABI', h:'24小時營業' },
+        { n:'7-Eleven 濱之町', cat:'conv', lat:34.3506962, lng:134.0470359, pid:'ChIJDeNA6ojrUzURNwBoqnnGUT0', h:'6:30–22:30（非24小時）' },
+        { n:'Engiya（骨付雞居酒屋）', cat:'eat', lat:34.345535, lng:134.04915, pid:'ChIJFfY-b4XrUzURF9r4UkvetQk', h:'週六 17:00–23:00（人多，要早去）' },
+        { n:'Butaman（居酒屋）', cat:'eat', lat:34.3449747, lng:134.0490397, pid:'ChIJvcYRliHrUzURY7eAb8E5AoQ', h:'週六 17:30–23:00（週日休）' },
+        { n:'Utage（居酒屋）', cat:'eat', lat:34.3456667, lng:134.0476854, pid:'ChIJRd5d7I_rUzURBkYRPNP-Ruo', h:'週六公休' },
+        { n:'串どり 片原町（骨付雞）', cat:'eat', lat:34.3455455, lng:134.0520325, pid:'ChIJC9Ygpd3rUzURhASAGfGcNUM', h:'週六 16:30–23:00（約19點人多）' },
+        { n:'讚岐烏龍麵 Enya', cat:'eat', lat:34.3458261, lng:134.0533453, pid:'ChIJLRt49oPrUzUR7NLzXOlfY48', h:'10:00–23:00' },
+        { n:'Hajimenoippo（居酒屋）', cat:'eat', lat:34.3420199, lng:134.0519643, pid:'ChIJEVnU2JrrUzURoqpfruG2eUs', h:'週六 18:00–翌4:00' },
+        { n:'Daiso 丸龜町', cat:'shop', lat:34.3453219, lng:134.0505525, pid:'ChIJJ6ALBIXrUzURwXXtzEzdu30', h:'10:00–20:00' },
+        { n:'Daikoku Drug 丸龜町（藥妝）', cat:'shop', lat:34.3428004, lng:134.0499363, pid:'ChIJgSqUPavrUzURIOrpkrTylfQ', h:'9:05–21:50（評論提到可辦退稅）' },
+        { n:'Daiso 南新町', cat:'shop', lat:34.340408, lng:134.049124, pid:'ChIJEbofEprrUzUR63ttWDY7oL0', h:'10:00–20:00' },
+        { n:'高松中央商店街', cat:'walk', lat:34.3460686, lng:134.050489, pid:'ChIJGfKZroXrUzURPyYSvzn4Sq8', h:'10:00–20:00，多數店家 19:00–20:00 就關' }
+      ] }
+  ];
+  const HM_CATS = {
+    conv: { label:'超商', color:'#3E7C59' },
+    eat:  { label:'居酒屋・餐廳', color:'#BD4B28', sym:'食' },
+    shop: { label:'購物', color:'#B8892B', sym:'買' },
+    walk: { label:'可逛的地方', color:'#3E5688', sym:'逛' }
+  };
+  const HM_BRANDS = [
+    { re:/^7-Eleven/, sym:'7', color:'#E8710A' },
+    { re:/^Lawson/,   sym:'L', color:'#1E63B8' },
+    { re:/^FamilyMart/, sym:'F', color:'#1F9D55' },
+    { re:/^Ministop/, sym:'M', color:'#C0392B' }
+  ];
+  const HM_FIND = [
+    { label:'超商', q:'コンビニ' }, { label:'居酒屋', q:'居酒屋' }, { label:'餐廳', q:'レストラン' },
+    { label:'藥妝', q:'ドラッグストア' }, { label:'百元店', q:'100円ショップ' }, { label:'伴手禮', q:'お土産' }
+  ];
+
+  function hmDistance(a, b){
+    const R = 6371000, rad = x => x * Math.PI / 180;
+    const dLat = rad(b.lat - a.lat), dLng = rad(b.lng - a.lng);
+    const h = Math.sin(dLat/2)**2 + Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(dLng/2)**2;
+    return 2 * R * Math.asin(Math.sqrt(h));
+  }
+  function hmDistText(m){
+    if (m >= 1000) return '約 ' + (m / 1000).toFixed(1) + ' 公里';
+    return '約 ' + (Math.round(m / 5) * 5) + ' 公尺';
+  }
+  function hmShort(m){
+    return m >= 1000 ? (m / 1000).toFixed(1) + 'km' : (Math.round(m / 5) * 5) + 'm';
+  }
+  // Google 地圖連結：A 開啟地點頁、B 從飯店步行導航、D 以飯店為中心搜尋
+  function gmapPlace(p){
+    return 'https://www.google.com/maps/search/?api=1&query=' + p.lat + ',' + p.lng + '&query_place_id=' + encodeURIComponent(p.pid);
+  }
+  function gmapWalk(h, p){
+    return 'https://www.google.com/maps/dir/?api=1&origin=' + h.lat + ',' + h.lng + '&origin_place_id=' + encodeURIComponent(h.pid) +
+      '&destination=' + p.lat + ',' + p.lng + '&destination_place_id=' + encodeURIComponent(p.pid) + '&travelmode=walking';
+  }
+  function gmapFind(h, q){
+    return 'https://www.google.com/maps/search/' + encodeURIComponent(q) + '/@' + h.lat + ',' + h.lng + ',17z';
+  }
+  function hmIcon(poi){
+    let color, sym;
+    if (poi.cat === 'conv') {
+      const b = HM_BRANDS.find(x => x.re.test(poi.n));
+      color = b ? b.color : HM_CATS.conv.color; sym = b ? b.sym : '店';
+    } else { color = HM_CATS[poi.cat].color; sym = HM_CATS[poi.cat].sym; }
+    return L.divIcon({ className:'', html:'<div class="hm-marker" style="background:' + color + ';">' + sym + '</div>',
+      iconSize:[24,24], iconAnchor:[12,12], popupAnchor:[0,-12] });
+  }
+
+  // 資料整理：算出距離並依類別排序
+  HOTEL_AREAS.forEach(h => {
+    h.pois.forEach(p => { p.dist = hmDistance(h, p); });
+    h.pois.sort((a, b) => a.dist - b.dist);
+  });
+
+  // 清單（四間飯店各一份，同時只顯示選取的那一間）
+  (function buildHotelPanels(){
+    const wrap = document.getElementById('hmPanels');
+    if (!wrap) return;
+    wrap.innerHTML = HOTEL_AREAS.map((h, hi) => {
+      const groups = ['conv','eat','shop','walk'].map(cat => {
+        const items = h.pois.filter(p => p.cat === cat);
+        if (!items.length) return '';
+        return '<div class="hm-group"><h3>' + HM_CATS[cat].label + '（' + items.length + '）</h3>' +
+          items.map(p =>
+            '<div class="hm-item"><div class="hm-row"><span class="hm-name">' + p.n + '</span><span class="hm-dist-text">' + hmDistText(p.dist) + '</span></div>' +
+            '<div class="hm-hours">' + p.h + '</div>' +
+            '<div class="hm-links"><a href="' + gmapPlace(p) + '" target="_blank" rel="noopener">📍 在 Google 地圖開啟</a>' +
+            '<a href="' + gmapWalk(h, p) + '" target="_blank" rel="noopener">🚶 從飯店步行導航</a></div></div>'
+          ).join('') + '</div>';
+      }).join('');
+      const find = '<div class="hm-findrow"><b>在 Google 地圖找飯店附近：</b>' +
+        HM_FIND.map(f => '<a class="hm-find" href="' + gmapFind(h, f.q) + '" target="_blank" rel="noopener">' + f.label + '</a>').join('') + '</div>';
+      return '<div class="hm-panel' + (hi === 0 ? ' active' : '') + '" data-hotel="' + h.id + '">' +
+        '<div class="spot-name" style="margin-bottom:.4rem;">' + h.name + '<span class="context-tag night">🌙 ' + h.night + '入住</span></div>' + find + groups + '</div>';
+    }).join('');
+  })();
+
+  // 地圖（切到「飯店周邊」分頁時才建立，避免容器隱藏時尺寸為0）
+  let hotelMap = null, hotelLayer = null, hmIdx = 0;
+  const hmFilter = { conv:true, eat:true, shop:true, walk:true };
+
+  function ensureHotelMap(){
+    if (hotelMap) return;
+    hotelMap = L.map('hotel-map', { scrollWheelZoom:false });
+    hotelMap.setView([HOTEL_AREAS[0].lat, HOTEL_AREAS[0].lng], 16);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(hotelMap);
+    hotelMap.getContainer().addEventListener('wheel', function(e){
+      if (!e.ctrlKey) return;
+      e.preventDefault();
+      const latlng = hotelMap.containerPointToLatLng(hotelMap.mouseEventToContainerPoint(e));
+      hotelMap.setZoomAround(latlng, hotelMap.getZoom() + (e.deltaY < 0 ? 1 : -1), { animate:true });
+    }, { passive:false });
+  }
+
+  function renderHotelMap(idx){
+    if (!hotelMap) return;
+    hmIdx = idx;
+    const h = HOTEL_AREAS[idx];
+    if (hotelLayer) hotelMap.removeLayer(hotelLayer);
+    hotelLayer = L.layerGroup().addTo(hotelMap);
+
+    // 250 / 500 公尺距離圈
+    [250, 500].forEach(r => {
+      L.circle([h.lat, h.lng], { radius:r, color:'#7A5C8E', weight:1, dashArray:'4 6', fillOpacity:0.02, opacity:.6, interactive:false }).addTo(hotelLayer);
+      const north = h.lat + r / 111320;
+      L.marker([north, h.lng], { opacity:0, interactive:false })
+        .bindTooltip(r + ' m', { permanent:true, direction:'top', className:'hm-ring', offset:[0,4] }).addTo(hotelLayer);
+    });
+
+    const pts = [[h.lat, h.lng]];
+    h.pois.forEach(p => {
+      if (!hmFilter[p.cat]) return;
+      L.polyline([[h.lat, h.lng], [p.lat, p.lng]], { color:'#7A5C8E', weight:1, dashArray:'3 5', opacity:.55, interactive:false }).addTo(hotelLayer);
+      const m = L.marker([p.lat, p.lng], { icon:hmIcon(p) }).addTo(hotelLayer);
+      m.bindTooltip(hmShort(p.dist), { permanent:true, direction:'right', className:'hm-dist', offset:[10,0] });
+      m.bindPopup('<b>' + p.n + '</b><br>' + hmDistText(p.dist) + '（直線）<br>' + p.h +
+        '<br><a href="' + gmapPlace(p) + '" target="_blank" rel="noopener">在 Google 地圖開啟 →</a>' +
+        '<br><a href="' + gmapWalk(h, p) + '" target="_blank" rel="noopener">從飯店步行導航 →</a>');
+      pts.push([p.lat, p.lng]);
+    });
+
+    const hotelIcon = L.divIcon({ className:'', html:'<div class="hm-marker hm-hotel" style="background:#7A5C8E;">宿</div>',
+      iconSize:[30,30], iconAnchor:[15,15], popupAnchor:[0,-15] });
+    L.marker([h.lat, h.lng], { icon:hotelIcon, zIndexOffset:1000 }).addTo(hotelLayer)
+      .bindPopup('<b>' + h.name + '</b><br>' + h.night + '入住');
+
+    if (hotelMap.getContainer().offsetWidth > 0) {
+      hotelMap.fitBounds(L.latLngBounds(pts), { padding:[50,50], maxZoom:17 });
+    }
+  }
+
+  function showHotelPanel(idx){
+    document.querySelectorAll('.hm-panel').forEach((el, i) => el.classList.toggle('active', i === idx));
+    document.querySelectorAll('#hmTabs .map-tab').forEach((b, i) => {
+      b.classList.toggle('active', i === idx);
+      b.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+    });
+    renderHotelMap(idx);
+  }
+
+  (function buildHotelControls(){
+    const tabs = document.getElementById('hmTabs');
+    const chips = document.getElementById('hmChips');
+    if (!tabs || !chips) return;
+    HOTEL_AREAS.forEach((h, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'map-tab' + (i === 0 ? ' active' : '');
+      b.textContent = h.label;
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+      b.addEventListener('click', () => showHotelPanel(i));
+      tabs.appendChild(b);
+    });
+    Object.keys(HM_CATS).forEach(cat => {
+      const c = document.createElement('button');
+      c.type = 'button';
+      c.className = 'hm-chip';
+      c.textContent = HM_CATS[cat].label;
+      c.setAttribute('aria-pressed', 'true');
+      c.addEventListener('click', () => {
+        hmFilter[cat] = !hmFilter[cat];
+        c.setAttribute('aria-pressed', hmFilter[cat] ? 'true' : 'false');
+        renderHotelMap(hmIdx);
+      });
+      chips.appendChild(c);
+    });
+  })();
+
   // ---------- 分頁導覽：底部分頁列＋分頁內導覽（一次只顯示一個區塊） ----------
   const TAB_CONFIG = [
     { id:'itinerary', sections:[['d1','D1 岡山'],['d2','D2 尾道'],['d3','D3 宮島・松山'],['d4','D4 琴平・栗林'],['d5','D5 倉敷'],['anime-pilgrimage','動漫聖地']] },
-    { id:'map',       sections:[['mapview','地圖總覽']] },
+    { id:'map',       sections:[['mapview','每日路線'],['hotelmap','飯店周邊']] },
     { id:'stay',      sections:[['logistics','航班住宿']] },
     { id:'prep',      sections:[['prep','行前準備'],['packing','打包清單'],['reminders','貼心提醒']] },
     { id:'tools',     sections:[['tools','匯率/日文'],['expenses','花費追蹤'],['faq','常見問題'],['summary','總覽建議']] }
@@ -3134,6 +3493,11 @@
       map.invalidateSize();
       renderDay(currentMapIdx);
     }
+    if (id === 'hotelmap') {
+      ensureHotelMap();
+      hotelMap.invalidateSize();
+      renderHotelMap(hmIdx);
+    }
 
     try { history.replaceState(null, '', '#' + id); } catch (e) {}
 
@@ -3172,6 +3536,9 @@
     document.querySelectorAll('section.pane-hidden').forEach(el => el.classList.remove('pane-hidden'));
     map.invalidateSize();
     renderDay(currentMapIdx);
+    ensureHotelMap();
+    hotelMap.invalidateSize();
+    renderHotelMap(hmIdx);
   }
   window.addEventListener('beforeprint', preparePrint);
   window.addEventListener('afterprint', () => {
@@ -3422,6 +3789,13 @@
         needsWait = true;
       }
 
+      // 0b. 如果在飯店周邊的其他飯店清單裡，先切換到該飯店
+      const hmPanel = target.closest('.hm-panel');
+      if (hmPanel && !hmPanel.classList.contains('active')) {
+        const hi = Array.from(document.querySelectorAll('.hm-panel')).indexOf(hmPanel);
+        if (hi >= 0) { showHotelPanel(hi); needsWait = true; }
+      }
+
       // 1. 如果在行前準備的隱藏頁籤裡，先切換到該頁籤
       const hiddenGrid = target.closest('.prep-grid[data-group]');
       if (hiddenGrid && getComputedStyle(hiddenGrid).display === 'none') {
@@ -3465,7 +3839,7 @@
       d1:'D1 岡山', d2:'D2 尾道・廣島', d3:'D3 宮島・松山', d4:'D4 琴平・栗林', d5:'D5 倉敷',
       'anime-pilgrimage':'動漫聖地巡禮',
       mapview:'地圖總覽', logistics:'航班住宿', prep:'行前準備', packing:'打包清單',
-      reminders:'貼心提醒', tools:'匯率/日文', faq:'常見問題', expenses:'花費追蹤', summary:'總覽建議'
+      reminders:'貼心提醒', tools:'匯率/日文', faq:'常見問題', expenses:'花費追蹤', summary:'總覽建議', hotelmap:'飯店周邊'
     };
 
     // 每種內容類型對應的分類標籤，用來把搜尋結果分組顯示
@@ -3479,7 +3853,8 @@
       { sel: '.tag-card li', cat: '標籤' },
       { sel: '.packlist li', cat: '打包清單' },
       { sel: '.faq-q', cat: 'FAQ' },
-      { sel: '.phrase-list li', cat: '實用短語' }
+      { sel: '.phrase-list li', cat: '實用短語' },
+      { sel: '.hm-name', cat: '飯店周邊' }
     ];
 
     function buildIndex(){
