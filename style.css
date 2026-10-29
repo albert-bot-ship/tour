@@ -1726,3 +1726,9 @@
     #settingsPanel{ right:16px; bottom:124px; }
   }
   @media print{ #settingsBtn, #settingsPanel{ display:none !important; } }
+
+  /* ---------- 金額顯示偏好 ---------- */
+  .yen-sub{ display:block; font-size:.72rem; opacity:.75; }
+  .hb-amt{ text-align:right; }
+  .hb-twd[hidden]{ display:none; }
+  .cash-headline .yen{ display:inline; font:inherit; color:inherit; margin:0; }
