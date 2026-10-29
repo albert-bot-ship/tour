@@ -1692,3 +1692,37 @@
   .hb-pills{ display:flex; flex-wrap:wrap; gap:.3rem; justify-content:flex-end; max-width:12.5rem; }
   .hb-pill{ font:inherit; font-size:.75rem; padding:.3rem .6rem; border-radius:999px; border:1px solid var(--paper-line); background:var(--washi); color:var(--ink); cursor:pointer; white-space:nowrap; }
   .hb-pill.on{ background:#14213B; color:#F3EDE0; border-color:#14213B; }
+
+  /* ---------- 設定面板 ---------- */
+  #settingsBtn{
+    position:fixed; right:22px; bottom:78px; z-index:900;
+    width:46px; height:46px; border-radius:50%;
+    background:var(--ai-deep); color:var(--washi); border:1px solid rgba(243,237,224,0.25);
+    font-size:1.1rem; cursor:pointer; box-shadow:0 4px 14px rgba(0,0,0,.18);
+    margin-bottom:var(--tabbar-h, 0px);
+  }
+  #settingsBtn:hover{ background:var(--momiji); }
+  #settingsPanel{
+    position:fixed; right:22px; bottom:134px; z-index:901;
+    width:min(300px, calc(100vw - 32px)); max-height:70vh; overflow:auto;
+    margin-bottom:var(--tabbar-h, 0px);
+    background:var(--washi); color:var(--ink);
+    border:1px solid var(--paper-line); border-radius:12px; padding:.9rem 1rem;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+  }
+  #settingsPanel[hidden]{ display:none; }
+  .sp-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem; }
+  .sp-close{ background:none; border:none; color:inherit; font-size:1rem; cursor:pointer; padding:.2rem .4rem; }
+  .sp-group{ padding:.6rem 0; border-top:1px solid var(--paper-line); }
+  .sp-label{ font-size:.82rem; margin-bottom:.4rem; }
+  .sp-pills{ display:flex; gap:.35rem; flex-wrap:wrap; }
+  .sp-pill{ font:inherit; font-size:.8rem; padding:.35rem .8rem; border-radius:999px; border:1px solid var(--paper-line); background:transparent; color:inherit; cursor:pointer; }
+  .sp-pill.on{ background:#14213B; color:#F3EDE0; border-color:#14213B; }
+  body.night-mode .sp-pill.on{ background:#DDB157; color:#14213B; border-color:#DDB157; }
+  .sp-action{ width:100%; font:inherit; font-size:.85rem; padding:.55rem; border-radius:8px; border:1px solid var(--paper-line); background:transparent; color:inherit; cursor:pointer; }
+  .sp-note{ font-size:.72rem; opacity:.65; margin:.4rem 0 0; }
+  @media (max-width: 600px){
+    #settingsBtn{ right:16px; bottom:70px; width:44px; height:44px; }
+    #settingsPanel{ right:16px; bottom:124px; }
+  }
+  @media print{ #settingsBtn, #settingsPanel{ display:none !important; } }
