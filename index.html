@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=1">
+<link rel="stylesheet" href="./style.css?v=2">
 </head>
 <body>
 
@@ -1573,11 +1573,11 @@
         { n:'FamilyMart 水島南幸町', cat:'conv', lat:34.5378236, lng:133.7377864, pid:'ChIJBaP__KRZUTURE7AS3GkiQ88', h:'24小時營業' },
         { n:'Lawson 北瀨2丁目', cat:'conv', lat:34.5396241, lng:133.7465582, pid:'ChIJ7cVLk7ZZUTURFOaFCbjQhkc', h:'24小時營業' },
         { n:'7-Eleven 中洲10丁目', cat:'conv', lat:34.5335086, lng:133.7512249, pid:'ChIJQyXO5rJZUTUR37SoxeTOAoE', h:'24小時營業' },
-        { n:'酒と創菜 八寅（居酒屋）', cat:'eat', lat:34.5357404, lng:133.7423541, pid:'ChIJcWU7qB9ZUTURnc9k-Xx1Su4', h:'週三 17:30–22:30（週日休）' },
-        { n:'小倉敷（居酒屋）', cat:'eat', lat:34.5387842, lng:133.7437412, pid:'ChIJjS_b6h9ZUTURuhQXtJssBA0', h:'週三 17:00–22:00（週四休）' },
-        { n:'酒處やさこいわ（居酒屋）', cat:'eat', lat:34.5366539, lng:133.7432622, pid:'ChIJWXsYHbBZUTURbGyEnMYkkQo', h:'週三公休' },
-        { n:'居酒屋 秘密基地', cat:'eat', lat:34.5347943, lng:133.7402479, pid:'ChIJJSvVCwBZUTURHbV6B37zdBY', h:'週三公休' },
-        { n:'酒場 水島ギャラリー', cat:'eat', lat:34.5397019, lng:133.7442566, pid:'ChIJCT_GN7dZUTURKcoSm1mxCNU', h:'週三公休' },
+        { n:'酒と創菜 八寅（居酒屋）', cat:'eat', lat:34.5357404, lng:133.7423541, pid:'ChIJcWU7qB9ZUTURnc9k-Xx1Su4', h:'週三 17:30–22:30（週日休）', pr:'晚餐約 ¥4,000–5,000／人', src:'HotPepper' },
+        { n:'小倉敷（居酒屋）', cat:'eat', lat:34.5387842, lng:133.7437412, pid:'ChIJjS_b6h9ZUTURuhQXtJssBA0', h:'週三 17:00–22:00（週四休）', pr:'價位未公開' },
+        { n:'酒處やさこいわ（居酒屋）', cat:'eat', lat:34.5366539, lng:133.7432622, pid:'ChIJWXsYHbBZUTURbGyEnMYkkQo', h:'週三公休', pr:'價位未公開', off:true },
+        { n:'居酒屋 秘密基地', cat:'eat', lat:34.5347943, lng:133.7402479, pid:'ChIJJSvVCwBZUTURHbV6B37zdBY', h:'週三公休', pr:'晚餐約 ¥4,000／人', src:'AutoReserve', off:true },
+        { n:'酒場 水島ギャラリー', cat:'eat', lat:34.5397019, lng:133.7442566, pid:'ChIJCT_GN7dZUTURKcoSm1mxCNU', h:'週三公休', pr:'晚餐約 ～¥6,000／人', src:'Retty', off:true },
         { n:'AEON Town 水島（內有 Daiso）', cat:'shop', lat:34.5305059, lng:133.7363479, pid:'ChIJqWSN6aBZUTURq3HHfTkfIzQ', h:'10:00–20:00' },
         { n:'Nishina Food Basket 中洲店（超市）', cat:'shop', lat:34.531675, lng:133.7517825, pid:'ChIJ3QX_prJZUTURMhPqevac3x4', h:'9:00–22:00' }
       ] },
@@ -1678,6 +1678,14 @@
   function gmapFind(h, q){
     return 'https://www.google.com/maps/search/' + encodeURIComponent(q) + '/@' + h.lat + ',' + h.lng + ',17z';
   }
+  // 價位（含稅）與入住當晚公休標示
+  function hmPrice(p){
+    if (!p.pr) return '';
+    return '<div class="hm-price">💴 ' + p.pr + (p.src ? '<span class="hm-src">（' + p.src + '）</span>' : '') + '</div>';
+  }
+  function hmOff(p, h){
+    return p.off ? '<span class="hm-off">🚫 ' + h.night + ' 當晚公休</span>' : '';
+  }
   function hmIcon(poi){
     let color, sym;
     if (poi.cat === 'conv') {
@@ -1704,8 +1712,8 @@
         if (!items.length) return '';
         return '<div class="hm-group"><h3>' + HM_CATS[cat].label + '（' + items.length + '）</h3>' +
           items.map(p =>
-            '<div class="hm-item"><div class="hm-row"><span class="hm-name">' + p.n + '</span><span class="hm-dist-text">' + hmDistText(p.dist) + '</span></div>' +
-            '<div class="hm-hours">' + p.h + '</div>' +
+            '<div class="hm-item' + (p.off ? ' is-off' : '') + '"><div class="hm-row"><span class="hm-name">' + p.n + hmOff(p, h) + '</span><span class="hm-dist-text">' + hmDistText(p.dist) + '</span></div>' +
+            '<div class="hm-hours">' + p.h + '</div>' + hmPrice(p) +
             '<div class="hm-links"><a href="' + gmapPlace(p) + '" target="_blank" rel="noopener">📍 在 Google 地圖開啟</a>' +
             '<a href="' + gmapWalk(h, p) + '" target="_blank" rel="noopener">🚶 從飯店步行導航</a></div></div>'
           ).join('') + '</div>';
@@ -1757,7 +1765,8 @@
       L.polyline([[h.lat, h.lng], [p.lat, p.lng]], { color:'#7A5C8E', weight:1, dashArray:'3 5', opacity:.55, interactive:false }).addTo(hotelLayer);
       const m = L.marker([p.lat, p.lng], { icon:hmIcon(p) }).addTo(hotelLayer);
       m.bindTooltip(hmShort(p.dist), { permanent:true, direction:'right', className:'hm-dist', offset:[10,0] });
-      m.bindPopup('<b>' + p.n + '</b><br>' + hmDistText(p.dist) + '（直線）<br>' + p.h +
+      m.bindPopup('<b>' + p.n + '</b>' + (p.off ? '<br>🚫 ' + h.night + ' 當晚公休' : '') + '<br>' + hmDistText(p.dist) + '（直線）<br>' + p.h +
+        (p.pr ? '<br>💴 ' + p.pr + (p.src ? '（' + p.src + '）' : '') : '') +
         '<br><a href="' + gmapPlace(p) + '" target="_blank" rel="noopener">在 Google 地圖開啟 →</a>' +
         '<br><a href="' + gmapWalk(h, p) + '" target="_blank" rel="noopener">從飯店步行導航 →</a>');
       pts.push([p.lat, p.lng]);
