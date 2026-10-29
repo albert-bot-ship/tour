@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=7">
+<link rel="stylesheet" href="./style.css?v=8">
 </head>
 <body>
 <script>
@@ -68,6 +68,15 @@
       <button type="button" class="sp-pill" data-v="dark">深色</button>
     </div>
     <p class="sp-note">「自動」會跟著 iPhone 的系統外觀切換（iPhone 設定為自動時，日落後自動變深色）</p>
+  </div>
+  <div class="sp-group">
+    <div class="sp-label">金額顯示</div>
+    <div class="sp-pills" data-setting="currency">
+      <button type="button" class="sp-pill" data-v="jpy">日圓</button>
+      <button type="button" class="sp-pill" data-v="both">日圓＋台幣</button>
+      <button type="button" class="sp-pill" data-v="twd">台幣</button>
+    </div>
+    <p class="sp-note">台幣依「匯率換算」工具的匯率即時計算；匯率表與花費追蹤維持原樣</p>
   </div>
   <div class="sp-group">
     <div class="sp-label">旅行期間打開時，自動跳到當天行程</div>
@@ -180,7 +189,7 @@
           <ul>
             <li>吉備糰子、白桃／麝香葡萄造型甜點、桃太郎餅乾、岡山布丁</li>
             <li>B1 藥妝／免稅區：合利他命EX、EVE止痛藥、休足時間、面膜</li>
-            <li>B1 超市白桃、麝香葡萄，¥398 起，傍晚常降價<span class="food-badge no">🚫 不可帶回台灣</span>（生鮮水果一律禁止入境，當地買了要當天／隔天吃完）</li>
+            <li>B1 超市白桃、麝香葡萄，<span class="yen" data-y="¥398">¥398</span> 起，傍晚常降價<span class="food-badge no">🚫 不可帶回台灣</span>（生鮮水果一律禁止入境，當地買了要當天／隔天吃完）</li>
           </ul>
         </div>
         <div class="tag-card tag-eat">
@@ -301,7 +310,7 @@
           <ul>
             <li>現烤廣島牡蠣（全日本牡蠣過半產自廣島）</li>
             <li>星鰻飯（あなごめし）</li>
-            <li>GEBURA 檸檬飲料，帶杯子回去續杯只要¥200</li>
+            <li>GEBURA 檸檬飲料，帶杯子回去續杯只要<span class="yen" data-y="¥200">¥200</span></li>
           </ul>
         </div>
         <div class="tag-card tag-shot">
@@ -405,7 +414,7 @@
         </div>
         <div class="tag-card tag-buy">
           <span class="tag-label">買 / 吃</span>
-          <p>南門「栗林庵」物產館買伴手禮；掬月亭或皐月亭付費（約¥600–800）喝抹茶配和菓子賞景，時間允許很推薦。</p>
+          <p>南門「栗林庵」物產館買伴手禮；掬月亭或皐月亭付費（約<span class="yen" data-y="¥600–800">¥600–800</span>）喝抹茶配和菓子賞景，時間允許很推薦。</p>
         </div>
       </div>
     </div>
@@ -653,42 +662,42 @@
       <div class="prep-card cash-card">
         <h3>現金該帶多少</h3>
         <div class="cash-headline">
-          建議帶 <b>¥25,000</b> 現金
+          建議帶 <b><span class="yen" data-y="¥25,000">¥25,000</span></b> 現金
           <span>大型店家（AEON、藥妝、栗林庵等）刷卡就好，這筆現金是用來應付「只收現金」的地方</span>
         </div>
         <table class="cash-table">
           <tr><th>項目</th><th>建議金額</th></tr>
-          <tr><td>門票／纜車（千光寺、松山城、嚴島神社、栗林公園等）</td><td>¥5,000</td></tr>
-          <tr><td>街邊小吃（尾道拉麵、宮島牡蠣、糰子等）</td><td>¥4,000</td></tr>
-          <tr><td>自理餐（D1晚餐、D4晚餐、D5午餐）</td><td>¥4,000</td></tr>
-          <tr><td>神社香油錢／御守／抽籤</td><td>¥1,500</td></tr>
-          <tr><td>零錢雜項（寄物櫃、販賣機）</td><td>¥1,500</td></tr>
-          <tr><td>備用金（刷卡機故障、臨時採買）</td><td>¥4,000</td></tr>
-          <tr class="cash-total"><td>合計</td><td>約 ¥20,000</td></tr>
+          <tr><td>門票／纜車（千光寺、松山城、嚴島神社、栗林公園等）</td><td><span class="yen" data-y="¥5,000">¥5,000</span></td></tr>
+          <tr><td>街邊小吃（尾道拉麵、宮島牡蠣、糰子等）</td><td><span class="yen" data-y="¥4,000">¥4,000</span></td></tr>
+          <tr><td>自理餐（D1晚餐、D4晚餐、D5午餐）</td><td><span class="yen" data-y="¥4,000">¥4,000</span></td></tr>
+          <tr><td>神社香油錢／御守／抽籤</td><td><span class="yen" data-y="¥1,500">¥1,500</span></td></tr>
+          <tr><td>零錢雜項（寄物櫃、販賣機）</td><td><span class="yen" data-y="¥1,500">¥1,500</span></td></tr>
+          <tr><td>備用金（刷卡機故障、臨時採買）</td><td><span class="yen" data-y="¥4,000">¥4,000</span></td></tr>
+          <tr class="cash-total"><td>合計</td><td>約 <span class="yen" data-y="¥20,000">¥20,000</span></td></tr>
         </table>
-        <p class="cash-note">抓整數帶 <b>¥25,000</b> 換匯方便、也留一點餘裕。</p>
+        <p class="cash-note">抓整數帶 <b><span class="yen" data-y="¥25,000">¥25,000</span></b> 換匯方便、也留一點餘裕。</p>
       </div>
       <div class="prep-card cash-card">
         <h3>不同預算怎麼花</h3>
         <table class="cash-table eval-table">
           <tr><th>攜帶金額</th><th>評估</th></tr>
-          <tr><td>¥25,000</td><td>剛好打平必要現金支出，不夠買太多現金伴手禮</td></tr>
-          <tr><td>¥50,000</td><td>必要支出＋盡情買現金伴手禮＋留一些備用，較平衡的折衷值</td></tr>
-          <tr><td>¥100,000</td><td>偏多，除非打算大量現金購買清酒、和牛等，否則用不完；遠低於日本海關¥1,000,000免申報上限，但遺失風險較高</td></tr>
+          <tr><td><span class="yen" data-y="¥25,000">¥25,000</span></td><td>剛好打平必要現金支出，不夠買太多現金伴手禮</td></tr>
+          <tr><td><span class="yen" data-y="¥50,000">¥50,000</span></td><td>必要支出＋盡情買現金伴手禮＋留一些備用，較平衡的折衷值</td></tr>
+          <tr><td><span class="yen" data-y="¥100,000">¥100,000</span></td><td>偏多，除非打算大量現金購買清酒、和牛等，否則用不完；遠低於日本海關<span class="yen yen-keep" data-y="¥1,000,000">¥1,000,000</span>免申報上限，但遺失風險較高</td></tr>
         </table>
         <button class="expand-toggle" data-target="dailySpend" aria-expanded="false" aria-controls="dailySpend">
-          <span class="et-label">展開查看 ¥50,000 逐日花費分配</span>
+          <span class="et-label">展開查看 <span class="yen" data-y="¥50,000">¥50,000</span> 逐日花費分配</span>
           <span class="et-arrow">▾</span>
         </button>
         <div class="collapsible" id="dailySpend">
           <table class="cash-table eval-table" style="margin-top:.8rem;">
             <tr><th>天數／地點</th><th>建議金額／備註</th></tr>
-            <tr><td>D2 尾道本通商店街</td><td>¥2,500　貓咪造型鱈魚香絲、花林糖饅頭、尾道布丁</td></tr>
-            <tr><td>D3 宮島表參道</td><td>¥3,500　紅葉饅頭、現烤牡蠣、宮島張子小物</td></tr>
-            <tr><td>D3 道後溫泉商店街</td><td>¥2,000　少爺糰子、蜜柑製品</td></tr>
-            <tr><td>D4 金刀比羅宮表參道</td><td>¥4,000　讚岐烏龍麵乾麵、加美代飴、金陵清酒</td></tr>
-            <tr><td>D4 栗林公園</td><td>¥800　掬月亭抹茶配和菓子賞景</td></tr>
-            <tr><td>D5 倉敷美觀地區</td><td>¥12,200　吉備糰子、桃子甜點、紙膠帶（重頭戲，優先買）</td></tr>
+            <tr><td>D2 尾道本通商店街</td><td><span class="yen" data-y="¥2,500">¥2,500</span>　貓咪造型鱈魚香絲、花林糖饅頭、尾道布丁</td></tr>
+            <tr><td>D3 宮島表參道</td><td><span class="yen" data-y="¥3,500">¥3,500</span>　紅葉饅頭、現烤牡蠣、宮島張子小物</td></tr>
+            <tr><td>D3 道後溫泉商店街</td><td><span class="yen" data-y="¥2,000">¥2,000</span>　少爺糰子、蜜柑製品</td></tr>
+            <tr><td>D4 金刀比羅宮表參道</td><td><span class="yen" data-y="¥4,000">¥4,000</span>　讚岐烏龍麵乾麵、加美代飴、金陵清酒</td></tr>
+            <tr><td>D4 栗林公園</td><td><span class="yen" data-y="¥800">¥800</span>　掬月亭抹茶配和菓子賞景</td></tr>
+            <tr><td>D5 倉敷美觀地區</td><td><span class="yen" data-y="¥12,200">¥12,200</span>　吉備糰子、桃子甜點、紙膠帶（重頭戲，優先買）</td></tr>
           </table>
           <p class="cash-note" style="margin-top:.6rem;">D5倉敷是花費最大的一天；想買貴一點的清酒、和牛，建議排在D4或D5前段決定，現金越到後面越緊。</p>
         </div>
@@ -1150,7 +1159,7 @@
             FamilyMart 道後湯之町 約730公尺<br>
             7-Eleven 道後北町 約820公尺<br>
             <span class="self-arrange-note">以上皆為24小時營業</span></td>
-          <td data-label="晚上可逛的地方">道後溫泉本館約510公尺，營業到23:00，夜間點燈很好拍；空中散步道足湯約460公尺，開到21:00，可免費泡腳俯瞰本館；道後ハイカラ通商店街約600公尺，標示營業到23:30，各店實際打烊時間不一。道後站前的 Lawson 有橘子汁水龍頭（評論提到每杯約500日圓）</td>
+          <td data-label="晚上可逛的地方">道後溫泉本館約510公尺，營業到23:00，夜間點燈很好拍；空中散步道足湯約460公尺，開到21:00，可免費泡腳俯瞰本館；道後ハイカラ通商店街約600公尺，標示營業到23:30，各店實際打烊時間不一。道後站前的 Lawson 有橘子汁水龍頭（評論提到每杯約<span class="yen" data-y="500日圓">500日圓</span>）</td>
         </tr>
         <tr>
           <td><strong>D4</strong> 高松兵庫町 JR CLEMENT INN</td>
@@ -1314,7 +1323,7 @@
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">大部分地方可以刷卡嗎？</button>
-        <div class="faq-a">AEON MALL、藥妝連鎖、栗林庵這類大型店家可以刷卡；街邊小吃、神社香油錢、部分門票纜車、自理餐大多只收現金，建議帶約¥25,000現金應付這些。</div>
+        <div class="faq-a">AEON MALL、藥妝連鎖、栗林庵這類大型店家可以刷卡；街邊小吃、神社香油錢、部分門票纜車、自理餐大多只收現金，建議帶約<span class="yen" data-y="¥25,000">¥25,000</span>現金應付這些。</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">要不要先換好日幣，還是可以到當地領現金？</button>
@@ -1713,7 +1722,7 @@
   // 價位（含稅）與入住當晚公休標示
   function hmPrice(p){
     if (!p.pr) return '';
-    return '<div class="hm-price">💴 ' + p.pr + (p.src ? '<span class="hm-src">（' + p.src + '）</span>' : '') + '</div>';
+    return '<div class="hm-price">💴 ' + yenWrap(p.pr) + (p.src ? '<span class="hm-src">（' + p.src + '）</span>' : '') + '</div>';
   }
   function hmOff(p, h){
     return p.off ? '<span class="hm-off">🚫 ' + h.night + ' 當晚公休</span>' : '';
@@ -1733,6 +1742,42 @@
     h.pois.forEach(p => { p.dist = hmDistance(h, p); });
     h.pois.sort((a, b) => a.dist - b.dist);
   });
+
+  // ---------- 金額顯示偏好（日圓／日圓＋台幣／台幣），台幣依匯率工具即時換算、四捨五入到個位 ----------
+  const YEN_RE = /[～~]?¥[\d,]+(?:\s*[–\-～~]\s*¥?[\d,]+)?|[\d,]+日圓/g;
+  function yenWrap(str, cls){
+    return String(str).replace(YEN_RE, m => '<span class="yen' + (cls ? ' ' + cls : '') + '" data-y="' + m + '">' + m + '</span>');
+  }
+  function yenMode(){ return (window.tourSettings && window.tourSettings.currency) || 'both'; }
+  function yenRate(){ const r = document.getElementById('fxRate'); return r ? (parseFloat(r.value) || 0) : 0; }
+  function yenTwd(t, rate){
+    const nums = (t.match(/[\d,]+/g) || []).map(x => parseInt(x.replace(/,/g, ''), 10));
+    const pre = /^[～~]/.test(t) ? '～' : '';
+    const f = n => Math.round(n * rate).toLocaleString();
+    return pre + 'NT$ ' + f(nums[0]) + (nums.length > 1 ? '–' + f(nums[1]) : '');
+  }
+  function yenRefresh(el, mode, rate){
+    const t = el.getAttribute('data-y');
+    if (!t) return;
+    if (!rate) { el.textContent = t; return; }
+    const keep = el.classList.contains('yen-keep');
+    const twd = yenTwd(t, rate);
+    if (keep || (mode === 'both' && !el.classList.contains('yen-short'))) {
+      if (el.classList.contains('yen-stack')) el.innerHTML = t + '<small class="yen-sub">約 ' + twd + '</small>';
+      else el.textContent = t + '（約 ' + twd + '）';
+    } else if (mode === 'twd') {
+      const prev = el.previousSibling;
+      const prevText = prev && prev.nodeType === 3 ? prev.textContent : '';
+      el.textContent = (/約\s*$/.test(prevText) || el.classList.contains('yen-short') || el.classList.contains('yen-stack') ? '' : '約 ') + twd;
+    } else {
+      el.textContent = t;
+    }
+  }
+  window.yenRefreshAll = function(){
+    const mode = yenMode(), rate = yenRate();
+    document.querySelectorAll('.yen').forEach(el => yenRefresh(el, mode, rate));
+    if (window.hmBudgetRefreshAll) window.hmBudgetRefreshAll(true);
+  };
 
   // ---------- 每晚自由活動預算試算（金額含稅、每人；來源同清單價位，超商／超市為估計值） ----------
   const HM_BUDGET = {
@@ -1772,18 +1817,18 @@
     const items = HM_BUDGET[h.id];
     if (!items) return '';
     const rows = items.map((it, i) => it.tiers
-      ? '<div class="hb-row hb-tier"><span class="hb-text"><span class="hb-name">' + it.n + '</span><span class="hb-desc">' + it.d + '</span></span>' +
+      ? '<div class="hb-row hb-tier"><span class="hb-text"><span class="hb-name">' + it.n + '</span><span class="hb-desc">' + yenWrap(it.d) + '</span></span>' +
           '<div class="hb-pills" role="group" aria-label="' + it.n + '" data-t="' + i + '">' +
           [['不買',0]].concat(it.tiers).map(t => '<button type="button" class="hb-pill' + (t[1] === 0 ? ' on' : '') + '" data-v="' + t[1] + '" aria-pressed="' + (t[1] === 0) + '">' +
-            t[0] + (t[1] ? ' ' + hmYen(t[1]) : '') + '</button>').join('') + '</div></div>'
+            t[0] + (t[1] ? ' ' + yenWrap(hmYen(t[1]), 'yen-short') : '') + '</button>').join('') + '</div></div>'
       : it.unit
-      ? '<div class="hb-row hb-qty"><span class="hb-name">' + it.n + '（每件 ' + hmYen(it.unit) + '）</span>' +
+      ? '<div class="hb-row hb-qty"><span class="hb-name">' + it.n + '（每件 ' + yenWrap(hmYen(it.unit), 'yen-short') + '）</span>' +
           '<button type="button" class="hb-btn" data-act="minus" data-i="' + i + '" aria-label="減少">−</button>' +
           '<span class="hb-q" data-q="' + i + '">0</span>' +
           '<button type="button" class="hb-btn" data-act="plus" data-i="' + i + '" aria-label="增加">＋</button></div>'
       : '<label class="hb-row"><input type="checkbox" data-i="' + i + '">' +
-          '<span class="hb-text"><span class="hb-name">' + it.n + '</span><span class="hb-desc">' + it.d + '</span></span>' +
-          '<span class="hb-amt">' + hmYen(it.lo) + '–' + Math.round(it.hi).toLocaleString() + '</span></label>'
+          '<span class="hb-text"><span class="hb-name">' + it.n + '</span><span class="hb-desc">' + yenWrap(it.d) + '</span></span>' +
+          '<span class="hb-amt">' + yenWrap(hmYen(it.lo) + '–' + Math.round(it.hi).toLocaleString(), 'yen-stack') + '</span></label>'
     ).join('');
     return '<div class="hm-budget" data-budget="' + h.id + '">' +
       '<div class="hb-head"><b>💴 今晚自由活動預算試算</b><span>' + h.night + '晚上</span></div>' +
@@ -1806,15 +1851,19 @@
         lo += it.lo; hi += it.hi;
       }
     });
-    const rateEl = document.getElementById('fxRate');
-    const rate = rateEl ? (parseFloat(rateEl.value) || 0) : 0;
-    box.querySelector('.hb-jpy').textContent = lo === hi ? hmYen(lo) : hmYen(lo) + ' – ' + Math.round(hi).toLocaleString();
-    box.querySelector('.hb-twd').textContent = rate > 0
+    const rate = yenRate(), mode = yenMode();
+    const jpyText = lo === hi ? hmYen(lo) : hmYen(lo) + ' – ' + Math.round(hi).toLocaleString();
+    const twdText = rate > 0
       ? (lo === hi ? '約 NT$ ' + Math.round(lo * rate).toLocaleString()
                    : '約 NT$ ' + Math.round(lo * rate).toLocaleString() + ' – ' + Math.round(hi * rate).toLocaleString())
       : '';
+    const jEl = box.querySelector('.hb-jpy'), tEl = box.querySelector('.hb-twd');
+    if (mode === 'twd' && twdText) { jEl.textContent = twdText.replace('約 ', ''); tEl.textContent = '約 ' + jpyText; }
+    else { jEl.textContent = jpyText; tEl.textContent = twdText; }
+    tEl.hidden = (mode === 'jpy');
   }
-  window.hmBudgetRefreshAll = function(){
+  window.hmBudgetRefreshAll = function(fromYen){
+    if (!fromYen && window.yenRefreshAll) { window.yenRefreshAll(); return; }
     document.querySelectorAll('.hm-budget').forEach(hmBudgetRefresh);
   };
   document.addEventListener('change', e => {
@@ -1872,6 +1921,7 @@
   function ensureHotelMap(){
     if (hotelMap) return;
     hotelMap = L.map('hotel-map', { scrollWheelZoom:false });
+    hotelMap.on('popupopen', () => { if (window.yenRefreshAll) window.yenRefreshAll(); });
     hotelMap.setView([HOTEL_AREAS[0].lat, HOTEL_AREAS[0].lng], 16);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'
@@ -1906,7 +1956,7 @@
       const m = L.marker([p.lat, p.lng], { icon:hmIcon(p) }).addTo(hotelLayer);
       m.bindTooltip(hmShort(p.dist), { permanent:true, direction:'right', className:'hm-dist', offset:[10,0] });
       m.bindPopup('<b>' + p.n + '</b>' + (p.off ? '<br>🚫 ' + h.night + ' 當晚公休' : '') + '<br>' + hmDistText(p.dist) + '（直線）<br>' + p.h +
-        (p.pr ? '<br>💴 ' + p.pr + (p.src ? '（' + p.src + '）' : '') : '') +
+        (p.pr ? '<br>💴 ' + yenWrap(p.pr) + (p.src ? '（' + p.src + '）' : '') : '') +
         '<br><a href="' + gmapPlace(p) + '" target="_blank" rel="noopener">在 Google 地圖開啟 →</a>' +
         '<br><a href="' + gmapWalk(h, p) + '" target="_blank" rel="noopener">從飯店步行導航 →</a>');
       pts.push([p.lat, p.lng]);
@@ -2305,9 +2355,10 @@
         smoothToggle(target, (isOpen) => {
           btn.classList.toggle('open', isOpen);
           btn.setAttribute('aria-expanded', String(isOpen));
-          btn.querySelector('.et-label').textContent = isOpen
+          btn.querySelector('.et-label').innerHTML = isOpen
             ? '收合逐日花費分配'
-            : '展開查看 ¥50,000 逐日花費分配';
+            : '展開查看 ' + yenWrap('¥50,000') + ' 逐日花費分配';
+          if (!isOpen && window.yenRefreshAll) window.yenRefreshAll();
         });
       });
     });
@@ -2863,7 +2914,7 @@
   // ---------- 設定面板（外觀、今天自動跳轉；設定記在本機） ----------
   (function(){
     const KEY = 'tour_settings';
-    const DEFAULTS = { theme:'auto', today:'on' };
+    const DEFAULTS = { theme:'auto', today:'on', currency:'both' };
     let st = Object.assign({}, DEFAULTS);
     try { st = Object.assign(st, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) {}
     function save(){ try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
@@ -2906,8 +2957,10 @@
       if (!p) return;
       st[p.parentElement.dataset.setting] = p.dataset.v;
       save(); syncPills(); applyTheme();
+      if (window.yenRefreshAll) window.yenRefreshAll();
     });
     syncPills(); applyTheme();
+    if (window.yenRefreshAll) window.yenRefreshAll();
   })();
 
   // ---------- 列印／存成PDF（在設定面板裡） ----------
