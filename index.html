@@ -1421,6 +1421,30 @@
   .day-transit b{ color:var(--ai-deep); }
 
   /* ---------- PRINT ---------- */
+  /* 夜間住宿超商表：手機版改成每間飯店一張卡片，避免三欄被擠壓 */
+  @media (min-width:701px){
+    .cash-table.eval-table.night-stay-table th:first-child,
+    .cash-table.eval-table.night-stay-table td:first-child{ width:20%; }
+    .cash-table.eval-table.night-stay-table th:nth-child(2),
+    .cash-table.eval-table.night-stay-table td:nth-child(2){
+      width:42%; text-align:left; white-space:normal; vertical-align:top;
+      font-family:'Noto Sans TC', sans-serif; line-height:1.7; word-break:break-word; padding-right:.8rem;
+    }
+    .cash-table.eval-table.night-stay-table th:last-child,
+    .cash-table.eval-table.night-stay-table td:last-child{ width:38%; vertical-align:top; }
+  }
+  @media (max-width:700px){
+    .night-stay-table, .night-stay-table tbody, .night-stay-table tr, .night-stay-table td{ display:block; width:100%; box-sizing:border-box; }
+    .night-stay-table tr:first-child{ display:none; }
+    .night-stay-table tr{ border:1px solid var(--paper-line); border-radius:4px; margin-bottom:.9rem; padding:.7rem .9rem; }
+    .night-stay-table td{ border:0 !important; padding:.35rem 0 !important; white-space:normal !important; }
+    .night-stay-table td:first-child{ font-size:.95rem; padding-top:0 !important; }
+    .night-stay-table td[data-label]::before{
+      content:attr(data-label); display:block;
+      font-size:.72rem; font-weight:700; letter-spacing:.05em; opacity:.6; margin-bottom:.2rem;
+    }
+  }
+
   /* ---------- 分頁式版面：底部分頁列＋分頁內導覽 ---------- */
   :root{ --tabbar-h: calc(64px + env(safe-area-inset-bottom, 0px)); }
   body{ padding-bottom: var(--tabbar-h); }
@@ -2569,14 +2593,56 @@
 
     <div class="spot" style="margin-bottom:2rem;">
       <div class="spot-name">晚上住宿飯店周邊超商方便嗎<span class="context-tag night">🌙 夜間住宿版</span></div>
-      <table class="cash-table eval-table">
-        <tr><th>天數／住宿區域</th><th>晚上溜出去逛超商方便嗎</th></tr>
-        <tr><td>D1 岡山市區／倉敷</td><td>✅ 候選飯店都在車站周邊或市中心，24小時超商密度很高，很方便</td></tr>
-        <tr><td>D2 廣島市區</td><td>✅ 候選飯店集中在市中心（八丁堀、紙屋町、廣島站周邊），這區超商多到不用特別找</td></tr>
-        <tr><td>D3 道後溫泉／松山市區</td><td>✅ 道後溫泉本身是成熟的溫泉街，周邊有超商；松山市區的飯店更不用說</td></tr>
-        <tr><td>D4 高松市區／倉敷</td><td>✅ 高松車站、市中心一帶飯店，超商密集</td></tr>
+      <table class="cash-table eval-table night-stay-table">
+        <tr><th>天數／住宿</th><th>最近的超商（直線距離）</th><th>晚上可逛的地方</th></tr>
+        <tr>
+          <td><strong>D1</strong> 倉敷水島 ROUTE INN</td>
+          <td data-label="最近的超商（直線距離）">⚠️ 比其他幾晚遠一點，但步行可達：<br>
+            Lawson 水島榮 約260公尺（2026年9月新開）<br>
+            7-Eleven 水島西常盤町 約380公尺<br>
+            FamilyMart 水島南幸町 約690公尺<br>
+            Lawson 北瀨2丁目 約690公尺<br>
+            7-Eleven 中洲10丁目 約700公尺<br>
+            <span class="self-arrange-note">以上皆為24小時營業</span></td>
+          <td data-label="晚上可逛的地方">水島是工業區，附近以居酒屋、拉麵店為主，入夜不像市中心熱鬧。超市 Nishina Food Basket 中洲店約800公尺，營業到22:00，想買水果熟食可以走一趟</td>
+        </tr>
+        <tr>
+          <td><strong>D2</strong> 廣島東急 REI</td>
+          <td data-label="最近的超商（直線距離）">✅ 超商就在飯店周邊：<br>
+            Lawson 三川町 約50公尺<br>
+            7-Eleven 三川町 約80公尺<br>
+            FamilyMart 中央通 約160公尺（店內附 Subway）<br>
+            7-Eleven 中町 約200公尺<br>
+            7-Eleven 寶町 約380公尺<br>
+            <span class="self-arrange-note">以上皆為24小時營業</span></td>
+          <td data-label="晚上可逛的地方">廣島 PARCO 約370公尺（營業到20:30）；惠比壽通約480公尺，連接流川夜生活區，入夜人潮才多；本通商店街約650公尺，約20:00打烊，建議飯店出發前先逛完</td>
+        </tr>
+        <tr>
+          <td><strong>D3</strong> 大江戶溫泉物語 道後</td>
+          <td data-label="最近的超商（直線距離）">⚠️ 本行程最需要走路的一晚：<br>
+            FamilyMart 石手 約430公尺<br>
+            Lawson 道後站前 約540公尺<br>
+            Lawson 道後ハイカラ通り 約600公尺<br>
+            FamilyMart 道後湯之町 約730公尺<br>
+            7-Eleven 道後北町 約820公尺<br>
+            <span class="self-arrange-note">以上皆為24小時營業</span></td>
+          <td data-label="晚上可逛的地方">道後溫泉本館約510公尺，營業到23:00，夜間點燈很好拍；空中散步道足湯約460公尺，開到21:00，可免費泡腳俯瞰本館；道後ハイカラ通商店街約600公尺，標示營業到23:30，各店實際打烊時間不一。道後站前的 Lawson 有橘子汁水龍頭（評論提到每杯約500日圓）</td>
+        </tr>
+        <tr>
+          <td><strong>D4</strong> 高松兵庫町 JR CLEMENT INN</td>
+          <td data-label="最近的超商（直線距離）">✅ 本行程超商最方便的一晚：<br>
+            Lawson 兵庫町 約15公尺（等於在隔壁）<br>
+            FamilyMart 研屋町 約155公尺<br>
+            7-Eleven 丸龜町 約350公尺<br>
+            FamilyMart 片原町 約350公尺<br>
+            Ministop 高松站 約390公尺<br>
+            FamilyMart 丸龜町 約420公尺<br>
+            7-Eleven 濱之町 約510公尺（營業6:30–22:30，非24小時）<br>
+            <span class="self-arrange-note">除標註外皆為24小時營業</span></td>
+          <td data-label="晚上可逛的地方">住宿評論提到鄰近兵庫町商店街，我沒有查到營業時間；晚上想吃宵夜，讚岐烏龍麵 Enya 約500公尺，營業到23:00</td>
+        </tr>
       </table>
-      <p class="cash-note" style="margin-top:.6rem;">住宿已確定（見上方「航班與每日住宿餐食」）。上表是依各城市區域概況評估，各飯店到最近超商的實際步行距離尚未逐一查證，入住後可請領隊或櫃台協助確認。</p>
+      <p class="cash-note" style="margin-top:.6rem;">距離是依 Google 地點座標算出的直線估算，實際步行會略長；營業時間也以 Google 資料為準，可能調整，我沒有逐一到現場確認。住宿確定後，這張表取代原本依區域概況寫的評估。</p>
       <div class="mini-alert" style="margin-top:.8rem;">🌙 半夜出門小提醒：記得帶<strong>房卡</strong>（不然回不了房間）；手機存好<strong>飯店地址跟名稱</strong>（萬一迷路要叫車或問路）；道後溫泉這種傳統溫泉街，部分商店晚上會提早打烊，超商營業時間才是穩定的。</div>
     </div>
 
@@ -2870,7 +2936,7 @@
       stops: [
         { name:"岡山機場（桃太郎機場）", lat:34.7579784, lng:133.8558042, cat:"transit", note:"下飛機點，11/18 14:35 抵達", place_id:"ChIJa2konp4DVDURCbtFf9tz9bM" },
         { name:"AEON MALL 永旺夢樂城岡山", lat:34.6619963, lng:133.9176284, cat:"shop", note:"購物、B1藥妝免稅、超市生鮮", place_id:"ChIJkyqZELMHVDUREhwbsCvO-I0", transit:"機場 → 商場：巴士約20分鐘" },
-        { name:"倉敷水島 ROUTE INN", lat:34.5338919, lng:133.7436342, cat:"hotel", note:"D1 住宿・電話 00281-86-456-1100", place_id:"ChIJNbZBPbdZUTURBgfu604ONp0" }
+        { name:"倉敷水島 ROUTE INN", lat:34.5338919, lng:133.7436342, cat:"hotel", note:"D1 住宿・電話 00281-86-456-1100<br>最近超商：Lawson 水島榮約260公尺、7-Eleven 約380公尺（24小時）", place_id:"ChIJNbZBPbdZUTURBgfu604ONp0" }
       ]
     },
     {
@@ -2880,7 +2946,7 @@
         { name:"千光寺公園", lat:34.4109947, lng:133.1964444, cat:"park", note:"單程纜車，山頂俯瞰尾道港全景", place_id:"ChIJnS1jvbUBUTURJcFZNsJy7Qs", transit:"商店街 → 公園：步行至纜車站約5分＋纜車3分" },
         { name:"平和記念公園", lat:34.3926867, lng:132.4522012, cat:"park", note:"原爆和平紀念公園", place_id:"ChIJgzAzVG2iWjURZRZ1udXOKeE", transit:"尾道 → 廣島：巴士車程約1小時" },
         { name:"廣島本通商店街", lat:34.392868, lng:132.4604881, cat:"shop", note:"發放代金2000日幣逛街", place_id:"ChIJx9XW-g6iWjURM9NQxHzUtLw", transit:"公園 → 商店街：步行約10分鐘" },
-        { name:"廣島東急 REI", lat:34.3888666, lng:132.4616614, cat:"hotel", note:"D2 住宿・電話 082-244-0109", place_id:"ChIJWeRpGRCiWjURyQymaclecBw" }
+        { name:"廣島東急 REI", lat:34.3888666, lng:132.4616614, cat:"hotel", note:"D2 住宿・電話 082-244-0109<br>最近超商：Lawson 約50公尺、7-Eleven 約80公尺、FamilyMart 約160公尺（24小時）", place_id:"ChIJWeRpGRCiWjURyQymaclecBw" }
       ]
     },
     {
@@ -2890,7 +2956,7 @@
         { name:"宮島表參道商店街", lat:34.2989747, lng:132.3218356, cat:"shop", note:"紅葉饅頭、現烤牡蠣、星鰻飯", place_id:"ChIJ1zjNPLGwWjURgwBo1M8ikLw", transit:"神社 → 表參道：同區域步行約5分鐘" },
         { name:"松山城纜車", lat:33.8441496, lng:132.7680609, cat:"transit", note:"長者ヶ平站，俯瞰松山市街", place_id:"ChIJAQAUDevlTzURxEU3PfUYWEM", transit:"宮島 → 松山：經島波海道，巴士車程約3～3.5小時（依交通狀況）" },
         { name:"道後溫泉本館", lat:33.8520748, lng:132.7864098, cat:"shrine", note:"外觀拍照，少爺音樂鐘在旁", place_id:"ChIJ84F-kHjmTzURebGHHI1YWXw", transit:"松山城 → 道後溫泉：車程約15分鐘" },
-        { name:"大江戶溫泉物語 道後", lat:33.849218, lng:132.7907172, cat:"hotel", note:"D3 住宿・電話 089-913-2165", place_id:"ChIJG6bZKXrmTzURuJd-UIKKekU" }
+        { name:"大江戶溫泉物語 道後", lat:33.849218, lng:132.7907172, cat:"hotel", note:"D3 住宿・電話 089-913-2165<br>最近超商：FamilyMart 約430公尺、Lawson 道後站前約540公尺（24小時）", place_id:"ChIJG6bZKXrmTzURuJd-UIKKekU" }
       ]
     },
     {
@@ -2899,7 +2965,7 @@
         { name:"金刀比羅宮", lat:34.1839981, lng:133.8095371, cat:"shrine", note:"785級石階至本宮，表參道購物", place_id:"ChIJtSRHH0IkGWARqTAo4c715o0" },
         { name:"栗林公園", lat:34.3299036, lng:134.0457696, cat:"park", note:"飛來峰俯瞰偃月橋，米其林三星庭園", place_id:"ChIJUc4SILrrUzURFEFMQod9v7g", transit:"琴平 → 栗林公園：巴士車程約40分鐘" },
         { name:"AEON MALL 永旺夢樂城岡山", lat:34.6619963, lng:133.9176284, cat:"shop", note:"第二次採買時段", place_id:"ChIJkyqZELMHVDUREhwbsCvO-I0", transit:"高松 → 岡山：巴士車程約1小時" },
-        { name:"高松兵庫町 JR CLEMENT INN", lat:34.3462138, lng:134.0480805, cat:"hotel", note:"D4 住宿・電話 00281-87-811-1155", place_id:"ChIJZe9jj4_rUzURy3II9I9V_7A" }
+        { name:"高松兵庫町 JR CLEMENT INN", lat:34.3462138, lng:134.0480805, cat:"hotel", note:"D4 住宿・電話 00281-87-811-1155<br>最近超商：Lawson 兵庫町約15公尺、FamilyMart 約155公尺（24小時）", place_id:"ChIJZe9jj4_rUzURy3II9I9V_7A" }
       ]
     },
     {
