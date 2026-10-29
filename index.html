@@ -1421,7 +1421,51 @@
   .day-transit b{ color:var(--ai-deep); }
 
   /* ---------- PRINT ---------- */
+  /* ---------- 分頁式版面：底部分頁列＋分頁內導覽 ---------- */
+  :root{ --tabbar-h: calc(64px + env(safe-area-inset-bottom, 0px)); }
+  body{ padding-bottom: var(--tabbar-h); }
+  section.pane-hidden{ display:none !important; }
+  .thread{ display:none; }
+  .trail.trail-hidden{ display:none; }
+  .pane-enter{ animation:paneIn .3s cubic-bezier(.4,0,.2,1); }
+  @keyframes paneIn{
+    from{ opacity:0; transform:translateY(8px); }
+    to{ opacity:1; transform:none; }
+  }
+  .tabbar{
+    position:fixed; left:0; right:0; bottom:0; z-index:60;
+    background:rgba(20,33,59,0.86);
+    -webkit-backdrop-filter:blur(14px) saturate(160%);
+    backdrop-filter:blur(14px) saturate(160%);
+    border-top:1px solid rgba(243,237,224,0.12);
+    padding-bottom:env(safe-area-inset-bottom, 0px);
+  }
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){
+    .tabbar{ background:var(--ai-deep); }
+  }
+  body.night-mode .tabbar{ background:rgba(11,21,38,0.86); }
+  .tabbar-inner{ display:flex; max-width:640px; margin:0 auto; }
+  .tabbar button{
+    flex:1; min-height:64px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.2rem;
+    background:none; border:0; cursor:pointer;
+    color:rgba(243,237,224,0.55);
+    font-family:'Noto Serif TC',serif; font-size:.72rem;
+    transition:color .2s;
+  }
+  .tabbar button .ti{ font-size:1.3rem; line-height:1; }
+  .tabbar button:hover{ color:var(--kincha); }
+  .tabbar button.active{ color:var(--kincha); font-weight:700; }
+  .tabbar button:focus-visible{ outline:2px solid var(--kincha); outline-offset:-3px; }
+  #backToTop, #themeToggle, #printBtn{ margin-bottom:var(--tabbar-h); }
+  @media (prefers-reduced-motion: reduce){
+    .pane-enter{ animation:none; }
+  }
+
   @media print{
+    .tabbar{ display:none !important; }
+    body{ padding-bottom:0 !important; }
+    section.pane-hidden{ display:block !important; }
     .trail, #backToTop, #themeToggle, #printBtn, .map-hint, .map-tabs, .hero .kicker, footer a,
     .search-wrap, .day-banner, .view-map-btn, .prep-tabs, .expand-toggle, .faq-q::after { display:none !important; }
 
@@ -1495,23 +1539,7 @@
 </section>
 
 <!-- NAV -->
-<nav class="trail" id="trailNav">
-  <a href="#d1">D1 岡山</a>
-  <a href="#d2">D2 尾道</a>
-  <a href="#d3">D3 宮島・松山</a>
-  <a href="#d4">D4 琴平・栗林</a>
-  <a href="#d5">D5 倉敷</a>
-  <a href="#anime-pilgrimage">動漫聖地</a>
-  <a href="#mapview">地圖總覽</a>
-  <a href="#logistics">航班住宿</a>
-  <a href="#prep">行前準備</a>
-  <a href="#packing">打包清單</a>
-  <a href="#reminders">貼心提醒</a>
-  <a href="#tools">匯率/日文</a>
-  <a href="#faq">常見問題</a>
-  <a href="#expenses">花費追蹤</a>
-  <a href="#summary">總覽建議</a>
-</nav>
+<nav class="trail" id="trailNav" aria-label="分頁內導覽"></nav>
 
 <div class="search-wrap">
   <input type="text" id="siteSearch" placeholder="🔍 搜尋景點、店家、關鍵字…（例如：紅葉饅頭、行動電源）" autocomplete="off">
@@ -1520,6 +1548,16 @@
 </div>
 
 <div id="dayBanner" class="day-banner" style="display:none;"></div>
+
+<nav class="tabbar" id="tabBar" role="tablist" aria-label="主要分頁">
+  <div class="tabbar-inner">
+    <button type="button" role="tab" data-tab="itinerary" aria-selected="true" class="active"><span class="ti">📅</span><span>行程</span></button>
+    <button type="button" role="tab" data-tab="map" aria-selected="false"><span class="ti">🗺️</span><span>地圖</span></button>
+    <button type="button" role="tab" data-tab="stay" aria-selected="false"><span class="ti">🏨</span><span>航班住宿</span></button>
+    <button type="button" role="tab" data-tab="prep" aria-selected="false"><span class="ti">🧳</span><span>行前準備</span></button>
+    <button type="button" role="tab" data-tab="tools" aria-selected="false"><span class="ti">🧰</span><span>工具</span></button>
+  </div>
+</nav>
 
 <button id="backToTop" aria-label="回到頂端" title="回到頂端">↑</button>
 <button id="themeToggle" aria-label="切換護眼模式" title="切換護眼模式">☀️</button>
@@ -1534,6 +1572,8 @@
     </div>
   </div>
 </div>
+
+<div id="tabAnchor"></div>
 
 <!-- D1 -->
 <section class="day paper" id="d1">
@@ -2873,6 +2913,7 @@
 
   // ---------- MAP INIT ----------
   const map = L.map('leaflet-map', { scrollWheelZoom:false });
+  map.setView([34.4, 133.4], 8);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
     attribution: '&copy; OpenStreetMap contributors'
@@ -2890,6 +2931,7 @@
   }, { passive:false });
 
   let currentLayer = null;
+  let currentMapIdx = 0;
 
   function numberedIcon(n, color){
     return L.divIcon({
@@ -2902,6 +2944,7 @@
   }
 
   function renderDay(idx){
+    currentMapIdx = idx;
     if (currentLayer) { map.removeLayer(currentLayer); }
     currentLayer = L.layerGroup().addTo(map);
 
@@ -2924,8 +2967,11 @@
       L.polyline(latlngs, { color:"#BD4B28", weight:2, dashArray:"6 6", opacity:.7 }).addTo(currentLayer);
     }
 
-    const bounds = L.latLngBounds(latlngs);
-    map.fitBounds(bounds, { padding:[40,40] });
+    // 地圖所在分頁隱藏時容器寬度為0，不能縮放；切到地圖分頁時會再重新繪製
+    if (map.getContainer().offsetWidth > 0) {
+      const bounds = L.latLngBounds(latlngs);
+      map.fitBounds(bounds, { padding:[40,40] });
+    }
 
     // 交通時間資訊面板
     const transitEl = document.getElementById('dayTransit');
@@ -2959,26 +3005,118 @@
 
   renderDay(0);
 
-  // ---------- SCROLLSPY：導覽列自動高亮 ----------
+  // ---------- 分頁導覽：底部分頁列＋分頁內導覽（一次只顯示一個區塊） ----------
+  const TAB_CONFIG = [
+    { id:'itinerary', sections:[['d1','D1 岡山'],['d2','D2 尾道'],['d3','D3 宮島・松山'],['d4','D4 琴平・栗林'],['d5','D5 倉敷'],['anime-pilgrimage','動漫聖地']] },
+    { id:'map',       sections:[['mapview','地圖總覽']] },
+    { id:'stay',      sections:[['logistics','航班住宿']] },
+    { id:'prep',      sections:[['prep','行前準備'],['packing','打包清單'],['reminders','貼心提醒']] },
+    { id:'tools',     sections:[['tools','匯率/日文'],['expenses','花費追蹤'],['faq','常見問題'],['summary','總覽建議']] }
+  ];
+  const sectionToTab = {};
+  const lastSectionOfTab = {};
+  TAB_CONFIG.forEach(t => {
+    lastSectionOfTab[t.id] = t.sections[0][0];
+    t.sections.forEach(([id]) => { sectionToTab[id] = t.id; });
+  });
+  let activeSectionId = null;
+  let printPrepared = false;
+
+  function showSection(id, opts){
+    opts = opts || {};
+    const tabId = sectionToTab[id];
+    if (!tabId) return;
+    const cfg = TAB_CONFIG.find(t => t.id === tabId);
+    activeSectionId = id;
+    lastSectionOfTab[tabId] = id;
+
+    // 只顯示目標區塊，其餘隱藏
+    Object.keys(sectionToTab).forEach(sid => {
+      const el = document.getElementById(sid);
+      if (el) el.classList.toggle('pane-hidden', sid !== id);
+    });
+    const target = document.getElementById(id);
+    if (target) {
+      target.classList.remove('pane-enter');
+      void target.offsetWidth;
+      target.classList.add('pane-enter');
+    }
+
+    // 底部分頁列狀態
+    document.querySelectorAll('#tabBar button').forEach(btn => {
+      const on = btn.getAttribute('data-tab') === tabId;
+      btn.classList.toggle('active', on);
+      btn.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+
+    // 分頁內導覽（同一分頁有多個區塊才顯示）
+    const trail = document.getElementById('trailNav');
+    if (trail) {
+      if (cfg.sections.length > 1) {
+        trail.innerHTML = cfg.sections.map(([sid, label]) =>
+          '<a href="#' + sid + '"' + (sid === id ? ' class="active" aria-current="true"' : '') + '>' + label + '</a>'
+        ).join('');
+        trail.classList.remove('trail-hidden');
+      } else {
+        trail.innerHTML = '';
+        trail.classList.add('trail-hidden');
+      }
+    }
+
+    // 地圖：切到地圖分頁後才有實際尺寸，需重新量測並重畫
+    if (id === 'mapview') {
+      map.invalidateSize();
+      renderDay(currentMapIdx);
+    }
+
+    try { history.replaceState(null, '', '#' + id); } catch (e) {}
+
+    // 切換分頁後，若畫面已捲過內容起點，回到內容開頭
+    if (!opts.noScroll) {
+      const anchor = document.getElementById('tabAnchor');
+      const trailH = (trail && !trail.classList.contains('trail-hidden')) ? trail.offsetHeight : 0;
+      const top = anchor.getBoundingClientRect().top + window.scrollY - trailH;
+      if (window.scrollY > top) window.scrollTo({ top: Math.max(0, top), behavior:'instant' });
+    }
+  }
+
+  document.querySelectorAll('#tabBar button').forEach(btn => {
+    btn.addEventListener('click', () => showSection(lastSectionOfTab[btn.getAttribute('data-tab')]));
+  });
+
+  // 內文與分頁內導覽裡的頁內連結（#d1、#anime-pilgrimage…）改為切換分頁
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || a.classList.contains('view-map-btn')) return;
+    const id = a.getAttribute('href').slice(1);
+    if (!sectionToTab[id]) return;
+    e.preventDefault();
+    showSection(id);
+  });
+
+  window.addEventListener('hashchange', () => {
+    const id = location.hash.slice(1);
+    if (sectionToTab[id] && id !== activeSectionId) showSection(id);
+  });
+
+  // 列印／存PDF：暫時把所有區塊展開，印完再回到目前分頁
+  function preparePrint(){
+    if (printPrepared) return;
+    printPrepared = true;
+    document.querySelectorAll('section.pane-hidden').forEach(el => el.classList.remove('pane-hidden'));
+    map.invalidateSize();
+    renderDay(currentMapIdx);
+  }
+  window.addEventListener('beforeprint', preparePrint);
+  window.addEventListener('afterprint', () => {
+    if (!printPrepared) return;
+    printPrepared = false;
+    showSection(activeSectionId, { noScroll:true });
+  });
+
   (function(){
-    const navLinks = Array.from(document.querySelectorAll('#trailNav a'));
-    const sections = navLinks
-      .map(a => document.querySelector(a.getAttribute('href')))
-      .filter(Boolean);
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const id = '#' + entry.target.id;
-        const link = navLinks.find(a => a.getAttribute('href') === id);
-        if (!link) return;
-        if (entry.isIntersecting) {
-          navLinks.forEach(a => a.classList.remove('active'));
-          link.classList.add('active');
-        }
-      });
-    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
-
-    sections.forEach(sec => observer.observe(sec));
+    const hashId = location.hash.slice(1);
+    showSection(sectionToTab[hashId] ? hashId : 'd1', { noScroll:true });
   })();
 
   // ---------- 回到頂端按鈕 ----------
@@ -3197,7 +3335,7 @@
     }
     banner.addEventListener('click', () => {
       const anchor = banner.dataset.anchor;
-      if (anchor) document.querySelector(anchor)?.scrollIntoView({ behavior:'smooth' });
+      if (anchor) showSection(anchor.slice(1));
     });
   })();
 
@@ -3210,6 +3348,13 @@
     // 跳轉前先確保目標元素「看得見」：展開所在頁籤／FAQ／收合區塊
     function revealAndScroll(target){
       let needsWait = false;
+
+      // 0. 如果所在區塊目前是隱藏的分頁，先切換到該分頁
+      const hostSection = target.closest('section[id]');
+      if (hostSection && hostSection.classList.contains('pane-hidden')) {
+        showSection(hostSection.id, { noScroll:true });
+        needsWait = true;
+      }
 
       // 1. 如果在行前準備的隱藏頁籤裡，先切換到該頁籤
       const hiddenGrid = target.closest('.prep-grid[data-group]');
@@ -3465,42 +3610,18 @@
 
   // ---------- 地圖跟每日行程連動 ----------
   (function(){
-    // 等實際捲動真的停下來再切換頁籤，而不是猜一個固定時間
-    // （不同裝置/捲動距離下，瀏覽器的平滑捲動時間並不固定）
-    function afterScrollSettles(callback){
-      let lastY = window.scrollY;
-      let stillFrames = 0;
-      const maxWait = 1200; // 保險上限，避免萬一偵測不到時卡住不觸發
-      const startedAt = performance.now();
-      function check(){
-        const y = window.scrollY;
-        if (y === lastY) {
-          stillFrames++;
-        } else {
-          stillFrames = 0;
-          lastY = y;
-        }
-        if (stillFrames >= 3 || performance.now() - startedAt > maxWait) {
-          callback();
-        } else {
-          requestAnimationFrame(check);
-        }
-      }
-      requestAnimationFrame(check);
-    }
-
     document.querySelectorAll('.view-map-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
         const idx = parseInt(btn.getAttribute('data-day-idx'), 10);
-        afterScrollSettles(() => {
-          const tab = document.querySelectorAll('.map-tab')[idx];
-          if (tab) tab.click();
-          const mapEl = document.getElementById('leaflet-map');
-          if (mapEl) {
-            mapEl.classList.add('map-flash');
-            setTimeout(() => mapEl.classList.remove('map-flash'), 1200);
-          }
-        });
+        showSection('mapview');
+        const tab = document.querySelectorAll('.map-tab')[idx];
+        if (tab) tab.click();
+        const mapEl = document.getElementById('leaflet-map');
+        if (mapEl) {
+          mapEl.classList.add('map-flash');
+          setTimeout(() => mapEl.classList.remove('map-flash'), 1200);
+        }
       });
     });
   })();
@@ -3734,7 +3855,11 @@
   (function(){
     const btn = document.getElementById('printBtn');
     if (!btn) return;
-    btn.addEventListener('click', () => window.print());
+    btn.addEventListener('click', () => {
+      preparePrint();
+      // 等地圖圖磚載入一下再開列印視窗
+      setTimeout(() => window.print(), 700);
+    });
   })();
 </script>
 </body>
