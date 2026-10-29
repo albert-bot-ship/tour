@@ -1,4 +1,4 @@
-  :root{
+:root{
     --ai-deep: #14213B;      /* 藍染 深靛 */
     --ai-mid: #24365C;       /* 藍染 中靛 */
     --ai-line: #3E5688;      /* 藍染 淺線 */
@@ -1640,3 +1640,10 @@
     background:var(--ai-deep); pointer-events:none;
   }
   @media print{ body::before{ display:none; } }
+
+  /* ---------- 飯店周邊：價位與當晚公休 ---------- */
+  .hm-price{ font-size:.8rem; margin:-.2rem 0 .4rem; color:var(--ink, inherit); }
+  .hm-src{ opacity:.6; font-size:.72rem; }
+  .hm-off{ display:inline-block; margin-left:.4rem; padding:.05rem .45rem; border-radius:999px;
+    font-size:.7rem; background:#BD4B28; color:#fff; vertical-align:middle; }
+  .hm-item.is-off .hm-name{ opacity:.6; }
