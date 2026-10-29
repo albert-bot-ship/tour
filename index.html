@@ -1530,6 +1530,18 @@
     background:var(--kincha); border-color:var(--kincha) !important;
     color:var(--ai-deep); font-weight:700;
   }
+  /* 電腦版：地圖高度隨螢幕調整，一個畫面就能看完整張地圖（含分頁與類別按鈕） */
+  @media (min-width:901px){
+    #mapview, #hotelmap{ padding-top:1.2rem; padding-bottom:1.2rem; }
+    #mapview .sect-eyebrow, #hotelmap .sect-eyebrow{ display:none; }
+    #mapview h2, #hotelmap h2{ font-size:1.4rem; }
+    #mapview .sect-sub, #hotelmap .sect-sub{ margin-bottom:.8rem; font-size:.85rem; }
+    #mapview .map-tabs{ margin-bottom:.8rem; }
+    #hmTabs, #hmChips{ display:inline-flex; vertical-align:middle; margin:0 1.5rem .8rem 0; }
+    #leaflet-map{ height:clamp(360px, calc(100vh - var(--tabbar-h) - 62px - 215px), 900px); }
+    #hotel-map{ height:clamp(360px, calc(100vh - var(--tabbar-h) - 62px - 190px), 900px); }
+  }
+
   /* ---------- 分頁式版面：底部分頁列＋分頁內導覽 ---------- */
   :root{ --tabbar-h: calc(64px + env(safe-area-inset-bottom, 0px)); }
   body{ padding-bottom: var(--tabbar-h); }
@@ -3501,8 +3513,13 @@
 
     try { history.replaceState(null, '', '#' + id); } catch (e) {}
 
-    // 切換分頁後，若畫面已捲過內容起點，回到內容開頭
-    if (!opts.noScroll) {
+    // 電腦版的地圖分頁：把區塊對齊到導覽列下方，地圖正好填滿一個畫面
+    if (!opts.noScroll && (id === 'mapview' || id === 'hotelmap') && window.innerWidth > 900) {
+      const secTop = target.getBoundingClientRect().top + window.scrollY;
+      const trailH0 = (trail && !trail.classList.contains('trail-hidden')) ? trail.offsetHeight : 0;
+      window.scrollTo({ top: Math.max(0, secTop - trailH0), behavior:'instant' });
+    } else if (!opts.noScroll) {
+      // 切換分頁後，若畫面已捲過內容起點，回到內容開頭
       const anchor = document.getElementById('tabAnchor');
       const trailH = (trail && !trail.classList.contains('trail-hidden')) ? trail.offsetHeight : 0;
       const top = anchor.getBoundingClientRect().top + window.scrollY - trailH;
@@ -3545,6 +3562,11 @@
     if (!printPrepared) return;
     printPrepared = false;
     showSection(activeSectionId, { noScroll:true });
+  });
+
+  window.addEventListener('resize', () => {
+    if (activeSectionId === 'mapview') { map.invalidateSize(); renderDay(currentMapIdx); }
+    if (activeSectionId === 'hotelmap' && hotelMap) { hotelMap.invalidateSize(); renderHotelMap(hmIdx); }
   });
 
   (function(){
