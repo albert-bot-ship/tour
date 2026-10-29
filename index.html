@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=3">
+<link rel="stylesheet" href="./style.css?v=5">
 </head>
 <body>
 
@@ -1578,8 +1578,8 @@
         { n:'酒處やさこいわ（居酒屋）', cat:'eat', lat:34.5366539, lng:133.7432622, pid:'ChIJWXsYHbBZUTURbGyEnMYkkQo', h:'週三公休', pr:'價位未公開', off:true },
         { n:'居酒屋 秘密基地', cat:'eat', lat:34.5347943, lng:133.7402479, pid:'ChIJJSvVCwBZUTURHbV6B37zdBY', h:'週三公休', pr:'晚餐約 ¥4,000／人', src:'AutoReserve', off:true },
         { n:'酒場 水島ギャラリー', cat:'eat', lat:34.5397019, lng:133.7442566, pid:'ChIJCT_GN7dZUTURKcoSm1mxCNU', h:'週三公休', pr:'晚餐約 ～¥6,000／人', src:'Retty', off:true },
-        { n:'AEON Town 水島（內有 Daiso）', cat:'shop', lat:34.5305059, lng:133.7363479, pid:'ChIJqWSN6aBZUTURq3HHfTkfIzQ', h:'10:00–20:00' },
-        { n:'Nishina Food Basket 中洲店（超市）', cat:'shop', lat:34.531675, lng:133.7517825, pid:'ChIJ3QX_prJZUTURMhPqevac3x4', h:'9:00–22:00' }
+        { n:'AEON Town 水島（內有 Daiso）', cat:'shop', lat:34.5305059, lng:133.7363479, pid:'ChIJqWSN6aBZUTURq3HHfTkfIzQ', h:'10:00–20:00', pr:'Daiso 每件 ¥110 起，其他店依個人需求', src:'建議預算' },
+        { n:'Nishina Food Basket 中洲店（超市）', cat:'shop', lat:34.531675, lng:133.7517825, pid:'ChIJ3QX_prJZUTURMhPqevac3x4', h:'9:00–22:00', pr:'約 ¥1,000–2,000／人', src:'建議預算' }
       ] },
     { id:'D2', label:'D2 廣島', name:'廣島東急 REI', lat:34.3888666, lng:132.4616614, pid:'ChIJWeRpGRCiWjURyQymaclecBw', night:'11/19（四）',
       pois:[
@@ -1593,9 +1593,9 @@
         { n:'Junior（居酒屋・廣島燒）', cat:'eat', lat:34.3940465, lng:132.4597853, pid:'ChIJvwgGeA-iWjURTonz_PWKasc', h:'週四 12:00–14:00、18:15–22:00（約8席，要早到）', pr:'晚餐約 ¥1,500–4,000／人', src:'AutoReserve／食べログ口碑' },
         { n:'長田屋（廣島燒）', cat:'eat', lat:34.394216, lng:132.454485, pid:'ChIJOaWjGw2iWjUR5RdB0fPip1Q', h:'11:00–20:00（週二休，常排隊）', pr:'每人約 ¥1,000–3,000（招牌長田屋燒 ¥1,450）', src:'NAVITIME／MAPPLE' },
         { n:'廣島 PARCO', cat:'shop', lat:34.3921942, lng:132.4619845, pid:'ChIJf19ybw-iWjURVJoVxhaS5fg', h:'10:00–20:30' },
-        { n:'Don Quijote 廣島八丁堀', cat:'shop', lat:34.3911739, lng:132.4623201, pid:'ChIJQ4cLgg-iWjURzARrjEKBd94', h:'10:00–翌5:00' },
-        { n:'Don Quijote 八丁堀西店', cat:'shop', lat:34.3946723, lng:132.4620996, pid:'ChIJr-gdJSejWjURvgu33L2KiGw', h:'9:00–23:45' },
-        { n:'Daiso 本通', cat:'shop', lat:34.3926579, lng:132.4617735, pid:'ChIJKTu2rx6jWjURbzUQDtSD4g4', h:'9:30–21:00（共4層）' },
+        { n:'Don Quijote 廣島八丁堀', cat:'shop', lat:34.3911739, lng:132.4623201, pid:'ChIJQ4cLgg-iWjURzARrjEKBd94', h:'10:00–翌5:00', pr:'藥妝零食約 ¥5,000–15,000／人', src:'建議預算' },
+        { n:'Don Quijote 八丁堀西店', cat:'shop', lat:34.3946723, lng:132.4620996, pid:'ChIJr-gdJSejWjURvgu33L2KiGw', h:'9:00–23:45', pr:'藥妝零食約 ¥5,000–15,000／人', src:'建議預算' },
+        { n:'Daiso 本通', cat:'shop', lat:34.3926579, lng:132.4617735, pid:'ChIJKTu2rx6jWjURbzUQDtSD4g4', h:'9:30–21:00（共4層）', pr:'每件 ¥110 起（部分 ¥330、¥550）', src:'建議預算' },
         { n:'惠比壽通商店街', cat:'walk', lat:34.3927179, lng:132.4639523, pid:'ChIJ6e-TUgCjWjURyqp0lOLrD_E', h:'連接流川夜生活區，入夜人潮才多' },
         { n:'本通商店街', cat:'walk', lat:34.3935158, lng:132.4573627, pid:'ChIJbcfO9qejWjURXfZSsD8vtI0', h:'10:00–20:00' }
       ] },
@@ -1608,10 +1608,10 @@
         { n:'7-Eleven 道後北町', cat:'conv', lat:33.8520925, lng:132.7824959, pid:'ChIJSQO8E9flTzUR4OdqVvo2YT8', h:'24小時營業' },
         { n:'KINBEI 金兵衛（瀨戶內料理）', cat:'eat', lat:33.8519689, lng:132.784786, pid:'ChIJR7u-yvrlTzURGe8wvDgXXEw', h:'週五 17:00–24:00', pr:'晚餐約 ¥2,000–3,000／人', src:'食べログ口碑平均' },
         { n:'麺工房 遥海（油拌麵）', cat:'eat', lat:33.8505938, lng:132.7876419, pid:'ChIJRza1CgDnTzURVQsS9CAP4BI', h:'週五 11:00–14:30、18:00–21:00', pr:'油拌麵 ¥800–1,000（並盛～大盛）', src:'machiraku.net 開幕報導' },
-        { n:'十五万石 MASARU（伴手禮）', cat:'shop', lat:33.8521444, lng:132.7853996, pid:'ChIJfz8hL9blTzURYJBbkS9QbNM', h:'9:30–20:00（道後最大的伴手禮店）' },
-        { n:'Rilakkuma 道後溫泉店', cat:'shop', lat:33.851988, lng:132.7860235, pid:'ChIJyw33-DznTzURmEqldCLJ_ZM', h:'10:00–18:00' },
-        { n:'業務超市 道後', cat:'shop', lat:33.8523769, lng:132.7832375, pid:'ChIJ_7MyqNflTzURA9-Y_sB_kwo', h:'9:00–22:00' },
-        { n:'Daiso 道後（Fuji 道後店 2F）', cat:'shop', lat:33.8478743, lng:132.7833943, pid:'ChIJq6pq_tjlTzUR24dxP2WR9nU', h:'9:00–21:00' },
+        { n:'十五万石 MASARU（伴手禮）', cat:'shop', lat:33.8521444, lng:132.7853996, pid:'ChIJfz8hL9blTzURYJBbkS9QbNM', h:'9:30–20:00（道後最大的伴手禮店）', pr:'伴手禮約 ¥2,000–5,000／人', src:'建議預算' },
+        { n:'Rilakkuma 道後溫泉店', cat:'shop', lat:33.851988, lng:132.7860235, pid:'ChIJyw33-DznTzURmEqldCLJ_ZM', h:'10:00–18:00', pr:'周邊小物約 ¥1,000–3,000／人', src:'建議預算' },
+        { n:'業務超市 道後', cat:'shop', lat:33.8523769, lng:132.7832375, pid:'ChIJ_7MyqNflTzURA9-Y_sB_kwo', h:'9:00–22:00', pr:'約 ¥1,000–2,000／人', src:'建議預算' },
+        { n:'Daiso 道後（Fuji 道後店 2F）', cat:'shop', lat:33.8478743, lng:132.7833943, pid:'ChIJq6pq_tjlTzUR24dxP2WR9nU', h:'9:00–21:00', pr:'每件 ¥110 起（部分 ¥330、¥550）', src:'建議預算' },
         { n:'道後溫泉本館', cat:'walk', lat:33.8520748, lng:132.7864098, pid:'ChIJ84F-kHjmTzURebGHHI1YWXw', h:'6:00–23:00，夜間點燈', pr:'入浴 ¥700（神の湯）～¥2,500（霊の湯三樓個室）', src:'松山市官網／旅比較' },
         { n:'道後空中散步道・足湯', cat:'walk', lat:33.851675, lng:132.7866785, pid:'ChIJOekIkHjmTzURpOw0RvFnr34', h:'6:00–21:00，免費足湯，可俯瞰本館', pr:'免費' },
         { n:'道後ハイカラ通商店街', cat:'walk', lat:33.8520951, lng:132.785232, pid:'ChIJEad90dflTzURT5wlf1EytpY', h:'標示營業到23:30，各店實際打烊時間不一' }
@@ -1629,11 +1629,11 @@
         { n:'Butaman（居酒屋）', cat:'eat', lat:34.3449747, lng:134.0490397, pid:'ChIJvcYRliHrUzURY7eAb8E5AoQ', h:'週六 17:30–23:00（週日休）', pr:'晚餐約 ～¥3,000／人', src:'Retty' },
         { n:'Utage（居酒屋）', cat:'eat', lat:34.3456667, lng:134.0476854, pid:'ChIJRd5d7I_rUzURBkYRPNP-Ruo', h:'週六公休', pr:'價位未公開', off:true },
         { n:'串どり 片原町（骨付雞）', cat:'eat', lat:34.3455455, lng:134.0520325, pid:'ChIJC9Ygpd3rUzURhASAGfGcNUM', h:'週六 16:30–23:00（約19點人多）', pr:'晚餐約 ¥2,000–4,000／人', src:'HotPepper／食べログ' },
-        { n:'讚岐烏龍麵 Enya', cat:'eat', lat:34.3458261, lng:134.0533453, pid:'ChIJLRt49oPrUzUR7NLzXOlfY48', h:'10:00–23:00', pr:'價位未公開' },
-        { n:'Hajimenoippo（居酒屋）', cat:'eat', lat:34.3420199, lng:134.0519643, pid:'ChIJEVnU2JrrUzURoqpfruG2eUs', h:'週六 18:00–翌4:00', pr:'晚餐約 ¥3,000–4,000／人', src:'食べログ口碑' },
-        { n:'Daiso 丸龜町', cat:'shop', lat:34.3453219, lng:134.0505525, pid:'ChIJJ6ALBIXrUzURwXXtzEzdu30', h:'10:00–20:00' },
-        { n:'Daikoku Drug 丸龜町（藥妝）', cat:'shop', lat:34.3428004, lng:134.0499363, pid:'ChIJgSqUPavrUzURIOrpkrTylfQ', h:'9:05–21:50（評論提到可辦退稅）' },
-        { n:'Daiso 南新町', cat:'shop', lat:34.340408, lng:134.049124, pid:'ChIJEbofEprrUzUR63ttWDY7oL0', h:'10:00–20:00' },
+        { n:'讚岐烏龍麵 Enya', cat:'eat', lat:34.3458261, lng:134.0533453, pid:'ChIJLRt49oPrUzUR7NLzXOlfY48', h:'10:00–23:00', pr:'每碗約 ¥390–1,000', src:'四國新聞／Retty' },
+        { n:'一歩（居酒屋，舊名 Hajimenoippo）', cat:'eat', lat:34.3420199, lng:134.0519643, pid:'ChIJEVnU2JrrUzURoqpfruG2eUs', h:'週六 18:00–翌4:00', pr:'晚餐約 ¥3,000–4,000／人', src:'食べログ口碑' },
+        { n:'Daiso 丸龜町', cat:'shop', lat:34.3453219, lng:134.0505525, pid:'ChIJJ6ALBIXrUzURwXXtzEzdu30', h:'10:00–20:00', pr:'每件 ¥110 起（部分 ¥330、¥550）', src:'建議預算' },
+        { n:'Daikoku Drug 丸龜町（藥妝）', cat:'shop', lat:34.3428004, lng:134.0499363, pid:'ChIJgSqUPavrUzURIOrpkrTylfQ', h:'9:05–21:50（評論提到可辦退稅）', pr:'藥妝零食約 ¥5,000–15,000／人', src:'建議預算' },
+        { n:'Daiso 南新町', cat:'shop', lat:34.340408, lng:134.049124, pid:'ChIJEbofEprrUzUR63ttWDY7oL0', h:'10:00–20:00', pr:'每件 ¥110 起（部分 ¥330、¥550）', src:'建議預算' },
         { n:'高松中央商店街', cat:'walk', lat:34.3460686, lng:134.050489, pid:'ChIJGfKZroXrUzURPyYSvzn4Sq8', h:'10:00–20:00，多數店家 19:00–20:00 就關' }
       ] }
   ];
@@ -1702,6 +1702,95 @@
     h.pois.sort((a, b) => a.dist - b.dist);
   });
 
+  // ---------- 每晚自由活動預算試算（金額含稅、每人；來源同清單價位，超商／超市為估計值） ----------
+  const HM_BUDGET = {
+    D1: [
+      { n:'居酒屋一攤', d:'八寅・小倉敷（另 3 家當晚公休）', lo:4000, hi:5000 },
+      { n:'超商宵夜／飲料', d:'估計：飯糰或便當＋飲料', lo:500, hi:1000 },
+      { n:'超市採買', d:'估計：Nishina 超市，營業到 22:00', lo:1000, hi:2000 },
+      { n:'百元店', unit:110 }
+    ],
+    D2: [
+      { n:'廣島燒', d:'長田屋・お好み村', lo:1000, hi:3000 },
+      { n:'居酒屋', d:'Negian・Junior', lo:1500, hi:4000 },
+      { n:'唐吉訶德藥妝零食', d:'建議預算', lo:5000, hi:15000 },
+      { n:'超商宵夜／飲料', d:'估計：飯糰或便當＋飲料', lo:500, hi:1000 },
+      { n:'百元店', unit:110 }
+    ],
+    D3: [
+      { n:'晚餐', d:'KINBEI 金兵衛', lo:2000, hi:3000 },
+      { n:'道後溫泉本館入浴', d:'神の湯 ¥700～霊の湯三樓 ¥2,500', lo:700, hi:2500 },
+      { n:'伴手禮', d:'建議預算：十五万石 MASARU', lo:2000, hi:5000 },
+      { n:'Rilakkuma 周邊', d:'建議預算', lo:1000, hi:3000 },
+      { n:'超市採買', d:'估計：業務超市', lo:1000, hi:2000 },
+      { n:'超商宵夜／飲料', d:'估計：飯糰或便當＋飲料', lo:500, hi:1000 },
+      { n:'百元店', unit:110 }
+    ],
+    D4: [
+      { n:'骨付雞居酒屋', d:'Engiya・串どり', lo:2000, hi:4000 },
+      { n:'讚岐烏龍麵', d:'Enya（えん家），營業到 23:00', lo:390, hi:1000 },
+      { n:'居酒屋續攤', d:'一歩・Butaman', lo:3000, hi:4000 },
+      { n:'藥妝零食', d:'建議預算：Daikoku Drug', lo:5000, hi:15000 },
+      { n:'超商宵夜／飲料', d:'估計：飯糰或便當＋飲料', lo:500, hi:1000 },
+      { n:'百元店', unit:110 }
+    ]
+  };
+  function hmYen(n){ return '¥' + Math.round(n).toLocaleString(); }
+  function hmBudgetHTML(h){
+    const items = HM_BUDGET[h.id];
+    if (!items) return '';
+    const rows = items.map((it, i) => it.unit
+      ? '<div class="hb-row hb-qty"><span class="hb-name">' + it.n + '（每件 ' + hmYen(it.unit) + '）</span>' +
+          '<button type="button" class="hb-btn" data-act="minus" data-i="' + i + '" aria-label="減少">−</button>' +
+          '<span class="hb-q" data-q="' + i + '">0</span>' +
+          '<button type="button" class="hb-btn" data-act="plus" data-i="' + i + '" aria-label="增加">＋</button></div>'
+      : '<label class="hb-row"><input type="checkbox" data-i="' + i + '">' +
+          '<span class="hb-text"><span class="hb-name">' + it.n + '</span><span class="hb-desc">' + it.d + '</span></span>' +
+          '<span class="hb-amt">' + hmYen(it.lo) + '–' + Math.round(it.hi).toLocaleString() + '</span></label>'
+    ).join('');
+    return '<div class="hm-budget" data-budget="' + h.id + '">' +
+      '<div class="hb-head"><b>💴 今晚自由活動預算試算</b><span>' + h.night + '晚上</span></div>' +
+      '<p class="hb-note">勾選今晚打算做的事，金額為含稅每人參考值，不含團費</p>' + rows +
+      '<div class="hb-total"><span class="hb-label">今晚預估合計</span>' +
+      '<span class="hb-jpy">¥0</span><span class="hb-twd">約 NT$ 0</span></div></div>';
+  }
+  function hmBudgetRefresh(box){
+    const items = HM_BUDGET[box.dataset.budget];
+    let lo = 0, hi = 0;
+    items.forEach((it, i) => {
+      if (it.unit) {
+        const q = parseInt(box.querySelector('[data-q="' + i + '"]').textContent, 10) || 0;
+        lo += q * it.unit; hi += q * it.unit;
+      } else if (box.querySelector('input[data-i="' + i + '"]').checked) {
+        lo += it.lo; hi += it.hi;
+      }
+    });
+    const rateEl = document.getElementById('fxRate');
+    const rate = rateEl ? (parseFloat(rateEl.value) || 0) : 0;
+    box.querySelector('.hb-jpy').textContent = lo === hi ? hmYen(lo) : hmYen(lo) + ' – ' + Math.round(hi).toLocaleString();
+    box.querySelector('.hb-twd').textContent = rate > 0
+      ? (lo === hi ? '約 NT$ ' + Math.round(lo * rate).toLocaleString()
+                   : '約 NT$ ' + Math.round(lo * rate).toLocaleString() + ' – ' + Math.round(hi * rate).toLocaleString())
+      : '';
+  }
+  window.hmBudgetRefreshAll = function(){
+    document.querySelectorAll('.hm-budget').forEach(hmBudgetRefresh);
+  };
+  document.addEventListener('change', e => {
+    const box = e.target.closest && e.target.closest('.hm-budget');
+    if (box) hmBudgetRefresh(box);
+  });
+  document.addEventListener('click', e => {
+    const btn = e.target.closest && e.target.closest('.hb-btn');
+    if (!btn) return;
+    const box = btn.closest('.hm-budget');
+    const qEl = box.querySelector('[data-q="' + btn.dataset.i + '"]');
+    let q = parseInt(qEl.textContent, 10) || 0;
+    q = btn.dataset.act === 'plus' ? q + 1 : Math.max(0, q - 1);
+    qEl.textContent = q;
+    hmBudgetRefresh(box);
+  });
+
   // 清單（四間飯店各一份，同時只顯示選取的那一間）
   (function buildHotelPanels(){
     const wrap = document.getElementById('hmPanels');
@@ -1718,11 +1807,12 @@
             '<a href="' + gmapWalk(h, p) + '" target="_blank" rel="noopener">🚶 從飯店步行導航</a></div></div>'
           ).join('') + '</div>';
       }).join('');
-      const find = '<div class="hm-findrow"><b>在 Google 地圖找飯店附近：</b>' +
+      const find = '<div class="hm-findrow"><b>🗺️ 開啟 Google 地圖搜尋飯店附近</b>' +
         HM_FIND.map(f => '<a class="hm-find" href="' + gmapFind(h, f.q) + '" target="_blank" rel="noopener">' + f.label + '</a>').join('') + '</div>';
       return '<div class="hm-panel' + (hi === 0 ? ' active' : '') + '" data-hotel="' + h.id + '">' +
-        '<div class="spot-name" style="margin-bottom:.4rem;">' + h.name + '<span class="context-tag night">🌙 ' + h.night + '入住</span></div>' + find + groups + '</div>';
+        '<div class="spot-name" style="margin-bottom:.4rem;">' + h.name + '<span class="context-tag night">🌙 ' + h.night + '入住</span></div>' + hmBudgetHTML(h) + find + groups + '</div>';
     }).join('');
+   window.hmBudgetRefreshAll();
   })();
 
   // 地圖（切到「飯店周邊」分頁時才建立，避免容器隱藏時尺寸為0）
@@ -2011,6 +2101,8 @@
           twdInput.value = Math.round(parseFloat(jpyInput.value) * rate);
         }
       }
+
+      if (window.hmBudgetRefreshAll) window.hmBudgetRefreshAll();
     }
     rateInput.addEventListener('input', () => {
       update();
