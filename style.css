@@ -1738,3 +1738,113 @@
   body.ph-zh-mode .phrase-list .ph-roma{ display:none; }
   body.ph-zh-mode .phrase-list .ph-zh{ display:inline; }
   .expense-stat .yen-sub{ font-size:.7rem; font-weight:400; }
+
+  /* ---------- 退稅新制（2026/11/1）：重點速覽、對照表、手續費、Q&A ---------- */
+  .tx-glance{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:.6rem;
+    margin:0 0 1.4rem;
+  }
+  .tx-fact{
+    border-top:3px solid var(--ai-line);
+    background:rgba(30,36,48,0.035);
+    padding:.75rem .8rem .85rem;
+  }
+  .tx-fact.tx-warn{ border-top-color:var(--momiji); }
+  .tx-big{
+    font-family:'Noto Serif TC',serif; font-weight:700;
+    font-size:1.35rem; line-height:1.2; letter-spacing:-0.01em;
+    color:var(--ai-deep);
+  }
+  .tx-warn .tx-big{ color:var(--momiji-deep); }
+  .tx-big .yen-sub{ font-size:.68rem; font-weight:400; opacity:.7; letter-spacing:0; }
+  .tx-cap{ font-size:.78rem; line-height:1.6; margin-top:.35rem; opacity:.8; }
+
+  .tx-scroll{ overflow-x:auto; margin-top:.8rem; }
+  .tx-compare{ width:100%; min-width:440px; border-collapse:collapse; font-size:.85rem; line-height:1.6; }
+  .tx-compare th, .tx-compare td{ padding:.55rem .6rem; border-bottom:1px solid var(--paper-line); text-align:left; vertical-align:top; }
+  .tx-compare thead th{
+    font-family:'Noto Serif TC',serif; font-size:.85rem; color:var(--ai-deep);
+    border-bottom:2px solid var(--ai-line);
+  }
+  .tx-compare thead th:last-child{ color:var(--momiji-deep); border-bottom-color:var(--momiji); }
+  .tx-compare thead small{ display:block; font-family:'Noto Sans TC',sans-serif; font-weight:400; font-size:.7rem; opacity:.65; }
+  .tx-compare tbody th{ font-family:'Noto Serif TC',serif; font-weight:700; white-space:nowrap; color:var(--ai-deep); width:5.5em; }
+  .tx-compare .tx-old{ opacity:.6; }
+  .tx-compare .tx-new{ background:rgba(189,75,40,0.07); }
+  .tx-compare .tx-new strong{ color:var(--momiji-deep); }
+
+  .tx-ways{ display:grid; grid-template-columns:1fr 1fr; gap:.7rem; margin-top:.9rem; }
+  .tx-way{ border:1px solid var(--paper-line); padding:.8rem .9rem; }
+  .tx-way h4, .tx-sub{ font-family:'Noto Serif TC',serif; font-size:.95rem; color:var(--ai-deep); margin:0 0 .35rem; }
+  .tx-way p{ margin:0; font-size:.84rem; line-height:1.75; opacity:.85; }
+  .tx-callout{
+    margin:.8rem 0 1.2rem; padding:.7rem .9rem;
+    border-left:3px solid var(--momiji);
+    background:rgba(189,75,40,0.07);
+    font-size:.84rem; line-height:1.75;
+  }
+  .tx-callout strong{ color:var(--momiji-deep); }
+  .tx-fees{ list-style:none; margin:.4rem 0 .7rem; padding:0; }
+  .tx-fee{ display:grid; grid-template-columns:7.5em 1fr; gap:.8rem; padding:.5rem 0; border-bottom:1px solid var(--paper-line); font-size:.86rem; line-height:1.6; }
+  .tx-fee:last-child{ border-bottom:none; }
+  .tx-rate{ font-family:'Noto Serif TC',serif; font-weight:700; color:var(--ai-deep); }
+  .tx-rate small{ display:block; font-family:'Noto Sans TC',sans-serif; font-weight:400; font-size:.7rem; opacity:.65; }
+  .tx-hit .tx-store{ font-weight:700; }
+  .tx-tag{
+    display:inline-block; margin-left:.45rem; padding:.05rem .45rem;
+    font-size:.7rem; font-weight:400; line-height:1.6; vertical-align:.1em;
+    color:var(--matcha); border:1px solid var(--matcha); border-radius:3px;
+  }
+
+  .tx-faq{ margin:.8rem 0 .4rem; }
+  .tx-qa{ padding:.65rem 0; border-bottom:1px dashed var(--paper-line); }
+  .tx-qa:last-child{ border-bottom:none; }
+  .tx-qa dt{ font-family:'Noto Serif TC',serif; font-weight:700; font-size:.9rem; color:var(--ai-deep); }
+  .tx-qa dd{ margin:.2rem 0 0; font-size:.85rem; line-height:1.75; opacity:.85; }
+  .tx-qa dd strong{ color:var(--momiji-deep); }
+  .tx-source{ margin-top:1.1rem !important; font-size:.74rem; }
+
+  body.night-mode .tx-source, body.night-mode .tx-note{ color:var(--ink); opacity:.7; }
+  body.night-mode .tx-intro{ color:var(--ink); opacity:.85; }
+  body.night-mode .tx-fact{ background:rgba(234,227,211,0.05); }
+  body.night-mode .tx-big, body.night-mode .tx-compare thead th, body.night-mode .tx-compare tbody th,
+  body.night-mode .tx-way h4, body.night-mode .tx-sub, body.night-mode .tx-rate, body.night-mode .tx-qa dt{ color:var(--ink); }
+  body.night-mode .tx-warn .tx-big, body.night-mode .tx-compare thead th:last-child{ color:var(--momiji); }
+
+  @media (max-width:640px){
+    .tx-glance{ grid-template-columns:1fr 1fr; }
+    .tx-ways{ grid-template-columns:1fr; }
+    .tx-fee{ grid-template-columns:6.5em 1fr; gap:.6rem; }
+    .tx-compare{ min-width:0; }
+    .tx-compare thead{ display:none; }
+    .tx-compare tr{ display:block; padding:.6rem 0; border-bottom:1px solid var(--paper-line); }
+    .tx-compare tbody th, .tx-compare td{ display:block; width:auto; border:0; padding:.15rem 0; white-space:normal; }
+    .tx-compare tbody th{ font-size:.9rem; margin-bottom:.15rem; }
+    .tx-compare td::before{ display:inline-block; min-width:2.6em; font-size:.72rem; font-weight:700; margin-right:.4rem; }
+    .tx-compare .tx-old::before{ content:"舊制"; }
+    .tx-compare .tx-new{ background:none; }
+    .tx-compare .tx-new::before{ content:"新制"; color:var(--momiji-deep); }
+  }
+
+  /* 機場三種機台對照 */
+  .tx-machines{ list-style:none; margin:.9rem 0 0; padding:0; display:grid; gap:.6rem; }
+  .tx-mach{ border:1px solid var(--paper-line); border-left:4px solid var(--ai-line); padding:.7rem .9rem; }
+  .tx-mach p{ margin:.2rem 0 0; font-size:.84rem; line-height:1.7; }
+  .tx-mach p b{ font-weight:700; opacity:.65; }
+  .tx-mach strong{ color:var(--momiji-deep); }
+  .tx-m-head{ display:flex; flex-wrap:wrap; align-items:center; gap:.3rem .6rem; margin-bottom:.2rem; }
+  .tx-m-name{ font-family:'Noto Serif TC',serif; font-weight:700; font-size:.95rem; color:var(--ai-deep); }
+  .tx-m-badge{ font-size:.72rem; padding:.08rem .5rem; border-radius:3px; border:1px solid currentColor; }
+  .tx-m-off{ border-left-color:var(--paper-line); }
+  .tx-m-off .tx-m-name, .tx-m-off p{ opacity:.6; }
+  .tx-m-off .tx-m-badge{ color:var(--ink); opacity:.6; }
+  .tx-m-must{ border-left-color:var(--momiji); background:rgba(189,75,40,0.06); }
+  .tx-m-must .tx-m-badge{ color:#fff; background:var(--momiji); border-color:var(--momiji); }
+  .tx-m-opt{ border-left-color:var(--ai-line); }
+  .tx-m-opt .tx-m-badge{ color:var(--ai-line); }
+  body.night-mode .tx-m-name{ color:var(--ink); }
+  body.night-mode .tx-m-opt .tx-m-badge{ color:#9DB2DA; }
+
+  /* 深色模式：淺色區塊（paper／warm）內的說明文字與步驟標題 */
+  body.night-mode .paper .cash-note, body.night-mode .warm .cash-note{ color:var(--ink); opacity:.75; }
+  body.night-mode .paper .step-title, body.night-mode .warm .step-title{ color:var(--ink); }
