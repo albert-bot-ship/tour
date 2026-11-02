@@ -1732,3 +1732,9 @@
   .hb-amt{ text-align:right; }
   .hb-twd[hidden]{ display:none; }
   .cash-headline .yen{ display:inline; font:inherit; color:inherit; margin:0; }
+  /* ---------- 常用日文：羅馬拼音／中文諧音切換 ---------- */
+  .phrase-list .ph-roma, .phrase-list .ph-zh{ font-style:normal; }
+  .phrase-list .ph-zh{ display:none; }
+  body.ph-zh-mode .phrase-list .ph-roma{ display:none; }
+  body.ph-zh-mode .phrase-list .ph-zh{ display:inline; }
+  .expense-stat .yen-sub{ font-size:.7rem; font-weight:400; }
