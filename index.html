@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=8">
+<link rel="stylesheet" href="./style.css?v=9">
 </head>
 <body>
 <script>
@@ -76,7 +76,15 @@
       <button type="button" class="sp-pill" data-v="both">日圓＋台幣</button>
       <button type="button" class="sp-pill" data-v="twd">台幣</button>
     </div>
-    <p class="sp-note">台幣依「匯率換算」工具的匯率即時計算；匯率表與花費追蹤維持原樣</p>
+    <p class="sp-note">台幣依「匯率換算」工具的匯率即時計算；匯率換算表維持原樣，現金建議一律保留日圓</p>
+  </div>
+  <div class="sp-group">
+    <div class="sp-label">常用日文讀音</div>
+    <div class="sp-pills" data-setting="phonetic">
+      <button type="button" class="sp-pill" data-v="roma">羅馬拼音</button>
+      <button type="button" class="sp-pill" data-v="zh">中文諧音</button>
+    </div>
+    <p class="sp-note">中文諧音只是近似發音，照念對方大多聽得懂</p>
   </div>
   <div class="sp-group">
     <div class="sp-label">旅行期間打開時，自動跳到當天行程</div>
@@ -662,42 +670,42 @@
       <div class="prep-card cash-card">
         <h3>現金該帶多少</h3>
         <div class="cash-headline">
-          建議帶 <b><span class="yen" data-y="¥25,000">¥25,000</span></b> 現金
+          建議帶 <b><span class="yen yen-cash" data-y="¥25,000">¥25,000</span></b> 現金
           <span>大型店家（AEON、藥妝、栗林庵等）刷卡就好，這筆現金是用來應付「只收現金」的地方</span>
         </div>
         <table class="cash-table">
           <tr><th>項目</th><th>建議金額</th></tr>
-          <tr><td>門票／纜車（千光寺、松山城、嚴島神社、栗林公園等）</td><td><span class="yen" data-y="¥5,000">¥5,000</span></td></tr>
-          <tr><td>街邊小吃（尾道拉麵、宮島牡蠣、糰子等）</td><td><span class="yen" data-y="¥4,000">¥4,000</span></td></tr>
-          <tr><td>自理餐（D1晚餐、D4晚餐、D5午餐）</td><td><span class="yen" data-y="¥4,000">¥4,000</span></td></tr>
-          <tr><td>神社香油錢／御守／抽籤</td><td><span class="yen" data-y="¥1,500">¥1,500</span></td></tr>
-          <tr><td>零錢雜項（寄物櫃、販賣機）</td><td><span class="yen" data-y="¥1,500">¥1,500</span></td></tr>
-          <tr><td>備用金（刷卡機故障、臨時採買）</td><td><span class="yen" data-y="¥4,000">¥4,000</span></td></tr>
-          <tr class="cash-total"><td>合計</td><td>約 <span class="yen" data-y="¥20,000">¥20,000</span></td></tr>
+          <tr><td>門票／纜車（千光寺、松山城、嚴島神社、栗林公園等）</td><td><span class="yen yen-cash" data-y="¥5,000">¥5,000</span></td></tr>
+          <tr><td>街邊小吃（尾道拉麵、宮島牡蠣、糰子等）</td><td><span class="yen yen-cash" data-y="¥4,000">¥4,000</span></td></tr>
+          <tr><td>自理餐（D1晚餐、D4晚餐、D5午餐）</td><td><span class="yen yen-cash" data-y="¥4,000">¥4,000</span></td></tr>
+          <tr><td>神社香油錢／御守／抽籤</td><td><span class="yen yen-cash" data-y="¥1,500">¥1,500</span></td></tr>
+          <tr><td>零錢雜項（寄物櫃、販賣機）</td><td><span class="yen yen-cash" data-y="¥1,500">¥1,500</span></td></tr>
+          <tr><td>備用金（刷卡機故障、臨時採買）</td><td><span class="yen yen-cash" data-y="¥4,000">¥4,000</span></td></tr>
+          <tr class="cash-total"><td>合計</td><td>約 <span class="yen yen-cash" data-y="¥20,000">¥20,000</span></td></tr>
         </table>
-        <p class="cash-note">抓整數帶 <b><span class="yen" data-y="¥25,000">¥25,000</span></b> 換匯方便、也留一點餘裕。</p>
+        <p class="cash-note">抓整數帶 <b><span class="yen yen-cash" data-y="¥25,000">¥25,000</span></b> 換匯方便、也留一點餘裕。</p>
       </div>
       <div class="prep-card cash-card">
         <h3>不同預算怎麼花</h3>
         <table class="cash-table eval-table">
           <tr><th>攜帶金額</th><th>評估</th></tr>
-          <tr><td><span class="yen" data-y="¥25,000">¥25,000</span></td><td>剛好打平必要現金支出，不夠買太多現金伴手禮</td></tr>
-          <tr><td><span class="yen" data-y="¥50,000">¥50,000</span></td><td>必要支出＋盡情買現金伴手禮＋留一些備用，較平衡的折衷值</td></tr>
-          <tr><td><span class="yen" data-y="¥100,000">¥100,000</span></td><td>偏多，除非打算大量現金購買清酒、和牛等，否則用不完；遠低於日本海關<span class="yen yen-keep" data-y="¥1,000,000">¥1,000,000</span>免申報上限，但遺失風險較高</td></tr>
+          <tr><td><span class="yen yen-cash" data-y="¥25,000">¥25,000</span></td><td>剛好打平必要現金支出，不夠買太多現金伴手禮</td></tr>
+          <tr><td><span class="yen yen-cash" data-y="¥50,000">¥50,000</span></td><td>必要支出＋盡情買現金伴手禮＋留一些備用，較平衡的折衷值</td></tr>
+          <tr><td><span class="yen yen-cash" data-y="¥100,000">¥100,000</span></td><td>偏多，除非打算大量現金購買清酒、和牛等，否則用不完；遠低於日本海關<span class="yen yen-keep" data-y="¥1,000,000">¥1,000,000</span>免申報上限，但遺失風險較高</td></tr>
         </table>
         <button class="expand-toggle" data-target="dailySpend" aria-expanded="false" aria-controls="dailySpend">
-          <span class="et-label">展開查看 <span class="yen" data-y="¥50,000">¥50,000</span> 逐日花費分配</span>
+          <span class="et-label">展開查看 <span class="yen yen-cash" data-y="¥50,000">¥50,000</span> 逐日花費分配</span>
           <span class="et-arrow">▾</span>
         </button>
         <div class="collapsible" id="dailySpend">
           <table class="cash-table eval-table" style="margin-top:.8rem;">
             <tr><th>天數／地點</th><th>建議金額／備註</th></tr>
-            <tr><td>D2 尾道本通商店街</td><td><span class="yen" data-y="¥2,500">¥2,500</span>　貓咪造型鱈魚香絲、花林糖饅頭、尾道布丁</td></tr>
-            <tr><td>D3 宮島表參道</td><td><span class="yen" data-y="¥3,500">¥3,500</span>　紅葉饅頭、現烤牡蠣、宮島張子小物</td></tr>
-            <tr><td>D3 道後溫泉商店街</td><td><span class="yen" data-y="¥2,000">¥2,000</span>　少爺糰子、蜜柑製品</td></tr>
-            <tr><td>D4 金刀比羅宮表參道</td><td><span class="yen" data-y="¥4,000">¥4,000</span>　讚岐烏龍麵乾麵、加美代飴、金陵清酒</td></tr>
-            <tr><td>D4 栗林公園</td><td><span class="yen" data-y="¥800">¥800</span>　掬月亭抹茶配和菓子賞景</td></tr>
-            <tr><td>D5 倉敷美觀地區</td><td><span class="yen" data-y="¥12,200">¥12,200</span>　吉備糰子、桃子甜點、紙膠帶（重頭戲，優先買）</td></tr>
+            <tr><td>D2 尾道本通商店街</td><td><span class="yen yen-cash" data-y="¥2,500">¥2,500</span>　貓咪造型鱈魚香絲、花林糖饅頭、尾道布丁</td></tr>
+            <tr><td>D3 宮島表參道</td><td><span class="yen yen-cash" data-y="¥3,500">¥3,500</span>　紅葉饅頭、現烤牡蠣、宮島張子小物</td></tr>
+            <tr><td>D3 道後溫泉商店街</td><td><span class="yen yen-cash" data-y="¥2,000">¥2,000</span>　少爺糰子、蜜柑製品</td></tr>
+            <tr><td>D4 金刀比羅宮表參道</td><td><span class="yen yen-cash" data-y="¥4,000">¥4,000</span>　讚岐烏龍麵乾麵、加美代飴、金陵清酒</td></tr>
+            <tr><td>D4 栗林公園</td><td><span class="yen yen-cash" data-y="¥800">¥800</span>　掬月亭抹茶配和菓子賞景</td></tr>
+            <tr><td>D5 倉敷美觀地區</td><td><span class="yen yen-cash" data-y="¥12,200">¥12,200</span>　吉備糰子、桃子甜點、紙膠帶（重頭戲，優先買）</td></tr>
           </table>
           <p class="cash-note" style="margin-top:.6rem;">D5倉敷是花費最大的一天；想買貴一點的清酒、和牛，建議排在D4或D5前段決定，現金越到後面越緊。</p>
         </div>
@@ -1270,14 +1278,14 @@
       <div class="prep-card">
         <h3>旅遊常用日文</h3>
         <ul class="phrase-list">
-          <li><b>これをください</b><span>ko-re o ku-da-sa-i／請給我這個</span></li>
-          <li><b>いくらですか</b><span>i-ku-ra de-su ka／請問多少錢</span></li>
-          <li><b>免税できますか</b><span>men-zei de-ki-ma-su ka／可以退稅嗎</span></li>
-          <li><b>トイレはどこですか</b><span>toi-re wa do-ko de-su ka／請問廁所在哪</span></li>
-          <li><b>カードは使えますか</b><span>ka-do wa tsu-ka-e-ma-su ka／可以刷卡嗎</span></li>
-          <li><b>日本円でお願いします</b><span>ni-hon-en de o-ne-ga-i shi-ma-su／請用日圓結帳（刷卡跳出台幣/日圓選擇畫面前先講這句，避免被DCC動態貨幣轉換多收手續費）</span></li>
-          <li><b>ありがとうございます</b><span>a-ri-ga-to go-zai-ma-su／謝謝</span></li>
-          <li><b>すみません</b><span>su-mi-ma-sen／不好意思／抱歉（也可用來叫店員）</span></li>
+          <li><b>これをください</b><span><i class="ph-roma">ko-re o ku-da-sa-i</i><i class="ph-zh">口勒 歐 哭搭撒伊</i>／請給我這個</span></li>
+          <li><b>いくらですか</b><span><i class="ph-roma">i-ku-ra de-su ka</i><i class="ph-zh">伊哭拉 爹斯 卡</i>／請問多少錢</span></li>
+          <li><b>免税できますか</b><span><i class="ph-roma">men-zei de-ki-ma-su ka</i><i class="ph-zh">面賊 爹ki媽斯 卡</i>／可以退稅嗎</span></li>
+          <li><b>トイレはどこですか</b><span><i class="ph-roma">toi-re wa do-ko de-su ka</i><i class="ph-zh">偷伊勒 哇 都口 爹斯 卡</i>／請問廁所在哪</span></li>
+          <li><b>カードは使えますか</b><span><i class="ph-roma">ka-do wa tsu-ka-e-ma-su ka</i><i class="ph-zh">卡～都 哇 疵卡欸媽斯 卡</i>／可以刷卡嗎</span></li>
+          <li><b>日本円でお願いします</b><span><i class="ph-roma">ni-hon-en de o-ne-ga-i shi-ma-su</i><i class="ph-zh">你轟恩 爹 歐內嘎伊 西媽斯</i>／請用日圓結帳（刷卡跳出台幣/日圓選擇畫面前先講這句，避免被DCC動態貨幣轉換多收手續費）</span></li>
+          <li><b>ありがとうございます</b><span><i class="ph-roma">a-ri-ga-to go-zai-ma-su</i><i class="ph-zh">阿哩嘎多 勾紮伊媽斯</i>／謝謝</span></li>
+          <li><b>すみません</b><span><i class="ph-roma">su-mi-ma-sen</i><i class="ph-zh">斯咪媽線</i>／不好意思／抱歉（也可用來叫店員）</span></li>
         </ul>
       </div>
       <div class="prep-card">
@@ -1323,7 +1331,7 @@
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">大部分地方可以刷卡嗎？</button>
-        <div class="faq-a">AEON MALL、藥妝連鎖、栗林庵這類大型店家可以刷卡；街邊小吃、神社香油錢、部分門票纜車、自理餐大多只收現金，建議帶約<span class="yen" data-y="¥25,000">¥25,000</span>現金應付這些。</div>
+        <div class="faq-a">AEON MALL、藥妝連鎖、栗林庵這類大型店家可以刷卡；街邊小吃、神社香油錢、部分門票纜車、自理餐大多只收現金，建議帶約<span class="yen yen-cash" data-y="¥25,000">¥25,000</span>現金應付這些。</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">要不要先換好日幣，還是可以到當地領現金？</button>
@@ -1760,7 +1768,7 @@
     const t = el.getAttribute('data-y');
     if (!t) return;
     if (!rate) { el.textContent = t; return; }
-    const keep = el.classList.contains('yen-keep');
+    const keep = el.classList.contains('yen-keep') || (mode === 'twd' && el.classList.contains('yen-cash'));
     const twd = yenTwd(t, rate);
     if (keep || (mode === 'both' && !el.classList.contains('yen-short'))) {
       if (el.classList.contains('yen-stack')) el.innerHTML = t + '<small class="yen-sub">約 ' + twd + '</small>';
@@ -2357,7 +2365,7 @@
           btn.setAttribute('aria-expanded', String(isOpen));
           btn.querySelector('.et-label').innerHTML = isOpen
             ? '收合逐日花費分配'
-            : '展開查看 ' + yenWrap('¥50,000') + ' 逐日花費分配';
+            : '展開查看 ' + yenWrap('¥50,000', 'yen-cash') + ' 逐日花費分配';
           if (!isOpen && window.yenRefreshAll) window.yenRefreshAll();
         });
       });
@@ -2739,7 +2747,7 @@
         listEl.innerHTML = '<li class="expense-empty">還沒有紀錄，逛街花錢後可以在上面新增一筆</li>';
       } else {
         listEl.innerHTML = entries.map((e, i) =>
-          '<li><span class="ei-note">' + (e.note || '未命名項目') + '</span><span><span class="ei-amount">¥' + e.amount.toLocaleString() + '</span><button class="ei-del" data-i="' + i + '">×</button></span></li>'
+          '<li><span class="ei-note">' + (e.note || '未命名項目') + '</span><span><span class="ei-amount">' + yenWrap('¥' + e.amount.toLocaleString()) + '</span><button class="ei-del" data-i="' + i + '">×</button></span></li>'
         ).join('');
         listEl.querySelectorAll('.ei-del').forEach(btn => {
           btn.addEventListener('click', () => {
@@ -2750,12 +2758,12 @@
       }
 
       const total = entries.reduce((sum, e) => sum + e.amount, 0);
-      spentEl.textContent = '¥' + total.toLocaleString();
+      spentEl.innerHTML = yenWrap('¥' + total.toLocaleString(), 'yen-stack');
 
       const budget = parseFloat(budgetInput.value);
       if (budget && budget > 0) {
         const remain = budget - total;
-        remainEl.textContent = (remain < 0 ? '−' : '') + '¥' + Math.abs(remain).toLocaleString();
+        remainEl.innerHTML = (remain < 0 ? '−' : '') + yenWrap('¥' + Math.abs(remain).toLocaleString(), 'yen-stack');
         remainEl.classList.toggle('over', remain < 0);
         const pct = Math.min(100, (total / budget) * 100);
         barFill.style.width = pct + '%';
@@ -2767,6 +2775,7 @@
         barFill.style.width = '0%';
         barFill.classList.remove('warn','over');
       }
+      if (window.yenRefreshAll) window.yenRefreshAll();
     }
 
     addBtn.addEventListener('click', () => {
@@ -2914,7 +2923,7 @@
   // ---------- 設定面板（外觀、今天自動跳轉；設定記在本機） ----------
   (function(){
     const KEY = 'tour_settings';
-    const DEFAULTS = { theme:'auto', today:'on', currency:'both' };
+    const DEFAULTS = { theme:'auto', today:'on', currency:'both', phonetic:'roma' };
     let st = Object.assign({}, DEFAULTS);
     try { st = Object.assign(st, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) {}
     function save(){ try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
@@ -2924,6 +2933,7 @@
     function applyTheme(){
       const dark = st.theme === 'dark' || (st.theme === 'auto' && mq && mq.matches);
       document.body.classList.toggle('night-mode', !!dark);
+      document.body.classList.toggle('ph-zh-mode', st.phonetic === 'zh');
     }
     if (mq) {
       const onSys = () => { if (st.theme === 'auto') applyTheme(); };
