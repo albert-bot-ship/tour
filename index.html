@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=9">
+<link rel="stylesheet" href="./style.css?v=10">
 </head>
 <body>
 <script>
@@ -664,7 +664,7 @@
           <li>會遇到<strong>三組QR碼，功能完全不同、不能混用</strong>：①入境海關QR（入境審查用，跟退稅無關，拿去結帳店員會看不懂）②免稅購物QR（結帳退稅用，須現場登入顯示即時畫面，<strong>不能用截圖</strong>）③收據／退款QR（領退稅金用，不代表款項已入帳，多久入帳依店家安排）</li>
           <li><strong>最重要是「離境確認」</strong>：商品託運前、安檢前都要完成，方式二選一——機場海關確認機台讀護照，或在成田／羽田／關西／中部／福岡／新千歲／那霸這<strong>七大機場</strong>用手機連專用網路辦理。<strong>岡山機場不在這七個機場名單內</strong>，回程11/22從岡山出境沒有手機辦理的選項，記得預留排隊時間用機台辦理</li>
           <li>同一筆消費的商品<strong>不能分批帶出境</strong>，須於購買日起90天內完成出境確認</li>
-          <li>消耗品（食品、藥妝）退稅後須封入免稅專用透明袋，離境前不可拆封使用</li>
+          <li>消耗品（食品、藥妝）<strong>不再需要特殊包裝，可以拆封，但一拆封就不能退稅</strong>；旅途中要吃要用的，請跟退稅品分開結帳</li>
         </ul>
       </div>
       <div class="prep-card cash-card">
@@ -827,7 +827,7 @@
         <h3>超商／藥妝購物用語</h3>
         <ul>
           <li>結帳時店員常問「レジ袋（購物袋）要不要」，日本購物袋需另外付費，不需要可直接說「いりません」</li>
-          <li>退稅（免税）：跟店員說「免税でお願いします」，需出示護照，退稅品會封入專用袋，離境前不能拆封</li>
+          <li>退稅（免税）：跟店員說「免税でお願いします」，需出示護照，先付含稅價；旅途中要吃要用的請另外結帳，拆封的商品就不能退</li>
           <li>藥妝店常見會員／集點卡是給常客用的，短期旅遊不需要辦理，直接結帳即可</li>
           <li>超商咖啡、熱食通常要自己在櫃台前操作機器或跟店員說品項，不熟悉的話直接出示商品指給店員看最快</li>
         </ul>
@@ -1008,7 +1008,13 @@
 
     <div class="spot" style="margin-bottom:2rem;">
       <div class="spot-name">免稅退稅流程</div>
-      <p class="cash-note" style="margin-bottom:1rem;"><strong>2026年11月1日起購買的商品適用退稅新制</strong>，你們11/18出發、整趟行程都算新制，流程改成「先付含稅價 → 出境時完成海關確認 → 依店家方式辦理退款」，跟以前結帳現場直接折抵不一樣，請照以下步驟走：</p>
+      <p class="cash-note tx-intro" style="margin-bottom:1rem;"><strong>2026年11月1日起購買的商品適用退稅新制</strong>，你們11/18出發、整趟行程都算新制，流程改成「先付含稅價 → 出境時完成海關確認 → 依店家方式辦理退款」，跟以前結帳現場直接折抵不一樣，請照以下步驟走：</p>
+      <div class="tx-glance" aria-label="退稅新制重點速覽">
+        <div class="tx-fact"><div class="tx-big"><span class="yen yen-keep yen-stack" data-y="¥5,000">¥5,000</span></div><div class="tx-cap">同一天、同一家店，未稅滿這個數才能退（含稅約<span class="yen yen-keep" data-y="¥5,500">¥5,500</span>，跟以前一樣）</div></div>
+        <div class="tx-fact"><div class="tx-big">90天</div><div class="tx-cap">從購買日起算，要在期限內完成海關確認</div></div>
+        <div class="tx-fact"><div class="tx-big">託運前</div><div class="tx-cap">先辦離境確認，行李送出去就來不及了</div></div>
+        <div class="tx-fact tx-warn"><div class="tx-big">拆了不退</div><div class="tx-cap">消耗品可以拆封，但拆了那筆就不能退稅</div></div>
+      </div>
       <div class="step-list">
         <div class="step-item">
           <div class="step-num">1</div>
@@ -1028,21 +1034,21 @@
           <div class="step-num">3</div>
           <div class="step-body">
             <div class="step-title">收下「收據／退款QR」，別以為已經拿到錢</div>
-            <div class="step-desc">店家或退稅業者會提供這組QR或收據，但<strong>不代表退款已經入帳</strong>，退款方式（銀行卡片／應用程式／現金）跟多久入帳依業者安排，現場可以直接問店員大概多久會到帳。部分店家會酌收約1–2%手續費，實際退稅可能略低於10%。</div>
+            <div class="step-desc">店家或退稅業者會提供這組QR或收據，但<strong>不代表退款已經入帳</strong>，退款方式（銀行卡片／應用程式／現金）跟多久入帳依業者安排，現場可以直接問店員大概多久會到帳。手續費依店家從0%到約3%不等（少數店家收定額），實際退稅會略低於10%，各店費率見下方「退款方式與各店手續費」。</div>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num">4</div>
           <div class="step-body">
-            <div class="step-title">領取免稅專用袋</div>
-            <div class="step-desc">消耗品（食品、藥妝、化妝品）退稅後會封入透明免稅專用袋並貼上封條，<strong>離境前不可拆封使用</strong>，違規可能被追繳稅金。</div>
+            <div class="step-title">旅途中要吃要用的，跟退稅品分開結帳</div>
+            <div class="step-desc">新制<strong>取消消耗品特殊包裝</strong>，食品、藥妝、化妝品可以拆封，但<strong>一拆封就不能退稅</strong>。同一筆結帳只要有一件出境時拿不出來，整筆都過不了海關確認，所以確定會在日本吃掉、用掉的，<strong>不要跟退稅品放在同一筆</strong>。</div>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num">5</div>
           <div class="step-body">
             <div class="step-title">機場完成「離境確認」——整套新制最重要的一步</div>
-            <div class="step-desc">託運前、安檢前，商品要還在身邊，用<strong>機場海關確認機台讀護照</strong>，或是在成田／羽田／關西／中部／福岡／新千歲／那霸這<strong>七大機場</strong>用手機連專用網路辦理，兩種方式二選一、不必兩套都做。<strong>岡山機場不在這七個機場名單內</strong>，回程11/22從岡山出境沒有手機辦理的選項，請用機台辦理並預留排隊時間。綠燈表示確認完成可以去託運，紅燈則要帶商品到海關查驗。同一筆消費的商品<strong>不能分批帶出境</strong>，須於購買日起90天內完成出境確認。</div>
+            <div class="step-desc">託運前、安檢前，商品要還在身邊，用<strong>機場海關確認機台讀護照</strong>，或是在成田／羽田／關西／中部／福岡／新千歲／那霸這<strong>七大機場</strong>用手機連專用網路辦理，兩種方式二選一、不必兩套都做。<strong>岡山機場不在這七個機場名單內</strong>，回程11/22從岡山出境沒有手機辦理的選項，請用機台辦理並預留排隊時間。綠燈表示確認完成可以去託運，紅燈則要帶商品到海關查驗。同一筆消費的商品<strong>不能分批帶出境</strong>，須於購買日起90天內完成出境確認。若是國內線轉國際線，要在<strong>最後離開日本的機場</strong>辦確認。新制上路初期機台排隊人潮可能很多，<strong>請提早到機場</strong>。</div>
           </div>
         </div>
         <div class="step-item">
@@ -1056,11 +1062,113 @@
                 <li>行李一旦託運送出就<strong>無法再取出</strong>，放棄機台檢查不會補償退稅，該在身邊的商品務必確認帶齊再託運</li>
                 <li>有用宅配寄到機場的行李，要先去貨運櫃台<strong>領回行李</strong>才能辦退稅，不能人到了、行李還沒領</li>
                 <li>誰的護照結帳，就由<strong>誰本人</strong>出示商品刷機台，不能互相代辦</li>
+                <li>多人同行，<strong>各自的商品和收據分開收好</strong>，不要混在同一袋，到機場才分得清是誰的</li>
+                <li>護照、收據、電子購買紀錄、退款資料<strong>集中放好</strong>，直到海關確認、退款完成前都別丟</li>
               </ul>
             </div>
           </div>
         </div>
       </div>
+
+      <button class="expand-toggle" data-target="taxCompare" aria-expanded="false" aria-controls="taxCompare" data-label-closed="展開：新舊制差在哪" data-label-open="收合新舊制對照">
+        <span class="et-label">展開：新舊制差在哪</span>
+        <span class="et-arrow">▾</span>
+      </button>
+      <div class="collapsible" id="taxCompare">
+        <div class="tx-scroll">
+          <table class="tx-compare">
+            <thead><tr><th scope="col">項目</th><th scope="col">舊制<small>10/31前購買</small></th><th scope="col">新制<small>11/1起購買</small></th></tr></thead>
+            <tbody>
+            <tr><th scope="row">結帳</th><td class="tx-old">直接付免稅價</td><td class="tx-new">先付含稅價，登記信用卡等退款資料</td></tr>
+            <tr><th scope="row">海關確認</th><td class="tx-old">安檢後（管制區內）</td><td class="tx-new"><strong>安檢前、託運前</strong>（管制區外）</td></tr>
+            <tr><th scope="row">拿回稅金</th><td class="tx-old">結帳當下就免稅</td><td class="tx-new">海關確認後，由店家／退稅業者退款</td></tr>
+            <tr><th scope="row">商品分類</th><td class="tx-old">一般品、消耗品分開算</td><td class="tx-new">不分類，可合併計算</td></tr>
+            <tr><th scope="row">金額門檻</th><td class="tx-old">單日單店未稅<span class="yen yen-keep" data-y="¥5,000">¥5,000</span>以上</td><td class="tx-new">不變</td></tr>
+            <tr><th scope="row">消耗品上限</th><td class="tx-old">單日單店<span class="yen yen-keep" data-y="¥500,000">¥500,000</span></td><td class="tx-new">取消上限</td></tr>
+            <tr><th scope="row">包裝</th><td class="tx-old">消耗品須特殊包裝</td><td class="tx-new">取消特殊包裝</td></tr>
+            <tr><th scope="row">拆封</th><td class="tx-old">消耗品不可拆封、使用</td><td class="tx-new">可拆封，但<strong>拆了就不能退</strong></td></tr>
+            <tr><th scope="row">期限</th><td class="tx-old">原則上出境時帶走</td><td class="tx-new">購買日起<strong>90天內</strong>完成海關確認</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <button class="expand-toggle" data-target="taxMachines" aria-expanded="false" aria-controls="taxMachines" data-label-closed="展開：機場三種機台別搞混" data-label-open="收合機場三種機台">
+        <span class="et-label">展開：機場三種機台別搞混</span>
+        <span class="et-arrow">▾</span>
+      </button>
+      <div class="collapsible" id="taxMachines">
+        <ul class="tx-machines">
+          <li class="tx-mach tx-m-off">
+            <div class="tx-m-head"><span class="tx-m-name">入境共同自助機</span><span class="tx-m-badge">跟退稅無關</span></div>
+            <p><b>什麼時候：</b>入境時</p>
+            <p><b>做什麼：</b>掃入境QR、讀護照、拍照，辦入境審查和海關申報</p>
+          </li>
+          <li class="tx-mach tx-m-must">
+            <div class="tx-m-head"><span class="tx-m-name">海關免稅確認機</span><span class="tx-m-badge">退稅的人都要做</span></div>
+            <p><b>什麼時候：</b>出境當天，<strong>託運前、安檢前</strong>，在國際線出發大廳</p>
+            <p><b>做什麼：</b>掃護照，綠燈去託運；紅燈帶商品到海關查驗</p>
+          </li>
+          <li class="tx-mach tx-m-opt">
+            <div class="tx-m-head"><span class="tx-m-name">自助退款機（Self Tax Refund 等）</span><span class="tx-m-badge">選現金才需要</span></div>
+            <p><b>什麼時候：</b>完成海關確認之後</p>
+            <p><b>做什麼：</b>外觀像提款機，用來領現金退款，<strong>不能代替海關確認</strong></p>
+          </li>
+        </ul>
+        <p class="tx-callout">順序一定是<strong>先海關確認、才能領錢</strong>。選信用卡等非現金退款的話，只要做中間那一台。岡山這類七大機場以外的機場，依現場機台與海關人員指引辦理。</p>
+      </div>
+      <button class="expand-toggle" data-target="taxRefund" aria-expanded="false" aria-controls="taxRefund" data-label-closed="展開：退款方式與各店手續費" data-label-open="收合退款方式與手續費">
+        <span class="et-label">展開：退款方式與各店手續費</span>
+        <span class="et-arrow">▾</span>
+      </button>
+      <div class="collapsible" id="taxRefund">
+        <div class="tx-ways">
+          <div class="tx-way">
+            <h4>線上退到信用卡</h4>
+            <p>掃收據上的QR碼進入退稅平台，或登入指定網頁、App，依指示填資料並選退款方式。可退到 JCB、Visa、Mastercard 等信用卡或指定電子支付，入帳時間依業者而定。</p>
+          </div>
+          <div class="tx-way">
+            <h4>機場領日圓現金</h4>
+            <p>部分機場設有櫃台或自助機（Cash JAPAN、Self Tax Refund），另收約1%～1.1%手續費，退款未滿<span class="yen yen-keep" data-y="¥100">¥100</span>不退。</p>
+          </div>
+        </div>
+        <p class="tx-callout">參考資料列出的領現金櫃台與自助機，設在成田、羽田、關西、中部、福岡、新千歲、那霸、神戶等機場，<strong>名單裡沒有岡山機場</strong>。回程從岡山出境，結帳時建議直接選信用卡等線上退款；選非現金退款，海關確認完就<strong>不用再排隊領現金</strong>。</p>
+        <h4 class="tx-sub">各店退稅手續費</h4>
+        <ul class="tx-fees">
+          <li class="tx-fee tx-hit"><span class="tx-rate">0%<small>免手續費</small></span><span class="tx-store">唐吉訶德、BicCamera、鶴羽藥妝、多慶屋<span class="tx-tag">D2 廣島飯店附近有唐吉訶德</span></span></li>
+          <li class="tx-fee"><span class="tx-rate">1.5%</span><span class="tx-store">三井 Outlet Park、LaLaport</span></li>
+          <li class="tx-fee"><span class="tx-rate">1.5%～1.55%</span><span class="tx-store">高島屋、三越伊勢丹</span></li>
+          <li class="tx-fee"><span class="tx-rate">1.55%</span><span class="tx-store">阪急百貨</span></li>
+          <li class="tx-fee tx-hit"><span class="tx-rate">1.5%～2.1%</span><span class="tx-store">PARCO<span class="tx-tag">D2 廣島飯店附近</span></span></li>
+          <li class="tx-fee"><span class="tx-rate">約1.5%～3%</span><span class="tx-store">HANDS</span></li>
+          <li class="tx-fee"><span class="tx-rate">預估1.5%～2%</span><span class="tx-store">COSMOS</span></li>
+          <li class="tx-fee"><span class="tx-rate">2.1%</span><span class="tx-store">Animate</span></li>
+          <li class="tx-fee"><span class="tx-rate"><span class="yen yen-keep" data-y="¥320">¥320</span><small>每筆定額</small></span><span class="tx-store">3COINS</span></li>
+          <li class="tx-fee tx-hit"><span class="tx-rate">依專賣店</span><span class="tx-store">AEON Mall（各專賣店各自規定）<span class="tx-tag">D1、D4 行程會到</span></span></li>
+          <li class="tx-fee tx-hit"><span class="tx-rate">尚未公布</span><span class="tx-store">松本清、大國藥妝<span class="tx-tag">D4 高松飯店附近有大國藥妝</span></span></li>
+        </ul>
+        <p class="cash-note tx-note">標籤是這次行程或飯店附近會遇到的店家；實際手續費以各店官方公告為準。</p>
+      </div>
+      <button class="expand-toggle" data-target="taxFaq" aria-expanded="false" aria-controls="taxFaq" data-label-closed="展開：退稅常見問題 12 題" data-label-open="收合退稅常見問題">
+        <span class="et-label">展開：退稅常見問題 12 題</span>
+        <span class="et-arrow">▾</span>
+      </button>
+      <div class="collapsible" id="taxFaq">
+        <dl class="tx-faq">
+          <div class="tx-qa"><dt>有沒有限制可以買多少？</dt><dd>沒有固定數量，但必須是<strong>本人出境時能全部帶著、拿給海關看</strong>的量。</dd></div>
+          <div class="tx-qa"><dt>零食、化妝品可以在日本先吃先用嗎？</dt><dd>可以拆，但吃掉、用掉的出境時過不了海關確認，<strong>就拿不到退款</strong>。</dd></div>
+          <div class="tx-qa"><dt>確定旅途中要用的怎麼買？</dt><dd><strong>不要跟退稅品放在同一筆</strong>結帳，分開買最保險。</dd></div>
+          <div class="tx-qa"><dt>什麼時候辦海關確認？</dt><dd><strong>行李託運前</strong>。日本海關提醒要提早到機場，預留辦理時間。</dd></div>
+          <div class="tx-qa"><dt>90天怎麼算？</dt><dd>從<strong>購買日的隔天</strong>起算，90天內要完成出境海關確認。</dd></div>
+          <div class="tx-qa"><dt>海關確認要多久？</dt><dd>掃護照<strong>只要幾秒</strong>；如果亮紅燈要帶商品到海關查驗，所以請提早到機場。</dd></div>
+          <div class="tx-qa"><dt>用掉一部分，其他的還能退嗎？</dt><dd>同一筆只要有一件拿不出來，<strong>整筆的免稅商品都不能通過</strong>確認。</dd></div>
+          <div class="tx-qa"><dt>買了單價超過<span class="yen yen-keep" data-y="¥1,000,000">¥1,000,000</span>的商品？</dt><dd>海關可能要求連同商品出示<strong>鑑定書或保證書</strong>，購買時記得保留。</dd></div>
+          <div class="tx-qa"><dt>確認完沒把商品帶出境會怎樣？</dt><dd>海關確認後必須帶出日本，否則<strong>可能被追繳金額</strong>，也可能受到處分。</dd></div>
+          <div class="tx-qa"><dt>行程跨10/31和11/1怎麼算？</dt><dd>看<strong>購買日期</strong>：10/31前買的適用舊制，11/1起買的適用新制。這次11/18出發，全程都是新制。</dd></div>
+          <div class="tx-qa"><dt>可以把免稅品寄回台灣嗎？</dt><dd>以前的「別送」寄送制度已在<strong>2025年4月1日取消</strong>，不能再用寄送方式取得免稅確認。</dd></div>
+          <div class="tx-qa"><dt>退款要怎麼登記？說明在哪？</dt><dd><strong>購買時由免稅店提供</strong>，詳細請問店家或店家指定的退稅業者。</dd></div>
+        </dl>
+      </div>
+      <p class="cash-note tx-source">資料來源：Funliday〈日本退稅新制完整整理〉圖文（2026）；手續費、機台設點與營業時間以官方及各店公告為準。</p>
     </div>
 
     <div class="remind-grid">
@@ -1430,7 +1538,7 @@
         <ul>
           <li>先付含稅價，出境時完成海關「離境確認」才算數，依店家方式辦理退款，不是結帳現場直接折抵</li>
           <li>岡山機場回程沒有手機辦理選項，須用機場海關確認機台讀護照辦理離境確認</li>
-          <li>消耗品（食品／藥妝）退稅後須放入免稅專用透明袋，不可在日本境內拆封使用</li>
+          <li>消耗品（食品／藥妝）可以拆封，但拆封就不能退稅；旅途中要用的跟退稅品分開結帳</li>
         </ul>
       </div>
       <div class="sum-card">
@@ -2363,9 +2471,10 @@
         smoothToggle(target, (isOpen) => {
           btn.classList.toggle('open', isOpen);
           btn.setAttribute('aria-expanded', String(isOpen));
+          const lOpen = btn.getAttribute('data-label-open'), lClosed = btn.getAttribute('data-label-closed');
           btn.querySelector('.et-label').innerHTML = isOpen
-            ? '收合逐日花費分配'
-            : '展開查看 ' + yenWrap('¥50,000', 'yen-cash') + ' 逐日花費分配';
+            ? (lOpen || '收合逐日花費分配')
+            : (lClosed || ('展開查看 ' + yenWrap('¥50,000', 'yen-cash') + ' 逐日花費分配'));
           if (!isOpen && window.yenRefreshAll) window.yenRefreshAll();
         });
       });
