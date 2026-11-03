@@ -2049,3 +2049,58 @@
     .tf-ex-row strong{ font-size:1.1rem; }
   }
   @media print{ .tf-panel[hidden]{ display:block !important; } .tf-reset{ display:none; } }
+
+  /* 退稅攻略：遇到問題怎麼辦、簡訊提醒 */
+  .tf-tips{ grid-template-columns:repeat(3,1fr); }
+  .tf-tips p.tf-tip-warn{ background:rgba(189,75,40,0.12); }
+  .tf-tips p.tf-tip-warn b, .tf-tips p.tf-tip-warn strong{ color:var(--momiji-deep); }
+  .tf-fixes{ display:grid; grid-template-columns:1fr 1fr; gap:.5rem; align-items:start; }
+  .tf-fix{ border-radius:10px; background:rgba(30,36,48,0.045); border-left:4px solid var(--kincha); }
+  .tf-fix summary{
+    list-style:none; cursor:pointer; min-height:44px; display:flex; align-items:center; justify-content:space-between; gap:.6rem;
+    padding:.55rem .8rem; font-family:'Noto Serif TC',serif; font-weight:700; font-size:.9rem; color:var(--ai-deep);
+  }
+  .tf-fix summary::-webkit-details-marker{ display:none; }
+  .tf-fix summary::after{ content:"+"; font-size:1.15rem; color:var(--momiji); transition:transform .2s; flex-shrink:0; }
+  .tf-fix[open] summary::after{ transform:rotate(45deg); }
+  .tf-fix[open]{ border-left-color:var(--momiji); }
+  .tf-fix .tf-pts{ padding:0 .8rem .7rem; margin:0; }
+  .tf-fix .tf-pts li{ font-size:.84rem; }
+  body.night-mode .tf-fix{ background:rgba(234,227,211,0.06); }
+  body.night-mode .tf-fix summary{ color:var(--ink); }
+  body.night-mode .tf-tips p.tf-tip-warn b, body.night-mode .tf-tips p.tf-tip-warn strong{ color:var(--momiji); }
+  @media (max-width:640px){ .tf-tips, .tf-fixes{ grid-template-columns:1fr; } }
+  @media print{ .tf-fix > *{ display:block; } }
+
+  /* 退稅攻略：遊客專屬優惠券 */
+  .tf-cpns{ display:grid; grid-template-columns:1fr 1fr; gap:.7rem; align-items:start; }
+  .tf-cpn{ border-radius:14px; padding:.9rem 1rem 1rem; background:rgba(184,137,43,0.14); border-top:4px solid var(--kincha); }
+  .tf-cpn:nth-child(2){ background:rgba(189,75,40,0.1); border-top-color:var(--momiji); }
+  .tf-cpn:nth-child(3){ background:rgba(62,86,136,0.1); border-top-color:var(--ai-line); }
+  .tf-cpn:nth-child(4){ background:rgba(108,122,74,0.14); border-top-color:var(--matcha); }
+  .tf-cpn h4{ margin:0 0 .5rem; font-family:'Noto Serif TC',serif; font-size:1.08rem; color:var(--ai-deep); }
+  .tf-cpn h4 small{ margin-left:.4rem; font-size:.75rem; font-weight:400; opacity:.6; }
+  .tf-cpn-loc{ list-style:none; margin:0 0 .6rem; padding:0; display:grid; gap:.3rem; }
+  .tf-cpn-loc li{ font-size:.85rem; font-weight:700; line-height:1.5; }
+  .tf-cpn-loc small{ display:block; margin-left:2.6rem; font-weight:400; font-size:.76rem; opacity:.7; }
+  .tf-day{ display:inline-block; min-width:2.2rem; margin-right:.4rem; padding:0 .35rem; border-radius:4px; background:var(--ai-line); color:#fff; font-size:.72rem; text-align:center; }
+  .tf-cpn-rates{ display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:.6rem; }
+  .tf-cpn-rates div{ flex:1 1 30%; min-width:6.5rem; background:var(--washi); border-radius:8px; padding:.4rem .5rem; text-align:center; }
+  .tf-cpn-rates strong{ display:block; font-family:'Noto Serif TC',serif; font-size:1.35rem; line-height:1.2; color:var(--momiji-deep); }
+  .tf-cpn-rates span{ font-size:.72rem; line-height:1.4; opacity:.8; }
+  .tf-cpn .tf-pts li{ font-size:.82rem; }
+  .tf-cpn-note{ margin:.4rem 0 .5rem; font-size:.76rem; opacity:.7; line-height:1.6; }
+  .tf-cpn-img summary{
+    list-style:none; cursor:pointer; min-height:44px; display:flex; align-items:center; justify-content:center; gap:.4rem;
+    border-radius:9px; background:var(--momiji); color:#fff; font-weight:700; font-size:.88rem;
+  }
+  .tf-cpn-img summary::-webkit-details-marker{ display:none; }
+  .tf-cpn-img summary::after{ content:"▾"; transition:transform .2s; }
+  .tf-cpn-img[open] summary::after{ transform:rotate(180deg); }
+  .tf-cpn-img img{ display:block; width:100%; height:auto; margin-top:.6rem; border-radius:8px; background:#fff; }
+  .tf-cpn-img a{ display:block; margin-top:.4rem; text-align:center; font-size:.8rem; font-weight:700; color:var(--momiji-deep); }
+  .tf-cpn-foot{ margin:.7rem 0 0; font-size:.78rem; line-height:1.7; opacity:.75; }
+  body.night-mode .tf-cpn h4{ color:var(--ink); }
+  body.night-mode .tf-cpn-rates strong, body.night-mode .tf-cpn-img a{ color:var(--momiji); }
+  body.night-mode .tf-cpn-rates div{ background:rgba(234,227,211,0.08); }
+  @media (max-width:640px){ .tf-cpns{ grid-template-columns:1fr; } }
