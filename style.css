@@ -2171,3 +2171,17 @@
   @media (max-width:640px){ .pf-cards{ grid-template-columns:1fr; } }
   .tabbar button{ white-space:nowrap; min-width:0; }
   @media (max-width:440px){ .tabbar button{ font-size:.64rem; letter-spacing:-0.02em; } .tabbar button .ti{ font-size:1.2rem; } }
+
+  /* 「在網頁地圖看」按鈕 */
+  .mf-btn{
+    display:inline-flex; align-items:center; gap:.25rem; min-height:32px; padding:.2rem .7rem;
+    border:1px solid var(--ai-line); border-radius:999px; background:rgba(62,86,136,0.08);
+    color:var(--ai-deep); font-size:.78rem; font-weight:700; cursor:pointer; vertical-align:middle;
+    font-family:inherit; line-height:1.2;
+  }
+  .mf-btn:hover{ background:rgba(62,86,136,0.16); }
+  .mf-btn:focus-visible{ outline:2px solid var(--momiji); outline-offset:2px; }
+  .spot-name + .mf-btn{ margin:.1rem 0 .7rem; }
+  .tf-cpn-loc .mf-btn, .pf-card .mf-btn, .pf-loc .mf-btn{ min-height:28px; padding:.1rem .55rem; font-size:.72rem; margin-left:.3rem; }
+  .hm-links .mf-btn{ margin-right:.2rem; }
+  body.night-mode .mf-btn{ color:var(--ink); border-color:#9DB2DA; background:rgba(157,178,218,0.12); }
