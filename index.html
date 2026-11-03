@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=14">
+<link rel="stylesheet" href="./style.css?v=15">
 </head>
 <body>
 <script>
@@ -1742,7 +1742,10 @@
       label: "D1 岡山",
       stops: [
         { name:"岡山機場（桃太郎機場）", lat:34.7579784, lng:133.8558042, cat:"transit", note:"下飛機點，11/18 14:35 抵達", place_id:"ChIJa2konp4DVDURCbtFf9tz9bM" },
-        { name:"AEON MALL 永旺夢樂城岡山", lat:34.6619963, lng:133.9176284, cat:"shop", note:"購物、B1藥妝免稅、超市生鮮", place_id:"ChIJkyqZELMHVDUREhwbsCvO-I0", transit:"機場 → 商場：巴士約20分鐘" },
+        { name:"AEON MALL 永旺夢樂城岡山", lat:34.6619963, lng:133.9176284, cat:"shop", note:"購物、B1藥妝免稅、超市生鮮", place_id:"ChIJkyqZELMHVDUREhwbsCvO-I0", transit:"機場 → 商場：巴士約20分鐘", near:[
+          { name:"唐吉訶德 岡山站前店", lat:34.6640717, lng:133.9194576, place_id:"ChIJsfBHgkwGVDUR6_wcGnpjrU4", note:"AEON MALL 岡山步行約 300 公尺・營業 9:00–翌2:00" },
+          { name:"BicCamera 岡山站前店", lat:34.6658681, lng:133.9198701, place_id:"ChIJURFlCUwGVDURegSIB8cZxxY", note:"AEON MALL 岡山步行約 500 公尺・營業 10:00–20:30" }
+        ] },
         { name:"倉敷水島 ROUTE INN", lat:34.5338919, lng:133.7436342, cat:"hotel", note:"D1 住宿・電話 00281-86-456-1100<br>最近超商：Lawson 水島榮約260公尺、7-Eleven 約380公尺（24小時）", place_id:"ChIJNbZBPbdZUTURBgfu604ONp0" }
       ]
     },
@@ -1771,7 +1774,10 @@
       stops: [
         { name:"金刀比羅宮", lat:34.1839981, lng:133.8095371, cat:"shrine", note:"785級石階至本宮，表參道購物", place_id:"ChIJtSRHH0IkGWARqTAo4c715o0" },
         { name:"栗林公園", lat:34.3299036, lng:134.0457696, cat:"park", note:"飛來峰俯瞰偃月橋，米其林三星庭園", place_id:"ChIJUc4SILrrUzURFEFMQod9v7g", transit:"琴平 → 栗林公園：巴士車程約40分鐘" },
-        { name:"AEON MALL 永旺夢樂城岡山", lat:34.6619963, lng:133.9176284, cat:"shop", note:"第二次採買時段", place_id:"ChIJkyqZELMHVDUREhwbsCvO-I0", transit:"高松 → 岡山：巴士車程約1小時" },
+        { name:"AEON MALL 永旺夢樂城岡山", lat:34.6619963, lng:133.9176284, cat:"shop", note:"第二次採買時段", place_id:"ChIJkyqZELMHVDUREhwbsCvO-I0", transit:"高松 → 岡山：巴士車程約1小時", near:[
+          { name:"唐吉訶德 岡山站前店", lat:34.6640717, lng:133.9194576, place_id:"ChIJsfBHgkwGVDUR6_wcGnpjrU4", note:"AEON MALL 岡山步行約 300 公尺・營業 9:00–翌2:00" },
+          { name:"BicCamera 岡山站前店", lat:34.6658681, lng:133.9198701, place_id:"ChIJURFlCUwGVDURegSIB8cZxxY", note:"AEON MALL 岡山步行約 500 公尺・營業 10:00–20:30" }
+        ] },
         { name:"高松兵庫町 JR CLEMENT INN", lat:34.3462138, lng:134.0480805, cat:"hotel", note:"D4 住宿・電話 00281-87-811-1155<br>最近超商：Lawson 兵庫町約15公尺、FamilyMart 約155公尺（24小時）", place_id:"ChIJZe9jj4_rUzURy3II9I9V_7A" }
       ]
     },
@@ -1834,6 +1840,12 @@
         "<br><a href='" + gmaps + "' target='_blank' rel='noopener'>在 Google 地圖開啟 →</a>"
       );
       latlngs.push([s.lat, s.lng]);
+      // 附近可步行到的優惠券門市：小標記，不編號、不連路線
+      (s.near || []).forEach(n => {
+        const nm = L.marker([n.lat, n.lng], { icon: L.divIcon({ className:'', html:'<div class="near-marker">券</div>', iconSize:[22,22], iconAnchor:[11,11], popupAnchor:[0,-11] }) }).addTo(currentLayer);
+        nm.bindPopup("<b>" + n.name + "</b><br>" + n.note + "<br>🎟️ 有遊客優惠券，見 <a href='#taxfree'>退稅攻略</a>" +
+          "<br><a href='https://www.google.com/maps/place/?q=place_id:" + n.place_id + "' target='_blank' rel='noopener'>在 Google 地圖開啟 →</a>");
+      });
     });
 
     if (latlngs.length > 1) {
@@ -1908,9 +1920,11 @@
         { n:'Junior（居酒屋・廣島燒）', cat:'eat', lat:34.3940465, lng:132.4597853, pid:'ChIJvwgGeA-iWjURTonz_PWKasc', h:'週四 12:00–14:00、18:15–22:00（約8席，要早到）', pr:'晚餐約 ¥1,500–4,000／人', src:'AutoReserve／食べログ口碑' },
         { n:'長田屋（廣島燒）', cat:'eat', lat:34.394216, lng:132.454485, pid:'ChIJOaWjGw2iWjUR5RdB0fPip1Q', h:'11:00–20:00（週二休，常排隊）', pr:'每人約 ¥1,000–3,000（招牌長田屋燒 ¥1,450）', src:'NAVITIME／MAPPLE' },
         { n:'廣島 PARCO', cat:'shop', lat:34.3921942, lng:132.4619845, pid:'ChIJf19ybw-iWjURVJoVxhaS5fg', h:'10:00–20:30' },
-        { n:'Don Quijote 廣島八丁堀', cat:'shop', lat:34.3911739, lng:132.4623201, pid:'ChIJQ4cLgg-iWjURzARrjEKBd94', h:'10:00–翌5:00', pr:'藥妝零食：少量 ¥3,000／一般 ¥8,000／大量 ¥15,000', src:'建議預算' },
-        { n:'Don Quijote 八丁堀西店', cat:'shop', lat:34.3946723, lng:132.4620996, pid:'ChIJr-gdJSejWjURvgu33L2KiGw', h:'9:00–23:45', pr:'藥妝零食：少量 ¥3,000／一般 ¥8,000／大量 ¥15,000', src:'建議預算' },
+        { n:'Don Quijote 廣島八丁堀', cp:1, cat:'shop', lat:34.3911739, lng:132.4623201, pid:'ChIJQ4cLgg-iWjURzARrjEKBd94', h:'10:00–翌5:00', pr:'藥妝零食：少量 ¥3,000／一般 ¥8,000／大量 ¥15,000', src:'建議預算' },
+        { n:'Don Quijote 八丁堀西店', cp:1, cat:'shop', lat:34.3946723, lng:132.4620996, pid:'ChIJr-gdJSejWjURvgu33L2KiGw', h:'9:00–23:45', pr:'藥妝零食：少量 ¥3,000／一般 ¥8,000／大量 ¥15,000', src:'建議預算' },
         { n:'Daiso 本通', cat:'shop', lat:34.3926579, lng:132.4617735, pid:'ChIJKTu2rx6jWjURbzUQDtSD4g4', h:'9:30–21:00（共4層）', pr:'每件 ¥110 起（部分 ¥330、¥550）', src:'建議預算' },
+        { n:'EDION 廣島本店（家電）', cp:1, cat:'shop', lat:34.3952274, lng:132.4565899, pid:'ChIJC6w6aQyiWjURDCbkCL3eqNg', h:'10:00–20:00（家電、相機、手錶，也有藥妝零食）' },
+        { n:'Sundrug 廣島本通店（藥妝）', cp:1, cat:'shop', lat:34.3931633, lng:132.4589957, pid:'ChIJ21EZ7Q6iWjURpkwuhm4CfeU', h:'9:00–21:30', pr:'藥妝零食：少量 ¥3,000／一般 ¥8,000／大量 ¥15,000', src:'建議預算' },
         { n:'惠比壽通商店街', cat:'walk', lat:34.3927179, lng:132.4639523, pid:'ChIJ6e-TUgCjWjURyqp0lOLrD_E', h:'連接流川夜生活區，入夜人潮才多' },
         { n:'本通商店街', cat:'walk', lat:34.3935158, lng:132.4573627, pid:'ChIJbcfO9qejWjURXfZSsD8vtI0', h:'10:00–20:00' }
       ] },
@@ -1948,6 +1962,7 @@
         { n:'一歩（居酒屋，舊名 Hajimenoippo）', cat:'eat', lat:34.3420199, lng:134.0519643, pid:'ChIJEVnU2JrrUzURoqpfruG2eUs', h:'週六 18:00–翌4:00', pr:'晚餐約 ¥3,000–4,000／人', src:'食べログ口碑' },
         { n:'Daiso 丸龜町', cat:'shop', lat:34.3453219, lng:134.0505525, pid:'ChIJJ6ALBIXrUzURwXXtzEzdu30', h:'10:00–20:00', pr:'每件 ¥110 起（部分 ¥330、¥550）', src:'建議預算' },
         { n:'Daikoku Drug 丸龜町（藥妝）', cat:'shop', lat:34.3428004, lng:134.0499363, pid:'ChIJgSqUPavrUzURIOrpkrTylfQ', h:'9:05–21:50（評論提到可辦退稅）', pr:'藥妝零食：少量 ¥3,000／一般 ¥8,000／大量 ¥15,000', src:'建議預算' },
+        { n:'Don Quijote 高松丸龜町', cp:1, cat:'shop', lat:34.3449391, lng:134.0504987, pid:'ChIJ8bNSiozrUzURPjj5tDxvNSA', h:'9:00–翌0:00（小型店，以伴手禮、藥妝為主）', pr:'藥妝零食：少量 ¥3,000／一般 ¥8,000／大量 ¥15,000', src:'建議預算' },
         { n:'Daiso 南新町', cat:'shop', lat:34.340408, lng:134.049124, pid:'ChIJEbofEprrUzUR63ttWDY7oL0', h:'10:00–20:00', pr:'每件 ¥110 起（部分 ¥330、¥550）', src:'建議預算' },
         { n:'高松中央商店街', cat:'walk', lat:34.3460686, lng:134.050489, pid:'ChIJGfKZroXrUzURPyYSvzn4Sq8', h:'10:00–20:00，多數店家 19:00–20:00 就關' }
       ] }
@@ -1997,6 +2012,9 @@
   function hmPrice(p){
     if (!p.pr) return '';
     return '<div class="hm-price">💴 ' + yenWrap(p.pr) + (p.src ? '<span class="hm-src">（' + p.src + '）</span>' : '') + '</div>';
+  }
+  function hmCpn(p){
+    return p.cp ? '<div class="hm-cpn">🎟️ 有遊客優惠券，見 <a href="#taxfree">退稅攻略</a></div>' : '';
   }
   function hmOff(p, h){
     return p.off ? '<span class="hm-off">🚫 ' + h.night + ' 當晚公休</span>' : '';
@@ -2175,7 +2193,7 @@
         return '<div class="hm-group" data-cat="' + cat + '"><h3>' + HM_CATS[cat].label + '（' + items.length + '）</h3>' +
           items.map(p =>
             '<div class="hm-item' + (p.off ? ' is-off' : '') + '"><div class="hm-row"><span class="hm-name">' + p.n + hmOff(p, h) + '</span><span class="hm-dist-text">' + hmDistText(p.dist) + '</span></div>' +
-            '<div class="hm-hours">' + p.h + '</div>' + hmPrice(p) +
+            '<div class="hm-hours">' + p.h + '</div>' + hmPrice(p) + hmCpn(p) +
             '<div class="hm-links"><a href="' + gmapPlace(p) + '" target="_blank" rel="noopener">📍 在 Google 地圖開啟</a>' +
             '<a href="' + gmapWalk(h, p) + '" target="_blank" rel="noopener">🚶 從飯店步行導航</a></div></div>'
           ).join('') + '</div>';
@@ -2231,6 +2249,7 @@
       m.bindTooltip(hmShort(p.dist), { permanent:true, direction:'right', className:'hm-dist', offset:[10,0] });
       m.bindPopup('<b>' + p.n + '</b>' + (p.off ? '<br>🚫 ' + h.night + ' 當晚公休' : '') + '<br>' + hmDistText(p.dist) + '（直線）<br>' + p.h +
         (p.pr ? '<br>💴 ' + yenWrap(p.pr) + (p.src ? '（' + p.src + '）' : '') : '') +
+        (p.cp ? '<br>🎟️ 有遊客優惠券，見 <a href="#taxfree">退稅攻略</a>' : '') +
         '<br><a href="' + gmapPlace(p) + '" target="_blank" rel="noopener">在 Google 地圖開啟 →</a>' +
         '<br><a href="' + gmapWalk(h, p) + '" target="_blank" rel="noopener">從飯店步行導航 →</a>');
       pts.push([p.lat, p.lng]);
