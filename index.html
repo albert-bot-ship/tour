@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=17">
+<link rel="stylesheet" href="./style.css?v=18">
 </head>
 <body>
 <script>
@@ -53,6 +53,7 @@
     <button type="button" role="tab" data-tab="stay" aria-selected="false"><span class="ti">🏨</span><span>航班住宿</span></button>
     <button type="button" role="tab" data-tab="prep" aria-selected="false"><span class="ti">🧳</span><span>行前準備</span></button>
     <button type="button" role="tab" data-tab="tax" aria-selected="false"><span class="ti">🧾</span><span>退稅</span></button>
+    <button type="button" role="tab" data-tab="pay" aria-selected="false"><span class="ti">💳</span><span>支付</span></button>
     <button type="button" role="tab" data-tab="tools" aria-selected="false"><span class="ti">🧰</span><span>工具</span></button>
   </div>
 </nav>
@@ -1514,6 +1515,63 @@
   </div>
 </section>
 
+<section class="sect paper" id="payment">
+  <div class="sect-inner">
+    <div class="sect-eyebrow" style="color:var(--momiji-deep);">PAYMENT</div>
+    <h2>支付優惠</h2>
+    <p class="sect-sub">刷卡回饋與店家折扣整理。各活動條件、名額以銀行與店家公告為準。</p>
+
+    <div class="pf-who"><svg class="tf-ico" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><rect x="4" y="11" width="40" height="27" rx="4" fill="#24365C"/><rect x="4" y="17" width="40" height="5" fill="#14213B"/><rect x="9" y="28" width="11" height="5" rx="1" fill="#E7C26A"/><circle cx="36" cy="31" r="4" fill="#BD4B28" opacity=".9"/><circle cx="31" cy="31" r="4" fill="#E7C26A" opacity=".9"/></svg><p><b>以下「CUBE 信用卡」優惠，限國泰世華 CUBE 卡持卡人</b>沒有這張卡的團員可以直接看下方「不限付款方式」的店家折扣。</p></div>
+
+    <h3 class="tf-h">國泰 CUBE 信用卡</h3>
+    <p class="tf-hsub">出發前在 CUBE App 切換權益方案，刷卡才會用新方案計算回饋。</p>
+    <div class="pf-cards">
+      <article class="pf-card pf-best">
+        <span class="pf-badge">本團建議</span>
+        <div class="pf-rate">3.5<small>%</small></div>
+        <h4>切換「秋日遊」</h4>
+        <ul class="tf-pts">
+          <li>日本<strong>實體消費</strong>享 3.5% 小樹點（信用卡）回饋</li>
+          <li>期間 2026/10/01～<strong>11/30</strong>，本團 11/18～22 在期間內</li>
+        </ul>
+      </article>
+      <article class="pf-card">
+        <div class="pf-rate">3.3<small>%</small></div>
+        <h4>切換「趣旅行」</h4>
+        <ul class="tf-pts">
+          <li>海外實體消費、日本指定遊樂園、Apple 錢包指定日本交通卡、指定日本飯店住宿，最高 3.3%</li>
+          <li>回饋率以 Level 3 權益等級計算；本團期間<strong>秋日遊較高</strong></li>
+        </ul>
+      </article>
+      <article class="pf-card">
+        <div class="pf-rate">10.2<small>%</small></div>
+        <h4>愛電王 EDION 領券</h4>
+        <ul class="tf-pts">
+          <li>切秋日遊，在 CUBE App <strong>領券</strong>後消費，最高 10.2% 小樹點（信用卡）回饋</li>
+          <li>D2 廣島本店，飯店步行約 845 公尺，營業到 20:00</li>
+          <li>期間 2026/10/01～12/31；適用商品依 CUBE App 為準</li>
+        </ul>
+      </article>
+    </div>
+    <p class="pf-tip">刷卡時跳出幣別選擇，記得選<strong>日圓（JPY）</strong>，避免被多收轉換手續費。</p>
+
+    <h3 class="tf-h">不限付款方式的店家折扣</h3>
+    <p class="tf-hsub">從國泰「旅日優惠口袋」領券，結帳出示即可，不必刷國泰的卡。</p>
+    <div class="pf-cards pf-one">
+      <article class="pf-card pf-store">
+        <div class="pf-store-top"><svg class="tf-ico" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M6 24 24 6h16v16L22 40z" fill="#6C7A4A"/><circle cx="33" cy="15" r="3.4" fill="#FFFDF7"/><text x="13" y="30" font-size="11" font-weight="700" fill="#FFFDF7" font-family="sans-serif" transform="rotate(-45 18 26)">%</text></svg><div><h4>COSMOS 藥妝</h4><span class="pf-loc"><span class="tf-day">D3</span>松山東野店・道後飯店步行約 960 公尺・10:00–21:00</span></div><div class="pf-rate pf-rate-s">9<small>%</small></div></div>
+        <ul class="tf-pts">
+          <li>消費滿額最高 <strong>9% 折扣</strong>，可再辦退稅</li>
+          <li>依 Google 評論，COSMOS <strong>只收現金</strong>，不能刷卡、不收電子支付</li>
+        </ul>
+        <a class="pf-link" href="https://www.cathay-cube.com.tw/cathaybk/personal/event/overview/credit-card/travel/202501/JP_DiscountPocket" target="_blank" rel="noopener">到國泰「旅日優惠口袋」領券 →</a>
+      </article>
+    </div>
+
+    <p class="cash-note tx-source">資料來源：國泰世華「旅日優惠口袋」活動頁（2026/11/3 擷取）；門市距離與營業時間依 Google 地圖資料。實際回饋、名額與適用商品以國泰世華及各店家公告為準。</p>
+  </div>
+</section>
+
 <section class="sect ink" id="tools">
   <div class="sect-inner">
     <div class="sect-eyebrow" style="color:var(--kincha);">QUICK TOOLS</div>
@@ -2325,6 +2383,7 @@
     { id:'stay',      sections:[['logistics','航班住宿']] },
     { id:'prep',      sections:[['prep','行前準備'],['packing','打包清單'],['reminders','貼心提醒']] },
     { id:'tax',       sections:[['taxfree','退稅攻略']] },
+    { id:'pay',       sections:[['payment','支付優惠']] },
     { id:'tools',     sections:[['tools','匯率/日文'],['expenses','花費追蹤'],['faq','常見問題'],['summary','總覽建議']] }
   ];
   const sectionToTab = {};
@@ -2791,7 +2850,9 @@
       { sel: '.tag-card li', cat: '標籤' },
       { sel: '.packlist li', cat: '打包清單' },
       { sel: '.faq-q', cat: 'FAQ' },
-      { sel: '.tf-h', cat: '退稅' },
+      { sel: '#taxfree .tf-h', cat: '退稅' },
+      { sel: '#payment .tf-h', cat: '支付' },
+      { sel: '.pf-card h4', cat: '支付' },
       { sel: '.tx-qa dt', cat: '退稅' },
       { sel: '.phrase-list li', cat: '實用短語' },
       { sel: '.hm-name', cat: '飯店周邊' }
