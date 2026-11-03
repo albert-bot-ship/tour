@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=16">
+<link rel="stylesheet" href="./style.css?v=17">
 </head>
 <body>
 <script>
@@ -1230,7 +1230,7 @@
         <div class="step-num">2</div>
         <div class="step-body">
           <div class="step-title">結帳先付含稅價</div>
-          <ul class="tf-pts"><li>說「免税でお願いします」，出示護照或免稅購物QR（<strong>不能截圖</strong>）</li><li>先付<strong>全額含稅價</strong>，依店員指示登記退款方式</li><li>刷卡選<strong>日圓（JPY）</strong>，別選台幣</li></ul>
+          <ul class="tf-pts"><li>說「免税でお願いします」，出示護照或免稅購物QR（<strong>不能截圖</strong>）</li><li>先付<strong>全額含稅價</strong>，依店員指示登記退款方式</li><li>刷卡選<strong>日圓（JPY）</strong>，別選台幣</li><li><strong>付現金或刷卡都能退稅</strong>，退款方式另外登記</li></ul>
             <details class="tf-more"><summary>看詳細</summary><div class="step-desc">先跟店員說「免税でお願いします」（menzei de onegaishimasu），結帳金額<strong>先付全額含稅價</strong>（不再是當場折扣），部分店家會請你用手機登入日本入境網站，另外產生一組「免稅購物QR」並提供購物身分資料——這個畫面<strong>不能用截圖</strong>，必須登入後顯示即時畫面；也可以依店家規定出示護照辦理。刷卡時若跳出幣別選擇，<strong>務必選日圓（JPY）</strong>，選台幣通常會被多收一筆貨幣轉換手續費（DCC），結帳前可先說「<strong>日本円でお願いします</strong>」請店員直接設定日圓。</div></details>
         </div>
       </div>
@@ -1445,6 +1445,15 @@
       <span class="et-arrow">▾</span>
     </button>
     <div class="collapsible" id="taxRefund">
+        <div class="tf-payref">
+          <b>付款 vs 退款：是兩件事</b>
+          <ul class="tf-pts">
+            <li>付現金或刷卡都可以退稅，<strong>退款方式另外登記</strong>，不一定退回付款的那張卡</li>
+            <li>刷卡結帳記得選<strong>日圓（JPY）</strong></li>
+            <li>退款建議登記<strong>信用卡</strong>；小額退稅<strong>別選台灣銀行帳戶</strong>，入帳手續費可能約 NT$300～400</li>
+            <li>信用卡退款以<strong>入帳時匯率</strong>計算，金額可能和當下略有差異</li>
+          </ul>
+        </div>
       <div class="tx-ways">
         <div class="tx-way">
           <h4>線上退到信用卡</h4>
@@ -1494,7 +1503,7 @@
         <div class="tx-qa"><dt>90天怎麼算？</dt><dd>從<strong>購買日的隔天</strong>起算，90天內要完成出境海關確認。</dd></div>
         <div class="tx-qa"><dt>海關確認要多久？</dt><dd>掃護照<strong>只要幾秒</strong>；如果亮紅燈要帶商品到海關查驗，所以請提早到機場。</dd></div>
         <div class="tx-qa"><dt>用掉一部分，其他的還能退嗎？</dt><dd>同一筆只要有一件拿不出來，<strong>整筆的免稅商品都不能通過</strong>確認。</dd></div>
-        <div class="tx-qa"><dt>買了單價超過<span class="yen yen-keep" data-y="¥1,000,000">¥1,000,000</span>的商品？</dt><dd>海關可能要求連同商品出示<strong>鑑定書或保證書</strong>，購買時記得保留。</dd></div>
+        <div class="tx-qa"><dt>買了未稅單價超過<span class="yen yen-keep" data-y="¥1,000,000">¥1,000,000</span>的商品？</dt><dd>海關可能要求連同商品出示<strong>鑑定書或保證書</strong>，購買時記得保留。</dd></div>
         <div class="tx-qa"><dt>確認完沒把商品帶出境會怎樣？</dt><dd>海關確認後必須帶出日本，否則<strong>可能被追繳金額</strong>，也可能受到處分。</dd></div>
         <div class="tx-qa"><dt>行程跨10/31和11/1怎麼算？</dt><dd>看<strong>購買日期</strong>：10/31前買的適用舊制，11/1起買的適用新制。這次11/18出發，全程都是新制。</dd></div>
         <div class="tx-qa"><dt>可以把免稅品寄回台灣嗎？</dt><dd>以前的「別送」寄送制度已在<strong>2025年4月1日取消</strong>，不能再用寄送方式取得免稅確認。</dd></div>
