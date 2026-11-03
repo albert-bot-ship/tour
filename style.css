@@ -2104,3 +2104,13 @@
   body.night-mode .tf-cpn-rates strong, body.night-mode .tf-cpn-img a{ color:var(--momiji); }
   body.night-mode .tf-cpn-rates div{ background:rgba(234,227,211,0.08); }
   @media (max-width:640px){ .tf-cpns{ grid-template-columns:1fr; } }
+
+  /* 地圖：優惠券標示 */
+  .hm-cpn{ margin-top:.25rem; font-size:.8rem; font-weight:700; color:var(--momiji-deep); }
+  .hm-cpn a{ color:inherit; text-underline-offset:3px; }
+  body.night-mode .hm-cpn{ color:var(--momiji); }
+  .near-marker{
+    width:22px; height:22px; border-radius:6px; background:#B8892B; color:#fff; border:2px solid #fff;
+    display:flex; align-items:center; justify-content:center; font-size:.68rem; font-weight:700;
+    box-shadow:0 1px 3px rgba(0,0,0,.35);
+  }
