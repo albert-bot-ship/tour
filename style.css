@@ -1,4 +1,4 @@
-  :root{
+:root{
     --ai-deep: #14213B;      /* 藍染 深靛 */
     --ai-mid: #24365C;       /* 藍染 中靛 */
     --ai-line: #3E5688;      /* 藍染 淺線 */
@@ -2130,3 +2130,10 @@
   body.night-mode .tf-oka-ok b{ color:#93C47D; }
   body.night-mode .tf-oka-warn b, body.night-mode .tf-oka-warn strong{ color:var(--momiji); }
   @media (max-width:640px){ .tf-oka-row{ grid-template-columns:5.2em 1fr; gap:.5rem; } }
+
+  /* 退稅攻略：付款 vs 退款 */
+  .tf-payref{ margin:.8rem 0 .4rem; padding:.75rem .9rem; border-radius:12px; background:rgba(62,86,136,0.1); border-left:4px solid var(--ai-line); }
+  .tf-payref > b{ font-family:'Noto Serif TC',serif; font-size:.95rem; color:var(--ai-deep); }
+  .tf-payref .tf-pts{ margin-top:.3rem; }
+  .tf-payref .tf-pts li{ font-size:.84rem; }
+  body.night-mode .tf-payref > b{ color:var(--ink); }
