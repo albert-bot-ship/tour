@@ -2137,3 +2137,37 @@
   .tf-payref .tf-pts{ margin-top:.3rem; }
   .tf-payref .tf-pts li{ font-size:.84rem; }
   body.night-mode .tf-payref > b{ color:var(--ink); }
+
+  /* ---------- 支付分頁（#payment） ---------- */
+  #payment .sect-inner{ max-width:880px; }
+  .pf-who{ display:flex; gap:.7rem; align-items:center; margin:1.2rem 0 .4rem; padding:.8rem .95rem; border-radius:12px; background:rgba(62,86,136,0.1); border-left:4px solid var(--ai-line); }
+  .pf-who .tf-ico{ width:42px; height:42px; }
+  .pf-who p{ margin:0; font-size:.84rem; line-height:1.7; }
+  .pf-who b{ display:block; font-family:'Noto Serif TC',serif; font-size:.95rem; color:var(--ai-deep); }
+  .pf-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:.7rem; align-items:start; }
+  .pf-cards.pf-one{ grid-template-columns:1fr; max-width:560px; }
+  .pf-card{ position:relative; border-radius:14px; padding:1rem 1rem 1.05rem; background:rgba(30,36,48,0.045); border-top:4px solid var(--ai-line); }
+  .pf-card h4{ margin:.15rem 0 .45rem; font-family:'Noto Serif TC',serif; font-size:1.02rem; color:var(--ai-deep); }
+  .pf-card .tf-pts li{ font-size:.83rem; }
+  .pf-rate{ font-family:'Noto Serif TC',serif; font-weight:700; font-size:2.2rem; line-height:1; color:var(--momiji-deep); }
+  .pf-rate small{ font-size:.5em; margin-left:.05em; }
+  .pf-best{ background:rgba(189,75,40,0.12); border-top-color:var(--momiji); }
+  .pf-badge{ position:absolute; top:.7rem; right:.7rem; padding:.1rem .5rem; border-radius:4px; background:var(--momiji); color:#fff; font-size:.72rem; font-weight:700; }
+  .pf-tip{ margin:.7rem 0 0; font-size:.82rem; opacity:.85; }
+  .pf-tip strong{ color:var(--momiji-deep); }
+  .pf-store{ background:rgba(108,122,74,0.14); border-top-color:var(--matcha); }
+  .pf-store-top{ display:grid; grid-template-columns:auto 1fr auto; gap:.7rem; align-items:center; margin-bottom:.4rem; }
+  .pf-store-top .tf-ico{ width:40px; height:40px; }
+  .pf-store-top h4{ margin:0 0 .2rem; }
+  .pf-loc{ display:block; font-size:.78rem; line-height:1.5; opacity:.85; }
+  .pf-rate-s{ font-size:1.9rem; }
+  .pf-link{ display:flex; align-items:center; justify-content:center; min-height:44px; margin-top:.6rem; border-radius:9px; background:var(--matcha); color:#fff; font-weight:700; font-size:.88rem; text-decoration:none; }
+  .pf-link:focus-visible{ outline:2px solid var(--ai-line); outline-offset:2px; }
+  body.night-mode .pf-who b, body.night-mode .pf-card h4{ color:var(--ink); }
+  body.night-mode .pf-rate, body.night-mode .pf-tip strong{ color:var(--momiji); }
+  body.night-mode .pf-card{ background:rgba(234,227,211,0.06); }
+  body.night-mode .pf-best{ background:rgba(226,115,74,0.14); }
+  body.night-mode .pf-store{ background:rgba(147,164,107,0.14); }
+  @media (max-width:640px){ .pf-cards{ grid-template-columns:1fr; } }
+  .tabbar button{ white-space:nowrap; min-width:0; }
+  @media (max-width:440px){ .tabbar button{ font-size:.64rem; letter-spacing:-0.02em; } .tabbar button .ti{ font-size:1.2rem; } }
