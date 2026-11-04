@@ -1,4 +1,4 @@
-  :root{
+:root{
     --ai-deep: #14213B;      /* 藍染 深靛 */
     --ai-mid: #24365C;       /* 藍染 中靛 */
     --ai-line: #3E5688;      /* 藍染 淺線 */
@@ -2443,3 +2443,53 @@
   }
   .jp-chips a:hover{ border-color:var(--kincha); color:var(--kincha); }
   @media print{ .jp-chips{ display:none; } }
+
+  /* ---------- 旅途天氣（每日卡片＋快速查找） ---------- */
+  .day-wx{ margin:.55rem 0 .35rem; display:flex; flex-direction:column; gap:.35rem; max-width:520px; }
+  .day-wx:empty{ display:none; }
+  .wx-city{
+    border:1px solid rgba(128,128,128,.28); border-radius:12px; background:rgba(128,128,128,.07);
+    font-size:.85rem; overflow:hidden;
+  }
+  .wx-city summary{
+    list-style:none; display:flex; align-items:center; gap:.5rem; flex-wrap:wrap;
+    padding:.5rem .75rem; min-height:44px; cursor:pointer;
+  }
+  .wx-city summary::-webkit-details-marker{ display:none; }
+  .wx-name{ font-family:'Noto Serif TC',serif; font-weight:700; min-width:2.6em; }
+  .wx-ic{ font-size:1.15rem; line-height:1; }
+  .wx-txt{ opacity:.75; }
+  .wx-t{ margin-left:auto; font-variant-numeric:tabular-nums; }
+  .wx-t b{ font-size:1rem; }
+  .wx-rain{ opacity:.8; font-variant-numeric:tabular-nums; }
+  .wx-more{ opacity:.5; transition:transform .2s; }
+  .wx-city[open] .wx-more{ transform:rotate(180deg); }
+  .wx-hours{ display:flex; gap:.35rem; overflow-x:auto; padding:.2rem .75rem .6rem; scrollbar-width:thin; }
+  .wx-h{ flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:.05rem; min-width:3.1rem; padding:.35rem .2rem; border-radius:10px; background:rgba(128,128,128,.08); }
+  .wx-h small{ font-size:.7rem; opacity:.7; }
+  .wx-h b{ font-size:.85rem; font-variant-numeric:tabular-nums; }
+  .wx-hr{ color:#3F7F87; }
+  .ink .wx-hr, body.night-mode .wx-hr{ color:#7FB9C0; }
+  .wx-tip{ padding:0 .75rem .7rem; font-size:.8rem; line-height:1.55; }
+  .wx-hint{ padding:0 .75rem .6rem; font-size:.78rem; opacity:.7; }
+  .wx-na{ display:flex; gap:.5rem; align-items:center; padding:.5rem .75rem; min-height:40px; }
+  .wx-na-txt{ font-size:.78rem; opacity:.65; }
+  .wx-stamp{ font-size:.7rem; opacity:.55; }
+  .wx-ov{ padding:.8rem 1rem 1rem; }
+  .wx-now{ padding:.75rem .85rem; border-radius:12px; margin-bottom:1rem; background:rgba(63,127,135,.12); border:1px solid rgba(63,127,135,.35); }
+  .wx-now-h{ font-family:'Noto Serif TC',serif; font-weight:700; margin-bottom:.4rem; }
+  .wx-now-h small{ font-family:'Noto Sans TC',sans-serif; font-weight:400; font-size:.72rem; opacity:.6; margin-left:.45rem; }
+  .wx-now-list{ display:flex; flex-wrap:wrap; gap:.4rem 1.4rem; }
+  .wx-now-i{ display:flex; flex-direction:column; }
+  .wx-now-i span{ font-size:.78rem; opacity:.7; }
+  .wx-now-i b{ font-size:1.35rem; font-variant-numeric:tabular-nums; letter-spacing:-.01em; }
+  .wx-now-i small{ font-size:.74rem; opacity:.7; }
+  .wx-gps{ margin-top:.55rem; min-height:36px; padding:.35rem .8rem; border-radius:999px; border:1px solid rgba(128,128,128,.35); background:transparent; color:inherit; font:inherit; font-size:.8rem; cursor:pointer; }
+  .wx-list{ display:flex; flex-direction:column; gap:.9rem; }
+  .wx-day{ display:flex; flex-direction:column; gap:.35rem; }
+  .wx-day-h{ display:flex; align-items:baseline; gap:.45rem; background:none; border:0; padding:0; color:inherit; font:inherit; font-size:.82rem; cursor:pointer; text-align:left; }
+  .wx-day-h b{ font-family:'Noto Serif TC',serif; font-size:.95rem; }
+  .wx-day-h span{ opacity:.5; }
+  .wx-foot{ margin:.9rem 0 0; font-size:.72rem; opacity:.6; }
+  .wx-city summary:focus-visible, .wx-gps:focus-visible, .wx-day-h:focus-visible{ outline:2px solid var(--kincha); outline-offset:2px; }
+  @media print{ .wx-gps{ display:none; } }
