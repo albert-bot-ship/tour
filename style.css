@@ -2383,3 +2383,33 @@
   .phrase-list .ph-alt{ font-size:.74rem; color:rgba(243,237,224,0.55); }
   .phrase-list .ph-alt i{ font-style:normal; }
   @media print{ .phrase-list[data-ph-group]{ display:block !important; } .ph-tabs{ display:none !important; } }
+
+
+  /* ---------- 封面改為載入畫面（同一次瀏覽只顯示一次） ---------- */
+  html.splash-on body{ overflow:hidden; }
+  html.splash-on .hero{
+    position:fixed; inset:0; z-index:5000; margin:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    cursor:pointer; transition:opacity .55s ease, visibility .55s ease;
+  }
+  html.splash-on .hero.splash-fade{ opacity:0; visibility:hidden; }
+  html.no-splash .hero, html.splash-done .hero{ display:none; }
+  .hero h1, .hero .kicker, .hero .dates{ color:#F3EDE0; }
+  .hero .kicker{ color:#B8892B; }
+  @media (prefers-reduced-motion: reduce){ html.splash-on .hero{ transition:none; } }
+
+  /* 封面消失後保留的行程資訊列 */
+  .trip-meta{
+    max-width:880px; margin:0 auto; box-sizing:border-box;
+    padding:calc(1.1rem + env(safe-area-inset-top, 0px)) 1.5rem 0;
+    display:flex; flex-wrap:wrap; align-items:baseline; gap:.2rem 1rem;
+    font-size:.8rem; color:var(--ink);
+  }
+  .trip-meta b{ font-family:'Noto Serif TC',serif; font-weight:900; font-size:1.15rem; letter-spacing:-.01em; margin-right:.2rem; }
+  .trip-meta span{ opacity:.6; }
+  @media (max-width:600px){ .trip-meta{ padding-left:1rem; padding-right:1rem; } }
+
+  @media print{
+    .hero{ display:block !important; position:static !important; opacity:1 !important; visibility:visible !important; }
+    .trip-meta{ display:none !important; }
+  }
