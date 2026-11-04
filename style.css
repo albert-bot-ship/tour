@@ -2376,3 +2376,10 @@
   .phrase-list .ph-jp{ font-family:'Noto Serif TC',serif; font-size:.9rem; color:rgba(243,237,224,0.85); }
   .phrase-list .ph-note{ font-family:'Noto Sans TC',sans-serif; font-weight:400; font-size:.75rem; opacity:.6; margin-left:.3rem; }
   .phrase-list b{ color:#F3EDE0; }
+
+  /* 旅遊常用日文：分類頁籤與完整說法 */
+  .ph-tabs{ margin:-.2rem 0 .6rem; }
+  .phrase-list[hidden]{ display:none; }
+  .phrase-list .ph-alt{ font-size:.74rem; color:rgba(243,237,224,0.55); }
+  .phrase-list .ph-alt i{ font-style:normal; }
+  @media print{ .phrase-list[data-ph-group]{ display:block !important; } .ph-tabs{ display:none !important; } }
