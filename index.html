@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=27">
+<link rel="stylesheet" href="./style.css?v=28">
 </head>
 <body>
 <script>
@@ -3848,7 +3848,7 @@
       return '<details class="wx-city' + (wn ? ' wx-windy' : '') + '"><summary>' +
         '<span class="wx-name">' + name + '</span><span class="wx-ic" aria-hidden="true">' + ic + '</span><span class="wx-txt">' + txt + '</span>' +
         (wn ? '<span class="wx-wind-badge" title="風大">💨</span>' : '') +
-        '<span class="wx-t"><b>' + r0(d.hi) + '°</b> / ' + r0(d.lo) + '°</span><span class="wx-rain' + rainCls(d.rain) + '">☂ ' + (d.rain == null ? '—' : r0(d.rain) + '%') + '</span>' +
+        '<span class="wx-nums"><span class="wx-t"><b>' + r0(d.hi) + '°</b> / ' + r0(d.lo) + '°</span><span class="wx-rain' + rainCls(d.rain) + '">☂ ' + (d.rain == null ? '—' : r0(d.rain) + '%') + '</span></span>' +
         '<span class="wx-more" aria-hidden="true">▾</span></summary>' +
         hours + extra + (wn ? '<div class="wx-alert">⚠️ ' + esc(wn) + '</div>' : '') + (tp ? '<div class="wx-tip">👕 ' + esc(tp) + '</div>' : '') + '</details>';
     }
