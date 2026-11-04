@@ -2954,6 +2954,20 @@
         if (phBtn) { phBtn.click(); needsWait = true; }
       }
 
+      // 1d. 如果在 role="tabpanel" 的隱藏面板裡（例如退稅平台頁籤），先切換到該頁籤
+      const tabPanel = target.closest('[role="tabpanel"][id]');
+      if (tabPanel && tabPanel.hidden) {
+        const tpBtn = document.querySelector('[role="tab"][aria-controls="' + tabPanel.id + '"]');
+        if (tpBtn) { tpBtn.click(); needsWait = true; }
+      }
+
+      // 1e. 如果在收合的 <details>（看詳細）裡，先打開
+      let det = target.closest('details');
+      while (det) {
+        if (!det.open) { det.open = true; needsWait = true; }
+        det = det.parentElement ? det.parentElement.closest('details') : null;
+      }
+
       // 2. 如果在FAQ收合的答案裡，先展開該FAQ項目
       const faqItem = target.closest('.faq-item');
       if (faqItem && !faqItem.classList.contains('open')) {
@@ -3003,9 +3017,40 @@
       { sel: '.hm-name', cat: '飯店周邊' }
     ];
 
+    // ---- 文字正規化：全形半形、大小寫、日文漢字／簡體字 → 繁體，並忽略空白與分隔符號 ----
+    // 例：「広島」=「廣島」、「退税」=「退稅」、「a-ri-ga-to-u」=「arigatou」
+    const VARIANT_PAIRS = '広廣岛島嶋島沢澤浜濱桜櫻竜龍鉄鐵铁鐵県縣円圓気氣辺邊边邊関關关關発發发發図圖楽樂乐樂歩步区區国國万萬塩鹽麺麵鶏雞鸡雞来來帰歸归歸売賣卖賣买買読讀写寫実實宝寶蔵藏栄榮営營黒黑恵惠渓溪滝瀧斎齋广廣车車门門时時东東饭飯馆館场場汤湯点點电電话話线線园園観觀观觀历歷宫宮冈岡庙廟桥橋爱愛书書无無汉漢头頭馒饅红紅温溫仓倉濑瀨瀬瀨户戶戸戶内內厳嚴严嚴鸟鳥価價价價税稅説說说說険險险險薬藥药藥剤劑単單单單両兩两兩経經经經済濟济濟银銀钱錢銭錢换換帯帶带帶処處处處预預约約订訂们們个個这這样樣様樣号號応應应應対對对對当當会會学學览覽覧覽华華丽麗庆慶乗乘残殘転轉转轉伝傳传傳与與満滿满滿钟鐘浅淺炉爐灯燈';
+    const VARIANT = {};
+    for (let i = 0; i < VARIANT_PAIRS.length; i += 2) VARIANT[VARIANT_PAIRS[i]] = VARIANT_PAIRS[i + 1];
+    const IGNORE_CHAR = /[\s・·•\-－‐–—_＿、，,。.．\/／~～]/;
+    // 回傳 { s: 正規化字串, map: 每個正規化字元對應到原文的位置 }，用來把比對結果標回原文
+    function normalize(text){
+      let out = '';
+      const map = [];
+      for (let i = 0; i < text.length; i++) {
+        const c = text[i];
+        if (IGNORE_CHAR.test(c)) continue;
+        const x = c.normalize('NFKC').toLowerCase();
+        for (const ch of x) {
+          if (IGNORE_CHAR.test(ch)) continue;
+          out += VARIANT[ch] || ch;
+          map.push(i);
+        }
+      }
+      return { s: out, map };
+    }
+
+    // 標題類元素（同時用來在內文索引時排除，避免同一段字出現兩次）
+    const TITLE_SEL = categoryMap.map(c => c.sel).join(',');
+    const BLOCK_SEL = 'p,li,dd,dt,td,th,h1,h2,h3,h4,h5,h6,div,figcaption,summary,label,blockquote,caption';
+    const SKIP_SEL = 'script,style,noscript,svg,button,select,textarea,input,.search-wrap,.leaflet-container,[aria-hidden="true"]';
+    // 被隱藏、但跳轉時能自動展開的容器（頁籤面板、日文分類）以外的 hidden 內容不收錄
+    const HIDDEN_SKIP_SEL = '[hidden]:not([role="tabpanel"]):not(.phrase-list)';
+
     function buildIndex(){
       const idx = [];
       const seen = new Set();
+      // A. 標題類（原有範圍）
       categoryMap.forEach(({ sel, cat }) => {
         document.querySelectorAll(sel).forEach(el => {
           if (seen.has(el)) return;
@@ -3014,48 +3059,130 @@
           const text = el.textContent.trim().replace(/\s+/g,' ');
           if (!text) return;
           seen.add(el);
-          idx.push({ text, id: anchor.id, el, cat });
+          idx.push({ text, id: anchor.id, el, cat, body:false, norm: normalize(text) });
+        });
+      });
+      // B. 內文：各區塊的說明文字、FAQ 答案、提醒、表格內容等
+      document.querySelectorAll('section[id]').forEach(sec => {
+        const blocks = new Map();
+        const walker = document.createTreeWalker(sec, NodeFilter.SHOW_TEXT);
+        let node;
+        while ((node = walker.nextNode())) {
+          const v = node.nodeValue;
+          if (!v || !v.trim()) continue;
+          const par = node.parentElement;
+          if (!par || par.closest(SKIP_SEL) || par.closest(TITLE_SEL) || par.closest(HIDDEN_SKIP_SEL)) continue;
+          const block = par.closest(BLOCK_SEL);
+          if (!block || seen.has(block) || block.closest('section[id]') !== sec) continue;
+          blocks.set(block, (blocks.get(block) || '') + v);
+        }
+        blocks.forEach((raw, block) => {
+          const text = raw.trim().replace(/\s+/g,' ');
+          if (text.length < 2) return;
+          idx.push({ text, id: sec.id, el: block, cat:'內文', body:true, norm: normalize(text) });
         });
       });
       return idx;
     }
-    const index = buildIndex();
+    let index = buildIndex();
 
-    // 容錯比對：先試精確連續比對（分數最高，越前面比對到分數越高）；
-    // 找不到的話，再試「字元依序出現但允許中間夾雜其他字」的模糊比對，
-    // 這樣漏打一兩個字、順序記錯一點點也還搜得到。
-    function fuzzyMatch(text, query){
-      const t = text.toLowerCase();
-      const q = query.toLowerCase();
-      const exactIdx = t.indexOf(q);
-      if (exactIdx !== -1) {
-        return { score: 1000 - exactIdx, type:'exact', start: exactIdx, end: exactIdx + q.length };
+    // 近似比對：在文字中找與查詢「最接近」的一段，允許打錯、多打、少打、相鄰兩字顛倒
+    function approxMatch(t, q, maxErr){
+      const m = q.length, n = t.length;
+      const D = [new Array(n + 1).fill(0)];
+      for (let i = 1; i <= m; i++) {
+        const row = new Array(n + 1);
+        row[0] = i;
+        for (let j = 1; j <= n; j++) {
+          const cost = q[i-1] === t[j-1] ? 0 : 1;
+          let v = Math.min(D[i-1][j] + 1, row[j-1] + 1, D[i-1][j-1] + cost);
+          if (i > 1 && j > 1 && q[i-1] === t[j-2] && q[i-2] === t[j-1]) v = Math.min(v, D[i-2][j-2] + 1);
+          row[j] = v;
+        }
+        D.push(row);
       }
-      let ti = 0, qi = 0;
-      const positions = [];
-      while (ti < t.length && qi < q.length) {
-        if (t[ti] === q[qi]) { positions.push(ti); qi++; }
-        ti++;
+      let best = Infinity, bestJ = -1;
+      for (let j = 1; j <= n; j++) if (D[m][j] < best) { best = D[m][j]; bestJ = j; }
+      if (best > maxErr) return null;
+      let i = m, j = bestJ;
+      while (i > 0) {
+        const cost = (j > 0 && q[i-1] === t[j-1]) ? 0 : 1;
+        if (j > 0 && D[i][j] === D[i-1][j-1] + cost) { i--; j--; }
+        else if (i > 1 && j > 1 && q[i-1] === t[j-2] && q[i-2] === t[j-1] && D[i][j] === D[i-2][j-2] + 1) { i -= 2; j -= 2; }
+        else if (D[i][j] === D[i-1][j] + 1) { i--; }
+        else { j--; }
       }
-      if (qi === q.length && positions.length > 0) {
-        const span = positions[positions.length - 1] - positions[0] + 1;
-        const density = q.length / span;
-        return { score: 400 * density, type:'fuzzy', positions };
-      }
-      return null;
+      if (j >= bestJ) return null;
+      return { dist: best, start: j, end: bestJ };
     }
 
-    function highlightText(text, match){
-      if (!match) return text;
-      if (match.type === 'exact') {
-        return text.slice(0, match.start) + '<mark>' + text.slice(match.start, match.end) + '</mark>' + text.slice(match.end);
+    // 容錯比對（三層）：
+    // 1. 完全符合（分數最高，越前面越高）
+    // 2. 漏打字：查詢的字依序出現、中間可夾其他字
+    // 3. 打錯字／多打字／兩字顛倒：允許 1 個錯（3–5 字）或 2 個錯（6 字以上）；1–2 字的查詢不做此層
+    // 內文的分數打五折，讓標題類結果排在前面
+    function fuzzyMatch(item, q){
+      const t = item.norm.s, map = item.norm.map;
+      if (!q || !t) return null;
+      const w = item.body ? 0.5 : 1;
+      const range = (a, b) => [[map[a], map[b - 1] + 1]];
+
+      const exactIdx = t.indexOf(q);
+      if (exactIdx !== -1) return { score: (1000 - Math.min(exactIdx, 300)) * w, ranges: range(exactIdx, exactIdx + q.length) };
+
+      let best = null;
+      // 漏打字：從每個可能的起點找最緊湊的一組
+      for (let k = t.indexOf(q[0]); k !== -1; k = t.indexOf(q[0], k + 1)) {
+        let qi = 0;
+        const pos = [];
+        for (let ti = k; ti < t.length && qi < q.length; ti++) {
+          if (t[ti] === q[qi]) { pos.push(ti); qi++; }
+        }
+        if (qi < q.length) break;
+        const density = q.length / (pos[pos.length - 1] - pos[0] + 1);
+        if (density < 0.5) continue;
+        const sc = 400 * density * w;
+        if (!best || sc > best.score) best = { score: sc, ranges: pos.map(p => [map[p], map[p] + 1]) };
       }
-      let out = '', lastIdx = 0;
-      match.positions.forEach(pos => {
-        out += text.slice(lastIdx, pos) + '<mark>' + text[pos] + '</mark>';
-        lastIdx = pos + 1;
+
+      const maxErr = q.length >= 6 ? 2 : (q.length >= 3 ? 1 : 0);
+      if (maxErr) {
+        let present = 0;
+        for (const ch of q) if (t.includes(ch)) present++;
+        if (present >= q.length - maxErr) {
+          const a = approxMatch(t, q, maxErr);
+          if (a) {
+            const sc = (300 - 100 * a.dist) * w;
+            if (!best || sc > best.score) best = { score: sc, ranges: range(a.start, a.end) };
+          }
+        }
+      }
+      return best;
+    }
+
+    function escHtml(str){
+      return str.replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]));
+    }
+
+    // 標示比對到的字；內文太長時只顯示比對位置附近的一小段
+    function highlightText(text, match, isBody){
+      const ranges = match ? match.ranges : [];
+      const LEN = 48;
+      let ws = 0, we = text.length;
+      if (isBody && text.length > LEN && ranges.length) {
+        ws = Math.max(0, ranges[0][0] - 14);
+        we = Math.min(text.length, ws + LEN);
+        ws = Math.max(0, we - LEN);
+      }
+      let out = ws > 0 ? '…' : '';
+      let pos = ws;
+      ranges.forEach(([a, b]) => {
+        a = Math.max(a, ws); b = Math.min(b, we);
+        if (a >= b || a < pos) return;
+        out += escHtml(text.slice(pos, a)) + '<mark>' + escHtml(text.slice(a, b)) + '</mark>';
+        pos = b;
       });
-      out += text.slice(lastIdx);
+      out += escHtml(text.slice(pos, we)) + (we < text.length ? '…' : '');
       return out;
     }
 
@@ -3105,9 +3232,10 @@
       const q = query.trim();
       if (!q) { renderSuggestions(); return; }
 
+      const qn = normalize(q).s;
       const scored = [];
       index.forEach(item => {
-        const match = fuzzyMatch(item.text, q);
+        const match = fuzzyMatch(item, qn);
         if (match) scored.push(Object.assign({}, item, { match, score: match.score }));
       });
       scored.sort((a, b) => b.score - a.score);
@@ -3136,7 +3264,7 @@
         html += '<div class="search-group-label">' + cat + '</div>';
         groups[cat].forEach(item => {
           html += '<div class="search-result-item" data-idx="' + flatIdx + '"><span class="sr-text">' +
-            highlightText(item.text, item.match) + '</span><span class="sr-section">' +
+            highlightText(item.text, item.match, item.body) + '</span><span class="sr-section">' +
             (sectionLabels[item.id] || item.id) + '</span></div>';
           currentMatches.push(item);
           flatIdx++;
@@ -3152,7 +3280,8 @@
     }
 
     input.addEventListener('input', () => renderResults(input.value));
-    input.addEventListener('focus', () => renderResults(input.value));
+    // 每次點進搜尋框時重建索引，讓之後才產生的內容（例如新增的花費項目）也搜得到
+    input.addEventListener('focus', () => { index = buildIndex(); renderResults(input.value); });
 
     input.addEventListener('keydown', (e) => {
       const isOpen = resultsBox.classList.contains('show');
