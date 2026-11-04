@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=29">
+<link rel="stylesheet" href="./style.css?v=30">
 </head>
 <body>
 <script>
@@ -677,6 +677,7 @@
       <span><i style="background:#7A5C8E;"></i> 當晚住宿</span>
     </div>
     <div class="day-transit" id="dayTransit"></div>
+    <div class="ds-list" id="dayStops" aria-live="polite"></div>
   </div>
 </section>
 
@@ -2066,6 +2067,30 @@
     transitEl.innerHTML = lines.length
       ? ("🚌 站間交通參考（約略時間，依實際路況調整）<br>" + lines.join("<br>"))
       : "本日僅單一地點，無站間移動。";
+
+    // 本日景點清單（同飯店周邊頁的列表樣式）：網頁地圖定位＋Google 地圖連結
+    const stopsEl = document.getElementById('dayStops');
+    if (stopsEl) {
+      const q = v => String(v).replace(/"/g, '&quot;');
+      const gm = pid => "https://www.google.com/maps/place/?q=place_id:" + encodeURIComponent(pid);
+      const walk = (a, b) => "https://www.google.com/maps/dir/?api=1&origin=" + a.lat + "," + a.lng + "&origin_place_id=" + encodeURIComponent(a.place_id) +
+        "&destination=" + b.lat + "," + b.lng + "&destination_place_id=" + encodeURIComponent(b.place_id) + "&travelmode=walking";
+      stopsEl.innerHTML = '<div class="hm-group ds-group"><h3>' + days[idx].label + '　本日景點（' + stops.length + '）</h3>' +
+        stops.map((s, i) =>
+          '<div class="hm-item"><div class="hm-row"><span class="hm-name"><i class="ds-num" style="background:' + (CAT[s.cat] || "#BD4B28") + ';">' + (i+1) + '</i>' + s.name + '</span></div>' +
+          '<div class="hm-hours">' + s.note + '</div>' +
+          '<div class="hm-links"><button type="button" class="mf-btn" data-mf="day" data-idx="' + idx + '" data-n="' + q(s.name) + '">🗺️ 在網頁地圖看</button>' +
+          '<a href="' + gm(s.place_id) + '" target="_blank" rel="noopener">📍 在 Google 地圖開啟</a></div>' +
+          (s.near || []).map(n =>
+            '<div class="ds-near"><div class="hm-row"><span class="hm-name"><i class="ds-num ds-cp">券</i>' + n.name + '</span></div>' +
+            '<div class="hm-hours">' + n.note + '・🎟️ 有遊客優惠券，見 <a href="#taxfree">退稅攻略</a></div>' +
+            '<div class="hm-links"><button type="button" class="mf-btn" data-mf="day" data-idx="' + idx + '" data-n="' + q(n.name) + '">🗺️ 在網頁地圖看</button>' +
+            '<a href="' + gm(n.place_id) + '" target="_blank" rel="noopener">📍 在 Google 地圖開啟</a>' +
+            '<a href="' + walk(s, n) + '" target="_blank" rel="noopener">🚶 從' + s.name.replace(/\s*永旺夢樂城/, '') + '步行導航</a></div></div>'
+          ).join('') +
+          '</div>'
+        ).join('') + '</div>';
+    }
   }
 
   // ---------- TABS ----------
@@ -3038,7 +3063,7 @@
     // 標題類元素（同時用來在內文索引時排除，避免同一段字出現兩次）
     const TITLE_SEL = categoryMap.map(c => c.sel).join(',');
     const BLOCK_SEL = 'p,li,dd,dt,td,th,h1,h2,h3,h4,h5,h6,div,figcaption,summary,label,blockquote,caption';
-    const SKIP_SEL = 'script,style,noscript,svg,button,select,textarea,input,.search-wrap,.leaflet-container,.day-wx,[aria-hidden="true"]';
+    const SKIP_SEL = 'script,style,noscript,svg,button,select,textarea,input,.search-wrap,.leaflet-container,.day-wx,.ds-list,[aria-hidden="true"]';
     // 被隱藏、但跳轉時能自動展開的容器（頁籤面板、日文分類）以外的 hidden 內容不收錄
     const HIDDEN_SKIP_SEL = '[hidden]:not([role="tabpanel"]):not(.phrase-list)';
 
