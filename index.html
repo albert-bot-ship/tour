@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=21">
+<link rel="stylesheet" href="./style.css?v=23">
 </head>
 <body>
 <script>
@@ -28,15 +28,25 @@
       document.body.classList.add('night-mode');
     }
   } catch (e) {}
+  // 封面當作載入畫面：同一次瀏覽只顯示一次
+  try {
+    document.documentElement.classList.add(sessionStorage.getItem('tour_splash_seen') ? 'no-splash' : 'splash-on');
+  } catch (e) { document.documentElement.classList.add('splash-on'); }
 </script>
 
-<!-- HERO -->
+<!-- HERO（載入畫面） -->
 <section class="hero">
   <div class="kicker">SETOUCHI ITINERARY · 團號 NPY111805IT6</div>
   <h1>岡山四國<span>五日</span>紀行<br>購物・美食・拍照全攻略</h1>
   <p class="sub">宮島海上鳥居・尾道千光寺・倉敷美觀地區・道後溫泉，一路從瀨戶內海的潮汐走到讚岐平原的楓紅。</p>
   <div class="dates"><span class="dot"></span>2026.11.18 — 11.22　台北桃園 ⇄ 岡山</div>
 </section>
+
+<div class="trip-meta">
+  <b>岡山四國五日紀行</b>
+  <span>2026.11.18 — 11.22　台北桃園 ⇄ 岡山</span>
+  <span>團號 NPY111805IT6</span>
+</div>
 
 <div class="search-wrap">
   <input type="text" id="siteSearch" placeholder="🔍 搜尋景點、店家、關鍵字…（例如：紅葉饅頭、行動電源）" autocomplete="off">
@@ -1696,15 +1706,55 @@
       </div>
       <div class="prep-card">
         <h3>旅遊常用日文</h3>
-        <ul class="phrase-list">
-          <li><b>請給我這個</b><span class="ph-jp">これをください</span><span><i class="ph-roma">ko-re o ku-da-sa-i</i><i class="ph-zh">口勒 歐 哭搭撒伊</i></span></li>
-          <li><b>請問多少錢</b><span class="ph-jp">いくらですか</span><span><i class="ph-roma">i-ku-ra de-su ka</i><i class="ph-zh">伊哭拉 爹斯 卡</i></span></li>
-          <li><b>可以退稅嗎</b><span class="ph-jp">免税できますか</span><span><i class="ph-roma">men-zei de-ki-ma-su ka</i><i class="ph-zh">面賊 爹ki媽斯 卡</i></span></li>
-          <li><b>請問廁所在哪</b><span class="ph-jp">トイレはどこですか</span><span><i class="ph-roma">toi-re wa do-ko de-su ka</i><i class="ph-zh">偷伊勒 哇 都口 爹斯 卡</i></span></li>
-          <li><b>可以刷卡嗎</b><span class="ph-jp">カードは使えますか</span><span><i class="ph-roma">ka-do wa tsu-ka-e-ma-su ka</i><i class="ph-zh">卡～都 哇 疵卡欸媽斯 卡</i></span></li>
-          <li><b>請用日圓結帳<small class="ph-note">（刷卡跳出台幣/日圓選擇畫面前先講這句，避免被DCC動態貨幣轉換多收手續費）</small></b><span class="ph-jp">日本円でお願いします</span><span><i class="ph-roma">ni-hon-en de o-ne-ga-i shi-ma-su</i><i class="ph-zh">你轟恩 爹 歐內嘎伊 西媽斯</i></span></li>
+        <div class="prep-tabs ph-tabs" id="phTabs" role="tablist" aria-label="日文分類">
+          <button type="button" class="prep-tab active" data-ph="basic" role="tab" aria-selected="true">基本</button>
+          <button type="button" class="prep-tab" data-ph="shop" role="tab" aria-selected="false">購物・免稅・支付</button>
+          <button type="button" class="prep-tab" data-ph="drug" role="tab" aria-selected="false">藥妝</button>
+          <button type="button" class="prep-tab" data-ph="food" role="tab" aria-selected="false">餐廳</button>
+        </div>
+        <ul class="phrase-list" data-ph-group="basic">
           <li><b>謝謝</b><span class="ph-jp">ありがとうございます</span><span><i class="ph-roma">a-ri-ga-to go-zai-ma-su</i><i class="ph-zh">阿哩嘎多 勾紮伊媽斯</i></span></li>
           <li><b>不好意思／抱歉<small class="ph-note">（也可用來叫店員）</small></b><span class="ph-jp">すみません</span><span><i class="ph-roma">su-mi-ma-sen</i><i class="ph-zh">斯咪媽線</i></span></li>
+          <li><b>請說慢一點<small class="ph-note">（聽不懂時，比點頭傻笑有用）</small></b><span class="ph-jp">ゆっくりお願いします</span><span><i class="ph-roma">yu-kku-ri o-ne-ga-i shi-ma-su</i><i class="ph-zh">尤～哭哩 歐內嘎伊 西媽斯</i></span></li>
+          <li><b>請再說一次</b><span class="ph-jp">もう一度お願いします</span><span><i class="ph-roma">mo-u i-chi-do o-ne-ga-i shi-ma-su</i><i class="ph-zh">謀～ 伊奇豆 歐內嘎伊 西媽斯</i></span></li>
+          <li><b>請問廁所在哪</b><span class="ph-jp">トイレはどこですか</span><span><i class="ph-roma">toi-re wa do-ko de-su ka</i><i class="ph-zh">偷伊勒 哇 都口 爹斯 卡</i></span></li>
+          <li><b>〇〇在哪裡？<small class="ph-note">（〇〇填地名或設施，也可直接給對方看地圖）</small></b><span class="ph-jp">〇〇はどこですか</span><span><i class="ph-roma">〇〇 wa do-ko de-su ka</i><i class="ph-zh">〇〇 哇 都口 爹斯 卡</i></span></li>
+          <li><b>我迷路了</b><span class="ph-jp">道に迷いました</span><span><i class="ph-roma">mi-chi ni ma-yo-i-ma-shi-ta</i><i class="ph-zh">咪奇 你 媽有伊媽西他</i></span></li>
+        </ul>
+        <ul class="phrase-list" data-ph-group="shop" hidden>
+          <li><b>這個多少錢？</b><span class="ph-jp">これはいくらですか</span><span><i class="ph-roma">ko-re wa i-ku-ra de-su ka</i><i class="ph-zh">口勒 哇 伊哭拉 爹斯 卡</i></span></li>
+          <li><b>這款有M尺寸嗎？</b><span class="ph-jp">これのMサイズはありますか</span><span><i class="ph-roma">ko-re no e-mu sa-i-zu wa a-ri-ma-su ka</i><i class="ph-zh">口勒 諾 欸目 撒伊茲 哇 阿哩媽斯 卡</i></span></li>
+          <li><b>有其他顏色嗎？</b><span class="ph-jp">他の色はありますか</span><span><i class="ph-roma">ho-ka no i-ro wa a-ri-ma-su ka</i><i class="ph-zh">齁卡 諾 伊摟 哇 阿哩媽斯 卡</i></span></li>
+          <li><b>請給我這個</b><span class="ph-jp">これをください</span><span><i class="ph-roma">ko-re o ku-da-sa-i</i><i class="ph-zh">口勒 歐 哭搭撒伊</i></span></li>
+          <li><b>可以退稅嗎</b><span class="ph-jp">免税できますか</span><span><i class="ph-roma">men-zei de-ki-ma-su ka</i><i class="ph-zh">面賊 爹ki媽斯 卡</i></span></li>
+          <li><b>我要辦免稅<small class="ph-note">（結帳時說，店員會協助辦理）</small></b><span class="ph-jp">免税でお願いします</span><span><i class="ph-roma">men-zei de o-ne-ga-i shi-ma-su</i><i class="ph-zh">面賊 爹 歐內嘎伊 西媽斯</i></span></li>
+          <li><b>可以刷卡嗎</b><span class="ph-jp">カードは使えますか</span><span><i class="ph-roma">ka-do wa tsu-ka-e-ma-su ka</i><i class="ph-zh">卡～都 哇 疵卡欸媽斯 卡</i></span><span class="ph-alt">完整說法：クレジットカードは使えますか　<i class="ph-roma">ku-re-ji-tto ka-do wa tsu-ka-e-ma-su ka</i><i class="ph-zh">哭勒基～拖 卡～都 哇 疵卡欸媽斯 卡</i></span></li>
+          <li><b>可以使用Suica嗎？</b><span class="ph-jp">Suicaは使えますか</span><span><i class="ph-roma">su-i-ka wa tsu-ka-e-ma-su ka</i><i class="ph-zh">斯伊卡 哇 疵卡欸媽斯 卡</i></span></li>
+          <li><b>可以使用PayPay嗎？</b><span class="ph-jp">PayPayは使えますか</span><span><i class="ph-roma">pe-i-pe-i wa tsu-ka-e-ma-su ka</i><i class="ph-zh">佩伊佩伊 哇 疵卡欸媽斯 卡</i></span></li>
+          <li><b>我要用現金付款</b><span class="ph-jp">現金で払います</span><span><i class="ph-roma">gen-kin de ha-ra-i-ma-su</i><i class="ph-zh">根金 爹 哈拉伊媽斯</i></span></li>
+          <li><b>請用日圓結帳<small class="ph-note">（刷卡跳出台幣/日圓選擇畫面前先講這句，避免被DCC動態貨幣轉換多收手續費）</small></b><span class="ph-jp">日本円でお願いします</span><span><i class="ph-roma">ni-hon-en de o-ne-ga-i shi-ma-su</i><i class="ph-zh">你轟恩 爹 歐內嘎伊 西媽斯</i></span></li>
+          <li><b>不需要購物袋</b><span class="ph-jp">袋はいりません</span><span><i class="ph-roma">fu-ku-ro wa i-ri-ma-sen</i><i class="ph-zh">夫哭摟 哇 伊哩媽線</i></span></li>
+          <li><b>請給我收據<small class="ph-note">（一般購物明細）</small></b><span class="ph-jp">レシートをください</span><span><i class="ph-roma">re-shi-to o ku-da-sa-i</i><i class="ph-zh">勒西～拖 歐 哭搭撒伊</i></span></li>
+          <li><b>請給我正式收據<small class="ph-note">（公司報帳用，可能會問抬頭）</small></b><span class="ph-jp">領収書をください</span><span><i class="ph-roma">ryo-shu-sho o ku-da-sa-i</i><i class="ph-zh">溜～修休 歐 哭搭撒伊</i></span></li>
+        </ul>
+        <ul class="phrase-list" data-ph-group="drug" hidden>
+          <li><b>〇〇放在哪裡？<small class="ph-note">（找不到商品時，搭配商品照片給店員看最快）</small></b><span class="ph-jp">〇〇はどこにありますか</span><span><i class="ph-roma">〇〇 wa do-ko ni a-ri-ma-su ka</i><i class="ph-zh">〇〇 哇 都口 你 阿哩媽斯 卡</i></span></li>
+          <li><b>這個對〇〇有效嗎？</b><span class="ph-jp">これは〇〇に効きますか</span><span><i class="ph-roma">ko-re wa 〇〇 ni ki-ki-ma-su ka</i><i class="ph-zh">口勒 哇 〇〇 你 key-key媽斯 卡</i></span></li>
+          <li><b>可以試用嗎？<small class="ph-note">（試用前先問是基本禮貌）</small></b><span class="ph-jp">試してもいいですか</span><span><i class="ph-roma">ta-me-shi-te mo i-i de-su ka</i><i class="ph-zh">他妹西貼 謀 伊～ 爹斯 卡</i></span></li>
+          <li><b>有更便宜的嗎？</b><span class="ph-jp">もっと安いものはありますか</span><span><i class="ph-roma">mo-tto ya-su-i mo-no wa a-ri-ma-su ka</i><i class="ph-zh">謀～拖 呀斯伊 謀諾 哇 阿哩媽斯 卡</i></span></li>
+        </ul>
+        <ul class="phrase-list" data-ph-group="food" hidden>
+          <li><b>（店員問）請問幾位？<small class="ph-note">（聽到這句就回下一句，或直接比手指）</small></b><span class="ph-jp">何名様ですか</span><span><i class="ph-roma">nan-mei-sa-ma de-su ka</i><i class="ph-zh">南妹撒媽 爹斯 卡</i></span></li>
+          <li><b>兩位</b><span class="ph-jp">二人です</span><span><i class="ph-roma">fu-ta-ri de-su</i><i class="ph-zh">夫他哩 爹斯</i></span></li>
+          <li><b>有什麼推薦的料理？</b><span class="ph-jp">おすすめは何ですか</span><span><i class="ph-roma">o-su-su-me wa nan de-su ka</i><i class="ph-zh">歐斯斯妹 哇 南 爹斯 卡</i></span></li>
+          <li><b>我要這個，麻煩你了</b><span class="ph-jp">これをお願いします</span><span><i class="ph-roma">ko-re o o-ne-ga-i shi-ma-su</i><i class="ph-zh">口勒 歐 歐內嘎伊 西媽斯</i></span></li>
+          <li><b>這是什麼？</b><span class="ph-jp">これは何ですか</span><span><i class="ph-roma">ko-re wa nan de-su ka</i><i class="ph-zh">口勒 哇 南 爹斯 卡</i></span></li>
+          <li><b>請給我水</b><span class="ph-jp">お水をください</span><span><i class="ph-roma">o-mi-zu o ku-da-sa-i</i><i class="ph-zh">歐咪茲 歐 哭搭撒伊</i></span></li>
+          <li><b>有英文菜單嗎？</b><span class="ph-jp">英語のメニューはありますか</span><span><i class="ph-roma">ei-go no me-nyu wa a-ri-ma-su ka</i><i class="ph-zh">欸伊勾 諾 妹扭 哇 阿哩媽斯 卡</i></span></li>
+          <li><b>我對〇〇過敏<small class="ph-note">（〇〇填入食物名稱）</small></b><span class="ph-jp">〇〇アレルギーがあります</span><span><i class="ph-roma">〇〇 a-re-ru-gi ga a-ri-ma-su</i><i class="ph-zh">〇〇 阿勒嚕gi 嘎 阿哩媽斯</i></span></li>
+          <li><b>我要外帶</b><span class="ph-jp">持ち帰りでお願いします</span><span><i class="ph-roma">mo-chi-ka-e-ri de o-ne-ga-i shi-ma-su</i><i class="ph-zh">謀奇卡欸哩 爹 歐內嘎伊 西媽斯</i></span></li>
+          <li><b>麻煩結帳</b><span class="ph-jp">お会計をお願いします</span><span><i class="ph-roma">o-ka-i-ke-i o o-ne-ga-i shi-ma-su</i><i class="ph-zh">歐卡伊K 歐 歐內嘎伊 西媽斯</i></span></li>
+          <li><b>可以分開結帳嗎？</b><span class="ph-jp">別々に払えますか</span><span><i class="ph-roma">be-tsu-be-tsu ni ha-ra-e-ma-su ka</i><i class="ph-zh">杯疵杯疵 你 哈拉欸媽斯 卡</i></span></li>
         </ul>
       </div>
       <div class="prep-card">
@@ -2897,6 +2947,13 @@
         if (packTabBtn) { packTabBtn.click(); needsWait = true; }
       }
 
+      // 1c. 如果在旅遊常用日文的其他分類頁籤裡，先切換到該分類
+      const phList = target.closest('.phrase-list[data-ph-group]');
+      if (phList && phList.hidden) {
+        const phBtn = document.querySelector('#phTabs .prep-tab[data-ph="' + phList.getAttribute('data-ph-group') + '"]');
+        if (phBtn) { phBtn.click(); needsWait = true; }
+      }
+
       // 2. 如果在FAQ收合的答案裡，先展開該FAQ項目
       const faqItem = target.closest('.faq-item');
       if (faqItem && !faqItem.classList.contains('open')) {
@@ -3393,6 +3450,16 @@
     });
   })();
 
+  // ---------- 旅遊常用日文 分類頁籤 ----------
+  (function(){
+    const tabs = document.querySelectorAll('#phTabs .prep-tab');
+    const lists = document.querySelectorAll('.phrase-list[data-ph-group]');
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      tabs.forEach(x => { x.classList.toggle('active', x === tab); x.setAttribute('aria-selected', x === tab ? 'true' : 'false'); });
+      lists.forEach(l => { l.hidden = l.getAttribute('data-ph-group') !== tab.getAttribute('data-ph'); });
+    }));
+  })();
+
   // ---------- 行前準備 分類頁籤 ----------
   (function(){
     const tabs = document.querySelectorAll('#prepTabs .prep-tab');
@@ -3520,6 +3587,29 @@
       // 等地圖圖磚載入一下再開列印視窗
       setTimeout(() => window.print(), 700);
     });
+  })();
+
+  // ---------- 載入畫面：載入完成後淡出（最少顯示 0.8 秒，最多等 3.5 秒；點一下可略過） ----------
+  (function(){
+    const root = document.documentElement;
+    const hero = document.querySelector('.hero');
+    if (!hero || !root.classList.contains('splash-on')) return;
+    let done = false;
+    const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function finish(){
+      if (done) return; done = true;
+      try { sessionStorage.setItem('tour_splash_seen', '1'); } catch (e) {}
+      hero.classList.add('splash-fade');
+      setTimeout(() => {
+        root.classList.remove('splash-on');
+        root.classList.add('splash-done');
+        hero.classList.remove('splash-fade');
+      }, reduce ? 0 : 550);
+    }
+    function whenReady(){ setTimeout(finish, Math.max(0, 800 - performance.now())); }
+    if (document.readyState === 'complete') whenReady(); else window.addEventListener('load', whenReady);
+    setTimeout(finish, 3500);
+    hero.addEventListener('click', finish);
   })();
 
   // ---------- 快速查找（我想找…）＋ 全站目錄：內容都從頁面即時抓取，之後新增資料會自動出現 ----------
