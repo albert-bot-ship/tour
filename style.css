@@ -2560,3 +2560,109 @@
   .note a.src-link{ color:var(--momiji); text-underline-offset:2px; }
   .ink .note a.src-link{ color:var(--kincha); }
   body.night-mode .note a.src-link{ color:var(--kincha); }
+
+  /* ---------- 每日路線：本日景點清單（沿用飯店周邊列表樣式） ---------- */
+  .ds-list{ margin-top:1.4rem; }
+  .ds-group h3{ background:#14213B; }
+  body.night-mode .ds-group h3{ background:#2C4066; }
+  .ds-num{
+    display:inline-grid; place-items:center; width:1.45rem; height:1.45rem; border-radius:50%;
+    margin-right:.45rem; font-style:normal; font-size:.75rem; font-weight:700; color:#fff; vertical-align:1px;
+  }
+  .ds-num.ds-cp{ background:#B8892B; font-size:.68rem; }
+  .ds-near{ margin:.65rem 0 0 1.9rem; padding:.55rem .7rem; border-radius:10px; border:1px dashed var(--paper-line); }
+  .ds-near .hm-name{ font-size:.86rem; }
+  .ds-list .hm-hours a{ color:var(--momiji); }
+  @media print{ .ds-list .hm-links{ display:none; } }
+
+  /* ==========================================================
+     深色模式文字可讀性修正：深色底上的文字一律改用淺色
+     （原本深靛區塊的文字色用 --washi、部分標題用 --ai-deep，
+       深色模式下兩者都變成深色，造成深底深字）
+     ========================================================== */
+  body.night-mode .day.ink, body.night-mode .sect.ink{ color:var(--ink); }
+  /* 深色按鈕／深色底元件上的文字 */
+  body.night-mode .hero, body.night-mode .hero .dates,
+  body.night-mode .prep-tab.active, body.night-mode .cash-headline,
+  body.night-mode .cash-table tr.cash-total td,
+  body.night-mode .fx-input-row input, body.night-mode .fx-input-wrap input,
+  body.night-mode .expense-input-row button, body.night-mode .expense-export-btn,
+  body.night-mode .day-banner, body.night-mode .map-tab.active, body.night-mode .map-hint,
+  body.night-mode #backToTop, body.night-mode #themeToggle, body.night-mode #printBtn,
+  body.night-mode .num-marker, body.night-mode #settingsBtn,
+  body.night-mode .prep-card strong, body.night-mode .phrase-list b,
+  body.night-mode .ink .step-title{ color:#EAE3D3; }
+  /* 原本是「淺底深字」的標題，深色模式改淺色字 */
+  body.night-mode .step-title, body.night-mode .faq-q,
+  body.night-mode .paper .cash-table tr.cash-total td, body.night-mode .warm .cash-table tr.cash-total td,
+  body.night-mode .pack-subhead, body.night-mode .e-num, body.night-mode .es-value,
+  body.night-mode .remind-card h3, body.night-mode .agency-box .name,
+  body.night-mode .flight-route, body.night-mode .stay-table .dcell,
+  body.night-mode .day-transit b, body.night-mode .yen-stack, body.night-mode .yen-sub{ color:var(--ink); }
+  /* 金黃底上的字維持深色 */
+  body.night-mode .trail a.active, body.night-mode .ink .step-num,
+  body.night-mode .ink .anime-note .anime-tag{ color:#14213B; }
+  /* 飯店周邊花費估算框：深色模式改深色半透明底 */
+  body.night-mode .hm-budget{ background:rgba(234,227,211,.05); }
+
+  /* 淺色模式：深靛區塊上的按鈕與連結 */
+  .ink .mf-btn{ color:#F3EDE0; border-color:rgba(243,237,224,.45); background:rgba(243,237,224,.08); }
+  .ink a:not([class]){ color:var(--kincha); }
+  .ink .sect-eyebrow, .ink .day-eyebrow{ opacity:1; }
+  body.night-mode .prep-tab.active{ color:#14213B; }
+  body.night-mode .anime-note .anime-tag{ color:#EAE3D3; }
+  body.night-mode .anime-note a, body.night-mode .paper a.anime-link{ color:var(--kincha); }
+  body.night-mode .mini-alert, body.night-mode .self-arrange, body.night-mode .context-tag,
+  body.night-mode .tag-label, body.night-mode .food-badge.check{ color:#E3C173; }
+  body.night-mode .sect-eyebrow{ opacity:.85; }
+  body.night-mode .self-arrange-note{ opacity:1; }
+  body.night-mode .expense-input-row button{ color:#1C1A16; }
+
+  /* 淺色模式：淺底上的金黃小字加深、淡化文字提高可讀性 */
+  .paper .prep-tab, .warm .prep-tab{ color:var(--ink); opacity:.75; border-color:var(--paper-line); }
+  .paper .prep-tab.active, .warm .prep-tab.active{ opacity:1; }
+  body:not(.night-mode) .flight-tag, body:not(.night-mode) .stay-table th,
+  body:not(.night-mode) .paper .cash-table th, body:not(.night-mode) .warm .cash-table th,
+  body:not(.night-mode) .paper .yen-sub, body:not(.night-mode) .warm .yen-sub{ color:#8A6420; }
+  body:not(.night-mode) .food-badge.ok{ color:#4F5A35; }
+  .day-date{ opacity:.7; }
+  .wx-rain.wx-wet{ opacity:1; }
+  body:not(.night-mode) .ink .food-badge.ok{ color:#B7C795; }
+  body.night-mode #packing .tag-label, body.night-mode #prep .tag-label{ color:#E3C173; }
+
+  /* ==========================================================
+     順遊加碼（我們討論加入的行程）：票券卡，點開看詳細
+     主要行程（旅行社原本安排）維持原樣
+     ========================================================== */
+  .ticket{ margin:1.2rem 0 1.6rem; border-radius:14px; overflow:hidden;
+    background:color-mix(in srgb, var(--matcha) 9%, var(--washi)); border:1px solid color-mix(in srgb, var(--matcha) 35%, transparent); }
+  .ink .ticket{ background:rgba(183,199,149,.08); border-color:rgba(183,199,149,.35); }
+  .tk-head{ list-style:none; display:flex; align-items:center; gap:.85rem; padding:.85rem 1rem; min-height:44px; cursor:pointer; }
+  .tk-head::-webkit-details-marker{ display:none; }
+  .tk-head:focus-visible{ outline:2px solid var(--kincha); outline-offset:-2px; }
+  .tk-ic{ flex:0 0 auto; width:2.6rem; height:2.6rem; border-radius:12px; display:grid; place-items:center; font-size:1.35rem;
+    background:color-mix(in srgb, var(--matcha) 18%, transparent); }
+  .tk-mid{ flex:1; min-width:0; display:flex; flex-direction:column; gap:.08rem; padding-left:.85rem;
+    border-left:2px dashed color-mix(in srgb, var(--matcha) 45%, transparent); }
+  .tk-kicker{ font-size:.66rem; font-weight:700; letter-spacing:.14em; color:#5E6D3E; }
+  .ink .tk-kicker, body.night-mode .tk-kicker{ color:#B7C795; }
+  .tk-name{ font-family:'Noto Serif TC',serif; font-weight:700; font-size:1.02rem; }
+  .tk-hint{ font-size:.76rem; opacity:.8; }
+  .tk-more{ flex:0 0 auto; width:1.9rem; height:1.9rem; border-radius:50%; display:grid; place-items:center; font-weight:700;
+    border:1px solid color-mix(in srgb, var(--matcha) 50%, transparent); color:#5E6D3E; transition:transform .2s; }
+  .ink .tk-more, body.night-mode .tk-more{ color:#B7C795; }
+  .ticket[open] .tk-more{ transform:rotate(45deg); }
+  .tk-body{ padding:.2rem 1rem 1rem; border-top:1px dashed color-mix(in srgb, var(--matcha) 35%, transparent); }
+  .tk-body .tag-grid, .tk-body .note{ font-size:.93em; }
+  .tk-body > .mf-btn{ margin:.8rem 0 .6rem; }
+  @media print{ .ticket .tk-more{ display:none; } }
+
+  /* 地圖：順遊加碼小圖釘 */
+  .extra-marker{ width:22px; height:22px; border-radius:50%; display:grid; place-items:center;
+    font-size:.68rem; font-weight:700; color:#fff; background:#6C7A4A; border:2px dashed #fff; box-shadow:0 1px 4px rgba(0,0,0,.35); }
+  /* 每日路線清單：順遊加碼列 */
+  .ds-num.ds-ex{ background:#6C7A4A; font-size:.68rem; }
+  .ds-pill{ margin-left:.45rem; font-size:.66rem; font-weight:700; padding:.08rem .45rem; border-radius:999px;
+    color:#5E6D3E; border:1px solid color-mix(in srgb, var(--matcha) 55%, transparent); vertical-align:2px; }
+  body.night-mode .ds-pill{ color:#B7C795; }
+  .ds-extra{ border-color:color-mix(in srgb, var(--matcha) 45%, transparent); }
