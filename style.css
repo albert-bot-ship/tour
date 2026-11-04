@@ -2722,3 +2722,8 @@
     .spot.spot-main{ box-shadow:none; }
     .spot-main > .spot-name{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   }
+  /* 順遊票券：標示在哪個團體行程附近 */
+  .tk-near{ align-self:flex-start; margin:.05rem 0 .1rem; font-size:.7rem; font-weight:700; padding:.12rem .5rem; border-radius:999px;
+    background:rgba(189,75,40,.1); color:#8F3319; border:1px solid rgba(189,75,40,.3); }
+  .ink .tk-near{ background:rgba(221,177,87,.14); color:#E3C173; border-color:rgba(221,177,87,.4); }
+  body.night-mode .tk-near{ background:rgba(226,115,74,.14); color:#F0A07E; border-color:rgba(226,115,74,.4); }
