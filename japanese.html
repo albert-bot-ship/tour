@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>旅遊日文會話｜岡山四國五日遊</title>
+<link rel="icon" href="./icon.PNG" type="image/png">
+<link rel="apple-touch-icon" href="./icon.PNG">
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#14213B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ai-deep:#14213B; --ai-mid:#24365C; --ai-line:#3E5688;
+    --washi:#F3EDE0; --washi-warm:#EBE2CF;
+    --momiji:#BD4B28; --momiji-deep:#8F3319; --kincha:#B8892B; --matcha:#6C7A4A;
+    --ink:#1E2430; --sub:rgba(30,36,48,0.62); --line:rgba(30,36,48,0.10);
+    --card:#FBF8F1;
+  }
+  body.night-mode{
+    --ai-deep:#0B1526; --ai-mid:#16223B; --ai-line:#2C4066;
+    --washi:#1C1A16; --washi-warm:#24211A;
+    --momiji:#E2734A; --momiji-deep:#C85A34; --kincha:#DDB157; --matcha:#93A46B;
+    --ink:#EAE3D3; --sub:rgba(234,227,211,0.6); --line:rgba(234,227,211,0.12);
+    --card:#24211A;
+  }
+  *{ box-sizing:border-box; }
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    margin:0; background:var(--washi); color:var(--ink);
+    font-family:'Noto Sans TC',system-ui,-apple-system,sans-serif; line-height:1.6;
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  button{ font:inherit; color:inherit; }
+  .wrap{ max-width:760px; margin:0 auto; padding:0 1.1rem; }
+
+  /* 頁首 */
+  .hero{
+    background:linear-gradient(180deg,#14213B,#24365C); color:#F3EDE0;
+    padding:calc(env(safe-area-inset-top,0px) + .9rem) 0 1.6rem;
+  }
+  body.night-mode .hero{ background:linear-gradient(180deg,#0B1526,#16223B); }
+  .back{
+    display:inline-flex; align-items:center; gap:.35rem; min-height:44px;
+    color:#DDB157; text-decoration:none; font-size:.9rem;
+  }
+  .back:hover{ text-decoration:underline; }
+  .hero h1{
+    font-family:'Noto Serif TC',serif; font-weight:900; letter-spacing:-.02em;
+    font-size:clamp(1.9rem,7vw,2.6rem); line-height:1.15; margin:.4rem 0 .35rem;
+  }
+  .hero h1 span{ display:block; font-size:.42em; font-weight:600; letter-spacing:.18em; color:#DDB157; margin-bottom:.4rem; }
+  .hero p{ margin:0; font-size:.88rem; color:rgba(243,237,224,0.7); }
+  .ctrls{ display:flex; flex-wrap:wrap; gap:.6rem 1.2rem; margin-top:1.1rem; }
+  .ctrl{ display:flex; align-items:center; gap:.45rem; font-size:.8rem; color:rgba(243,237,224,0.7); }
+  .seg{ display:inline-flex; border:1px solid rgba(243,237,224,0.3); border-radius:999px; overflow:hidden; }
+  .seg button{
+    background:transparent; border:0; color:rgba(243,237,224,0.75); padding:.45rem .85rem;
+    min-height:36px; cursor:pointer; font-size:.8rem;
+  }
+  .seg button.on{ background:#DDB157; color:#14213B; font-weight:700; }
+  .seg button:focus-visible, .tab:focus-visible, .say:focus-visible, .num:focus-visible, .say-inline:focus-visible{
+    outline:2px solid var(--kincha); outline-offset:2px;
+  }
+
+  /* 分類頁籤（固定在上方） */
+  .tabbar{
+    position:sticky; z-index:5;
+    background:color-mix(in srgb, var(--washi) 88%, transparent);
+    -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+    top:env(safe-area-inset-top,0px);
+  }
+  /* 手機狀態列底下補一條底色，避免頁籤捲到狀態列後面 */
+  body::before{ content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:6; background:var(--washi); }
+  .tabs{ display:flex; gap:.45rem; overflow-x:auto; padding:.7rem 1.1rem; max-width:760px; margin:0 auto; scrollbar-width:none; }
+  .tabs::-webkit-scrollbar{ display:none; }
+  .tab{
+    flex:0 0 auto; font-family:'Noto Serif TC',serif; font-size:.88rem;
+    padding:.5rem 1.05rem; min-height:40px; border-radius:999px; cursor:pointer;
+    border:1px solid var(--line); background:var(--card); color:var(--sub); transition:background .2s,color .2s;
+  }
+  .tab.on{ background:var(--ai-deep); border-color:var(--ai-deep); color:#F3EDE0; font-weight:700; }
+  body.night-mode .tab.on{ background:var(--kincha); border-color:var(--kincha); color:#14213B; }
+
+  /* 短語 */
+  main{ padding:1.2rem 0 3rem; }
+  .ph-sub{
+    font-family:'Noto Serif TC',serif; font-size:.95rem; color:var(--momiji);
+    margin:1.6rem 0 .5rem; display:flex; align-items:center; gap:.5rem;
+  }
+  .ph-sub::after{ content:""; flex:1; height:1px; background:var(--line); }
+  .panel > .ph-sub:first-child{ margin-top:.3rem; }
+  .ph-list{ list-style:none; margin:0; padding:0; background:var(--card); border:1px solid var(--line); border-radius:14px; }
+  .ph{ display:flex; align-items:center; gap:.8rem; padding:.85rem 1rem; border-bottom:1px solid var(--line); }
+  .ph:last-child{ border-bottom:0; }
+  .ph-main{ flex:1; min-width:0; display:flex; flex-direction:column; gap:.12rem; }
+  .ph-cn{ font-family:'Noto Serif TC',serif; font-size:1.02rem; font-weight:700; letter-spacing:-.01em; }
+  .ph-new{
+    font-style:normal; font-family:'Noto Sans TC',sans-serif; font-size:.66rem; font-weight:500;
+    color:var(--matcha); border:1px solid currentColor; border-radius:4px; padding:0 .3rem; margin-left:.25rem; vertical-align:2px;
+  }
+  .ph-note{ font-size:.76rem; color:var(--sub); }
+  .ph-jp{ font-family:'Noto Serif TC',serif; font-size:1.12rem; color:var(--ai-line); margin-top:.15rem; word-break:break-word; }
+  body.night-mode .ph-jp{ color:#AFC0E3; }
+  .ph-read, .ph-alt{ font-size:.8rem; color:var(--sub); }
+  .ph-alt{ margin-top:.25rem; }
+  .ph-alt span[lang]{ font-family:'Noto Serif TC',serif; color:var(--ink); }
+  i.ph-roma, i.ph-zh{ font-style:normal; }
+  .ph-zh{ display:none; }
+  body.ph-zh-mode .ph-roma{ display:none; }
+  body.ph-zh-mode .ph-zh{ display:inline; }
+
+  .say{
+    flex:0 0 auto; width:46px; height:46px; border-radius:50%; cursor:pointer;
+    border:1px solid color-mix(in srgb, var(--momiji) 40%, transparent);
+    background:color-mix(in srgb, var(--momiji) 10%, transparent); font-size:1.1rem;
+    display:grid; place-items:center; transition:transform .15s, background .2s;
+  }
+  .say:active{ transform:scale(.92); }
+  .say.say-sm{ width:30px; height:30px; font-size:.8rem; display:inline-grid; vertical-align:middle; margin-left:.2rem; }
+  .say.playing, .num.playing, .say-inline.playing{ background:var(--momiji); color:#fff; animation:pulse 1s ease-in-out infinite; }
+  @keyframes pulse{ 50%{ box-shadow:0 0 0 6px color-mix(in srgb, var(--momiji) 25%, transparent); } }
+
+  /* 數字 */
+  .num-tip{ font-size:.85rem; color:var(--sub); margin:.2rem 0 .4rem; }
+  .irr-dot{ color:var(--momiji); }
+  .num-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(104px,1fr)); gap:.55rem; }
+  .num{
+    display:flex; flex-direction:column; align-items:flex-start; gap:.05rem; text-align:left;
+    padding:.6rem .7rem; min-height:44px; border-radius:12px; cursor:pointer;
+    background:var(--card); border:1px solid var(--line); transition:transform .15s;
+  }
+  .num:active{ transform:scale(.96); }
+  .num .n{ font-family:'Noto Serif TC',serif; font-weight:900; font-size:1.15rem; letter-spacing:-.02em; color:var(--sub); }
+  .num .k{ font-family:'Noto Serif TC',serif; font-size:1.05rem; }
+  .num .r{ font-size:.72rem; color:var(--sub); }
+  .num.irr{ border-color:color-mix(in srgb, var(--momiji) 55%, transparent); }
+  .num.irr .k{ color:var(--momiji); font-weight:700; }
+  .num.playing .n, .num.playing .k, .num.playing .r{ color:#fff; }
+  .say-inline{ border:0; background:none; padding:0 .15rem; cursor:pointer; color:var(--momiji); font-family:'Noto Serif TC',serif; border-radius:6px; }
+
+  .notice{
+    display:none; margin:1rem 0 0; padding:.8rem 1rem; border-radius:12px; font-size:.82rem;
+    background:color-mix(in srgb, var(--kincha) 14%, transparent); border:1px solid color-mix(in srgb, var(--kincha) 40%, transparent);
+  }
+  .notice.show{ display:block; }
+  footer{ font-size:.75rem; color:var(--sub); border-top:1px solid var(--line); padding:1.2rem 0 2rem; }
+  footer a{ color:inherit; }
+  @media print{
+    .tabbar, .ctrls, .say, .back{ display:none !important; }
+    .panel[hidden]{ display:block !important; }
+  }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+</head>
+<body>
+<script>
+  // 跟主頁共用外觀與讀音設定（同一支手機）
+  try {
+    var _st = JSON.parse(localStorage.getItem('tour_settings') || '{}');
+    var _th = _st.theme || 'auto';
+    if (_th === 'dark' || (_th === 'auto' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches)) document.body.classList.add('night-mode');
+    if (_st.phonetic === 'zh') document.body.classList.add('ph-zh-mode');
+  } catch (e) {}
+</script>
+
+<header class="hero">
+  <div class="wrap">
+    <a class="back" href="./index.html">← 回行程首頁</a>
+    <h1><span>岡山四國五日遊</span>旅遊日文會話</h1>
+    <p>中文找句子、給對方看日文，或點 🔊 讓手機唸給對方聽。</p>
+    <div class="ctrls">
+      <div class="ctrl">讀音
+        <div class="seg" data-setting="phonetic" role="group" aria-label="讀音顯示">
+          <button type="button" data-v="roma">羅馬拼音</button><button type="button" data-v="zh">中文諧音</button>
+        </div>
+      </div>
+      <div class="ctrl">語速
+        <div class="seg" data-setting="jpRate" role="group" aria-label="發音速度">
+          <button type="button" data-v="normal">正常</button><button type="button" data-v="slow">慢速</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabbar" aria-label="會話情境">
+  <div class="tabs" role="tablist"><button type="button" role="tab" class="tab on" id="t-basic" aria-controls="p-basic" aria-selected="true" data-k="basic">基本</button><button type="button" role="tab" class="tab" id="t-shop" aria-controls="p-shop" aria-selected="false" data-k="shop">購物・支付</button><button type="button" role="tab" class="tab" id="t-drug" aria-controls="p-drug" aria-selected="false" data-k="drug">藥妝</button><button type="button" role="tab" class="tab" id="t-food" aria-controls="p-food" aria-selected="false" data-k="food">餐廳</button><button type="button" role="tab" class="tab" id="t-move" aria-controls="p-move" aria-selected="false" data-k="move">拍照・交通</button><button type="button" role="tab" class="tab" id="t-num" aria-controls="p-num" aria-selected="false" data-k="num">數字</button><button type="button" role="tab" class="tab" id="t-sos" aria-controls="p-sos" aria-selected="false" data-k="sos">緊急</button></div>
+</nav>
+
+<main class="wrap">
+  <div class="notice" id="ttsNotice" role="status"></div>
+  <section class="panel" role="tabpanel" id="p-basic" aria-labelledby="t-basic"><ul class="ph-list"><li class="ph"><div class="ph-main"><b class="ph-cn">謝謝</b><span class="ph-jp" lang="ja">ありがとうございます</span><span class="ph-read"><i class="ph-roma">a-ri-ga-to go-zai-ma-su</i><i class="ph-zh">阿哩嘎多 勾紮伊媽斯</i></span></div><button type="button" class="say" data-say="ありがとうございます" aria-label="播放：ありがとうございます">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">不好意思／抱歉</b><small class="ph-note">也可用來叫店員</small><span class="ph-jp" lang="ja">すみません</span><span class="ph-read"><i class="ph-roma">su-mi-ma-sen</i><i class="ph-zh">斯咪媽線</i></span></div><button type="button" class="say" data-say="すみません" aria-label="播放：すみません">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">請說慢一點</b><small class="ph-note">聽不懂時，比點頭傻笑有用</small><span class="ph-jp" lang="ja">ゆっくりお願いします</span><span class="ph-read"><i class="ph-roma">yu-kku-ri o-ne-ga-i shi-ma-su</i><i class="ph-zh">尤～哭哩 歐內嘎伊 西媽斯</i></span></div><button type="button" class="say" data-say="ゆっくりお願いします" aria-label="播放：ゆっくりお願いします">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">請再說一次</b><span class="ph-jp" lang="ja">もう一度お願いします</span><span class="ph-read"><i class="ph-roma">mo-u i-chi-do o-ne-ga-i shi-ma-su</i><i class="ph-zh">謀～ 伊奇豆 歐內嘎伊 西媽斯</i></span></div><button type="button" class="say" data-say="もう一度お願いします" aria-label="播放：もう一度お願いします">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">請問廁所在哪</b><span class="ph-jp" lang="ja">トイレはどこですか</span><span class="ph-read"><i class="ph-roma">toi-re wa do-ko de-su ka</i><i class="ph-zh">偷伊勒 哇 都口 爹斯 卡</i></span></div><button type="button" class="say" data-say="トイレはどこですか" aria-label="播放：トイレはどこですか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">〇〇在哪裡？</b><small class="ph-note">〇〇填地名或設施，也可直接給對方看地圖</small><span class="ph-jp" lang="ja">〇〇はどこですか</span><span class="ph-read"><i class="ph-roma">〇〇 wa do-ko de-su ka</i><i class="ph-zh">〇〇 哇 都口 爹斯 卡</i></span></div><button type="button" class="say" data-say="はどこですか" aria-label="播放：〇〇はどこですか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">我迷路了</b><span class="ph-jp" lang="ja">道に迷いました</span><span class="ph-read"><i class="ph-roma">mi-chi ni ma-yo-i-ma-shi-ta</i><i class="ph-zh">咪奇 你 媽有伊媽西他</i></span></div><button type="button" class="say" data-say="道に迷いました" aria-label="播放：道に迷いました">🔊</button></li></ul></section><section class="panel" role="tabpanel" id="p-shop" aria-labelledby="t-shop" hidden><ul class="ph-list"><li class="ph"><div class="ph-main"><b class="ph-cn">這個多少錢？</b><span class="ph-jp" lang="ja">これはいくらですか</span><span class="ph-read"><i class="ph-roma">ko-re wa i-ku-ra de-su ka</i><i class="ph-zh">口勒 哇 伊哭拉 爹斯 卡</i></span></div><button type="button" class="say" data-say="これはいくらですか" aria-label="播放：これはいくらですか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">這款有M尺寸嗎？</b><span class="ph-jp" lang="ja">これのMサイズはありますか</span><span class="ph-read"><i class="ph-roma">ko-re no e-mu sa-i-zu wa a-ri-ma-su ka</i><i class="ph-zh">口勒 諾 欸目 撒伊茲 哇 阿哩媽斯 卡</i></span></div><button type="button" class="say" data-say="これのMサイズはありますか" aria-label="播放：これのMサイズはありますか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">有其他顏色嗎？</b><span class="ph-jp" lang="ja">他の色はありますか</span><span class="ph-read"><i class="ph-roma">ho-ka no i-ro wa a-ri-ma-su ka</i><i class="ph-zh">齁卡 諾 伊摟 哇 阿哩媽斯 卡</i></span></div><button type="button" class="say" data-say="他の色はありますか" aria-label="播放：他の色はありますか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">這個可以試穿嗎？ <em class="ph-new">新增</em></b><span class="ph-jp" lang="ja">これ、試着してもいいですか</span><span class="ph-read"><i class="ph-roma">ko-re, shi-cha-ku shi-te mo i-i de-su ka</i><i class="ph-zh">口勒，西洽哭 西貼 謀 伊～ 爹斯 卡</i></span></div><button type="button" class="say" data-say="これ、試着してもいいですか" aria-label="播放：これ、試着してもいいですか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">請給我這個</b><span class="ph-jp" lang="ja">これをください</span><span class="ph-read"><i class="ph-roma">ko-re o ku-da-sa-i</i><i class="ph-zh">口勒 歐 哭搭撒伊</i></span></div><button type="button" class="say" data-say="これをください" aria-label="播放：これをください">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">可以退稅嗎</b><span class="ph-jp" lang="ja">免税できますか</span><span class="ph-read"><i class="ph-roma">men-zei de-ki-ma-su ka</i><i class="ph-zh">面賊 爹ki媽斯 卡</i></span></div><button type="button" class="say" data-say="免税できますか" aria-label="播放：免税できますか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">我要辦免稅</b><small class="ph-note">結帳時說，店員會協助辦理</small><span class="ph-jp" lang="ja">免税でお願いします</span><span class="ph-read"><i class="ph-roma">men-zei de o-ne-ga-i shi-ma-su</i><i class="ph-zh">面賊 爹 歐內嘎伊 西媽斯</i></span></div><button type="button" class="say" data-say="免税でお願いします" aria-label="播放：免税でお願いします">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">可以刷卡嗎</b><span class="ph-jp" lang="ja">カードは使えますか</span><span class="ph-read"><i class="ph-roma">ka-do wa tsu-ka-e-ma-su ka</i><i class="ph-zh">卡～都 哇 疵卡欸媽斯 卡</i></span><span class="ph-alt">也可以說：<span lang="ja">クレジットカードは使えますか</span> <i class="ph-roma">ku-re-ji-tto ka-do wa tsu-ka-e-ma-su ka</i><i class="ph-zh">哭勒基～拖 卡～都 哇 疵卡欸媽斯 卡</i> <button type="button" class="say say-sm" data-say="クレジットカードは使えますか" aria-label="播放：クレジットカードは使えますか">🔊</button></span></div><button type="button" class="say" data-say="カードは使えますか" aria-label="播放：カードは使えますか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">可以使用Suica嗎？</b><span class="ph-jp" lang="ja">Suicaは使えますか</span><span class="ph-read"><i class="ph-roma">su-i-ka wa tsu-ka-e-ma-su ka</i><i class="ph-zh">斯伊卡 哇 疵卡欸媽斯 卡</i></span></div><button type="button" class="say" data-say="Suicaは使えますか" aria-label="播放：Suicaは使えますか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">可以使用PayPay嗎？</b><span class="ph-jp" lang="ja">PayPayは使えますか</span><span class="ph-read"><i class="ph-roma">pe-i-pe-i wa tsu-ka-e-ma-su ka</i><i class="ph-zh">佩伊佩伊 哇 疵卡欸媽斯 卡</i></span></div><button type="button" class="say" data-say="PayPayは使えますか" aria-label="播放：PayPayは使えますか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">我要用現金付款</b><span class="ph-jp" lang="ja">現金で払います</span><span class="ph-read"><i class="ph-roma">gen-kin de ha-ra-i-ma-su</i><i class="ph-zh">根金 爹 哈拉伊媽斯</i></span></div><button type="button" class="say" data-say="現金で払います" aria-label="播放：現金で払います">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">請用日圓結帳</b><small class="ph-note">刷卡跳出台幣/日圓選擇畫面前先講這句，避免被DCC動態貨幣轉換多收手續費</small><span class="ph-jp" lang="ja">日本円でお願いします</span><span class="ph-read"><i class="ph-roma">ni-hon-en de o-ne-ga-i shi-ma-su</i><i class="ph-zh">你轟恩 爹 歐內嘎伊 西媽斯</i></span></div><button type="button" class="say" data-say="日本円でお願いします" aria-label="播放：日本円でお願いします">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">不需要購物袋</b><span class="ph-jp" lang="ja">袋はいりません</span><span class="ph-read"><i class="ph-roma">fu-ku-ro wa i-ri-ma-sen</i><i class="ph-zh">夫哭摟 哇 伊哩媽線</i></span></div><button type="button" class="say" data-say="袋はいりません" aria-label="播放：袋はいりません">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">請給我收據</b><small class="ph-note">一般購物明細</small><span class="ph-jp" lang="ja">レシートをください</span><span class="ph-read"><i class="ph-roma">re-shi-to o ku-da-sa-i</i><i class="ph-zh">勒西～拖 歐 哭搭撒伊</i></span></div><button type="button" class="say" data-say="レシートをください" aria-label="播放：レシートをください">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">請給我正式收據</b><small class="ph-note">公司報帳用，可能會問抬頭</small><span class="ph-jp" lang="ja">領収書をください</span><span class="ph-read"><i class="ph-roma">ryo-shu-sho o ku-da-sa-i</i><i class="ph-zh">溜～修休 歐 哭搭撒伊</i></span></div><button type="button" class="say" data-say="領収書をください" aria-label="播放：領収書をください">🔊</button></li></ul></section><section class="panel" role="tabpanel" id="p-drug" aria-labelledby="t-drug" hidden><ul class="ph-list"><li class="ph"><div class="ph-main"><b class="ph-cn">〇〇放在哪裡？</b><small class="ph-note">找不到商品時，搭配商品照片給店員看最快</small><span class="ph-jp" lang="ja">〇〇はどこにありますか</span><span class="ph-read"><i class="ph-roma">〇〇 wa do-ko ni a-ri-ma-su ka</i><i class="ph-zh">〇〇 哇 都口 你 阿哩媽斯 卡</i></span></div><button type="button" class="say" data-say="はどこにありますか" aria-label="播放：〇〇はどこにありますか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">這個對〇〇有效嗎？</b><span class="ph-jp" lang="ja">これは〇〇に効きますか</span><span class="ph-read"><i class="ph-roma">ko-re wa 〇〇 ni ki-ki-ma-su ka</i><i class="ph-zh">口勒 哇 〇〇 你 key-key媽斯 卡</i></span></div><button type="button" class="say" data-say="これはに効きますか" aria-label="播放：これは〇〇に効きますか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">可以試用嗎？</b><small class="ph-note">試用前先問是基本禮貌</small><span class="ph-jp" lang="ja">試してもいいですか</span><span class="ph-read"><i class="ph-roma">ta-me-shi-te mo i-i de-su ka</i><i class="ph-zh">他妹西貼 謀 伊～ 爹斯 卡</i></span></div><button type="button" class="say" data-say="試してもいいですか" aria-label="播放：試してもいいですか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">有更便宜的嗎？</b><span class="ph-jp" lang="ja">もっと安いものはありますか</span><span class="ph-read"><i class="ph-roma">mo-tto ya-su-i mo-no wa a-ri-ma-su ka</i><i class="ph-zh">謀～拖 呀斯伊 謀諾 哇 阿哩媽斯 卡</i></span></div><button type="button" class="say" data-say="もっと安いものはありますか" aria-label="播放：もっと安いものはありますか">🔊</button></li></ul></section><section class="panel" role="tabpanel" id="p-food" aria-labelledby="t-food" hidden><ul class="ph-list"><li class="ph"><div class="ph-main"><b class="ph-cn">沒有預約，現在可以進去嗎？ <em class="ph-new">新增</em></b><span class="ph-jp" lang="ja">予約していないんですが、入れますか</span><span class="ph-read"><i class="ph-roma">yo-ya-ku shi-te i-na-in de-su ga, ha-i-re-ma-su ka</i><i class="ph-zh">優呀哭 西貼 伊南 爹斯嘎，哈伊勒媽斯 卡</i></span></div><button type="button" class="say" data-say="予約していないんですが、入れますか" aria-label="播放：予約していないんですが、入れますか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">（店員問）請問幾位？</b><small class="ph-note">聽到這句就回下一句，或直接比手指</small><span class="ph-jp" lang="ja">何名様ですか</span><span class="ph-read"><i class="ph-roma">nan-mei-sa-ma de-su ka</i><i class="ph-zh">南妹撒媽 爹斯 卡</i></span></div><button type="button" class="say" data-say="何名様ですか" aria-label="播放：何名様ですか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">兩位</b><span class="ph-jp" lang="ja">二人です</span><span class="ph-read"><i class="ph-roma">fu-ta-ri de-su</i><i class="ph-zh">夫他哩 爹斯</i></span></div><button type="button" class="say" data-say="二人です" aria-label="播放：二人です">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">吧台座位也可以 <em class="ph-new">新增</em></b><span class="ph-jp" lang="ja">カウンター席でも大丈夫です</span><span class="ph-read"><i class="ph-roma">ka-un-ta se-ki de-mo dai-jo-bu de-su</i><i class="ph-zh">卡溫他～ 誰ki 爹謀 搭伊久～布 爹斯</i></span></div><button type="button" class="say" data-say="カウンター席でも大丈夫です" aria-label="播放：カウンター席でも大丈夫です">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">要等多久？ <em class="ph-new">新增</em></b><small class="ph-note">排隊名店用得到</small><span class="ph-jp" lang="ja">どのくらい待ちますか</span><span class="ph-read"><i class="ph-roma">do-no ku-ra-i ma-chi-ma-su ka</i><i class="ph-zh">都諾 哭拉伊 媽奇媽斯 卡</i></span></div><button type="button" class="say" data-say="どのくらい待ちますか" aria-label="播放：どのくらい待ちますか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">有什麼推薦的料理？</b><span class="ph-jp" lang="ja">おすすめは何ですか</span><span class="ph-read"><i class="ph-roma">o-su-su-me wa nan de-su ka</i><i class="ph-zh">歐斯斯妹 哇 南 爹斯 卡</i></span></div><button type="button" class="say" data-say="おすすめは何ですか" aria-label="播放：おすすめは何ですか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">我要這個，麻煩你了</b><span class="ph-jp" lang="ja">これをお願いします</span><span class="ph-read"><i class="ph-roma">ko-re o o-ne-ga-i shi-ma-su</i><i class="ph-zh">口勒 歐 歐內嘎伊 西媽斯</i></span></div><button type="button" class="say" data-say="これをお願いします" aria-label="播放：これをお願いします">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">這是什麼？</b><span class="ph-jp" lang="ja">これは何ですか</span><span class="ph-read"><i class="ph-roma">ko-re wa nan de-su ka</i><i class="ph-zh">口勒 哇 南 爹斯 卡</i></span></div><button type="button" class="say" data-say="これは何ですか" aria-label="播放：これは何ですか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">請給我水</b><span class="ph-jp" lang="ja">お水をください</span><span class="ph-read"><i class="ph-roma">o-mi-zu o ku-da-sa-i</i><i class="ph-zh">歐咪茲 歐 哭搭撒伊</i></span></div><button type="button" class="say" data-say="お水をください" aria-label="播放：お水をください">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">有英文菜單嗎？</b><span class="ph-jp" lang="ja">英語のメニューはありますか</span><span class="ph-read"><i class="ph-roma">ei-go no me-nyu wa a-ri-ma-su ka</i><i class="ph-zh">欸伊勾 諾 妹扭 哇 阿哩媽斯 卡</i></span></div><button type="button" class="say" data-say="英語のメニューはありますか" aria-label="播放：英語のメニューはありますか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">我對〇〇過敏</b><small class="ph-note">〇〇填入食物名稱</small><span class="ph-jp" lang="ja">〇〇アレルギーがあります</span><span class="ph-read"><i class="ph-roma">〇〇 a-re-ru-gi ga a-ri-ma-su</i><i class="ph-zh">〇〇 阿勒嚕gi 嘎 阿哩媽斯</i></span></div><button type="button" class="say" data-say="アレルギーがあります" aria-label="播放：〇〇アレルギーがあります">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">我要外帶</b><span class="ph-jp" lang="ja">持ち帰りでお願いします</span><span class="ph-read"><i class="ph-roma">mo-chi-ka-e-ri de o-ne-ga-i shi-ma-su</i><i class="ph-zh">謀奇卡欸哩 爹 歐內嘎伊 西媽斯</i></span></div><button type="button" class="say" data-say="持ち帰りでお願いします" aria-label="播放：持ち帰りでお願いします">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">麻煩結帳</b><span class="ph-jp" lang="ja">お会計をお願いします</span><span class="ph-read"><i class="ph-roma">o-ka-i-ke-i o o-ne-ga-i shi-ma-su</i><i class="ph-zh">歐卡伊K 歐 歐內嘎伊 西媽斯</i></span></div><button type="button" class="say" data-say="お会計をお願いします" aria-label="播放：お会計をお願いします">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">可以分開結帳嗎？</b><span class="ph-jp" lang="ja">別々に払えますか</span><span class="ph-read"><i class="ph-roma">be-tsu-be-tsu ni ha-ra-e-ma-su ka</i><i class="ph-zh">杯疵杯疵 你 哈拉欸媽斯 卡</i></span></div><button type="button" class="say" data-say="別々に払えますか" aria-label="播放：別々に払えますか">🔊</button></li></ul></section><section class="panel" role="tabpanel" id="p-move" aria-labelledby="t-move" hidden><h3 class="ph-sub">拍照</h3><ul class="ph-list"><li class="ph"><div class="ph-main"><b class="ph-cn">不好意思，可以幫我拍張照嗎？ <em class="ph-new">新增</em></b><span class="ph-jp" lang="ja">すみません、写真を撮ってもらえますか</span><span class="ph-read"><i class="ph-roma">su-mi-ma-sen, sha-shin o to-tte mo-ra-e-ma-su ka</i><i class="ph-zh">斯咪媽線，蝦芯 歐 偷～貼 謀拉欸媽斯 卡</i></span></div><button type="button" class="say" data-say="すみません、写真を撮ってもらえますか" aria-label="播放：すみません、写真を撮ってもらえますか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">可以再幫我拍一張直的嗎？ <em class="ph-new">新增</em></b><span class="ph-jp" lang="ja">縦で、もう一枚お願いできますか</span><span class="ph-read"><i class="ph-roma">ta-te de, mo-u i-chi-ma-i o-ne-ga-i de-ki-ma-su ka</i><i class="ph-zh">他貼 爹，謀～ 伊奇媽伊 歐內嘎伊 爹ki媽斯 卡</i></span></div><button type="button" class="say" data-say="縦で、もう一枚お願いできますか" aria-label="播放：縦で、もう一枚お願いできますか">🔊</button></li></ul><h3 class="ph-sub">電車</h3><ul class="ph-list"><li class="ph"><div class="ph-main"><b class="ph-cn">我想去這裡，請問要搭哪班車？ <em class="ph-new">新增</em></b><small class="ph-note">搭配手機地圖給對方看</small><span class="ph-jp" lang="ja">ここに行きたいんですが、どの電車に乗ればいいですか</span><span class="ph-read"><i class="ph-roma">ko-ko ni i-ki-ta-in de-su ga, do-no den-sha ni no-re-ba i-i de-su ka</i><i class="ph-zh">口口 你 伊ki他伊恩 爹斯嘎，都諾 電蝦 你 諾勒巴 伊～ 爹斯 卡</i></span></div><button type="button" class="say" data-say="ここに行きたいんですが、どの電車に乗ればいいですか" aria-label="播放：ここに行きたいんですが、どの電車に乗ればいいですか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">我在這裡下車就可以嗎？ <em class="ph-new">新增</em></b><span class="ph-jp" lang="ja">ここで降りればいいですか</span><span class="ph-read"><i class="ph-roma">ko-ko de o-ri-re-ba i-i de-su ka</i><i class="ph-zh">口口 爹 歐哩勒巴 伊～ 爹斯 卡</i></span></div><button type="button" class="say" data-say="ここで降りればいいですか" aria-label="播放：ここで降りればいいですか">🔊</button></li></ul><h3 class="ph-sub">計程車</h3><ul class="ph-list"><li class="ph"><div class="ph-main"><b class="ph-cn">麻煩到〇〇 <em class="ph-new">新增</em></b><small class="ph-note">〇〇填目的地</small><span class="ph-jp" lang="ja">〇〇までお願いします</span><span class="ph-read"><i class="ph-roma">〇〇 ma-de o-ne-ga-i shi-ma-su</i><i class="ph-zh">〇〇 媽爹 歐內嘎伊 西媽斯</i></span></div><button type="button" class="say" data-say="までお願いします" aria-label="播放：〇〇までお願いします">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">麻煩到這個地址 <em class="ph-new">新增</em></b><small class="ph-note">搭配出示飯店地址</small><span class="ph-jp" lang="ja">この住所までお願いします</span><span class="ph-read"><i class="ph-roma">ko-no ju-sho ma-de o-ne-ga-i shi-ma-su</i><i class="ph-zh">口諾 啾休 媽爹 歐內嘎伊 西媽斯</i></span></div><button type="button" class="say" data-say="この住所までお願いします" aria-label="播放：この住所までお願いします">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">請看地圖 <em class="ph-new">新增</em></b><span class="ph-jp" lang="ja">この地図を見てください</span><span class="ph-read"><i class="ph-roma">ko-no chi-zu o mi-te ku-da-sa-i</i><i class="ph-zh">口諾 奇茲 歐 咪貼 哭搭撒伊</i></span></div><button type="button" class="say" data-say="この地図を見てください" aria-label="播放：この地図を見てください">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">到〇〇大約要幾分鐘？ <em class="ph-new">新增</em></b><span class="ph-jp" lang="ja">〇〇まで何分くらいかかりますか</span><span class="ph-read"><i class="ph-roma">〇〇 ma-de nan-pun ku-ra-i ka-ka-ri-ma-su ka</i><i class="ph-zh">〇〇 媽爹 南噴 哭拉伊 卡卡哩媽斯 卡</i></span></div><button type="button" class="say" data-say="まで何分くらいかかりますか" aria-label="播放：〇〇まで何分くらいかかりますか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">到〇〇大約多少錢？ <em class="ph-new">新增</em></b><span class="ph-jp" lang="ja">〇〇までいくらくらいかかりますか</span><span class="ph-read"><i class="ph-roma">〇〇 ma-de i-ku-ra ku-ra-i ka-ka-ri-ma-su ka</i><i class="ph-zh">〇〇 媽爹 伊哭拉 哭拉伊 卡卡哩媽斯 卡</i></span></div><button type="button" class="say" data-say="までいくらくらいかかりますか" aria-label="播放：〇〇までいくらくらいかかりますか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">可以幫我開後車廂嗎？ <em class="ph-new">新增</em></b><span class="ph-jp" lang="ja">トランクを開けてもらえますか</span><span class="ph-read"><i class="ph-roma">to-ran-ku o a-ke-te mo-ra-e-ma-su ka</i><i class="ph-zh">偷蘭哭 歐 阿K貼 謀拉欸媽斯 卡</i></span></div><button type="button" class="say" data-say="トランクを開けてもらえますか" aria-label="播放：トランクを開けてもらえますか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">在附近就可以 <em class="ph-new">新增</em></b><span class="ph-jp" lang="ja">この辺でいいです</span><span class="ph-read"><i class="ph-roma">ko-no hen de i-i de-su</i><i class="ph-zh">口諾 嘿恩 爹 伊～ 爹斯</i></span></div><button type="button" class="say" data-say="この辺でいいです" aria-label="播放：この辺でいいです">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">請在這裡停 <em class="ph-new">新增</em></b><span class="ph-jp" lang="ja">ここで止めてください</span><span class="ph-read"><i class="ph-roma">ko-ko de to-me-te ku-da-sa-i</i><i class="ph-zh">口口 爹 偷妹貼 哭搭撒伊</i></span></div><button type="button" class="say" data-say="ここで止めてください" aria-label="播放：ここで止めてください">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">不用找錢了 <em class="ph-new">新增</em></b><span class="ph-jp" lang="ja">お釣りは結構です</span><span class="ph-read"><i class="ph-roma">o-tsu-ri wa ke-kko de-su</i><i class="ph-zh">歐疵哩 哇 K～口 爹斯</i></span></div><button type="button" class="say" data-say="お釣りは結構です" aria-label="播放：お釣りは結構です">🔊</button></li></ul><h3 class="ph-sub">行李</h3><ul class="ph-list"><li class="ph"><div class="ph-main"><b class="ph-cn">可以幫我寄放行李嗎？ <em class="ph-new">新增</em></b><small class="ph-note">退房後到集合前有空檔時</small><span class="ph-jp" lang="ja">荷物を預かってもらえますか</span><span class="ph-read"><i class="ph-roma">ni-mo-tsu o a-zu-ka-tte mo-ra-e-ma-su ka</i><i class="ph-zh">你謀疵 歐 阿茲卡～貼 謀拉欸媽斯 卡</i></span></div><button type="button" class="say" data-say="荷物を預かってもらえますか" aria-label="播放：荷物を預かってもらえますか">🔊</button></li></ul></section><section class="panel" role="tabpanel" id="p-num" aria-labelledby="t-num" hidden><p class="num-tip">點任何一格就會唸出來。<b class="irr-dot">紅色</b>是會變音的，聽價格時最容易聽錯。</p><h3 class="ph-sub">0～10</h3><div class="num-grid"><button type="button" class="num say-cell" data-say="ゼロ" aria-label="播放 0 ゼロ"><span class="n">0</span><span class="k" lang="ja">ゼロ</span><span class="r"><i class="ph-roma">ze-ro</i><i class="ph-zh">賊摟</i></span></button><button type="button" class="num say-cell" data-say="いち" aria-label="播放 1 いち"><span class="n">1</span><span class="k" lang="ja">いち</span><span class="r"><i class="ph-roma">i-chi</i><i class="ph-zh">伊奇</i></span></button><button type="button" class="num say-cell" data-say="に" aria-label="播放 2 に"><span class="n">2</span><span class="k" lang="ja">に</span><span class="r"><i class="ph-roma">ni</i><i class="ph-zh">你</i></span></button><button type="button" class="num say-cell" data-say="さん" aria-label="播放 3 さん"><span class="n">3</span><span class="k" lang="ja">さん</span><span class="r"><i class="ph-roma">san</i><i class="ph-zh">散</i></span></button><button type="button" class="num say-cell" data-say="よん" aria-label="播放 4 よん"><span class="n">4</span><span class="k" lang="ja">よん</span><span class="r"><i class="ph-roma">yon</i><i class="ph-zh">勇</i></span></button><button type="button" class="num say-cell" data-say="ご" aria-label="播放 5 ご"><span class="n">5</span><span class="k" lang="ja">ご</span><span class="r"><i class="ph-roma">go</i><i class="ph-zh">勾</i></span></button><button type="button" class="num say-cell" data-say="ろく" aria-label="播放 6 ろく"><span class="n">6</span><span class="k" lang="ja">ろく</span><span class="r"><i class="ph-roma">ro-ku</i><i class="ph-zh">摟哭</i></span></button><button type="button" class="num say-cell" data-say="なな" aria-label="播放 7 なな"><span class="n">7</span><span class="k" lang="ja">なな</span><span class="r"><i class="ph-roma">na-na</i><i class="ph-zh">那那</i></span></button><button type="button" class="num say-cell" data-say="はち" aria-label="播放 8 はち"><span class="n">8</span><span class="k" lang="ja">はち</span><span class="r"><i class="ph-roma">ha-chi</i><i class="ph-zh">哈奇</i></span></button><button type="button" class="num say-cell" data-say="きゅう" aria-label="播放 9 きゅう"><span class="n">9</span><span class="k" lang="ja">きゅう</span><span class="r"><i class="ph-roma">kyu</i><i class="ph-zh">Q～</i></span></button><button type="button" class="num say-cell" data-say="じゅう" aria-label="播放 10 じゅう"><span class="n">10</span><span class="k" lang="ja">じゅう</span><span class="r"><i class="ph-roma">ju</i><i class="ph-zh">啾～</i></span></button></div><h3 class="ph-sub">百（ひゃく）</h3><div class="num-grid"><button type="button" class="num say-cell" data-say="ひゃく" aria-label="播放 100 ひゃく"><span class="n">100</span><span class="k" lang="ja">ひゃく</span><span class="r"><i class="ph-roma">hya-ku</i><i class="ph-zh">嘿呀哭</i></span></button><button type="button" class="num say-cell" data-say="にひゃく" aria-label="播放 200 にひゃく"><span class="n">200</span><span class="k" lang="ja">にひゃく</span><span class="r"><i class="ph-roma">ni-hya-ku</i><i class="ph-zh">你 嘿呀哭</i></span></button><button type="button" class="num say-cell irr" data-say="さんびゃく" aria-label="播放 300 さんびゃく"><span class="n">300</span><span class="k" lang="ja">さんびゃく</span><span class="r"><i class="ph-roma">san-bya-ku</i><i class="ph-zh">散 逼呀哭</i></span></button><button type="button" class="num say-cell" data-say="よんひゃく" aria-label="播放 400 よんひゃく"><span class="n">400</span><span class="k" lang="ja">よんひゃく</span><span class="r"><i class="ph-roma">yon-hya-ku</i><i class="ph-zh">勇 嘿呀哭</i></span></button><button type="button" class="num say-cell" data-say="ごひゃく" aria-label="播放 500 ごひゃく"><span class="n">500</span><span class="k" lang="ja">ごひゃく</span><span class="r"><i class="ph-roma">go-hya-ku</i><i class="ph-zh">勾 嘿呀哭</i></span></button><button type="button" class="num say-cell irr" data-say="ろっぴゃく" aria-label="播放 600 ろっぴゃく"><span class="n">600</span><span class="k" lang="ja">ろっぴゃく</span><span class="r"><i class="ph-roma">ro-ppya-ku</i><i class="ph-zh">摟～ 逼呀哭</i></span></button><button type="button" class="num say-cell" data-say="ななひゃく" aria-label="播放 700 ななひゃく"><span class="n">700</span><span class="k" lang="ja">ななひゃく</span><span class="r"><i class="ph-roma">na-na-hya-ku</i><i class="ph-zh">那那 嘿呀哭</i></span></button><button type="button" class="num say-cell irr" data-say="はっぴゃく" aria-label="播放 800 はっぴゃく"><span class="n">800</span><span class="k" lang="ja">はっぴゃく</span><span class="r"><i class="ph-roma">ha-ppya-ku</i><i class="ph-zh">哈～ 逼呀哭</i></span></button><button type="button" class="num say-cell" data-say="きゅうひゃく" aria-label="播放 900 きゅうひゃく"><span class="n">900</span><span class="k" lang="ja">きゅうひゃく</span><span class="r"><i class="ph-roma">kyu-hya-ku</i><i class="ph-zh">Q～ 嘿呀哭</i></span></button></div><h3 class="ph-sub">千（せん）</h3><div class="num-grid"><button type="button" class="num say-cell" data-say="せん" aria-label="播放 1,000 せん"><span class="n">1,000</span><span class="k" lang="ja">せん</span><span class="r"><i class="ph-roma">sen</i><i class="ph-zh">誰恩</i></span></button><button type="button" class="num say-cell" data-say="にせん" aria-label="播放 2,000 にせん"><span class="n">2,000</span><span class="k" lang="ja">にせん</span><span class="r"><i class="ph-roma">ni-sen</i><i class="ph-zh">你 誰恩</i></span></button><button type="button" class="num say-cell irr" data-say="さんぜん" aria-label="播放 3,000 さんぜん"><span class="n">3,000</span><span class="k" lang="ja">さんぜん</span><span class="r"><i class="ph-roma">san-zen</i><i class="ph-zh">散 賊恩</i></span></button><button type="button" class="num say-cell" data-say="よんせん" aria-label="播放 4,000 よんせん"><span class="n">4,000</span><span class="k" lang="ja">よんせん</span><span class="r"><i class="ph-roma">yon-sen</i><i class="ph-zh">勇 誰恩</i></span></button><button type="button" class="num say-cell" data-say="ごせん" aria-label="播放 5,000 ごせん"><span class="n">5,000</span><span class="k" lang="ja">ごせん</span><span class="r"><i class="ph-roma">go-sen</i><i class="ph-zh">勾 誰恩</i></span></button><button type="button" class="num say-cell" data-say="ろくせん" aria-label="播放 6,000 ろくせん"><span class="n">6,000</span><span class="k" lang="ja">ろくせん</span><span class="r"><i class="ph-roma">ro-ku-sen</i><i class="ph-zh">摟哭 誰恩</i></span></button><button type="button" class="num say-cell" data-say="ななせん" aria-label="播放 7,000 ななせん"><span class="n">7,000</span><span class="k" lang="ja">ななせん</span><span class="r"><i class="ph-roma">na-na-sen</i><i class="ph-zh">那那 誰恩</i></span></button><button type="button" class="num say-cell irr" data-say="はっせん" aria-label="播放 8,000 はっせん"><span class="n">8,000</span><span class="k" lang="ja">はっせん</span><span class="r"><i class="ph-roma">ha-ssen</i><i class="ph-zh">哈～ 誰恩</i></span></button><button type="button" class="num say-cell" data-say="きゅうせん" aria-label="播放 9,000 きゅうせん"><span class="n">9,000</span><span class="k" lang="ja">きゅうせん</span><span class="r"><i class="ph-roma">kyu-sen</i><i class="ph-zh">Q～ 誰恩</i></span></button></div><h3 class="ph-sub">萬（まん）</h3><div class="num-grid"><button type="button" class="num say-cell" data-say="いちまん" aria-label="播放 10,000 いちまん"><span class="n">10,000</span><span class="k" lang="ja">いちまん</span><span class="r"><i class="ph-roma">i-chi-man</i><i class="ph-zh">伊奇 慢</i></span></button><button type="button" class="num say-cell" data-say="にまん" aria-label="播放 20,000 にまん"><span class="n">20,000</span><span class="k" lang="ja">にまん</span><span class="r"><i class="ph-roma">ni-man</i><i class="ph-zh">你 慢</i></span></button><button type="button" class="num say-cell" data-say="さんまん" aria-label="播放 30,000 さんまん"><span class="n">30,000</span><span class="k" lang="ja">さんまん</span><span class="r"><i class="ph-roma">san-man</i><i class="ph-zh">散 慢</i></span></button><button type="button" class="num say-cell" data-say="よんまん" aria-label="播放 40,000 よんまん"><span class="n">40,000</span><span class="k" lang="ja">よんまん</span><span class="r"><i class="ph-roma">yon-man</i><i class="ph-zh">勇 慢</i></span></button></div><p class="num-tip">金額後面加「円（えん en）」，例如 ¥1,500＝<button type="button" class="say-inline" data-say="せんごひゃくえん" lang="ja">せんごひゃくえん 🔊</button></p></section><section class="panel" role="tabpanel" id="p-sos" aria-labelledby="t-sos" hidden><ul class="ph-list"><li class="ph"><div class="ph-main"><b class="ph-cn">我身體不舒服</b><span class="ph-jp" lang="ja">気分が悪いです</span><span class="ph-read"><i class="ph-roma">ki-bun ga wa-ru-i de-su</i><i class="ph-zh">ki布恩 嘎 哇嚕伊 爹斯</i></span></div><button type="button" class="say" data-say="気分が悪いです" aria-label="播放：気分が悪いです">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">我肚子痛</b><span class="ph-jp" lang="ja">お腹が痛いです</span><span class="ph-read"><i class="ph-roma">o-na-ka ga i-ta-i de-su</i><i class="ph-zh">歐那卡 嘎 伊他伊 爹斯</i></span></div><button type="button" class="say" data-say="お腹が痛いです" aria-label="播放：お腹が痛いです">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">我頭痛</b><span class="ph-jp" lang="ja">頭が痛いです</span><span class="ph-read"><i class="ph-roma">a-ta-ma ga i-ta-i de-su</i><i class="ph-zh">阿他媽 嘎 伊他伊 爹斯</i></span></div><button type="button" class="say" data-say="頭が痛いです" aria-label="播放：頭が痛いです">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">請問藥局在哪</b><span class="ph-jp" lang="ja">薬局はどこですか</span><span class="ph-read"><i class="ph-roma">ya-kkyo-ku wa do-ko de-su ka</i><i class="ph-zh">呀～叫哭 哇 都口 爹斯 卡</i></span></div><button type="button" class="say" data-say="薬局はどこですか" aria-label="播放：薬局はどこですか">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">請帶我去醫院</b><span class="ph-jp" lang="ja">病院に連れて行ってください</span><span class="ph-read"><i class="ph-roma">byo-in ni tsu-re-te i-tte ku-da-sa-i</i><i class="ph-zh">比歐～因 你 疵勒貼 伊～貼 哭搭撒伊</i></span></div><button type="button" class="say" data-say="病院に連れて行ってください" aria-label="播放：病院に連れて行ってください">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">請幫我叫救護車</b><span class="ph-jp" lang="ja">救急車を呼んでください</span><span class="ph-read"><i class="ph-roma">kyu-kyu-sha o yo-n-de ku-da-sa-i</i><i class="ph-zh">Q～Q～蝦 歐 有恩爹 哭搭撒伊</i></span></div><button type="button" class="say" data-say="救急車を呼んでください" aria-label="播放：救急車を呼んでください">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">我要叫警察 <em class="ph-new">新增</em></b><span class="ph-jp" lang="ja">警察を呼びます</span><span class="ph-read"><i class="ph-roma">ke-i-sa-tsu o yo-bi-ma-su</i><i class="ph-zh">K伊撒疵 歐 有逼媽斯</i></span></div><button type="button" class="say" data-say="警察を呼びます" aria-label="播放：警察を呼びます">🔊</button></li><li class="ph"><div class="ph-main"><b class="ph-cn">我是台灣人</b><small class="ph-note">可搭配出示護照</small><span class="ph-jp" lang="ja">台湾人です</span><span class="ph-read"><i class="ph-roma">tai-wan-jin de-su</i><i class="ph-zh">他伊灣金 爹斯</i></span><span class="ph-alt">也可以說：<span lang="ja">台湾から来ました</span> <i class="ph-roma">tai-wan ka-ra ki-ma-shi-ta</i><i class="ph-zh">他伊灣 卡拉 ki媽西他</i> <button type="button" class="say say-sm" data-say="台湾から来ました" aria-label="播放：台湾から来ました">🔊</button></span></div><button type="button" class="say" data-say="台湾人です" aria-label="播放：台湾人です">🔊</button></li></ul></section>
+</main>
+
+<footer class="wrap">
+  <p>標「新增」的短語與數字念法參考 KUMO 云曦國際外語（@kumo_tw）圖卡整理；羅馬拼音與中文諧音為本頁自行標注，中文諧音只是近似發音。發音使用手機內建的日文語音，音質依手機而定。</p>
+  <p><a href="./index.html">← 回行程首頁</a></p>
+</footer>
+
+<script>
+(function(){
+  /* ---------- 設定（與主頁共用 tour_settings） ---------- */
+  const KEY = 'tour_settings';
+  let st = { theme:'auto', phonetic:'roma', jpRate:'normal' };
+  try { st = Object.assign(st, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) {}
+  function save(){
+    try {
+      const cur = JSON.parse(localStorage.getItem(KEY) || '{}');
+      cur.phonetic = st.phonetic; cur.jpRate = st.jpRate;
+      localStorage.setItem(KEY, JSON.stringify(cur));
+    } catch (e) {}
+  }
+  const mq = window.matchMedia ? matchMedia('(prefers-color-scheme: dark)') : null;
+  function apply(){
+    const dark = st.theme === 'dark' || (st.theme === 'auto' && mq && mq.matches);
+    document.body.classList.toggle('night-mode', !!dark);
+    document.body.classList.toggle('ph-zh-mode', st.phonetic === 'zh');
+    document.querySelectorAll('.seg').forEach(g => {
+      g.querySelectorAll('button').forEach(b => {
+        const on = b.dataset.v === st[g.dataset.setting];
+        b.classList.toggle('on', on); b.setAttribute('aria-pressed', on);
+      });
+    });
+  }
+  if (mq) { const f = () => { if (st.theme === 'auto') apply(); }; mq.addEventListener ? mq.addEventListener('change', f) : mq.addListener && mq.addListener(f); }
+  document.querySelectorAll('.seg').forEach(g => g.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    st[g.dataset.setting] = b.dataset.v; save(); apply();
+  }));
+  apply();
+
+  /* ---------- 分類頁籤（網址 #food 這類可直接開到該分類） ---------- */
+  const tabs = Array.from(document.querySelectorAll('.tab'));
+  function show(k, focus){
+    const t = tabs.find(x => x.dataset.k === k); if (!t) return;
+    tabs.forEach(x => { const on = x === t; x.classList.toggle('on', on); x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1; });
+    document.querySelectorAll('.panel').forEach(p => { p.hidden = p.id !== 'p-' + k; });
+    t.scrollIntoView({ block:'nearest', inline:'center' });
+    if (focus) t.focus();
+    if (history.replaceState) history.replaceState(null, '', '#' + k);
+    if (window.speechSynthesis) speechSynthesis.cancel();
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => {
+      show(t.dataset.k);
+      const bar = document.querySelector('.tabbar');
+      if (bar.getBoundingClientRect().top <= 0) window.scrollTo({ top: document.querySelector('main').offsetTop - bar.offsetHeight, behavior:'smooth' });
+    });
+    t.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length];
+        show(n.dataset.k, true);
+      }
+    });
+  });
+  const h = (location.hash || '').slice(1);
+  if (h && tabs.some(t => t.dataset.k === h)) show(h);
+  window.addEventListener('hashchange', () => { const k = location.hash.slice(1); if (tabs.some(t => t.dataset.k === k)) show(k); });
+
+  /* ---------- 發音（手機內建日文語音） ---------- */
+  const notice = document.getElementById('ttsNotice');
+  const synth = window.speechSynthesis;
+  if (!synth || !window.SpeechSynthesisUtterance) {
+    notice.textContent = '這個瀏覽器不支援語音播放，可以直接把日文給對方看。';
+    notice.classList.add('show');
+    document.querySelectorAll('.say').forEach(b => b.hidden = true);
+    return;
+  }
+  let jaVoice = null;
+  function pickVoice(){
+    const vs = synth.getVoices();
+    if (!vs.length) return;
+    const ja = vs.filter(v => /^ja/i.test(v.lang));
+    jaVoice = ja.find(v => /Kyoko|O-ren|Otoya|Hattori|Google/i.test(v.name)) || ja[0] || null;
+    if (!jaVoice) {
+      notice.textContent = '手機目前找不到日文語音，唸出來可能不標準。iPhone 可到「設定 → 輔助使用 → 朗讀內容 → 聲音」下載日文語音。';
+      notice.classList.add('show');
+    } else notice.classList.remove('show');
+  }
+  pickVoice();
+  if ('onvoiceschanged' in synth) synth.onvoiceschanged = pickVoice;
+
+  let playing = null;
+  function stop(){ if (playing) playing.classList.remove('playing'); playing = null; }
+  function speak(text, el){
+    if (playing === el) { synth.cancel(); stop(); return; }   // 再點一次＝停止
+    synth.cancel(); stop();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ja-JP';
+    if (jaVoice) u.voice = jaVoice;
+    u.rate = st.jpRate === 'slow' ? 0.6 : 0.9;
+    u.onend = u.onerror = () => { if (playing === el) stop(); };
+    playing = el; el.classList.add('playing');
+    synth.speak(u);
+  }
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-say]');
+    if (b) speak(b.dataset.say, b);
+  });
+})();
+</script>
+</body>
+</html>
