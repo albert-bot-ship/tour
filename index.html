@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=24">
+<link rel="stylesheet" href="./style.css?v=25">
 </head>
 <body>
 <script>
@@ -61,6 +61,7 @@
   </div>
   <div class="qf-chips" role="toolbar" aria-label="快速查找">
     <button type="button" class="qf-chip" data-k="today" aria-pressed="false" aria-controls="qfDrawer"><span class="qf-ico" aria-hidden="true">📅</span>今天行程</button>
+    <button type="button" class="qf-chip" data-k="wx" aria-pressed="false" aria-controls="qfDrawer"><span class="qf-ico" aria-hidden="true">🌤️</span>天氣</button>
     <button type="button" class="qf-chip" data-k="eat" aria-pressed="false" aria-controls="qfDrawer"><span class="qf-ico" aria-hidden="true">🍜</span>吃什麼</button>
     <button type="button" class="qf-chip" data-k="buy" aria-pressed="false" aria-controls="qfDrawer"><span class="qf-ico" aria-hidden="true">🛍️</span>買什麼</button>
     <button type="button" class="qf-chip" data-k="fx" aria-pressed="false" aria-controls="qfDrawer"><span class="qf-ico" aria-hidden="true">💴</span>日幣換算</button>
@@ -168,6 +169,7 @@
         <div class="day-eyebrow">ARRIVAL · 抵達晴天之國</div>
         <h2 class="day-title">桃園 → 岡山機場・AEON MALL 永旺夢樂城岡山</h2>
         <div class="day-date">11/18（三）</div>
+        <div class="day-wx" data-day="d1" aria-label="當天天氣"></div>
         <a href="#mapview" class="view-map-btn" data-day-idx="0">📍 查看本日地圖 →</a>
       </div>
     </div>
@@ -272,6 +274,7 @@
         <div class="day-eyebrow">ONOMICHI · 貓與海的坡道之城</div>
         <h2 class="day-title">尾道站前商店街・千光寺公園・原爆和平紀念公園・廣島本通商店街</h2>
         <div class="day-date">11/19（四）</div>
+        <div class="day-wx" data-day="d2" aria-label="當天天氣"></div>
         <a href="#mapview" class="view-map-btn" data-day-idx="1">📍 查看本日地圖 →</a>
       </div>
     </div>
@@ -372,6 +375,7 @@
         <div class="day-eyebrow">MIYAJIMA & MATSUYAMA · 潮汐與古湯</div>
         <h2 class="day-title">宮島表參道・嚴島神社・島波海道・松山城纜車・少爺音樂鐘・道後溫泉本館</h2>
         <div class="day-date">11/20（五）</div>
+        <div class="day-wx" data-day="d3" aria-label="當天天氣"></div>
         <a href="#mapview" class="view-map-btn" data-day-idx="2">📍 查看本日地圖 →</a>
       </div>
     </div>
@@ -471,6 +475,7 @@
         <div class="day-eyebrow">KOTOHIRA & RITSURIN · 石階與名園</div>
         <h2 class="day-title">免稅商店・金刀比羅宮（表參道）・栗林公園・AEON MALL 岡山</h2>
         <div class="day-date">11/21（六）</div>
+        <div class="day-wx" data-day="d4" aria-label="當天天氣"></div>
         <a href="#mapview" class="view-map-btn" data-day-idx="3">📍 查看本日地圖 →</a>
       </div>
     </div>
@@ -541,6 +546,7 @@
         <div class="day-eyebrow">KURASHIKI · 白壁與運河的道別</div>
         <h2 class="day-title">倉敷美觀地區・岡山機場 → 桃園</h2>
         <div class="day-date">11/22（日）</div>
+        <div class="day-wx" data-day="d5" aria-label="當天天氣"></div>
         <a href="#mapview" class="view-map-btn" data-day-idx="4">📍 查看本日地圖 →</a>
       </div>
     </div>
@@ -2989,7 +2995,7 @@
     // 標題類元素（同時用來在內文索引時排除，避免同一段字出現兩次）
     const TITLE_SEL = categoryMap.map(c => c.sel).join(',');
     const BLOCK_SEL = 'p,li,dd,dt,td,th,h1,h2,h3,h4,h5,h6,div,figcaption,summary,label,blockquote,caption';
-    const SKIP_SEL = 'script,style,noscript,svg,button,select,textarea,input,.search-wrap,.leaflet-container,[aria-hidden="true"]';
+    const SKIP_SEL = 'script,style,noscript,svg,button,select,textarea,input,.search-wrap,.leaflet-container,.day-wx,[aria-hidden="true"]';
     // 被隱藏、但跳轉時能自動展開的容器（頁籤面板、日文分類）以外的 hidden 內容不收錄
     const HIDDEN_SKIP_SEL = '[hidden]:not([role="tabpanel"]):not(.phrase-list)';
 
@@ -3687,6 +3693,217 @@
     hero.addEventListener('click', finish);
   })();
 
+  // ---------- 旅途天氣（Open-Meteo 免金鑰；結果存在本機，沒網路時顯示上次資料） ----------
+  (function(){
+    const CITIES = {
+      okayama:{ n:'岡山', lat:34.6551, lon:133.9195 },
+      onomichi:{ n:'尾道', lat:34.4090, lon:133.2050 },
+      hiroshima:{ n:'廣島', lat:34.3853, lon:132.4553 },
+      miyajima:{ n:'宮島', lat:34.2960, lon:132.3197 },
+      matsuyama:{ n:'松山', lat:33.8392, lon:132.7657 },
+      kotohira:{ n:'琴平', lat:34.1870, lon:133.8180 },
+      takamatsu:{ n:'高松', lat:34.3428, lon:134.0466 },
+      kurashiki:{ n:'倉敷', lat:34.5960, lon:133.7720 }
+    };
+    const DAYS = [
+      { id:'d1', tag:'D1', iso:'2026-11-18', date:'11/18（三）', cities:['okayama'] },
+      { id:'d2', tag:'D2', iso:'2026-11-19', date:'11/19（四）', cities:['onomichi','hiroshima'] },
+      { id:'d3', tag:'D3', iso:'2026-11-20', date:'11/20（五）', cities:['miyajima','matsuyama'] },
+      { id:'d4', tag:'D4', iso:'2026-11-21', date:'11/21（六）', cities:['kotohira','takamatsu'] },
+      { id:'d5', tag:'D5', iso:'2026-11-22', date:'11/22（日）', cities:['kurashiki'] }
+    ];
+    const KEYS = Object.keys(CITIES);
+    const CACHE = 'tour_wx_last';
+    const FRESH = 30 * 60 * 1000;
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+    // WMO 天氣代碼 → 圖示與中文
+    function wmo(c){
+      if (c == null) return ['❔','—'];
+      if (c === 0) return ['☀️','晴'];
+      if (c === 1) return ['🌤️','晴時多雲'];
+      if (c === 2) return ['⛅','多雲'];
+      if (c === 3) return ['☁️','陰'];
+      if (c === 45 || c === 48) return ['🌫️','霧'];
+      if (c >= 51 && c <= 57) return ['🌦️','毛毛雨'];
+      if (c === 65 || c === 67) return ['🌧️','大雨'];
+      if (c >= 61 && c <= 67) return ['🌧️','雨'];
+      if (c >= 71 && c <= 77) return ['🌨️','雪'];
+      if (c >= 80 && c <= 82) return ['🌦️','陣雨'];
+      if (c === 85 || c === 86) return ['🌨️','陣雪'];
+      if (c >= 95) return ['⛈️','雷雨'];
+      return ['❔','—'];
+    }
+    const r0 = v => (v == null || isNaN(v)) ? '—' : Math.round(v);
+
+    // 穿著提示：依最低溫、溫差、降雨機率
+    function tip(lo, hi, rain){
+      const t = [];
+      if (lo != null) {
+        if (lo <= 5) t.push('很冷，穿厚外套或羽絨衣，加圍巾手套');
+        else if (lo <= 10) t.push('早晚冷，帶厚外套');
+        else if (lo <= 15) t.push('帶件薄外套');
+        else t.push('長袖即可');
+      }
+      if (lo != null && hi != null && hi - lo >= 8) t.push('早晚溫差大，洋蔥式穿法方便穿脫');
+      if (rain != null) {
+        if (rain >= 50) t.push('降雨機率高，記得帶傘');
+        else if (rain >= 30) t.push('可能下雨，折疊傘放包包');
+      }
+      return t.join('；');
+    }
+
+    // ---- 資料：抓取與整理（只留行程日期，存本機） ----
+    function shape(arr){
+      const out = {};
+      arr.forEach((loc, i) => {
+        const key = KEYS[i]; const c = { days:{}, now:null };
+        const d = loc.daily || {};
+        (d.time || []).forEach((iso, j) => {
+          if (!DAYS.some(x => x.iso === iso)) return;
+          c.days[iso] = { code:d.weather_code[j], hi:d.temperature_2m_max[j], lo:d.temperature_2m_min[j], rain:d.precipitation_probability_max ? d.precipitation_probability_max[j] : null, hours:[] };
+        });
+        const h = loc.hourly || {};
+        (h.time || []).forEach((t, j) => {
+          const iso = t.slice(0, 10), hr = +t.slice(11, 13);
+          if (!c.days[iso] || hr < 6 || hr > 22 || hr % 2) return;
+          c.days[iso].hours.push({ h:hr, t:h.temperature_2m[j], rain:h.precipitation_probability ? h.precipitation_probability[j] : null, code:h.weather_code[j] });
+        });
+        if (loc.current) c.now = { t:loc.current.temperature_2m, feel:loc.current.apparent_temperature, code:loc.current.weather_code, time:loc.current.time };
+        out[key] = c;
+      });
+      return out;
+    }
+    function url(lats, lons){
+      return 'https://api.open-meteo.com/v1/forecast?latitude=' + lats + '&longitude=' + lons +
+        '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max' +
+        '&hourly=temperature_2m,precipitation_probability,weather_code' +
+        '&current=temperature_2m,apparent_temperature,weather_code' +
+        '&timezone=Asia%2FTokyo&forecast_days=16';
+    }
+    function loadCache(){ try { const v = JSON.parse(localStorage.getItem(CACHE)); return v && v.data ? v : null; } catch (e) { return null; } }
+    let store = loadCache(), loading = null, lastError = false;
+    function fetchAll(force){
+      if (!force && store && Date.now() - store.time < FRESH) return Promise.resolve(store);
+      if (loading) return loading;
+      const lats = KEYS.map(k => CITIES[k].lat).join(','), lons = KEYS.map(k => CITIES[k].lon).join(',');
+      loading = fetch(url(lats, lons))
+        .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(j => {
+          store = { time: Date.now(), data: shape(Array.isArray(j) ? j : [j]) };
+          lastError = false;
+          try { localStorage.setItem(CACHE, JSON.stringify(store)); } catch (e) {}
+          return store;
+        })
+        .catch(() => { lastError = true; return store; })
+        .finally(() => { loading = null; });
+      return loading;
+    }
+
+    const jpToday = () => {
+      const jp = new Date(Date.now() + 9 * 3600 * 1000);
+      return jp.getUTCFullYear() + '-' + String(jp.getUTCMonth()+1).padStart(2,'0') + '-' + String(jp.getUTCDate()).padStart(2,'0');
+    };
+    const stamp = () => {
+      if (!store) return '';
+      const d = new Date(store.time);
+      const mmdd = (d.getMonth()+1) + '/' + d.getDate() + ' ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+      return (lastError ? '⚠️ 目前抓不到最新資料，顯示 ' : '更新於 ') + mmdd;
+    };
+
+    // ---- 畫面：單一城市（點開看逐時＋穿著提示） ----
+    function cityBlock(key, iso){
+      const c = store && store.data[key], d = c && c.days[iso], name = CITIES[key].n;
+      if (!d) return '<div class="wx-city wx-na"><span class="wx-name">' + name + '</span><span class="wx-na-txt">尚未進入預報範圍（約前 16 天開放）</span></div>';
+      const [ic, txt] = wmo(d.code);
+      const hours = d.hours.length ? '<div class="wx-hours">' + d.hours.map(h => {
+        const [hi] = wmo(h.code);
+        return '<div class="wx-h"><small>' + h.h + '時</small><span aria-hidden="true">' + hi + '</span><b>' + r0(h.t) + '°</b><small class="wx-hr">' + (h.rain == null ? '—' : r0(h.rain) + '%') + '</small></div>';
+      }).join('') + '</div>' : '<div class="wx-hint">逐時預報尚未提供</div>';
+      const tp = tip(d.lo, d.hi, d.rain);
+      return '<details class="wx-city"><summary>' +
+        '<span class="wx-name">' + name + '</span><span class="wx-ic" aria-hidden="true">' + ic + '</span><span class="wx-txt">' + txt + '</span>' +
+        '<span class="wx-t"><b>' + r0(d.hi) + '°</b> / ' + r0(d.lo) + '°</span><span class="wx-rain">☂ ' + (d.rain == null ? '—' : r0(d.rain) + '%') + '</span>' +
+        '<span class="wx-more" aria-hidden="true">▾</span></summary>' +
+        hours + (tp ? '<div class="wx-tip">👕 ' + esc(tp) + '</div>' : '') + '</details>';
+    }
+
+    // A. 每日行程卡片：日期下方顯示當天各城市天氣
+    function renderDays(){
+      DAYS.forEach(day => {
+        const box = document.querySelector('.day-wx[data-day="' + day.id + '"]');
+        if (!box) return;
+        box.innerHTML = day.cities.map(k => cityBlock(k, day.iso)).join('') + '<div class="wx-stamp">' + esc(stamp()) + '</div>';
+      });
+    }
+
+    // 旅途中：目前所在地即時天氣（預設用當天行程城市，可改用手機定位）
+    let gps = null;
+    function nowBlock(){
+      const today = jpToday(), day = DAYS.find(d => d.iso === today);
+      if (!day) return '';
+      let html = '<div class="wx-now"><div class="wx-now-h">現在天氣<small>' + (gps ? '手機定位' : day.tag + ' 行程城市') + '</small></div><div class="wx-now-list">';
+      const list = gps ? [{ n:'目前位置', now:gps }] : day.cities.map(k => ({ n:CITIES[k].n, now: store && store.data[k] && store.data[k].now }));
+      list.forEach(x => {
+        if (!x.now) { html += '<div class="wx-now-i"><span>' + x.n + '</span><b>—</b></div>'; return; }
+        const [ic, txt] = wmo(x.now.code);
+        html += '<div class="wx-now-i"><span>' + esc(x.n) + '</span><b>' + ic + ' ' + r0(x.now.t) + '°</b><small>' + txt + '・體感 ' + r0(x.now.feel) + '°</small></div>';
+      });
+      html += '</div><button type="button" class="wx-gps" id="wxGps">' + (gps ? '改回行程城市' : '📍 改用手機定位') + '</button></div>';
+      return html;
+    }
+    function useGps(btn){
+      if (gps) { gps = null; refreshDrawer(); return; }
+      if (!navigator.geolocation) { btn.textContent = '這支手機不支援定位'; return; }
+      btn.textContent = '定位中…';
+      navigator.geolocation.getCurrentPosition(p => {
+        fetch(url(p.coords.latitude.toFixed(3), p.coords.longitude.toFixed(3)))
+          .then(r => r.json())
+          .then(j => { const c = j.current; gps = { t:c.temperature_2m, feel:c.apparent_temperature, code:c.weather_code }; refreshDrawer(); })
+          .catch(() => { btn.textContent = '抓不到天氣，稍後再試'; });
+      }, () => { btn.textContent = '沒有定位權限，改用行程城市'; }, { timeout:10000, maximumAge:600000 });
+    }
+
+    // B. 天氣總覽（快速查找「天氣」）
+    function overview(){
+      let html = nowBlock();
+      html += '<div class="wx-list">';
+      DAYS.forEach(day => {
+        html += '<div class="wx-day"><button type="button" class="wx-day-h" data-day="' + day.id + '"><b>' + day.tag + '</b>' + day.date + '<span aria-hidden="true">›</span></button>' +
+          day.cities.map(k => cityBlock(k, day.iso)).join('') + '</div>';
+      });
+      html += '</div><p class="wx-foot">' + esc(stamp() || '天氣資料載入中…') + '　資料來源：Open-Meteo　點城市可看逐時預報與穿著提示</p>';
+      return html;
+    }
+    let drawerHost = null;
+    function wire(host){
+      const g = host.querySelector('#wxGps');
+      if (g) g.addEventListener('click', () => useGps(g));
+      host.querySelectorAll('.wx-day-h').forEach(b => b.addEventListener('click', () => {
+        const el = document.getElementById(b.dataset.day);
+        if (el && window.revealAndScroll) window.revealAndScroll(el);
+      }));
+    }
+    function refreshDrawer(){
+      if (!drawerHost || !drawerHost.isConnected) return;
+      drawerHost.innerHTML = overview(); wire(drawerHost);
+    }
+    window.tourWeather = {
+      view(){ return '<div class="wx-ov" id="wxOv">' + overview() + '</div>'; },
+      mount(){
+        drawerHost = document.getElementById('wxOv'); if (drawerHost) wire(drawerHost);
+        fetchAll(false).then(() => { renderDays(); refreshDrawer(); });
+      }
+    };
+
+    renderDays();
+    fetchAll(false).then(renderDays);
+    // 從背景切回來時，資料超過 30 分鐘就重抓
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') fetchAll(false).then(() => { renderDays(); refreshDrawer(); });
+    });
+  })();
+
   // ---------- 快速查找（我想找…）＋ 全站目錄：內容都從頁面即時抓取，之後新增資料會自動出現 ----------
   (function(){
     const DAY_INFO = {
@@ -3714,7 +3931,7 @@
     if (!drawer || !chips.length) return;
     let current = null, targets = [];
 
-    const TITLES = { today:'今天行程', eat:'吃什麼', buy:'買什麼', fx:'日幣換算', store:'附近有超商嗎', tw:'能不能帶回台灣', sos:'緊急聯絡' };
+    const TITLES = { today:'今天行程', wx:'旅途天氣', eat:'吃什麼', buy:'買什麼', fx:'日幣換算', store:'附近有超商嗎', tw:'能不能帶回台灣', sos:'緊急聯絡' };
 
     function row(pill, name, snip, idx, pillCls, extra){
       return '<button type="button" class="qf-row" data-t="' + idx + '">' +
@@ -3851,6 +4068,7 @@
       else if (k === 'tw') body = listTaiwan();
       else if (k === 'sos') body = listSos();
       else if (k === 'today') body = viewToday();
+      else if (k === 'wx') body = window.tourWeather ? window.tourWeather.view() : '<div class="qf-empty">天氣功能載入失敗。</div>';
       else body = viewFx();
       const count = targets.length ? '<span>' + targets.length + ' 筆</span>' : '';
       drawer.style.setProperty('--c', getComputedStyle(chip).getPropertyValue('--c'));
@@ -3862,6 +4080,7 @@
       drawer.querySelector('.qf-close').addEventListener('click', close);
       drawer.querySelectorAll('.qf-row').forEach(r => r.addEventListener('click', () => go(targets[+r.dataset.t])));
       drawer.querySelectorAll('.qf-day').forEach(b => b.addEventListener('click', () => go(document.getElementById(b.dataset.day))));
+      if (k === 'wx' && window.tourWeather) window.tourWeather.mount();
       if (k === 'fx') { wireFx(); const i = document.getElementById('qfFxIn'); if (i && window.innerWidth > 900) i.focus(); }
     }
     function close(){
