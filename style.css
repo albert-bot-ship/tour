@@ -2493,3 +2493,46 @@
   .wx-foot{ margin:.9rem 0 0; font-size:.72rem; opacity:.6; }
   .wx-city summary:focus-visible, .wx-gps:focus-visible, .wx-day-h:focus-visible{ outline:2px solid var(--kincha); outline-offset:2px; }
   @media print{ .wx-gps{ display:none; } }
+
+  /* 天氣：淺藍底色（卡片、逐時格、現在天氣、按鈕） */
+  .wx-city, .wx-na{ background:#E8F3FC; border-color:#B9D7EF; color:#1E2430; }
+  .wx-h{ background:#D6EAF8; }
+  .wx-hr, .ink .wx-hr{ color:#2C6E8F; }
+  .wx-now{ background:#E8F3FC; border-color:#B9D7EF; color:#1E2430; }
+  .wx-gps{ background:#D6EAF8; border-color:#8FBCE0; color:#1E3A5F; }
+  .qf-chip[data-k="wx"]{ --c:#4A90C8; background:#E6F2FB; border-color:#B9D7EF; color:#1E2430; }
+  .qf-chip[data-k="wx"][aria-pressed="true"]{ background:var(--c); border-color:var(--c); color:#FBF7EE; }
+  body.night-mode .wx-city, body.night-mode .wx-na, body.night-mode .wx-now{ background:#1C2E40; border-color:#33506B; color:#EAE3D3; }
+  body.night-mode .wx-h{ background:#24394F; }
+  body.night-mode .wx-hr{ color:#8EC5E8; }
+  body.night-mode .wx-gps{ background:#24394F; border-color:#4A6F93; color:#EAE3D3; }
+  body.night-mode .qf-chip[data-k="wx"]{ --c:#7FB3DD; background:#1C2E40; border-color:#33506B; color:#EAE3D3; }
+  body.night-mode .qf-chip[data-k="wx"][aria-pressed="true"]{ color:#14213B; }
+
+  /* 天氣優化：降雨高亮、最冷最熱、日出日落、風大、打包建議、更新鈕 */
+  .wx-rain.wx-wet, .wx-hr.wx-wet{ color:#C0461F; font-weight:700; }
+  body.night-mode .wx-rain.wx-wet, body.night-mode .wx-hr.wx-wet{ color:#F08A5D; }
+  .wx-h{ position:relative; padding-top:.9rem; min-width:2.9rem; }
+  .wx-mk{ position:absolute; top:.12rem; font-style:normal; font-size:.6rem; font-weight:700; line-height:1; padding:.1rem .25rem; border-radius:4px; color:#fff; }
+  .wx-cold{ background:#2E6FA8; }
+  .wx-hot{ background:#C0461F; }
+  .wx-h.is-cold{ box-shadow:inset 0 0 0 1.5px #2E6FA8; }
+  .wx-h.is-hot{ box-shadow:inset 0 0 0 1.5px #C0461F; }
+  .wx-extra{ display:flex; flex-wrap:wrap; gap:.3rem .9rem; padding:0 .75rem .5rem; font-size:.78rem; opacity:.85; font-variant-numeric:tabular-nums; }
+  .wx-alert{ margin:0 .75rem .55rem; padding:.45rem .6rem; border-radius:8px; font-size:.8rem; line-height:1.5; background:#FCE9DC; color:#7A2E12; }
+  body.night-mode .wx-alert{ background:#3A2418; color:#F5C2A8; }
+  .wx-wind-badge{ font-size:.95rem; }
+  .wx-windy{ border-color:#E3A37F; }
+  .wx-refresh{ margin-left:.3rem; padding:.2rem .6rem; min-height:30px; border-radius:999px; border:1px solid #8FBCE0; background:#D6EAF8; color:#1E3A5F; font:inherit; font-size:.72rem; cursor:pointer; }
+  .wx-refresh:disabled{ opacity:.6; cursor:default; }
+  body.night-mode .wx-refresh{ background:#24394F; border-color:#4A6F93; color:#EAE3D3; }
+  .wx-stamp{ display:flex; align-items:center; flex-wrap:wrap; }
+  .wx-pack{ padding:.75rem .85rem; border-radius:12px; margin-bottom:1rem; background:#E8F3FC; border:1px solid #B9D7EF; color:#1E2430; }
+  body.night-mode .wx-pack{ background:#1C2E40; border-color:#33506B; color:#EAE3D3; }
+  .wx-pack-h{ font-family:'Noto Serif TC',serif; font-weight:700; margin-bottom:.3rem; }
+  .wx-pack-h small{ font-family:'Noto Sans TC',sans-serif; font-weight:400; font-size:.72rem; opacity:.6; margin-left:.4rem; }
+  .wx-pack ul{ margin:0 0 .5rem; padding-left:1.1rem; font-size:.84rem; }
+  .wx-pack li{ margin:.15rem 0; }
+  .wx-pack-go{ min-height:36px; padding:.3rem .8rem; border-radius:999px; border:1px solid #8FBCE0; background:#D6EAF8; color:#1E3A5F; font:inherit; font-size:.8rem; cursor:pointer; }
+  body.night-mode .wx-pack-go{ background:#24394F; border-color:#4A6F93; color:#EAE3D3; }
+  .wx-refresh:focus-visible, .wx-pack-go:focus-visible{ outline:2px solid var(--kincha); outline-offset:2px; }
