@@ -2536,3 +2536,22 @@
   .wx-pack-go{ min-height:36px; padding:.3rem .8rem; border-radius:999px; border:1px solid #8FBCE0; background:#D6EAF8; color:#1E3A5F; font:inherit; font-size:.8rem; cursor:pointer; }
   body.night-mode .wx-pack-go{ background:#24394F; border-color:#4A6F93; color:#EAE3D3; }
   .wx-refresh:focus-visible, .wx-pack-go:focus-visible{ outline:2px solid var(--kincha); outline-offset:2px; }
+
+  /* 手機排版：天氣區不撐寬每日標題（逐時預報在框內左右滑） */
+  .day-title-wrap{ min-width:0; }
+  .day-wx, .wx-city, .wx-ov{ min-width:0; max-width:100%; }
+  .wx-hours{ max-width:100%; -webkit-overflow-scrolling:touch; }
+  /* 溫度與降雨：寬螢幕同一列，窄的每日卡片內上下疊放，避免換行亂掉 */
+  .wx-city summary{ flex-wrap:nowrap; }
+  .wx-nums{ margin-left:auto; display:flex; align-items:baseline; gap:.6rem; white-space:nowrap; }
+  .wx-nums .wx-t{ margin-left:0; }
+  .wx-txt{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
+  .wx-h{ padding-top:1.05rem; }
+  @media (max-width:600px){
+    .day-wx .wx-nums{ flex-direction:column; align-items:flex-end; gap:0; line-height:1.25; }
+    .day-wx .wx-city summary{ gap:.4rem; padding:.45rem .65rem; }
+    .day-wx .wx-name{ min-width:0; }
+    .wx-h{ min-width:2.7rem; }
+    .wx-hours{ gap:.3rem; }
+    .wx-extra{ gap:.2rem .8rem; }
+  }
