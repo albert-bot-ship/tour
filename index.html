@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=19">
+<link rel="stylesheet" href="./style.css?v=21">
 </head>
 <body>
 <script>
@@ -44,6 +44,23 @@
   <div id="searchResults" class="search-results"></div>
 </div>
 
+<div class="qf" id="quickFind">
+  <div class="qf-head">
+    <span class="qf-title">我想找<small>點一下，把散在各天的資料集中列出</small></span>
+    <button type="button" class="qf-toc-link" id="qfTocLink">全站目錄</button>
+  </div>
+  <div class="qf-chips" role="toolbar" aria-label="快速查找">
+    <button type="button" class="qf-chip" data-k="today" aria-pressed="false" aria-controls="qfDrawer"><span class="qf-ico" aria-hidden="true">📅</span>今天行程</button>
+    <button type="button" class="qf-chip" data-k="eat" aria-pressed="false" aria-controls="qfDrawer"><span class="qf-ico" aria-hidden="true">🍜</span>吃什麼</button>
+    <button type="button" class="qf-chip" data-k="buy" aria-pressed="false" aria-controls="qfDrawer"><span class="qf-ico" aria-hidden="true">🛍️</span>買什麼</button>
+    <button type="button" class="qf-chip" data-k="fx" aria-pressed="false" aria-controls="qfDrawer"><span class="qf-ico" aria-hidden="true">💴</span>日幣換算</button>
+    <button type="button" class="qf-chip" data-k="store" aria-pressed="false" aria-controls="qfDrawer"><span class="qf-ico" aria-hidden="true">🏪</span>超商</button>
+    <button type="button" class="qf-chip" data-k="tw" aria-pressed="false" aria-controls="qfDrawer"><span class="qf-ico" aria-hidden="true">🧳</span>能帶回台灣嗎</button>
+    <button type="button" class="qf-chip" data-k="sos" aria-pressed="false" aria-controls="qfDrawer"><span class="qf-ico" aria-hidden="true">🆘</span>緊急聯絡</button>
+  </div>
+  <div class="qf-drawer" id="qfDrawer" role="region" aria-live="polite" hidden></div>
+</div>
+
 <div id="dayBanner" class="day-banner" style="display:none;"></div>
 
 <nav class="tabbar" id="tabBar" role="tablist" aria-label="主要分頁">
@@ -59,6 +76,16 @@
 </nav>
 
 <button id="backToTop" aria-label="回到頂端" title="回到頂端">↑</button>
+<button id="tocBtn" type="button" aria-label="全站目錄" title="全站目錄" aria-expanded="false" aria-controls="tocSheet">目錄</button>
+<div id="tocScrim" hidden></div>
+<div id="tocSheet" role="dialog" aria-modal="true" aria-labelledby="tocTitle" hidden>
+  <div class="toc-grip" aria-hidden="true"></div>
+  <div class="toc-head">
+    <div><h2 id="tocTitle">目錄</h2><p>點區塊名稱或小標，直接跳過去</p></div>
+    <button type="button" class="qf-close" id="tocClose" aria-label="關閉目錄">✕</button>
+  </div>
+  <div class="toc-body" id="tocBody"></div>
+</div>
 <button id="settingsBtn" aria-label="設定" title="設定" aria-expanded="false" aria-controls="settingsPanel">⚙️</button>
 <div id="settingsPanel" role="dialog" aria-label="設定" hidden>
   <div class="sp-head"><b>⚙️ 設定</b><button type="button" class="sp-close" aria-label="關閉設定">✕</button></div>
@@ -1670,14 +1697,14 @@
       <div class="prep-card">
         <h3>旅遊常用日文</h3>
         <ul class="phrase-list">
-          <li><b>これをください</b><span><i class="ph-roma">ko-re o ku-da-sa-i</i><i class="ph-zh">口勒 歐 哭搭撒伊</i>／請給我這個</span></li>
-          <li><b>いくらですか</b><span><i class="ph-roma">i-ku-ra de-su ka</i><i class="ph-zh">伊哭拉 爹斯 卡</i>／請問多少錢</span></li>
-          <li><b>免税できますか</b><span><i class="ph-roma">men-zei de-ki-ma-su ka</i><i class="ph-zh">面賊 爹ki媽斯 卡</i>／可以退稅嗎</span></li>
-          <li><b>トイレはどこですか</b><span><i class="ph-roma">toi-re wa do-ko de-su ka</i><i class="ph-zh">偷伊勒 哇 都口 爹斯 卡</i>／請問廁所在哪</span></li>
-          <li><b>カードは使えますか</b><span><i class="ph-roma">ka-do wa tsu-ka-e-ma-su ka</i><i class="ph-zh">卡～都 哇 疵卡欸媽斯 卡</i>／可以刷卡嗎</span></li>
-          <li><b>日本円でお願いします</b><span><i class="ph-roma">ni-hon-en de o-ne-ga-i shi-ma-su</i><i class="ph-zh">你轟恩 爹 歐內嘎伊 西媽斯</i>／請用日圓結帳（刷卡跳出台幣/日圓選擇畫面前先講這句，避免被DCC動態貨幣轉換多收手續費）</span></li>
-          <li><b>ありがとうございます</b><span><i class="ph-roma">a-ri-ga-to go-zai-ma-su</i><i class="ph-zh">阿哩嘎多 勾紮伊媽斯</i>／謝謝</span></li>
-          <li><b>すみません</b><span><i class="ph-roma">su-mi-ma-sen</i><i class="ph-zh">斯咪媽線</i>／不好意思／抱歉（也可用來叫店員）</span></li>
+          <li><b>請給我這個</b><span class="ph-jp">これをください</span><span><i class="ph-roma">ko-re o ku-da-sa-i</i><i class="ph-zh">口勒 歐 哭搭撒伊</i></span></li>
+          <li><b>請問多少錢</b><span class="ph-jp">いくらですか</span><span><i class="ph-roma">i-ku-ra de-su ka</i><i class="ph-zh">伊哭拉 爹斯 卡</i></span></li>
+          <li><b>可以退稅嗎</b><span class="ph-jp">免税できますか</span><span><i class="ph-roma">men-zei de-ki-ma-su ka</i><i class="ph-zh">面賊 爹ki媽斯 卡</i></span></li>
+          <li><b>請問廁所在哪</b><span class="ph-jp">トイレはどこですか</span><span><i class="ph-roma">toi-re wa do-ko de-su ka</i><i class="ph-zh">偷伊勒 哇 都口 爹斯 卡</i></span></li>
+          <li><b>可以刷卡嗎</b><span class="ph-jp">カードは使えますか</span><span><i class="ph-roma">ka-do wa tsu-ka-e-ma-su ka</i><i class="ph-zh">卡～都 哇 疵卡欸媽斯 卡</i></span></li>
+          <li><b>請用日圓結帳<small class="ph-note">（刷卡跳出台幣/日圓選擇畫面前先講這句，避免被DCC動態貨幣轉換多收手續費）</small></b><span class="ph-jp">日本円でお願いします</span><span><i class="ph-roma">ni-hon-en de o-ne-ga-i shi-ma-su</i><i class="ph-zh">你轟恩 爹 歐內嘎伊 西媽斯</i></span></li>
+          <li><b>謝謝</b><span class="ph-jp">ありがとうございます</span><span><i class="ph-roma">a-ri-ga-to go-zai-ma-su</i><i class="ph-zh">阿哩嘎多 勾紮伊媽斯</i></span></li>
+          <li><b>不好意思／抱歉<small class="ph-note">（也可用來叫店員）</small></b><span class="ph-jp">すみません</span><span><i class="ph-roma">su-mi-ma-sen</i><i class="ph-zh">斯咪媽線</i></span></li>
         </ul>
       </div>
       <div class="prep-card">
@@ -2836,6 +2863,7 @@
     if (!input || !resultsBox) return;
 
     // 跳轉前先確保目標元素「看得見」：展開所在頁籤／FAQ／收合區塊
+    window.revealAndScroll = revealAndScroll;
     function revealAndScroll(target){
       let needsWait = false;
 
@@ -3492,6 +3520,256 @@
       // 等地圖圖磚載入一下再開列印視窗
       setTimeout(() => window.print(), 700);
     });
+  })();
+
+  // ---------- 快速查找（我想找…）＋ 全站目錄：內容都從頁面即時抓取，之後新增資料會自動出現 ----------
+  (function(){
+    const DAY_INFO = {
+      d1:{ tag:'D1', date:'11/18（三）', iso:'2026-11-18' },
+      d2:{ tag:'D2', date:'11/19（四）', iso:'2026-11-19' },
+      d3:{ tag:'D3', date:'11/20（五）', iso:'2026-11-20' },
+      d4:{ tag:'D4', date:'11/21（六）', iso:'2026-11-21' },
+      d5:{ tag:'D5', date:'11/22（日）', iso:'2026-11-22' }
+    };
+    const DAY_IDS = Object.keys(DAY_INFO);
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const clean = s => String(s || '').replace(/\s+/g, ' ').trim();
+    const ownText = el => el ? clean(Array.from(el.childNodes).filter(n => n.nodeType === 3).map(n => n.textContent).join('')) : '';
+    const dayLabel = id => { const c = TAB_CONFIG[0].sections.find(s => s[0] === id); return c ? c[1] : id; };
+    const jpToday = () => {
+      const jp = new Date(Date.now() + 9 * 3600 * 1000);
+      return jp.getUTCFullYear() + '-' + String(jp.getUTCMonth()+1).padStart(2,'0') + '-' + String(jp.getUTCDate()).padStart(2,'0');
+    };
+    const todayId = () => { const s = jpToday(); return DAY_IDS.find(id => DAY_INFO[id].iso === s) || null; };
+    const go = el => { if (el && window.revealAndScroll) window.revealAndScroll(el); };
+
+    // ===== 快速查找 =====
+    const drawer = document.getElementById('qfDrawer');
+    const chips = document.querySelectorAll('.qf-chip');
+    if (!drawer || !chips.length) return;
+    let current = null, targets = [];
+
+    const TITLES = { today:'今天行程', eat:'吃什麼', buy:'買什麼', fx:'日幣換算', store:'附近有超商嗎', tw:'能不能帶回台灣', sos:'緊急聯絡' };
+
+    function row(pill, name, snip, idx, pillCls, extra){
+      return '<button type="button" class="qf-row" data-t="' + idx + '">' +
+        '<span class="qf-pill' + (pillCls ? ' ' + pillCls : '') + '">' + esc(pill) + '</span>' +
+        '<span class="qf-main"><span class="qf-name">' + esc(name) + '</span>' + (snip ? '<span class="qf-snip">' + esc(snip) + '</span>' : '') + '</span>' +
+        (extra || '<span class="qf-go" aria-hidden="true">›</span>') + '</button>';
+    }
+
+    function listFromCards(kind){
+      targets = []; let html = '';
+      DAY_IDS.forEach(id => {
+        const sec = document.getElementById(id); if (!sec) return;
+        const cards = sec.querySelectorAll('.tag-card.tag-' + kind);
+        if (!cards.length) return;
+        html += '<div class="qf-group">' + esc(dayLabel(id)) + '　' + DAY_INFO[id].date + '</div>';
+        cards.forEach(card => {
+          const spot = card.closest('.spot');
+          const name = ownText(spot && spot.querySelector('.spot-name')) || dayLabel(id);
+          const items = card.querySelectorAll('li');
+          const snip = items.length ? Array.from(items).map(li => clean(li.textContent.split(/[（(：:]/)[0])).filter(Boolean).join('、') : clean((card.querySelector('p') || card).textContent).replace(/^(吃|買)\s*/, '');
+          targets.push(card);
+          html += row(DAY_INFO[id].tag, name, snip, targets.length - 1);
+        });
+      });
+      return html || '<div class="qf-empty">目前沒有資料。</div>';
+    }
+
+    function listStores(){
+      targets = []; let html = '';
+      document.querySelectorAll('.spot-name').forEach(sn => {
+        if (!/超商/.test(sn.textContent)) return;
+        const table = sn.parentElement.querySelector('table'); if (!table) return;
+        const ctx = sn.querySelector('.context-tag');
+        html += '<div class="qf-group">' + esc(ctx ? clean(ctx.textContent) : ownText(sn)) + '</div>';
+        table.querySelectorAll('tr').forEach(tr => {
+          const td = tr.querySelectorAll('td'); if (td.length < 2) return;
+          const place = clean(td[0].textContent), ans = clean(td[td.length - 1].textContent);
+          const m = place.match(/^(D\d)\s*(.*)$/);
+          const yes = /^✅/.test(ans), no = /^❌|沒有/.test(ans);
+          targets.push(tr);
+          html += row(m ? m[1] : '・', m ? m[2] : place, ans.replace(/^[\p{Extended_Pictographic}\uFE0F\s]+/u, ''), targets.length - 1, yes ? 'ok' : (no ? 'no' : 'check'));
+        });
+      });
+      return html || '<div class="qf-empty">目前沒有超商資料。</div>';
+    }
+
+    function listTaiwan(){
+      targets = [];
+      const groups = { no:[], check:[], ok:[] };
+      document.querySelectorAll('.food-badge').forEach(b => {
+        if (b.closest('.badge-legend')) return;
+        const kind = b.classList.contains('no') ? 'no' : b.classList.contains('ok') ? 'ok' : 'check';
+        const host = b.closest('li, tr, p, .pf-card') || b.parentElement;
+        const tmp = host.cloneNode(true); tmp.querySelectorAll('.food-badge').forEach(x => x.remove());
+        let name = clean(tmp.textContent);
+        name = name.split(/[（(]/)[0].replace(/[：:]$/, '');
+        if (!name) return;
+        const sec = b.closest('section[id]');
+        groups[kind].push({ el: host, name, note: clean(b.textContent).replace(/^[\p{Extended_Pictographic}\uFE0F\s]+/u, ''), where: sec && DAY_INFO[sec.id] ? DAY_INFO[sec.id].tag : '' });
+      });
+      const head = { no:'不能帶（含肉類等）', check:'要看成分再決定', ok:'可以帶' };
+      const pill = { no:'不可', check:'確認', ok:'可帶' };
+      let html = '';
+      ['no','check','ok'].forEach(k => {
+        if (!groups[k].length) return;
+        html += '<div class="qf-group">' + head[k] + '</div>';
+        groups[k].forEach(g => { targets.push(g.el); html += row(pill[k], g.name, (g.where ? g.where + '　' : '') + g.note, targets.length - 1, k); });
+      });
+      return html || '<div class="qf-empty">目前沒有標示資料。</div>';
+    }
+
+    function listSos(){
+      targets = []; let html = '';
+      document.querySelectorAll('.emergency-item').forEach(it => {
+        const label = clean((it.querySelector('.e-label') || it).textContent);
+        const num = clean((it.querySelector('.e-num') || {}).textContent || '');
+        const sub = clean((it.querySelector('.e-sub') || {}).textContent || '');
+        const tel = num.replace(/[^\d+]/g, '');
+        targets.push(it);
+        const call = tel ? '<a class="qf-tel" href="tel:' + tel + '" onclick="event.stopPropagation()">撥打</a>' : '';
+        html += row('☎', label, num + (sub ? '　' + sub : ''), targets.length - 1, 'no', call);
+      });
+      return html || '<div class="qf-empty">目前沒有緊急聯絡資料。</div>';
+    }
+
+    function viewToday(){
+      targets = [];
+      const tid = todayId();
+      let big, sub;
+      if (tid) { big = '今天是 ' + dayLabel(tid); sub = DAY_INFO[tid].date + '，點下面直接看當天行程'; }
+      else {
+        const now = new Date(jpToday() + 'T00:00:00'), start = new Date('2026-11-18T00:00:00'), end = new Date('2026-11-22T00:00:00');
+        const diff = Math.round((start - now) / 86400000);
+        if (now < start) { big = '距離出發還有 ' + diff + ' 天'; sub = '2026.11.18 出發，先看看每天要去哪'; }
+        else if (now > end) { big = '旅程已經結束'; sub = '可以回顧每天的行程'; }
+        else { big = '選擇要看的日子'; sub = ''; }
+      }
+      return '<div class="qf-today"><div class="qf-today-big">' + esc(big) + '</div><div class="qf-today-sub">' + esc(sub) + '</div><div class="qf-days">' +
+        DAY_IDS.map(id => '<button type="button" class="qf-day' + (id === tid ? ' is-today' : '') + '" data-day="' + id + '"><b>' + DAY_INFO[id].tag + '</b><small>' + DAY_INFO[id].date.replace(/（.*/, '') + '</small></button>').join('') +
+        '</div></div>';
+    }
+
+    function viewFx(){
+      targets = [];
+      return '<div class="qf-fx">' +
+        '<label class="qf-fx-field"><span aria-hidden="true">¥</span><input type="number" id="qfFxIn" inputmode="decimal" min="0" step="100" placeholder="輸入日圓金額" aria-label="日圓金額"></label>' +
+        '<div class="qf-fx-out"><small>約合新台幣</small><b id="qfFxOut">NT$ 0</b></div>' +
+        '<div class="qf-fx-presets">' + [500,1000,3000,5000,10000].map(v => '<button type="button" data-v="' + v + '">¥' + v.toLocaleString() + '</button>').join('') + '</div>' +
+        '<p class="qf-fx-note" id="qfFxRate"></p></div>';
+    }
+
+    function wireFx(){
+      const inp = document.getElementById('qfFxIn'), out = document.getElementById('qfFxOut'), note = document.getElementById('qfFxRate');
+      const rateEl = document.getElementById('fxRate');
+      const rate = () => { const r = parseFloat(rateEl && rateEl.value); return r > 0 ? r : 0.21; };
+      const calc = () => {
+        const v = parseFloat(inp.value) || 0;
+        out.textContent = 'NT$ ' + Math.round(v * rate()).toLocaleString();
+        note.innerHTML = '匯率 1 日圓 ≈ ' + rate() + ' 台幣，與「匯率換算」工具同步　<button type="button" id="qfFxMore">開啟完整工具</button>';
+        const more = document.getElementById('qfFxMore');
+        if (more) more.addEventListener('click', () => go(document.getElementById('fxRate')));
+      };
+      inp.addEventListener('input', calc);
+      drawer.querySelectorAll('.qf-fx-presets button').forEach(b => b.addEventListener('click', () => { inp.value = b.dataset.v; calc(); }));
+      if (rateEl) rateEl.addEventListener('input', () => { if (current === 'fx') calc(); });
+      calc();
+    }
+
+    function open(k){
+      const chip = document.querySelector('.qf-chip[data-k="' + k + '"]');
+      let body;
+      if (k === 'eat' || k === 'buy') body = listFromCards(k);
+      else if (k === 'store') body = listStores();
+      else if (k === 'tw') body = listTaiwan();
+      else if (k === 'sos') body = listSos();
+      else if (k === 'today') body = viewToday();
+      else body = viewFx();
+      const count = targets.length ? '<span>' + targets.length + ' 筆</span>' : '';
+      drawer.style.setProperty('--c', getComputedStyle(chip).getPropertyValue('--c'));
+      drawer.innerHTML = '<div class="qf-dhead"><div class="qf-dtitle">' + TITLES[k] + count + '</div><button type="button" class="qf-close" aria-label="收起">✕</button></div><div class="qf-body">' + body + '</div>';
+      drawer.hidden = false;
+      drawer.classList.remove('enter'); void drawer.offsetWidth; drawer.classList.add('enter');
+      chips.forEach(c => c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'));
+      current = k;
+      drawer.querySelector('.qf-close').addEventListener('click', close);
+      drawer.querySelectorAll('.qf-row').forEach(r => r.addEventListener('click', () => go(targets[+r.dataset.t])));
+      drawer.querySelectorAll('.qf-day').forEach(b => b.addEventListener('click', () => go(document.getElementById(b.dataset.day))));
+      if (k === 'fx') { wireFx(); const i = document.getElementById('qfFxIn'); if (i && window.innerWidth > 900) i.focus(); }
+    }
+    function close(){
+      drawer.hidden = true; drawer.innerHTML = ''; current = null;
+      chips.forEach(c => c.setAttribute('aria-pressed', 'false'));
+    }
+    chips.forEach(c => c.addEventListener('click', () => (current === c.dataset.k ? close() : open(c.dataset.k))));
+
+    // ===== 全站目錄 =====
+    const btn = document.getElementById('tocBtn'), sheet = document.getElementById('tocSheet'),
+          scrim = document.getElementById('tocScrim'), bodyEl = document.getElementById('tocBody');
+    if (!btn || !sheet) return;
+    const tabMeta = {};
+    document.querySelectorAll('#tabBar button[data-tab]').forEach(b => {
+      const s = b.querySelectorAll('span');
+      tabMeta[b.dataset.tab] = { ico: s[0] ? s[0].textContent : '', name: s[1] ? s[1].textContent : b.textContent };
+    });
+    const SUB_SEL = '.spot-name, .prep-card > h3, .remind-card > h3, .emergency-title';
+
+    function buildToc(){
+      const tid = todayId();
+      let html = '', subs = [];
+      TAB_CONFIG.forEach(tab => {
+        const m = tabMeta[tab.id] || { ico:'', name:tab.id };
+        html += '<div class="toc-tab"><span aria-hidden="true">' + m.ico + '</span>' + esc(m.name) + '</div>';
+        tab.sections.forEach(([sid, label]) => {
+          const sec = document.getElementById(sid); if (!sec) return;
+          const isCur = (typeof activeSectionId !== 'undefined' && activeSectionId === sid);
+          const date = DAY_INFO[sid] ? '<span class="toc-date">' + DAY_INFO[sid].date + '</span>' : '';
+          const now = sid === tid ? '<span class="toc-now">今天</span>' : '';
+          html += '<div class="toc-sec"><button type="button" class="toc-sec-btn' + (isCur ? ' current' : '') + '" data-sec="' + sid + '"' + (isCur ? ' aria-current="true"' : '') + '>' + esc(label) + date + now + '</button>';
+          const items = []; const seen = new Set();
+          sec.querySelectorAll(SUB_SEL).forEach(el => {
+            const txt = (ownText(el) || clean(el.textContent)).replace(/^[^\p{L}\p{N}]+/u, '').split(/[（(]/)[0].trim().slice(0, 18);
+            if (!txt || seen.has(txt) || items.length >= 14) return;
+            seen.add(txt); subs.push(el); items.push('<button type="button" data-sub="' + (subs.length - 1) + '">' + esc(txt) + '</button>');
+          });
+          if (items.length) html += '<div class="toc-sub">' + items.join('') + '</div>';
+          html += '</div>';
+        });
+      });
+      bodyEl.innerHTML = html;
+      bodyEl.querySelectorAll('.toc-sec-btn').forEach(b => b.addEventListener('click', () => { closeToc(); showSection(b.dataset.sec); }));
+      bodyEl.querySelectorAll('[data-sub]').forEach(b => b.addEventListener('click', () => { closeToc(); setTimeout(() => go(subs[+b.dataset.sub]), 120); }));
+    }
+    let lastFocus = null;
+    function openToc(){
+      if (window.closeSettingsPanel) window.closeSettingsPanel();
+      buildToc(); lastFocus = document.activeElement;
+      sheet.hidden = false; scrim.hidden = false;
+      requestAnimationFrame(() => { sheet.classList.add('show'); scrim.classList.add('show'); });
+      btn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      const cur = bodyEl.querySelector('.toc-sec-btn.current');
+      if (cur) cur.scrollIntoView({ block:'center' });
+      document.getElementById('tocClose').focus({ preventScroll:true });
+    }
+    function closeToc(){
+      if (sheet.hidden) return;
+      sheet.classList.remove('show'); scrim.classList.remove('show');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      setTimeout(() => { sheet.hidden = true; scrim.hidden = true; }, reduce ? 0 : 320);
+      if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll:true });
+    }
+    btn.addEventListener('click', () => (sheet.hidden ? openToc() : closeToc()));
+    document.getElementById('qfTocLink').addEventListener('click', openToc);
+    document.getElementById('tocClose').addEventListener('click', closeToc);
+    scrim.addEventListener('click', closeToc);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !sheet.hidden) closeToc(); });
+    const sBtn = document.getElementById('settingsBtn');
+    if (sBtn) sBtn.addEventListener('click', closeToc);
   })();
 </script>
 </body>
