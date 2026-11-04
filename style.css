@@ -2555,3 +2555,8 @@
     .wx-hours{ gap:.3rem; }
     .wx-extra{ gap:.2rem .8rem; }
   }
+
+  /* 景點說明內的資料來源連結 */
+  .note a.src-link{ color:var(--momiji); text-underline-offset:2px; }
+  .ink .note a.src-link{ color:var(--kincha); }
+  body.night-mode .note a.src-link{ color:var(--kincha); }
