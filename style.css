@@ -2752,3 +2752,32 @@
   .f60-note{ font-size:.74rem; line-height:1.6; opacity:.85; margin-top:.4rem; }
   .f60-note a{ color:var(--momiji); }
   body.night-mode .f60-note a{ color:var(--kincha); }
+
+  /* ==========================================================
+     各店退稅手續費：卡片列＋手續費色塊（一眼看出貴不貴）
+     ========================================================== */
+  .tx-fee-legend{ display:flex; flex-wrap:wrap; gap:.35rem .5rem; margin:.6rem 0 .8rem; font-size:.72rem; }
+  .tx-fee-legend .lg{ display:inline-flex; align-items:center; gap:.3rem; }
+  .tx-fee-legend .lg::before{ content:""; width:.8rem; height:.8rem; border-radius:3px; background:var(--lvc); }
+  .tx-fee-legend .lg-hit::before{ background:transparent; border:2px solid #BD4B28; box-sizing:border-box; }
+  .lv-0{ --lvc:#4F7A3A; } .lv-mid{ --lvc:#B8892B; } .lv-hi{ --lvc:#BD4B28; } .lv-fix{ --lvc:#6A4C93; } .lv-unk{ --lvc:#7A7F87; }
+  ul.tx-fees{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.55rem; }
+  .tx-fees .tx-fee{
+    grid-template-columns:6.6em 1fr; align-items:center; gap:.85rem; padding:.6rem .75rem;
+    border:1px solid var(--paper-line); border-radius:14px; background:rgba(255,255,255,.6);
+    box-shadow:0 3px 10px -8px rgba(30,36,48,.45);
+  }
+  .tx-fees .tx-fee:last-child{ border-bottom:1px solid var(--paper-line); }
+  body.night-mode .tx-fees .tx-fee{ background:rgba(234,227,211,.05); }
+  .tx-fees .tx-fee.tx-hit{ border:2px solid #BD4B28; }
+  body.night-mode .tx-fees .tx-fee.tx-hit{ border-color:#E2734A; }
+  .tx-fees .tx-rate{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    min-height:3rem; padding:.35rem .4rem; border-radius:10px; line-height:1.2;
+    background:var(--lvc); color:#fff !important; font-size:1rem;
+  }
+  .tx-fees .tx-rate small{ opacity:.9; margin-top:.15rem; }
+  .tx-fees .lv-unk .tx-rate{ background:transparent; color:var(--ink) !important; border:2px dashed #7A7F87; font-size:.86rem; }
+  .tx-fees .tx-store{ font-size:.9rem; }
+  .f60-c.f60-wide{ border-color:#6A4C93; }
+  @media (max-width:600px){ .tx-fees .tx-fee{ grid-template-columns:5.8em 1fr; gap:.65rem; } }
