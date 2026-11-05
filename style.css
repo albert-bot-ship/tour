@@ -2727,3 +2727,28 @@
     background:rgba(189,75,40,.1); color:#8F3319; border:1px solid rgba(189,75,40,.3); }
   .ink .tk-near{ background:rgba(221,177,87,.14); color:#E3C173; border-color:rgba(221,177,87,.4); }
   body.night-mode .tk-near{ background:rgba(226,115,74,.14); color:#F0A07E; border-color:rgba(226,115,74,.4); }
+
+  /* 退稅：未經官方確認的補充說明 */
+  .tx-unv{ display:block; margin-top:.2rem; font-size:.74rem; font-weight:400; color:#8A6420; }
+  body.night-mode .tx-unv, .ink .tx-unv{ color:#E3C173; }
+  /* 退稅：60 間通路對照（可收合） */
+  .f60{ padding:.4rem 0 1rem; }
+  .f60-warn{ font-size:.82rem; line-height:1.6; padding:.7rem .85rem; border-radius:10px; margin:.4rem 0 1rem;
+    background:rgba(184,137,43,.12); border:1px solid rgba(184,137,43,.4); }
+  .f60-g{ margin-bottom:1.1rem; border:1px solid var(--paper-line); border-radius:14px; overflow:hidden; background:rgba(255,255,255,.35); }
+  body.night-mode .f60-g{ background:rgba(234,227,211,.04); }
+  .f60-h{ display:flex; align-items:center; gap:.6rem; padding:.55rem .85rem; background:#14213B; color:#F3EDE0; font-weight:700; font-size:.9rem; }
+  body.night-mode .f60-h{ background:#2C4066; }
+  .f60-rate{ font-family:'Noto Serif TC',serif; font-size:1.05rem; color:#DDB157; }
+  .f60-s{ padding:.6rem .85rem; border-top:1px solid var(--paper-line); }
+  .f60-s:first-of-type{ border-top:none; }
+  .f60-s > b{ display:block; font-size:.78rem; margin-bottom:.35rem; opacity:.8; }
+  .f60-cs{ display:flex; flex-wrap:wrap; gap:.35rem; }
+  .f60-c{ font-size:.8rem; padding:.2rem .6rem; border-radius:999px; border:1px solid var(--paper-line); background:var(--washi); }
+  .f60-c.f60-hit{ border-color:#BD4B28; font-weight:700; }
+  .f60-c em{ font-style:normal; font-size:.66rem; margin-left:.3rem; padding:0 .3rem; border-radius:4px; background:#BD4B28; color:#fff; }
+  body.night-mode .f60-c.f60-hit{ border-color:#E2734A; }
+  body.night-mode .f60-c em{ background:#E2734A; color:#1C1A16; }
+  .f60-note{ font-size:.74rem; line-height:1.6; opacity:.85; margin-top:.4rem; }
+  .f60-note a{ color:var(--momiji); }
+  body.night-mode .f60-note a{ color:var(--kincha); }
