@@ -4133,13 +4133,13 @@
                '行動電源、鋰電池放<b>手提行李</b>，不能託運',
                '入境若走自動通關閘門，請工作人員<b>蓋入境章</b>（退稅資格要用）',
                '晚餐自理：AEON MALL 岡山好好逛，退稅先認明 Tax-Free 標誌'],
-        links:[['入境通關流程','d1'],['打包清單','packing'],['退稅攻略','taxfree']] },
+        links:[['入境通關流程','d1|入境通關流程'],['打包清單','packing'],['退稅攻略','taxfree']] },
       { id:'d2', iso:'2026-11-19', date:'11/19（四）', area:'尾道・廣島',
         notes:['千光寺公園山頂<b>沒有超商</b>，水和零食在山下商店街先買好',
                '廣島本通商店街會發<b>代金 2,000 日幣</b>',
                '晚餐自理：想吃廣島燒可看當天「吃」的推薦',
                '飯店附近有唐吉訶德（遊客優惠券）'],
-        links:[['優惠券','taxfree'],['飯店周邊','hotelmap'],['日文會話（拉麵）','japanese.html#ramen']] },
+        links:[['優惠券','taxfree|遊客專屬優惠券'],['飯店周邊','hotelmap'],['日文會話（拉麵）','japanese.html#ramen']] },
       { id:'d3', iso:'2026-11-20', date:'11/20（五）', area:'宮島・松山',
         notes:['嚴島神社鳥居隨潮汐變化，若漲潮無法參拜旅行社會退費 300 日幣',
                '松山城纜車不上天守閣；道後溫泉本館外觀拍照',
@@ -4151,27 +4151,27 @@
                'AEON MALL 岡山<b>第二次採買</b>，漏買的伴手禮今天補',
                '晚餐自理；高松飯店旁有唐吉訶德、大國藥妝',
                '整理退稅品：<b>明天機場要帶在身上</b>，別放託運'],
-        links:[['退稅手續費','taxfree'],['飯店周邊','hotelmap'],['花費追蹤','expenses']] },
+        links:[['退稅手續費','taxfree|各店退稅手續費'],['飯店周邊','hotelmap'],['花費追蹤','expenses']] },
       { id:'d5', iso:'2026-11-22', date:'11/22（日）', area:'倉敷・回程',
         notes:['退稅品全部帶在身上，<b>託運前、安檢前</b>用機台掃護照辦海關確認',
                '岡山機場只能用機台辦，<b>請提早到機場</b>',
                '倉敷必買順序：吉備糰子 → 桃子甜點 → 紙膠帶',
                '回程 IT215 <b>15:25</b> 起飛 → 17:30 抵達桃園'],
-        links:[['退稅攻略','taxfree'],['出境前檢查表','taxfree'],['航班資訊','logistics']] }
+        links:[['退稅攻略','taxfree|機場離境確認'],['出境前檢查表','taxfree|出境前檢查表'],['航班資訊','logistics|集合資訊']] }
     ];
     const TASKS = [
-      { w:7, t:'註冊退稅平台帳號（J-TaxRefund 等），英文地址存手機備忘錄', go:'taxfree' },
-      { w:7, t:'開通台灣門號海外收簡訊（退稅綁信用卡要收驗證碼）', go:'taxfree' },
-      { w:7, t:'確認日本上網方式（eSIM／網卡）', go:'prep' },
-      { w:7, t:'CUBE App 切換「秋日遊」權益', go:'payment' },
-      { w:7, t:'換日圓現金（建議 ¥25,000～50,000）', go:'prep' },
+      { w:7, t:'註冊退稅平台帳號（J-TaxRefund 等），英文地址存手機備忘錄', go:'taxfree', find:'出發前先準備' },
+      { w:7, t:'開通台灣門號海外收簡訊（退稅綁信用卡要收驗證碼）', go:'taxfree', find:'綁卡要收台灣手機簡訊' },
+      { w:7, t:'確認日本上網方式（eSIM／網卡）', go:'prep', find:'上網卡規格細節' },
+      { w:7, t:'CUBE App 切換「秋日遊」權益', go:'payment', find:'國泰 CUBE' },
+      { w:7, t:'換日圓現金（建議 ¥25,000～50,000）', go:'prep', find:'現金該帶多少' },
       { w:3, t:'看 5 天天氣與打包建議', go:'@wx' },
       { w:3, t:'對照打包清單整理行李', go:'packing' },
-      { w:3, t:'行動電源、鋰電池確認放手提行李', go:'packing' },
-      { w:3, t:'把退稅流程從頭看一次', go:'taxfree' },
-      { w:1, t:'護照（效期需 6 個月以上）放隨身包', go:'prep' },
-      { w:1, t:'確認明天 08:40 桃園 T1 虎航 7 號團體櫃台集合', go:'logistics' },
-      { w:1, t:'手機、行動電源充飽電', go:'packing' }
+      { w:3, t:'行動電源、鋰電池確認放手提行李', go:'prep', find:'鋰電池與含電池物品' },
+      { w:3, t:'把退稅流程從頭看一次', go:'taxfree', find:'一步一步怎麼做' },
+      { w:1, t:'護照（效期需 6 個月以上）放隨身包', go:'prep', find:'護照簽證' },
+      { w:1, t:'確認明天 08:40 桃園 T1 虎航 7 號團體櫃台集合', go:'logistics', find:'集合資訊' },
+      { w:1, t:'手機、行動電源充飽電', go:'prep', find:'行動電源容量規定' }
     ];
     const WIN = { 7:'出發前 7 天', 3:'出發前 3 天', 1:'出發前 1 天' };
     let done = {};
@@ -4189,7 +4189,7 @@
     const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
     const linkHtml = ([label, to]) => to.indexOf('.html') > -1
       ? '<a class="tg-link" href="./' + to + '">' + label + ' ›</a>'
-      : '<button type="button" class="tg-link" data-go="' + to + '">' + label + ' ›</button>';
+      : '<button type="button" class="tg-link" data-go="' + to.split('|')[0] + '"' + (to.indexOf('|') > -1 ? ' data-find="' + to.split('|')[1] + '"' : '') + '>' + label + ' ›</button>';
 
     function spotsOf(id){
       const sec = document.getElementById(id); if (!sec) return { main:[], extra:[] };
@@ -4209,7 +4209,7 @@
         if (!items.length) return;
         html += '<div class="tg-group"><div class="tg-gh">' + WIN[w] + (left > w ? '<small>（' + (left - w) + ' 天後開始）</small>' : '') + '</div><ul class="tg-tasks">' +
           items.map(i => '<li class="' + (done[i] ? 'is-done' : '') + '"><label><input type="checkbox" data-t="' + i + '"' + (done[i] ? ' checked' : '') + '><span>' + esc(TASKS[i].t) + '</span></label>' +
-            '<button type="button" class="tg-go" data-go="' + TASKS[i].go + '" aria-label="前往：' + esc(TASKS[i].t) + '">看 ›</button></li>').join('') + '</ul></div>';
+            '<button type="button" class="tg-go" data-go="' + TASKS[i].go + '"' + (TASKS[i].find ? ' data-find="' + esc(TASKS[i].find) + '"' : '') + ' aria-label="前往：' + esc(TASKS[i].t) + '">看 ›</button></li>').join('') + '</ul></div>';
       });
       html += '<p class="tg-foot">📅 想每天自動提醒？<a href="./tour-reminders.ics" download>下載行事曆提醒</a>，匯入手機行事曆後，每晚 21:00 會跳通知。</p>';
       return html;
@@ -4253,7 +4253,21 @@
       const b = e.target.closest('[data-go]'); if (!b) return;
       const to = b.dataset.go;
       if (to === '@wx') { const chip = document.querySelector('.qf-chip[data-k="wx"]'); if (chip) { chip.click(); chip.scrollIntoView({ block:'start', behavior:'smooth' }); } return; }
-      if (typeof showSection === 'function') showSection(to);
+      const sec = document.getElementById(to);
+      if (!sec) return;
+      let el = sec;
+      const find = b.dataset.find;
+      if (find) {
+        // 找出段落中第一個含有這段文字的位置
+        const w = document.createTreeWalker(sec, NodeFilter.SHOW_TEXT);
+        let n;
+        while ((n = w.nextNode())) {
+          if (n.nodeValue.indexOf(find) > -1) { el = n.parentElement.closest('h3, h4, .tf-h, .step-item, li, .tx-qa, .prep-card, .remind-card, .pf-card, details, div') || n.parentElement; break; }
+        }
+      }
+      if (typeof showSection === 'function') showSection(to, { noScroll:true });
+      if (window.revealAndScroll) window.revealAndScroll(el);
+      else el.scrollIntoView({ block:'start', behavior:'smooth' });
     });
     render();
     // 天氣資料抓到後再更新一次
