@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=37">
+<link rel="stylesheet" href="./style.css?v=38">
 </head>
 <body>
 <script>
@@ -47,6 +47,8 @@
   <span>2026.11.18 — 11.22　台北桃園 ⇄ 岡山</span>
   <span>團號 NPY111805IT6</span>
 </div>
+
+<section class="tg" id="tripGuide" aria-label="出發前任務與明日預告" hidden></section>
 
 <div class="search-wrap">
   <input type="text" id="siteSearch" placeholder="🔍 搜尋景點、店家、關鍵字…（例如：紅葉饅頭、行動電源）" autocomplete="off">
@@ -4081,6 +4083,22 @@
       drawerHost.innerHTML = overview(); wire(drawerHost);
     }
     window.tourWeather = {
+      summary(dayId){
+        const day = DAYS.find(d => d.id === dayId); if (!day || !store) return '';
+        const parts = [];
+        let lo = null, hi = null, rain = null;
+        day.cities.forEach(k => {
+          const d = store.data[k] && store.data[k].days[day.iso]; if (!d) return;
+          const [ic] = wmo(d.code);
+          parts.push(CITIES[k].n + ' ' + ic + ' ' + r0(d.hi) + '°/' + r0(d.lo) + '° ☂' + (d.rain == null ? '—' : r0(d.rain) + '%'));
+          if (d.lo != null) lo = lo == null ? d.lo : Math.min(lo, d.lo);
+          if (d.hi != null) hi = hi == null ? d.hi : Math.max(hi, d.hi);
+          if (d.rain != null) rain = rain == null ? d.rain : Math.max(rain, d.rain);
+        });
+        if (!parts.length) return '';
+        const t = tip(lo, hi, rain);
+        return esc(parts.join('　')) + (t ? '<br><small>👕 ' + esc(t) + '</small>' : '');
+      },
       view(){ return '<div class="wx-ov" id="wxOv">' + overview() + '</div>'; },
       mount(){
         drawerHost = document.getElementById('wxOv'); if (drawerHost) wire(drawerHost);
@@ -4102,6 +4120,144 @@
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') fetchAll(false).then(() => { renderDays(); refreshDrawer(); });
     });
+  })();
+
+  // ---------- 出發前任務＋明日預告（依日本時間自動切換；網址加 ?guide=d2 可預覽） ----------
+  (function(){
+    const box = document.getElementById('tripGuide');
+    if (!box) return;
+    const KEY = 'tour_prep_tasks';
+    const DAYS = [
+      { id:'d1', iso:'2026-11-18', date:'11/18（三）', area:'岡山',
+        notes:['<b>08:40</b> 桃園機場第一航站・台灣虎航 <b>7 號團體櫃台</b>集合（IT214 11:10 起飛）',
+               '行動電源、鋰電池放<b>手提行李</b>，不能託運',
+               '入境若走自動通關閘門，請工作人員<b>蓋入境章</b>（退稅資格要用）',
+               '晚餐自理：AEON MALL 岡山好好逛，退稅先認明 Tax-Free 標誌'],
+        links:[['入境通關流程','d1'],['打包清單','packing'],['退稅攻略','taxfree']] },
+      { id:'d2', iso:'2026-11-19', date:'11/19（四）', area:'尾道・廣島',
+        notes:['千光寺公園山頂<b>沒有超商</b>，水和零食在山下商店街先買好',
+               '廣島本通商店街會發<b>代金 2,000 日幣</b>',
+               '晚餐自理：想吃廣島燒可看當天「吃」的推薦',
+               '飯店附近有唐吉訶德（遊客優惠券）'],
+        links:[['優惠券','taxfree'],['飯店周邊','hotelmap'],['日文會話（拉麵）','japanese.html#ramen']] },
+      { id:'d3', iso:'2026-11-20', date:'11/20（五）', area:'宮島・松山',
+        notes:['嚴島神社鳥居隨潮汐變化，若漲潮無法參拜旅行社會退費 300 日幣',
+               '松山城纜車不上天守閣；道後溫泉本館外觀拍照',
+               '少爺音樂鐘 11 月<b>每 30 分鐘</b>播放一次',
+               '晚餐在飯店'],
+        links:[['當天行程','d3'],['日文會話（壽司）','japanese.html#sushi']] },
+      { id:'d4', iso:'2026-11-21', date:'11/21（六）', area:'琴平・高松',
+        notes:['金刀比羅宮 <b>785 級石階</b>到本宮，穿好走的鞋',
+               'AEON MALL 岡山<b>第二次採買</b>，漏買的伴手禮今天補',
+               '晚餐自理；高松飯店旁有唐吉訶德、大國藥妝',
+               '整理退稅品：<b>明天機場要帶在身上</b>，別放託運'],
+        links:[['退稅手續費','taxfree'],['飯店周邊','hotelmap'],['花費追蹤','expenses']] },
+      { id:'d5', iso:'2026-11-22', date:'11/22（日）', area:'倉敷・回程',
+        notes:['退稅品全部帶在身上，<b>託運前、安檢前</b>用機台掃護照辦海關確認',
+               '岡山機場只能用機台辦，<b>請提早到機場</b>',
+               '倉敷必買順序：吉備糰子 → 桃子甜點 → 紙膠帶',
+               '回程 IT215 <b>15:25</b> 起飛 → 17:30 抵達桃園'],
+        links:[['退稅攻略','taxfree'],['出境前檢查表','taxfree'],['航班資訊','logistics']] }
+    ];
+    const TASKS = [
+      { w:7, t:'註冊退稅平台帳號（J-TaxRefund 等），英文地址存手機備忘錄', go:'taxfree' },
+      { w:7, t:'開通台灣門號海外收簡訊（退稅綁信用卡要收驗證碼）', go:'taxfree' },
+      { w:7, t:'確認日本上網方式（eSIM／網卡）', go:'prep' },
+      { w:7, t:'CUBE App 切換「秋日遊」權益', go:'payment' },
+      { w:7, t:'換日圓現金（建議 ¥25,000～50,000）', go:'prep' },
+      { w:3, t:'看 5 天天氣與打包建議', go:'@wx' },
+      { w:3, t:'對照打包清單整理行李', go:'packing' },
+      { w:3, t:'行動電源、鋰電池確認放手提行李', go:'packing' },
+      { w:3, t:'把退稅流程從頭看一次', go:'taxfree' },
+      { w:1, t:'護照（效期需 6 個月以上）放隨身包', go:'prep' },
+      { w:1, t:'確認明天 08:40 桃園 T1 虎航 7 號團體櫃台集合', go:'logistics' },
+      { w:1, t:'手機、行動電源充飽電', go:'packing' }
+    ];
+    const WIN = { 7:'出發前 7 天', 3:'出發前 3 天', 1:'出發前 1 天' };
+    let done = {};
+    try { done = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+
+    function jpNow(){
+      const q = new URLSearchParams(location.search).get('guide');
+      if (q === 'prep') return { iso:'2026-11-12', preview:true };
+      const pd = DAYS.find(d => d.id === q);
+      if (pd) { const i = DAYS.indexOf(pd); return { iso: i ? DAYS[i-1].iso : '2026-11-17', preview:true }; }
+      const jp = new Date(Date.now() + 9 * 3600 * 1000);
+      return { iso: jp.toISOString().slice(0, 10), preview:false };
+    }
+    const daysLeft = iso => Math.round((Date.parse('2026-11-18') - Date.parse(iso)) / 86400000);
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const linkHtml = ([label, to]) => to.indexOf('.html') > -1
+      ? '<a class="tg-link" href="./' + to + '">' + label + ' ›</a>'
+      : '<button type="button" class="tg-link" data-go="' + to + '">' + label + ' ›</button>';
+
+    function spotsOf(id){
+      const sec = document.getElementById(id); if (!sec) return { main:[], extra:[] };
+      const main = [...sec.querySelectorAll('.spot-main > .spot-name')].map(n => n.textContent.replace(/（.*?）/g, '').trim());
+      const extra = [...sec.querySelectorAll('.extra-zone .tk-name')].map(n => n.textContent.trim());
+      return { main, extra };
+    }
+
+    function prepHtml(iso, preview){
+      const left = daysLeft(iso);
+      const open = TASKS.filter(t => left <= t.w);
+      const list = (open.length ? open : TASKS).map(t => TASKS.indexOf(t));
+      const n = list.filter(i => done[i]).length;
+      let html = '<div class="tg-head"><span class="tg-kicker">' + (preview ? '預覽・' : '') + '出發前任務</span><b>距離出發還有 ' + Math.max(left, 0) + ' 天</b><span class="tg-prog">已完成 ' + n + '／' + list.length + '</span></div>';
+      [7, 3, 1].forEach(w => {
+        const items = list.filter(i => TASKS[i].w === w);
+        if (!items.length) return;
+        html += '<div class="tg-group"><div class="tg-gh">' + WIN[w] + (left > w ? '<small>（' + (left - w) + ' 天後開始）</small>' : '') + '</div><ul class="tg-tasks">' +
+          items.map(i => '<li class="' + (done[i] ? 'is-done' : '') + '"><label><input type="checkbox" data-t="' + i + '"' + (done[i] ? ' checked' : '') + '><span>' + esc(TASKS[i].t) + '</span></label>' +
+            '<button type="button" class="tg-go" data-go="' + TASKS[i].go + '" aria-label="前往：' + esc(TASKS[i].t) + '">看 ›</button></li>').join('') + '</ul></div>';
+      });
+      html += '<p class="tg-foot">📅 想每天自動提醒？<a href="./tour-reminders.ics" download>下載行事曆提醒</a>，匯入手機行事曆後，每晚 21:00 會跳通知。</p>';
+      return html;
+    }
+
+    function dayHtml(day, label, preview){
+      const sp = spotsOf(day.id);
+      const wx = window.tourWeather && window.tourWeather.summary ? window.tourWeather.summary(day.id) : '';
+      let html = '<div class="tg-head"><span class="tg-kicker">' + (preview ? '預覽・' : '') + label + '</span><b>' + day.date + '　' + day.id.toUpperCase() + ' ' + day.area + '</b>' +
+        '<button type="button" class="tg-open" data-go="' + day.id + '">看完整行程 ›</button></div>';
+      if (sp.main.length) html += '<div class="tg-row"><span class="tg-k">🚌 團體行程</span><span class="tg-v">' + sp.main.map(esc).join('、') + '</span></div>';
+      if (sp.extra.length) html += '<div class="tg-row"><span class="tg-k">＋ 順遊</span><span class="tg-v">' + sp.extra.map(esc).join('、') + '</span></div>';
+      if (wx) html += '<div class="tg-row"><span class="tg-k">🌤️ 天氣</span><span class="tg-v">' + wx + '</span></div>';
+      html += '<div class="tg-row tg-notes"><span class="tg-k">📌 注意</span><ul>' + day.notes.map(n => '<li>' + n + '</li>').join('') + '</ul></div>';
+      html += '<div class="tg-links">' + day.links.map(linkHtml).join('') + '</div>';
+      return html;
+    }
+
+    function render(){
+      const { iso, preview } = jpNow();
+      let html = '';
+      const tomorrowIdx = DAYS.findIndex(d => Date.parse(d.iso) - Date.parse(iso) === 86400000);
+      if (iso < '2026-11-17') html = prepHtml(iso, preview);
+      else if (tomorrowIdx > -1) html = dayHtml(DAYS[tomorrowIdx], iso === '2026-11-17' ? '明天出發' : '明日預告', preview) +
+        (iso === '2026-11-17' ? '<details class="tg-more"><summary>出發前任務還沒做完的</summary>' + prepHtml(iso, preview) + '</details>' : '');
+      else if (iso === '2026-11-22') html = dayHtml(DAYS[4], '今天回程', preview);
+      if (!html) { box.hidden = true; return; }
+      box.innerHTML = html + '<div class="tg-preview"><span>預覽：</span>' +
+        ['prep','d1','d2','d3','d4','d5'].map(k => '<a href="?guide=' + k + '">' + (k === 'prep' ? '出發前' : k.toUpperCase()) + '</a>').join('') +
+        (preview ? '<a href="./" class="tg-now">回到今天</a>' : '') + '</div>';
+      box.hidden = false;
+    }
+
+    box.addEventListener('change', e => {
+      const c = e.target.closest('input[data-t]'); if (!c) return;
+      done[c.dataset.t] = c.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (er) {}
+      render();
+    });
+    box.addEventListener('click', e => {
+      const b = e.target.closest('[data-go]'); if (!b) return;
+      const to = b.dataset.go;
+      if (to === '@wx') { const chip = document.querySelector('.qf-chip[data-k="wx"]'); if (chip) { chip.click(); chip.scrollIntoView({ block:'start', behavior:'smooth' }); } return; }
+      if (typeof showSection === 'function') showSection(to);
+    });
+    render();
+    // 天氣資料抓到後再更新一次
+    setTimeout(render, 2500);
   })();
 
   // ---------- 快速查找（我想找…）＋ 全站目錄：內容都從頁面即時抓取，之後新增資料會自動出現 ----------
