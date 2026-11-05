@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=38">
+<link rel="stylesheet" href="./style.css?v=39">
 </head>
 <body>
 <script>
@@ -930,10 +930,46 @@
     </div>
 
     <div class="prep-grid" data-group="comms" style="display:none;">
+      <div class="prep-card esim-card">
+        <h3>我的上網：Docomo eSIM（主要）</h3>
+        <ul>
+          <li><strong>方案</strong>：Docomo 網路，<strong>5 天吃到飽、不降速</strong>（蝦皮購買）；旅行社送的實體上網卡當<strong>備用</strong></li>
+          <li><strong>兌換</strong>：賣家建議<strong>出國前一週</strong>兌換 → <strong>11/11～11/17</strong> 之間完成（8/20 下單，90 天期限算到 11/18，最晚 11/17）</li>
+          <li><strong>安裝</strong>：賣家建議<strong>出發當天（11/18）在台灣</strong>安裝，抵達日本後切換行動數據＋開數據漫遊即可上網</li>
+          <li>⚠️ 兌換後<strong>不能退款</strong>；兌換後 30 天內要使用完畢</li>
+        </ul>
+        <div class="esim-steps">
+          <b>① 11/11～11/17：兌換</b>
+          <ol>
+            <li>蝦皮訂單完成「自助兌換」，取得 eSIM 的 QR Code（先截圖存好）</li>
+          </ol>
+          <b>② 11/18 早上出門前：安裝（連家裡 Wi-Fi）</b>
+          <ol>
+            <li>設定 → 行動服務 → 加入 eSIM → 使用 QR Code → 掃描；QR Code 在同一支手機上掃不到時，用另一台裝置開圖給手機掃，或選「手動輸入詳細資訊」貼上賣家給的啟用碼</li>
+            <li>安裝過程照這樣選：線路標籤取名「<strong>日本</strong>」；預設線路、iMessage／FaceTime、行動數據都選<strong>台灣門號</strong>；<strong>關閉「允許行動數據切換」</strong></li>
+            <li>裝好後：設定 → 行動服務 → 日本 → <strong>關閉「開啟此線路」</strong>（防誤觸，到日本再開）</li>
+          </ol>
+          <b>③ 落地日本後：開啟</b>
+          <ol>
+            <li>設定 → 行動服務 → 日本 → 開啟「開啟此線路」＋<strong>「數據漫遊」</strong></li>
+            <li>設定 → 行動服務 → 行動數據 → 選「<strong>日本</strong>」</li>
+            <li>台灣門號：<strong>線路保持開啟</strong>（收退稅綁卡簡訊），但<strong>數據漫遊關掉</strong>（避免被收漫遊上網費）</li>
+            <li>等 1～2 分鐘出現 4G／5G 訊號即可上網</li>
+          </ol>
+          <b>連不上時</b>
+          <ol>
+            <li>開關飛航模式一次，或重開機</li>
+            <li>確認「日本」線路的數據漫遊有開、行動數據選的是「日本」</li>
+            <li>賣家說明若有 APN 設定，依說明填入（設定 → 行動服務 → 日本 → 行動數據網路）</li>
+            <li>還是不行：先換上旅行社送的<strong>備用實體卡</strong>，再聯絡賣家</li>
+          </ol>
+        </div>
+        <p class="esim-note">🚫 不要做：刪除 eSIM（刪了通常無法再裝回）、重設網路設定、把 QR Code 給別人掃。</p>
+      </div>
       <div class="prep-card">
         <h3>通訊與電壓</h3>
         <ul>
-          <li>已含上網卡：每日2GB高速4G，超量降速128kb，每日0點恢復（依台灣時間起算開卡日）</li>
+          <li>旅行社贈送上網卡（<strong>備用</strong>）：每日2GB高速4G，超量降速128kb，每日0點恢復（依台灣時間起算開卡日）</li>
           <li>SIM卡不含通話簡訊；支援熱點分享，建議一機一卡使用</li>
           <li>日本電壓100V，插座為雙腳插頭，台灣電器多可直接使用</li>
           <li>時差：比台灣快1小時</li>
@@ -941,7 +977,7 @@
         </ul>
       </div>
       <div class="prep-card">
-        <h3>上網卡規格細節</h3>
+        <h3>旅行社上網卡（備用）規格細節</h3>
         <ul>
           <li>SIM卡規格：<strong>三合一卡</strong>（適用大多數機型），隨卡附贈說明書、取卡針及收納套</li>
           <li>使用方式：換卡後開啟行動數據及數據漫遊即可使用</li>
@@ -1365,7 +1401,7 @@
     <div class="tf-tips">
       <p><b>英文地址怎麼查？</b>到中華郵政網站（post.gov.tw）的「中文地址英譯」，依查詢結果填寫即可。</p>
       <p><b>先註冊比較順</b>建議出國前或在飯店就把退稅平台帳號註冊好，買完會更順。</p>
-      <p class="tf-tip-warn"><b>台灣門號要能收簡訊</b>綁信用卡常要收台灣手機簡訊驗證。出國前開通漫遊收簡訊，在日本<strong>原門號保持開啟</strong>；團體上網卡不含簡訊，台灣 SIM 卡拔掉就收不到。</p>
+      <p class="tf-tip-warn"><b>台灣門號要能收簡訊</b>綁信用卡常要收台灣手機簡訊驗證。出國前開通漫遊收簡訊，在日本<strong>原門號保持開啟</strong>；團體上網卡不含簡訊，台灣 SIM 卡拔掉就收不到；<strong>用 eSIM 上網就不用拔台灣 SIM 卡</strong>，兩條線路同時開著即可收簡訊。</p>
     </div>
 
     <h3 class="tf-h">三組QR碼，功能完全不同</h3>
@@ -1508,7 +1544,7 @@
       <details class="tf-fix"><summary>信用卡退款沒成功</summary><ul class="tf-pts"><li>先確認是綁卡失敗、驗證失敗，還是退款還沒入帳；<strong>保留錯誤畫面</strong>請平台確認</li><li>想改領現金，先查出境機場有沒有合作櫃台和營業時間，不是每家店都支援現金退款</li></ul></details>
       <details class="tf-fix"><summary>退到銀行失敗</summary><ul class="tf-pts"><li>核對英文戶名、帳號、銀行代碼或 SWIFT、收款幣別，並問銀行能不能收這類海外匯款</li><li>提供交易編號和錯誤訊息，問平台是否支援台灣帳戶；<strong>別反覆重送同一筆</strong></li></ul></details>
       <details class="tf-fix"><summary>J-TaxRefund 密碼一直設不過</summary><ul class="tf-pts"><li>檢查長度、大小寫、數字和允許的符號，用<strong>半形字元</strong>，留意複製時多出的空白</li><li>還是不行，改用 Chrome／Safari 開官方頁面，再聯絡客服</li></ul></details>
-      <details class="tf-fix"><summary>綁卡要收台灣手機簡訊</summary><ul class="tf-pts"><li>出國前向電信業者開通海外收簡訊，在日本<strong>原門號保持開啟</strong>；旅遊上網卡、eSIM 收不到台灣簡訊</li><li>收不到就聯絡發卡銀行問其他驗證方式，再不行請平台協助改收款方式</li></ul></details>
+      <details class="tf-fix"><summary>綁卡要收台灣手機簡訊</summary><ul class="tf-pts"><li>出國前向電信業者開通海外收簡訊，在日本<strong>原門號保持開啟</strong>；實體旅遊上網卡要拔掉台灣 SIM，就收不到台灣簡訊；<strong>eSIM 可跟台灣 SIM 同時開著</strong>，台灣門號照常收簡訊</li><li>收不到就聯絡發卡銀行問其他驗證方式，再不行請平台協助改收款方式</li></ul></details>
       <details class="tf-fix"><summary>地址欄位不知道怎麼填</summary><ul class="tf-pts"><li>居住地址填<strong>台灣住址</strong>；信用卡帳單地址依銀行留存資料填</li><li>不要所有地址欄都填日本飯店地址；英文地址先存在手機備忘錄，現場直接複製</li></ul></details>
       <details class="tf-fix"><summary>現場註冊很花時間，後面的人等很久</summary><ul class="tf-pts"><li>護照、Email、英文地址、收款資料先備好，平台允許的話先註冊好</li><li>店員建好購買紀錄後，問可不可以到旁邊繼續操作；離店前確認期限和資料齊全，別假設都能回飯店再辦</li></ul></details>
       <details class="tf-fix"><summary>以為店家登記完就結束了</summary><ul class="tf-pts"><li>購物後查看平台：購買紀錄、身分驗證、退款方式是否都完成</li><li>店家登記和離境海關確認是<strong>兩個不同步驟</strong>，離境當天託運前還要辦</li></ul></details>
@@ -4130,7 +4166,7 @@
     const DAYS = [
       { id:'d1', iso:'2026-11-18', date:'11/18（三）', area:'岡山',
         notes:['<b>08:40</b> 桃園機場第一航站・台灣虎航 <b>7 號團體櫃台</b>集合（IT214 11:10 起飛）',
-               '行動電源、鋰電池放<b>手提行李</b>，不能託運',
+               '出門前安裝 eSIM（先關閉線路）；落地後開啟 <b>eSIM 線路＋數據漫遊</b>，台灣門號數據漫遊關掉',
                '入境若走自動通關閘門，請工作人員<b>蓋入境章</b>（退稅資格要用）',
                '晚餐自理：AEON MALL 岡山好好逛，退稅先認明 Tax-Free 標誌'],
         links:[['入境通關流程','d1|入境通關流程'],['打包清單','packing'],['退稅攻略','taxfree']] },
@@ -4162,7 +4198,7 @@
     const TASKS = [
       { w:7, t:'註冊退稅平台帳號（J-TaxRefund 等），英文地址存手機備忘錄', go:'taxfree', find:'出發前先準備' },
       { w:7, t:'開通台灣門號海外收簡訊（退稅綁信用卡要收驗證碼）', go:'taxfree', find:'綁卡要收台灣手機簡訊' },
-      { w:7, t:'確認日本上網方式（eSIM／網卡）', go:'prep', find:'上網卡規格細節' },
+      { w:7, t:'兌換 Docomo eSIM（11/11～11/17，最晚 11/17）', go:'prep', find:'我的上網：Docomo eSIM' },
       { w:7, t:'CUBE App 切換「秋日遊」權益', go:'payment', find:'國泰 CUBE' },
       { w:7, t:'換日圓現金（建議 ¥25,000～50,000）', go:'prep', find:'現金該帶多少' },
       { w:3, t:'看 5 天天氣與打包建議', go:'@wx' },
@@ -4171,7 +4207,8 @@
       { w:3, t:'把退稅流程從頭看一次', go:'taxfree', find:'一步一步怎麼做' },
       { w:1, t:'護照（效期需 6 個月以上）放隨身包', go:'prep', find:'護照簽證' },
       { w:1, t:'確認明天 08:40 桃園 T1 虎航 7 號團體櫃台集合', go:'logistics', find:'集合資訊' },
-      { w:1, t:'手機、行動電源充飽電', go:'prep', find:'行動電源容量規定' }
+      { w:1, t:'手機、行動電源充飽電', go:'prep', find:'行動電源容量規定' },
+      { w:1, t:'明早出門前連家裡 Wi-Fi 安裝 eSIM，裝好先關閉線路', go:'prep', find:'我的上網：Docomo eSIM' }
     ];
     const WIN = { 7:'出發前 7 天', 3:'出發前 3 天', 1:'出發前 1 天' };
     let done = {};
