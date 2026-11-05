@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=34">
+<link rel="stylesheet" href="./style.css?v=35">
 </head>
 <body>
 <script>
@@ -1625,7 +1625,7 @@
       <p class="tx-callout">參考資料列出的領現金櫃台與自助機，設在成田、羽田、關西、中部、福岡、新千歲、那霸、神戶等機場，<strong>名單裡沒有岡山機場</strong>。回程從岡山出境，結帳時建議直接選信用卡等線上退款；選非現金退款，海關確認完就<strong>不用再排隊領現金</strong>。</p>
       <h4 class="tx-sub">各店退稅手續費</h4>
       <ul class="tx-fees">
-        <li class="tx-fee tx-hit"><span class="tx-rate">0%<small>免手續費</small></span><span class="tx-store">唐吉訶德、BicCamera、鶴羽藥妝、多慶屋<span class="tx-tag">D2 廣島飯店附近有唐吉訶德</span></span></li>
+        <li class="tx-fee tx-hit"><span class="tx-rate">0%<small>免手續費</small></span><span class="tx-store">唐吉訶德、BicCamera、鶴羽藥妝、多慶屋<span class="tx-tag">D2 廣島飯店附近有唐吉訶德</span><small class="tx-unv">BicCamera 為「活動期間」免手續費，官方註明可能未經預告提前結束；選現金退款會扣機場櫃台手續費</small></span></li>
         <li class="tx-fee"><span class="tx-rate">1.5%</span><span class="tx-store">三井 Outlet Park、LaLaport</span></li>
         <li class="tx-fee"><span class="tx-rate">1.5%～1.55%</span><span class="tx-store">高島屋、三越伊勢丹</span></li>
         <li class="tx-fee"><span class="tx-rate">1.55%</span><span class="tx-store">阪急百貨</span></li>
@@ -1634,8 +1634,9 @@
         <li class="tx-fee"><span class="tx-rate">預估1.5%～2%</span><span class="tx-store">COSMOS</span></li>
         <li class="tx-fee"><span class="tx-rate">2.1%</span><span class="tx-store">Animate</span></li>
         <li class="tx-fee"><span class="tx-rate"><span class="yen yen-keep" data-y="¥320">¥320</span><small>每筆定額</small></span><span class="tx-store">3COINS</span></li>
-        <li class="tx-fee tx-hit"><span class="tx-rate">依專賣店</span><span class="tx-store">AEON Mall（各專賣店各自規定）<span class="tx-tag">D1、D4 行程會到</span></span></li>
-        <li class="tx-fee tx-hit"><span class="tx-rate">尚未公布</span><span class="tx-store">松本清、大國藥妝<span class="tx-tag">D4 高松飯店附近有大國藥妝</span></span></li>
+        <li class="tx-fee tx-hit"><span class="tx-rate">依專賣店</span><span class="tx-store">AEON Mall（各專賣店各自規定）<span class="tx-tag">D1、D4 行程會到</span><small class="tx-unv">⚠️ 網路整理稱約 1.5%，未經官方確認</small></span></li>
+        <li class="tx-fee tx-hit"><span class="tx-rate">尚未公布</span><span class="tx-store">松本清、大國藥妝<span class="tx-tag">D4 高松飯店附近有大國藥妝</span><small class="tx-unv">⚠️ 網路整理稱 0%，未經官方確認</small></span></li>
+        <li class="tx-fee"><span class="tx-rate">0%？<small>未確認</small></span><span class="tx-store">Uniqlo、GU、無印良品、LOFT、Sundrug 等<small class="tx-unv">⚠️ 網路整理稱 0%，未經官方確認；完整名單見下方「60 間通路對照」</small></span></li>
       </ul>
       <div class="tf-example">
           <b>試算：同樣買 ¥11,000（含稅），退回多少？</b>
@@ -1647,6 +1648,35 @@
           <small class="tf-ex-note">試算值，以店家最後退款為準。</small>
         </div>
         <p class="cash-note tx-note">標籤是這次行程或飯店附近會遇到的店家；實際手續費以各店官方公告為準。</p>
+    </div>
+    <button class="expand-toggle" data-target="taxFee60" aria-expanded="false" aria-controls="taxFee60" data-label-closed="展開：網路整理 60 間通路手續費對照" data-label-open="收合 60 間通路對照">
+      <span class="et-label">展開：網路整理 60 間通路手續費對照</span>
+      <span class="et-arrow">▾</span>
+    </button>
+    <div class="collapsible" id="taxFee60">
+      <div class="f60">
+        <p class="f60-warn">⚠️ 以下為網路圖卡整理，<strong>未經官方確認</strong>，實際以結帳時店家退款畫面為準。已確認的只有唐吉訶德、BicCamera（活動期間）、鶴羽藥妝 0%。</p>
+        <div class="f60-g"><div class="f60-h"><span class="f60-rate">0%</span><span>免手續費</span></div>
+          <div class="f60-s"><b>藥妝／生活</b><div class="f60-cs"><span class="f60-c f60-hit">唐吉訶德 Donki<em>行程會到</em></span><span class="f60-c">鶴羽藥妝</span><span class="f60-c">松本清</span><span class="f60-c f60-hit">大國藥妝<em>行程會到</em></span><span class="f60-c">Sundrug</span><span class="f60-c">OS Drug</span><span class="f60-c">杉藥局</span><span class="f60-c">札幌藥妝</span><span class="f60-c">3COINS（滿額時）</span></div></div>
+          <div class="f60-s"><b>電器／相機</b><div class="f60-cs"><span class="f60-c f60-hit">BicCamera<em>行程會到</em></span><span class="f60-c">Yodobashi（友都八喜／淀橋）</span><span class="f60-c">樂天電器</span><span class="f60-c">愛電王 Edion</span></div></div>
+          <div class="f60-s"><b>連鎖／服飾</b><div class="f60-cs"><span class="f60-c">Uniqlo</span><span class="f60-c">GU</span><span class="f60-c">無印良品 MUJI</span><span class="f60-c">LOFT</span><span class="f60-c">宜得利</span><span class="f60-c">雙子星</span><span class="f60-c">多慶屋</span><span class="f60-c">玩具反斗城</span><span class="f60-c">2nd STREET</span></div></div>
+        </div>
+        <div class="f60-g"><div class="f60-h"><span class="f60-rate">1.5%～1.55%</span><span>百貨與商場</span></div>
+          <div class="f60-s"><b>東京</b><div class="f60-cs"><span class="f60-c">銀座三越</span><span class="f60-c">新宿伊勢丹</span><span class="f60-c">澀谷 Scramble</span><span class="f60-c">澀谷 109</span><span class="f60-c">池袋西武</span><span class="f60-c">澀谷 Hikarie</span><span class="f60-c">日本橋高島屋</span><span class="f60-c">松屋銀座</span><span class="f60-c">0101 丸井百貨</span></div></div>
+          <div class="f60-s"><b>大阪／京都</b><div class="f60-cs"><span class="f60-c">阪急梅田</span><span class="f60-c">阪神梅田</span><span class="f60-c">難波高島屋</span><span class="f60-c">近鐵百貨</span><span class="f60-c">大阪大丸</span><span class="f60-c">大丸心齋橋</span><span class="f60-c">京都高島屋</span><span class="f60-c">大丸京都</span></div></div>
+          <div class="f60-s"><b>其他</b><div class="f60-cs"><span class="f60-c">名古屋松坂屋</span><span class="f60-c">札幌丸井今井</span><span class="f60-c">福岡岩田屋</span><span class="f60-c">博多阪急</span><span class="f60-c">神戶大丸</span><span class="f60-c">橫濱高島屋</span></div></div>
+        </div>
+        <div class="f60-g"><div class="f60-h"><span class="f60-rate">約 1.5%</span><span>購物中心與 Outlet</span></div>
+          <div class="f60-s"><b>三井系／LaLaport</b><div class="f60-cs"><span class="f60-c">幕張三井</span><span class="f60-c">木更津三井</span><span class="f60-c">臨空城三井</span><span class="f60-c">LaLaport</span></div></div>
+          <div class="f60-s"><b>其他</b><div class="f60-cs"><span class="f60-c f60-hit">永旺夢樂城 AEON<em>行程會到</em></span><span class="f60-c">澀谷 PARCO</span><span class="f60-c">難波 Parks</span></div></div>
+        </div>
+        <div class="f60-g"><div class="f60-h"><span class="f60-rate">特殊</span><span>1% 或定額</span></div>
+          <div class="f60-s"><b>約 1%</b><div class="f60-cs"><span class="f60-c">池袋東武</span><span class="f60-c">船橋東武</span></div></div>
+          <div class="f60-s"><b>每筆定額 ¥320</b><div class="f60-cs"><span class="f60-c">3COINS（小額購物）</span><span class="f60-c">部分百圓店</span></div></div>
+          <div class="f60-s"><b>機場領現金另扣</b><div class="f60-cs"><span class="f60-c">機場 Cash JAPAN（約 1.1%）</span><span class="f60-c">Yodobashi 市區退現</span></div></div>
+        </div>
+        <p class="f60-note">原圖卡有幾處重複或矛盾，已整理：鶴羽藥妝重複列兩次、友都八喜與淀橋相機是同一家（Yodobashi）合併、池袋／船橋東武重複列兩區、3COINS 同時出現在「0%（滿額時）」與「每筆 ¥320」兩種說法。<br>圖卡來源：二狗媽 @chiwawa_has_money〈日本退稅手續費 60 間通路大對決〉；官方確認：<a class="src-link" href="https://digitalpr.jp/r/145069" target="_blank" rel="noopener">唐吉訶德（PPIH）新聞稿</a>、<a class="src-link" href="https://www.businesstoday.com.tw/article/category/183031/post/202610150026/" target="_blank" rel="noopener">今周刊（BicCamera、鶴羽）</a></p>
+      </div>
     </div>
     <button class="expand-toggle" data-target="taxFaq" aria-expanded="false" aria-controls="taxFaq" data-label-closed="展開：退稅常見問題 12 題" data-label-open="收合退稅常見問題">
       <span class="et-label">展開：退稅常見問題 12 題</span>
