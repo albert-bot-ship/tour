@@ -2781,3 +2781,48 @@
   .tx-fees .tx-store{ font-size:.9rem; }
   .f60-c.f60-wide{ border-color:#6A4C93; }
   @media (max-width:600px){ .tx-fees .tx-fee{ grid-template-columns:5.8em 1fr; gap:.65rem; } }
+
+  /* ==========================================================
+     重點標題加強：讓標題跟內文明顯分開
+     第 1 層（段落小標 .tf-h）＝深靛標題帶
+     第 2 層（卡片標題 h3）＝加大加粗＋底線
+     第 3 層（h4 小節）＝色條＋紅葉色字
+     展開按鈕＝整條按鈕列
+     ========================================================== */
+  .tf-h{
+    display:flex; align-items:center; gap:.6rem;
+    margin:2.6rem 0 .55rem; padding:.68rem .95rem; border-left:none; border-radius:12px;
+    background:#14213B; color:#FBF7EE !important; font-size:1.16rem; font-weight:800; letter-spacing:.02em;
+    box-shadow:0 8px 18px -12px rgba(20,33,59,.7);
+  }
+  .tf-h::before{ content:""; flex:0 0 auto; width:.42rem; height:1.15em; border-radius:3px; background:#DDB157; }
+  .ink .tf-h{ background:#DDB157; color:#14213B !important; }
+  .ink .tf-h::before{ background:#14213B; }
+  body.night-mode .tf-h{ background:#2C4066; color:#F3EDE0 !important; }
+  .tf-hsub{ margin:0 0 1rem .2rem; opacity:.8; }
+
+  .prep-card > h3, .remind-card > h3, .sum-card > h3{
+    font-size:1.12rem; font-weight:800; line-height:1.4;
+    padding-bottom:.5rem; margin-bottom:.85rem; border-bottom:2px solid currentColor;
+  }
+  .prep-card > h3::before{ font-size:.75rem; }
+
+  .tx-sub, .tx-way h4, .tf-cpn h4, .pf-card h4{
+    position:relative; padding-left:.75rem; font-size:1.06rem !important; font-weight:800; color:#8F3319 !important;
+  }
+  .tx-sub::before, .tx-way h4::before, .tf-cpn h4::before, .pf-card h4::before{
+    content:""; position:absolute; left:0; top:.18em; bottom:.18em; width:4px; border-radius:2px; background:#BD4B28;
+  }
+  .ink .tx-sub, .ink .tx-way h4, .ink .tf-cpn h4, .ink .pf-card h4,
+  body.night-mode .tx-sub, body.night-mode .tx-way h4, body.night-mode .tf-cpn h4, body.night-mode .pf-card h4{ color:#F0A07E !important; }
+  body.night-mode .tx-sub::before, body.night-mode .tx-way h4::before, body.night-mode .tf-cpn h4::before, body.night-mode .pf-card h4::before{ background:#E2734A; }
+  .tx-sub{ margin-top:1.4rem !important; }
+
+  .expand-toggle{
+    margin-top:.8rem; padding:.8rem 1rem; border:1.5px solid rgba(221,177,87,.55) !important; border-radius:12px;
+    background:rgba(221,177,87,.1); font-size:.98rem;
+  }
+  .paper .expand-toggle, .warm .expand-toggle{ border-color:rgba(189,75,40,.4) !important; background:rgba(189,75,40,.06); }
+  .expand-toggle:hover{ opacity:1; background:rgba(189,75,40,.12); }
+  .expand-toggle.open{ border-bottom-left-radius:4px; border-bottom-right-radius:4px; }
+  @media print{ .tf-h{ box-shadow:none; -webkit-print-color-adjust:exact; print-color-adjust:exact; } }
