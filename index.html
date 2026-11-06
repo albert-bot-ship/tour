@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=39">
+<link rel="stylesheet" href="./style.css?v=40">
 </head>
 <body>
 <script>
@@ -1400,7 +1400,7 @@
     </ul>
     <div class="tf-tips">
       <p><b>英文地址怎麼查？</b>到中華郵政網站（post.gov.tw）的「中文地址英譯」，依查詢結果填寫即可。</p>
-      <p><b>先註冊比較順</b>建議出國前或在飯店就把退稅平台帳號註冊好，買完會更順。</p>
+      <p><b>先註冊比較順</b>建議出國前先註冊 <strong>J-TaxRefund</strong>（這趟最常用）。它<strong>要有購買紀錄才能完成驗證</strong>，出發前只能先建帳號，護照與退款方式買完再補；其他平台遇到再註冊即可。</p>
       <p class="tf-tip-warn"><b>台灣門號要能收簡訊</b>綁信用卡常要收台灣手機簡訊驗證。出國前開通漫遊收簡訊，在日本<strong>原門號保持開啟</strong>；團體上網卡不含簡訊，台灣 SIM 卡拔掉就收不到；<strong>用 eSIM 上網就不用拔台灣 SIM 卡</strong>，兩條線路同時開著即可收簡訊。</p>
     </div>
 
@@ -1504,34 +1504,44 @@
     <p class="tf-hsub">店家用哪家退稅公司就去哪家平台登記，退稅公司不能自己選。</p>
     <ol class="tf-chips" aria-label="退稅平台共同流程"><li>註冊帳號</li><li>填護照與英文地址</li><li>到店家購物辦免稅</li><li>拿到退稅QR或序號</li><li class="tf-hot">立刻拍照保存</li><li>平台掃QR或輸入序號</li><li>出境時海關確認</li><li>等待退款</li></ol>
     <div class="tf-alert"><svg class="tf-ico" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><rect x="5" y="14" width="38" height="26" rx="4" fill="#BD4B28"/><path d="M16 14l3-5h10l3 5" fill="#8F3319"/><circle cx="24" cy="27" r="8" fill="#FFFDF7"/><circle cx="24" cy="27" r="4.5" fill="#24365C"/></svg><p><b>買完一定要先拍照</b>重點不是一般收據，而是退稅平台給的 <strong>QR Code／交易序號</strong>，當下不能掃也要先拍下來。</p></div>
+    <div class="tf-alert tf-alert-stand"><span class="tf-ico-emoji" aria-hidden="true">🪧</span><p><b>結帳前先看收銀台的退稅立牌</b>立牌上會寫這家店用<strong>哪家退稅公司</strong>，J-TaxRefund 的立牌在 QR Code 下方還有<strong>手續費</strong>欄位。像 AEON MALL 用哪家目前說法不一，以現場立牌為準。</p></div>
     <div class="tf-tabs">
-      <div class="tf-tablist" role="tablist" aria-label="退稅平台"><button type="button" role="tab" id="tfp-jp-t" aria-controls="tfp-jp" aria-selected="true" tabindex="0">JPrefund</button><button type="button" role="tab" id="tfp-jt-t" aria-controls="tfp-jt" aria-selected="false" tabindex="-1">J-TaxRefund</button><button type="button" role="tab" id="tfp-gb-t" aria-controls="tfp-gb" aria-selected="false" tabindex="-1">Global Blue</button></div>
-      <div class="tf-panel" role="tabpanel" id="tfp-jp" aria-labelledby="tfp-jp-t">
-        <p class="tf-url">網址：<a href="https://jprefund.com" target="_blank" rel="noopener">jprefund.com</a></p>
+      <div class="tf-tablist" role="tablist" aria-label="退稅平台"><button type="button" role="tab" id="tfp-jt-t" aria-controls="tfp-jt" aria-selected="true" tabindex="0">J-TaxRefund<small class="tf-main">這趟最常用</small></button><button type="button" role="tab" id="tfp-jp-t" aria-controls="tfp-jp" aria-selected="false" tabindex="-1">JPrefund</button><button type="button" role="tab" id="tfp-gb-t" aria-controls="tfp-gb" aria-selected="false" tabindex="-1">Global Blue</button></div>
+      <div class="tf-panel" role="tabpanel" id="tfp-jt" aria-labelledby="tfp-jt-t">
+        <p class="tf-url">網址：<a href="https://j-taxrefund.com" target="_blank" rel="noopener">j-taxrefund.com</a>　｜　期限：購物後 <strong>180 天內</strong>登記退款</p>
+        <div class="tf-stores"><b>這趟會遇到的店</b><span>唐吉訶德（0%）</span><span>BicCamera（0%）</span><span>松本清（0.33%）</span><span>GU（1%）</span><span class="tf-unv">UNIQLO、Sundrug、大國藥妝（未確認）</span></div>
+        <ul class="tf-pts">
+          <li><strong>出發前只能先註冊帳號</strong>：要有購買紀錄才能完成驗證，護照資料、退款方式<strong>買完再補</strong>就好</li>
+          <li>用 Email 註冊後，<strong>登入 ID 會寄到你的信箱</strong>，之後用「登入 ID＋密碼」登入</li>
+          <li>收不到信先查垃圾郵件，<strong>登入 ID 建議另外存起來</strong></li>
+          <li>買完掃紙本單據上的官方 QR Code，回平台可查看免稅適用金額與紀錄（顯示「待退稅」）</li>
+          <li>退款可選信用卡（JCB、VISA、Master、美國運通、Diners、Discover、銀聯）；綁卡會要求輸入<strong>卡片背面安全碼</strong>，屬正常流程</li>
+        </ul>
+      </div>
+      <div class="tf-panel" role="tabpanel" id="tfp-jp" aria-labelledby="tfp-jp-t" hidden>
+        <p class="tf-url">網址：<strong>依收據或立牌上的 QR Code 連結為準</strong>（網路上有 .com、.jp 兩種寫法）　｜　期限：購物後 <strong>200 天內</strong></p>
+        <div class="tf-stores"><b>這趟會遇到的店</b><span>PARCO</span><span>COSMOS 藥妝</span><span class="tf-unv">AEON MALL（說法不一）</span><span class="tf-unv">3COINS（每筆 ¥320）</span></div>
         <ul class="tf-pts">
           <li>用 Email 註冊並完成驗證 → 建立密碼 → 填護照資料與英文地址</li>
           <li>買完到「<strong>免稅購買記錄</strong>」查看退款金額（Refund Amount）和交易序號（Transaction ID）</li>
           <li>畫面顯示「<strong>待處理</strong>」通常屬正常，代表還在等出境海關確認</li>
+          <li>退款信用卡目前<strong>只能用 VISA、Master</strong>（JCB、美國運通據稱 11 月後開放）；綁卡會要求輸入安全碼</li>
+          <li>⚠️ 網路資料提到可能另扣<strong>匯款手續費（退稅額的 5%）</strong>，待確認</li>
           <li>現場沒處理完，先把 QR Code／序號拍起來，之後再回平台補登記</li>
         </ul>
       </div>
-      <div class="tf-panel" role="tabpanel" id="tfp-jt" aria-labelledby="tfp-jt-t" hidden>
-        <p class="tf-url">網址：<a href="https://j-taxrefund.com" target="_blank" rel="noopener">j-taxrefund.com</a></p>
-        <ul class="tf-pts">
-          <li>用 Email 註冊後，<strong>登入 ID 會寄到你的信箱</strong>，之後用「登入 ID＋密碼」登入</li>
-          <li>收不到信先查垃圾郵件，<strong>登入 ID 建議另外存起來</strong></li>
-          <li>填護照資料與英文地址；買完掃紙本單據上的官方 QR Code</li>
-          <li>回平台可查看免稅適用金額與紀錄（顯示「待退稅」）</li>
-        </ul>
-      </div>
       <div class="tf-panel" role="tabpanel" id="tfp-gb" aria-labelledby="tfp-gb-t" hidden>
-        <p class="tf-url">百貨常見：高島屋、三越伊勢丹、大丸松坂屋、阪急阪神、友都八喜</p>
+        <p class="tf-url">期限：離開日本後 <strong>3 週內</strong>設定好信用卡、<strong>3 個月內</strong>完成（沒設定會改寄虛擬預付卡）</p>
+        <div class="tf-stores"><b>這趟會遇到的店</b><span>岡山高島屋（2.3%）</span><span>愛電王 EDION（每筆 ¥210）</span><span>FamilyMart</span></div>
         <ul class="tf-pts">
+          <li>百貨常見：高島屋、三越伊勢丹、大丸松坂屋、阪急阪神、友都八喜</li>
           <li>結帳出示護照、付含稅價；<strong>沒有紙本退稅單</strong>，店家直接上傳購買紀錄</li>
-          <li>用店家給的 QR Code 或 Email 連結填卡號，或下載 App「Global Blue – Shop Tax Free」（目前只有英文、日文）</li>
+          <li>用店家給的 QR Code 或 Email 連結填卡號，或下載 App「Global Blue – Shop Tax Free」；網頁只有<strong>簡體中文</strong>、英文、日文，沒有繁體中文</li>
+          <li>綁卡<strong>不需要</strong>輸入安全碼（四大系統中唯一）</li>
           <li>可退到信用卡、簽帳卡或電子錢包；機場領現金可能再收一筆手續費，<strong>退卡比較單純</strong></li>
         </ul>
       </div>
+      <p class="tf-src">資料來源：<a class="src-link" href="https://linshibi.com/?p=53059" target="_blank" rel="noopener">林氏璧〈日本退稅公司介紹 各商店手續費整理〉（11/2 更新）</a>、<a class="src-link" href="https://www.nownews.com/news/6889768" target="_blank" rel="noopener">NOWnews（安全碼）</a>；手續費與合作店家仍可能變動，以現場立牌為準。</p>
     </div>
     <div class="tf-after">
       <b>登記後看這4件事</b>
@@ -4196,7 +4206,7 @@
         links:[['退稅攻略','taxfree|機場離境確認'],['出境前檢查表','taxfree|出境前檢查表'],['航班資訊','logistics|集合資訊']] }
     ];
     const TASKS = [
-      { w:7, t:'註冊退稅平台帳號（J-TaxRefund 等），英文地址存手機備忘錄', go:'taxfree', find:'出發前先準備' },
+      { w:7, t:'註冊 J-TaxRefund 帳號（只能先註冊，護照買完再補）；英文地址存手機備忘錄', go:'taxfree', find:'退稅平台怎麼登記' },
       { w:7, t:'開通台灣門號海外收簡訊（退稅綁信用卡要收驗證碼）', go:'taxfree', find:'綁卡要收台灣手機簡訊' },
       { w:7, t:'兌換 Docomo eSIM（11/11～11/17，最晚 11/17）', go:'prep', find:'我的上網：Docomo eSIM' },
       { w:7, t:'CUBE App 切換「秋日遊」權益', go:'payment', find:'國泰 CUBE' },
