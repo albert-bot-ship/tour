@@ -2904,3 +2904,9 @@
   .tf-src{ margin:.2rem .9rem .9rem; font-size:.72rem; opacity:.85; line-height:1.6; }
   .tf-src a{ color:var(--momiji); }
   body.night-mode .tf-src a{ color:var(--kincha); }
+  /* 地圖附近店家：一般店（藥）與提醒（⚠） */
+  .near-marker.near-plain{ background:#24365C; }
+  .near-marker.near-warn{ background:#8F3319; }
+  .ds-num.ds-p{ background:#24365C; }
+  .ds-num.ds-w{ background:#8F3319; }
+  .ds-near.ds-warn{ border-color:rgba(189,75,40,.55); background:rgba(189,75,40,.05); }
