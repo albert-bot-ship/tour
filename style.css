@@ -2910,3 +2910,26 @@
   .ds-num.ds-p{ background:#24365C; }
   .ds-num.ds-w{ background:#8F3319; }
   .ds-near.ds-warn{ border-color:rgba(189,75,40,.55); background:rgba(189,75,40,.05); }
+
+  /* 退稅：兩層手續費、CUBE 注意事項 */
+  .tx-2l, .tx-cube{ margin:.4rem 0 1.2rem; padding:.9rem 1rem; border-radius:14px; border:1.5px solid var(--paper-line); background:rgba(255,255,255,.5); }
+  body.night-mode .tx-2l, body.night-mode .tx-cube{ background:rgba(234,227,211,.04); }
+  .tx-2l-h, .tx-cube-h{ display:block; font-family:'Noto Serif TC',serif; font-size:1.05rem; font-weight:800; margin-bottom:.7rem; }
+  .tx-2l-steps{ display:flex; flex-direction:column; gap:.55rem; margin-bottom:.8rem; }
+  .tx-2l-s{ display:flex; gap:.7rem; align-items:flex-start; }
+  .tx-2l-s b{ display:block; font-size:.92rem; }
+  .tx-2l-s small{ display:block; font-size:.8rem; line-height:1.55; opacity:.9; }
+  .tx-2l-n{ flex:0 0 auto; width:1.8rem; height:1.8rem; border-radius:50%; display:grid; place-items:center; font-weight:900; background:#14213B; color:#DDB157; }
+  .tx-2l-t caption{ caption-side:top; text-align:left; font-size:.76rem; opacity:.8; padding-bottom:.3rem; }
+  .tx-2l-note{ margin:.6rem 0 0; font-size:.84rem; }
+  .tx-cube{ border-color:rgba(189,75,40,.55); background:rgba(189,75,40,.05); }
+  .tx-cube-h{ color:#8F3319; }
+  body.night-mode .tx-cube-h{ color:#F0A07E; }
+  .tx-cube-tip{ margin-top:.7rem; padding:.7rem .8rem; border-radius:10px; background:rgba(108,122,74,.12); border:1px solid rgba(108,122,74,.4); }
+  .tx-cube-tip b{ display:block; margin-bottom:.3rem; color:#4F5A35; }
+  body.night-mode .tx-cube-tip b{ color:#B7C795; }
+  .tx-cube-src{ margin:.6rem 0 0; font-size:.72rem; opacity:.85; }
+  .tx-jump{ margin-left:.2rem; padding:.05rem .55rem; min-height:28px; border-radius:999px; border:1px solid #BD4B28; background:transparent; color:#8F3319; font:inherit; font-size:.75rem; cursor:pointer; }
+  body.night-mode .tx-jump{ color:#F0A07E; border-color:#E2734A; }
+  .tx-cube-src a{ color:var(--momiji); }
+  body.night-mode .tx-cube-src a{ color:var(--kincha); }
