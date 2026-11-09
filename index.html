@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-<link rel="stylesheet" href="./style.css?v=41">
+<link rel="stylesheet" href="./style.css?v=42">
 </head>
 <body>
 <script>
@@ -1655,6 +1655,43 @@
       <span class="et-arrow">▾</span>
     </button>
     <div class="collapsible" id="taxRefund">
+        <div class="tx-2l">
+          <b class="tx-2l-h">退稅有「兩層」手續費</b>
+          <div class="tx-2l-steps">
+            <div class="tx-2l-s"><span class="tx-2l-n">1</span><div><b>退稅平台費 0%～3%</b><small>店家跟退稅公司談好的，<strong>你無法改變</strong> → 只能挑手續費低的店（見下方「各店退稅手續費」）</small></div></div>
+            <div class="tx-2l-s"><span class="tx-2l-n">2</span><div><b>領錢方式的費用</b><small><strong>你可以選</strong>：退信用卡（匯差約 0.6%、回饋可能被扣回）或機場領現金（機台服務費約 1%～1.1% 未稅價，再加尾數捨去）</small></div></div>
+          </div>
+          <div class="cash-table-wrap">
+          <table class="cash-table tx-2l-t">
+            <caption>以消費稅 ¥2,000 試算，實拿比例</caption>
+            <thead><tr><th scope="col">方式</th><th scope="col">0% 平台費的店</th><th scope="col">2% 平台費的店</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">退信用卡</th><td><strong>約 99%～104%</strong></td><td>約 80%～84%</td></tr>
+              <tr><th scope="row">機場領現金</th><td>約 85%～90%</td><td>約 65%～73%</td></tr>
+            </tbody>
+          </table>
+          </div>
+          <p class="tx-2l-note">✅ <strong>退信用卡明顯比領現金划算</strong>；而且岡山機場不在領現金櫃台名單內，<strong>這趟本來就只能退卡</strong>。</p>
+        </div>
+
+        <div class="tx-cube" id="txCube">
+          <b class="tx-cube-h">⚠️ 用國泰 CUBE 消費的人注意</b>
+          <ul class="tf-pts">
+            <li>退稅款退回<strong>國泰卡</strong>：<strong>不會退還 1.5% 海外交易手續費</strong>（國泰一般刷退會退，退稅款例外）</li>
+            <li>退回原消費卡時，刷卡回饋可能依退款金額<strong>扣回</strong>（秋日遊 3.5%）</li>
+            <li>以退稅 ¥2,000 為例，約少 ¥100（約 NT$21），金額不大，心裡有數即可</li>
+          </ul>
+          <div class="tx-cube-tip">
+            <b>👉 建議：CUBE 消費、退稅款綁「兆豐悠遊晶緻卡」</b>
+            <ul class="tf-pts">
+              <li>退稅平台登記退款時，<strong>可以填跟付款不同的卡</strong></li>
+              <li>依圖卡整理，兆豐卡只有 <strong>Mastercard</strong> 刷退會退回 1.5%，<strong>VISA、JCB 不退</strong> → 請看卡面確認卡別</li>
+              <li>回饋扣回以兆豐卡的回饋率計算，通常比 CUBE 秋日遊 3.5% 低</li>
+              <li>⚠️ 注意 JPrefund 退款卡目前<strong>只收 VISA、Master</strong></li>
+            </ul>
+          </div>
+          <p class="tx-cube-src">資料來源：<a class="src-link" href="https://BeUrLife.com" target="_blank" rel="noopener">這就是人生 BeUrLife</a> 圖卡（2026/11/08）；1.5% 退還與回饋扣回規則<strong>為網路整理，以各銀行公告為準</strong>。</p>
+        </div>
         <div class="tf-payref">
           <b>付款 vs 退款：是兩件事</b>
           <ul class="tf-pts">
@@ -1775,6 +1812,7 @@
         <ul class="tf-pts">
           <li>日本<strong>實體消費</strong>享 3.5% 小樹點（信用卡）回饋</li>
           <li>期間 2026/10/01～<strong>11/30</strong>，本團 11/18～22 在期間內</li>
+          <li>⚠️ 退稅款別退回 CUBE：國泰<strong>不退 1.5% 海外手續費</strong>、回饋可能扣回，建議退到兆豐卡 <button type="button" class="tx-jump" data-jump="txCube">看說明 ›</button></li>
         </ul>
       </article>
       <article class="pf-card">
@@ -4182,6 +4220,13 @@
       if (document.visibilityState === 'visible') fetchAll(false).then(() => { renderDays(); refreshDrawer(); });
     });
   })();
+
+  // ---------- 支付頁 → 退稅頁說明的跳轉按鈕 ----------
+  document.addEventListener('click', e => {
+    const b = e.target.closest('.tx-jump'); if (!b) return;
+    const el = document.getElementById(b.dataset.jump);
+    if (el && window.revealAndScroll) window.revealAndScroll(el);
+  });
 
   // ---------- 出發前任務＋明日預告（依日本時間自動切換；網址加 ?guide=d2 可預覽） ----------
   (function(){
