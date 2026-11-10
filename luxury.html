@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>精品採買｜岡山四國五日遊</title>
+<link rel="icon" href="./icon.PNG" type="image/png">
+<link rel="apple-touch-icon" href="./icon.PNG">
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#14213B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F3EDE0; --surface:#FBF8F1; --surface-2:#EBE2CF;
+    --ink:#1E2430; --ink-soft:#4A5162; --line:rgba(30,36,48,.14);
+    --ai:#14213B; --ai-mid:#24365C;
+    --kin:#B8892B; --kin-soft:rgba(184,137,43,.14);
+    --momiji:#BD4B28; --momiji-soft:rgba(189,75,40,.10);
+    --matcha:#5E6B3E; --matcha-soft:rgba(108,122,74,.14);
+    --grey-soft:rgba(30,36,48,.06);
+    color-scheme: light;
+  }
+  body.night-mode{
+    --bg:#0F1828; --surface:#172238; --surface-2:#1F2C46;
+    --ink:#F3EDE0; --ink-soft:#BFC4CF; --line:rgba(243,237,224,.14);
+    --ai:#0A1220; --ai-mid:#24365C;
+    --kin:#DDB157; --kin-soft:rgba(221,177,87,.16);
+    --momiji:#E07A55; --momiji-soft:rgba(224,122,85,.14);
+    --matcha:#A9B97E; --matcha-soft:rgba(169,185,126,.14);
+    --grey-soft:rgba(243,237,224,.06);
+    color-scheme: dark;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; scroll-padding-top:calc(64px + env(safe-area-inset-top, 0px)); -webkit-text-size-adjust:100%; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+    font-size:16px; line-height:1.7;
+    padding-bottom:env(safe-area-inset-bottom, 0px);
+  }
+  a{ color:inherit; }
+  :focus-visible{ outline:2px solid var(--kin); outline-offset:2px; border-radius:4px; }
+
+  /* 頂部列 */
+  .topbar{
+    position:sticky; top:0; z-index:20;
+    padding:calc(env(safe-area-inset-top, 0px) + .55rem) 1rem .55rem;
+    background:rgba(20,33,59,.92); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    display:flex; align-items:center; gap:.75rem; color:#F3EDE0;
+  }
+  .back{
+    display:inline-flex; align-items:center; gap:.35rem; min-height:44px; padding:0 .8rem;
+    border-radius:999px; text-decoration:none; font-size:.88rem;
+    border:1px solid rgba(221,177,87,.5); color:#F3EDE0;
+  }
+  .topbar .t{ font-family:'Noto Serif TC', serif; font-weight:700; letter-spacing:-.01em; }
+
+  /* 封面：標題＋五日動線 */
+  .hero{ background:var(--ai); color:#F3EDE0; padding:2.2rem 1.25rem 2rem; }
+  .wrap{ max-width:760px; margin:0 auto; }
+  .hero h1{
+    font-family:'Noto Serif TC', serif; font-weight:900; letter-spacing:-.03em;
+    font-size:clamp(2.2rem, 9vw, 3.4rem); line-height:1.1; margin:0 0 .6rem;
+  }
+  .hero p{ margin:0 0 1.6rem; color:rgba(243,237,224,.78); max-width:34em; }
+  .route{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(5, 1fr); gap:.4rem; }
+  .route li{ position:relative; }
+  .route a{
+    display:flex; flex-direction:column; gap:.2rem; text-decoration:none; min-height:96px;
+    padding:.65rem .5rem; border-radius:10px; background:rgba(243,237,224,.06);
+    border-top:4px solid rgba(243,237,224,.25);
+  }
+  .route .d{ font-family:'Noto Serif TC', serif; font-weight:900; font-size:1.15rem; }
+  .route .c{ font-size:.78rem; color:rgba(243,237,224,.75); line-height:1.35; }
+  .route .v{ margin-top:auto; font-size:.74rem; font-weight:700; }
+  .route .main a{ border-top-color:#DDB157; background:rgba(221,177,87,.14); }
+  .route .main .v{ color:#DDB157; }
+  .route .ok a{ border-top-color:#A9B97E; }
+  .route .ok .v{ color:#C3D19A; }
+  .route .tbd a{ border-top-color:#E07A55; }
+  .route .tbd .v{ color:#F0A383; }
+  .route .no .v{ color:rgba(243,237,224,.55); }
+  @media (max-width:520px){
+    .route{ grid-template-columns:1fr; }
+    .route a{ min-height:0; flex-direction:row; align-items:baseline; gap:.6rem; }
+    .route .v{ margin-top:0; margin-left:auto; white-space:nowrap; }
+  }
+
+  /* 本頁導覽 */
+  .jump{ position:sticky; top:calc(env(safe-area-inset-top, 0px) + 60px); z-index:10; background:var(--bg); border-bottom:1px solid var(--line); }
+  .jump .wrap{ display:flex; gap:.4rem; overflow-x:auto; padding:.55rem 1.25rem; scrollbar-width:none; }
+  .jump .wrap::-webkit-scrollbar{ display:none; }
+  .jump a{
+    flex:0 0 auto; text-decoration:none; font-size:.85rem; min-height:36px; display:inline-flex; align-items:center;
+    padding:0 .85rem; border-radius:999px; border:1px solid var(--line); background:var(--surface);
+  }
+
+  main .wrap{ padding:0 1.25rem; }
+  section{ padding:2.2rem 0 .6rem; }
+  h2{
+    font-family:'Noto Serif TC', serif; font-weight:900; letter-spacing:-.02em;
+    font-size:1.65rem; line-height:1.25; margin:0 0 .35rem;
+    padding-left:.7rem; border-left:5px solid var(--kin);
+  }
+  .sub{ color:var(--ink-soft); margin:0 0 1.2rem; font-size:.92rem; }
+  h3{ font-family:'Noto Serif TC', serif; font-weight:700; font-size:1.2rem; letter-spacing:-.01em; margin:0; line-height:1.35; }
+
+  /* 重點先看 */
+  .facts{ display:grid; gap:.7rem; }
+  .fact{ padding:.95rem 1.1rem; border-radius:12px; background:var(--surface); border:1px solid var(--line); }
+  .fact b{ display:block; font-size:1.02rem; margin-bottom:.15rem; }
+  .fact p{ margin:0; font-size:.92rem; color:var(--ink-soft); }
+  .fact.warn{ background:var(--momiji-soft); border-color:transparent; }
+  .fact.warn b{ color:var(--momiji); }
+
+  /* 店家 */
+  .day-label{
+    display:flex; align-items:baseline; gap:.6rem; margin:1.6rem 0 .6rem;
+    font-family:'Noto Serif TC', serif;
+  }
+  .day-label .n{ font-weight:900; font-size:1.35rem; color:var(--kin); }
+  .day-label .p{ font-weight:700; font-size:1.05rem; }
+  .shop{
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:1.1rem 1.15rem 1rem; margin-bottom:.8rem;
+  }
+  .shop.primary{ border:2px solid var(--kin); }
+  .shop-head{ display:flex; flex-wrap:wrap; align-items:center; gap:.4rem .7rem; margin-bottom:.55rem; }
+  .tag{ font-size:.74rem; font-weight:700; padding:.12rem .55rem; border-radius:999px; white-space:nowrap; }
+  .tag.lux{ background:var(--kin-soft); color:var(--kin); }
+  .tag.craft{ background:var(--matcha-soft); color:var(--matcha); }
+  .tag.tbd{ background:var(--momiji-soft); color:var(--momiji); }
+  dl.info{ display:grid; grid-template-columns:4.6em 1fr; gap:.35rem .7rem; margin:0; font-size:.92rem; }
+  dl.info dt{ color:var(--ink-soft); }
+  dl.info dd{ margin:0; }
+  .brands{ display:flex; flex-wrap:wrap; gap:.35rem; margin:0; padding:0; list-style:none; }
+  .brands li{ font-size:.82rem; padding:.1rem .55rem; border-radius:6px; background:var(--grey-soft); }
+  .note{ margin:.7rem 0 0; font-size:.86rem; color:var(--ink-soft); }
+  .note.alert{ color:var(--momiji); }
+  .maplink{
+    display:inline-flex; align-items:center; min-height:40px; margin-top:.75rem; padding:0 .9rem;
+    border-radius:999px; text-decoration:none; font-size:.85rem; border:1px solid var(--line);
+  }
+  .skip{ border-radius:12px; background:var(--grey-soft); padding:1rem 1.1rem; margin-top:1.4rem; }
+  .skip h3{ font-size:1.02rem; margin-bottom:.4rem; }
+  .skip ul{ margin:0; padding-left:1.2rem; font-size:.9rem; }
+  .skip li{ margin:.2rem 0; }
+
+  /* 預算 */
+  .rate{ font-size:.85rem; color:var(--ink-soft); margin:-.6rem 0 1rem; }
+  .budget{ display:grid; gap:.7rem; }
+  .plan{
+    display:grid; grid-template-columns:1fr auto; gap:.2rem 1rem; align-items:baseline;
+    padding:1rem 1.15rem; border-radius:12px; background:var(--surface); border:1px solid var(--line);
+  }
+  .plan .name{ font-weight:700; }
+  .plan .what{ grid-column:1; font-size:.86rem; color:var(--ink-soft); }
+  .plan .yen{ grid-row:1; grid-column:2; text-align:right; font-family:'Noto Serif TC', serif; font-weight:900; font-size:1.2rem; white-space:nowrap; }
+  .plan .twd{ grid-column:2; text-align:right; font-size:.86rem; color:var(--ink-soft); white-space:nowrap; }
+  .plan.total{ background:var(--ai); color:#F3EDE0; border-color:transparent; }
+  .plan.total .what, .plan.total .twd{ color:rgba(243,237,224,.75); }
+  .plan.total .yen{ color:#DDB157; font-size:1.45rem; }
+
+  .compare{ width:100%; border-collapse:collapse; font-size:.9rem; margin-top:1rem; }
+  .compare th, .compare td{ text-align:left; padding:.55rem .5rem; border-bottom:1px solid var(--line); vertical-align:top; }
+  .compare th{ font-weight:500; color:var(--ink-soft); width:46%; }
+  .compare td{ font-weight:700; }
+  .tbl-wrap{ overflow-x:auto; }
+
+  /* 結帳與海關 */
+  ol.steps{ margin:0; padding:0; list-style:none; counter-reset:s; display:grid; gap:.6rem; }
+  ol.steps li{
+    counter-increment:s; position:relative; padding:.85rem 1rem .85rem 3.1rem;
+    border-radius:12px; background:var(--surface); border:1px solid var(--line); font-size:.92rem;
+  }
+  ol.steps li::before{
+    content:counter(s); position:absolute; left:1rem; top:.85rem;
+    width:1.6rem; height:1.6rem; border-radius:50%; display:grid; place-items:center;
+    font-family:'Noto Serif TC', serif; font-weight:900; font-size:.9rem;
+    background:var(--ai-mid); color:#F3EDE0;
+  }
+  ol.steps b{ display:block; }
+  .phrase{ margin-top:.3rem; font-size:.88rem; color:var(--ink-soft); }
+  .phrase span[lang="ja"]{ color:var(--ink); font-weight:700; }
+
+  .sources{ font-size:.84rem; color:var(--ink-soft); padding-left:1.1rem; }
+  .sources li{ margin:.25rem 0; word-break:break-word; }
+  footer{ padding:2rem 1.25rem 3rem; text-align:center; font-size:.8rem; color:var(--ink-soft); }
+</style>
+</head>
+<body>
+<script>
+  // 跟主頁共用外觀設定（auto＝跟隨系統）
+  try {
+    var _st = JSON.parse(localStorage.getItem('tour_settings') || '{}');
+    var _th = _st.theme || 'auto';
+    if (_th === 'dark' || (_th === 'auto' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.body.classList.add('night-mode');
+    }
+  } catch (e) {}
+</script>
+
+<header class="topbar">
+  <a class="back" href="./index.html">‹ 回行程</a>
+  <span class="t">精品採買</span>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <h1>精品採買</h1>
+    <p>國際精品與在地工藝，依天數排好。只列行程沿線、時間上可能到得了的店。</p>
+    <ol class="route" aria-label="五天精品動線">
+      <li class="no"><a href="#skip"><span class="d">D1</span><span class="c">岡山</span><span class="v">不建議</span></a></li>
+      <li class="main"><a href="#d2"><span class="d">D2</span><span class="c">廣島 福屋</span><span class="v">主力</span></a></li>
+      <li class="ok"><a href="#d3"><span class="d">D3</span><span class="c">道後 今治毛巾</span><span class="v">可買</span></a></li>
+      <li class="tbd"><a href="#d4"><span class="d">D4</span><span class="c">高松 三越</span><span class="v">看抵達時間</span></a></li>
+      <li class="ok"><a href="#d5"><span class="d">D5</span><span class="c">倉敷 帆布・牛仔</span><span class="v">上午可買</span></a></li>
+    </ol>
+  </div>
+</div>
+
+<nav class="jump" aria-label="本頁分區">
+  <div class="wrap">
+    <a href="#facts">重點先看</a>
+    <a href="#shops">店家</a>
+    <a href="#budget">價差與預算</a>
+    <a href="#checkout">結帳與海關</a>
+    <a href="#sources">資料來源</a>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+  <section id="facts">
+    <h2>重點先看</h2>
+    <p class="sub">出發前先知道這四件事。</p>
+    <div class="facts">
+      <div class="fact warn">
+        <b>這趟買不到 Hermès</b>
+        <p>岡山高島屋店 2024/2/29 閉店，廣島 SOGO 店更早關，中四國已經沒有 Hermès 門市。網路上「高松三越有 Hermès」是舊資料。</p>
+      </div>
+      <div class="fact">
+        <b>精品主力放 D2 廣島福屋</b>
+        <p>品牌最齊，又剛好在本通商店街自由逛街的範圍。D4 高松三越當備案。</p>
+      </div>
+      <div class="fact warn">
+        <b>一顆經典包就會超過海關免稅額</b>
+        <p>入境台灣自用行李免稅上限 NT$35,000，超過要走紅線申報，超過部分課稅（精品包的實際稅率未查證）。</p>
+      </div>
+      <div class="fact">
+        <b>刷卡，不用換現金</b>
+        <p>退稅是先付含稅全額、之後再退，退款建議選「退到信用卡」。這筆預算看的是卡片額度。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="shops">
+    <h2>店家</h2>
+    <p class="sub">營業時間以店家公告為準；手錶不列入。</p>
+
+    <div class="day-label" id="d2"><span class="n">D2</span><span class="p">11/19（四）廣島</span></div>
+    <article class="shop primary">
+      <div class="shop-head"><h3>福屋八丁堀本店</h3><span class="tag lux">國際精品</span></div>
+      <dl class="info">
+        <dt>包・皮件</dt>
+        <dd><ul class="brands"><li>Louis Vuitton</li><li>Chanel</li><li>Gucci</li><li>TUMI</li></ul></dd>
+        <dt>珠寶</dt>
+        <dd><ul class="brands"><li>Cartier</li><li>Tiffany</li><li>Georg Jensen</li><li>Baccarat</li></ul></dd>
+        <dt>服飾・鞋</dt>
+        <dd><ul class="brands"><li>Brunello Cucinelli</li><li>Giorgio Armani</li><li>Ferragamo</li><li>Etro</li><li>Tod's</li><li>Zegna</li></ul></dd>
+        <dt>營業</dt><dd>10:30–19:30</dd>
+        <dt>位置</dt><dd>廣島市中區胡町 6-26，廣電「八丁堀」站下車即到</dd>
+      </dl>
+      <p class="note">國際精品多在 1 樓，3 樓是服飾品牌。本通商店街約 20:00 打烊，福屋 19:30 就關，排在逛本通之前先去。</p>
+      <p class="note">退稅手續費未查到，以結帳時店家顯示為準。</p>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=%E7%A6%8F%E5%B1%8B%E5%85%AB%E4%B8%81%E5%A0%80%E6%9C%AC%E5%BA%97" target="_blank" rel="noopener">在 Google 地圖開啟</a>
+    </article>
+
+    <div class="day-label" id="d3"><span class="n">D3</span><span class="p">11/20（五）道後</span></div>
+    <article class="shop">
+      <div class="shop-head"><h3>伊織 道後湯之町店</h3><span class="tag craft">在地工藝</span></div>
+      <dl class="info">
+        <dt>買什麼</dt><dd>今治毛巾、道後主題限定手帕（各 ¥990）、入浴劑</dd>
+        <dt>營業</dt><dd>9:00–22:00</dd>
+        <dt>位置</dt><dd>道後ハイカラ通商店街，松山市道後湯之町 20-21</dd>
+      </dl>
+      <p class="note">D3 抵達松山已是傍晚，這家開到 22:00，晚上去道後本館拍照時順路買。</p>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=%E4%BC%8A%E7%B9%94+%E9%81%93%E5%BE%8C%E6%B9%AF%E4%B9%8B%E7%94%BA%E5%BA%97" target="_blank" rel="noopener">在 Google 地圖開啟</a>
+    </article>
+
+    <div class="day-label" id="d4"><span class="n">D4</span><span class="p">11/21（六）高松</span></div>
+    <article class="shop">
+      <div class="shop-head"><h3>高松三越</h3><span class="tag lux">國際精品</span><span class="tag tbd">看抵達時間</span></div>
+      <dl class="info">
+        <dt>包・皮件</dt><dd><ul class="brands"><li>Louis Vuitton</li><li>Gucci</li></ul></dd>
+        <dt>珠寶</dt><dd><ul class="brands"><li>Tiffany</li></ul></dd>
+        <dt>服飾</dt><dd><ul class="brands"><li>Brooks Brothers</li></ul></dd>
+        <dt>營業</dt><dd>10:00–19:00</dd>
+        <dt>位置</dt><dd>高松市內町 7-1，琴電片原町站步行約 3 分、JR 高松站約 10 分</dd>
+      </dl>
+      <p class="note alert">當晚住高松兵庫町 JR CLEMENT INN（已依旅行社住宿表確認）。能不能去，要看幾點到高松；19:00 打烊。</p>
+      <p class="note">Tiffany、Gucci、Brooks Brothers 在「壹番街」館，不在本館。</p>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=%E9%AB%98%E6%9D%BE%E4%B8%89%E8%B6%8A" target="_blank" rel="noopener">在 Google 地圖開啟</a>
+    </article>
+
+    <div class="day-label" id="d5"><span class="n">D5</span><span class="p">11/22（日）倉敷</span></div>
+    <article class="shop">
+      <div class="shop-head"><h3>倉敷帆布 美觀地區店</h3><span class="tag craft">在地工藝</span></div>
+      <dl class="info">
+        <dt>買什麼</dt><dd>機屋直營的帆布托特包、小物；倉敷帆布約占日本國產帆布 7 成</dd>
+        <dt>參考價</dt><dd>基帆托特包小款 ¥5,280、平面小包 ¥1,980</dd>
+        <dt>營業</dt><dd>10:00–17:30</dd>
+        <dt>位置</dt><dd>倉敷市本町 11-33，阿智神社石階附近</dd>
+      </dl>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=%E5%80%89%E6%95%B7%E5%B8%86%E5%B8%83+%E7%BE%8E%E8%A6%B3%E5%9C%B0%E5%8C%BA%E5%BA%97" target="_blank" rel="noopener">在 Google 地圖開啟</a>
+    </article>
+    <article class="shop">
+      <div class="shop-head"><h3>倉敷牛仔街（倉敷デニムストリート）</h3><span class="tag craft">在地工藝</span></div>
+      <dl class="info">
+        <dt>買什麼</dt><dd>兒島產牛仔製品、牛仔布小物與飾品；兒島是日本國產牛仔褲發源地</dd>
+        <dt>順便吃</dt><dd>藍色的牛仔霜淇淋、牛仔包子</dd>
+        <dt>營業</dt><dd>未查到，以現場為準</dd>
+      </dl>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=%E5%80%89%E6%95%B7%E3%83%87%E3%83%8B%E3%83%A0%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BC%E3%83%88" target="_blank" rel="noopener">在 Google 地圖開啟</a>
+    </article>
+    <p class="note">D5 15:25 起飛，倉敷到機場車程約 40 分鐘，實際能逛的大約是 10:00 開門後的上午時段，集合時間以領隊為準。</p>
+
+    <div class="skip" id="skip">
+      <h3>有精品但不建議</h3>
+      <ul>
+        <li><b>D1 岡山高島屋（LV）</b>：在 AEON 旁，但退稅手續費 2.3%，同款到福屋或高松三越買較划算。</li>
+        <li><b>D3 伊予鐵高島屋（LV）</b>：19:00 打烊，宮島到松山車程 3～3.5 小時，抵達多半已關門。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="budget">
+    <h2>價差與預算</h2>
+    <p class="sub">採 A＋B 方案：在地精品＋一顆經典包的額度，買不買到現場再決定。</p>
+    <p class="rate" id="rateNote">匯率載入中…</p>
+
+    <div class="budget">
+      <div class="plan">
+        <span class="name">A 在地精品</span>
+        <span class="yen">¥30,000–50,000</span>
+        <span class="what">帆布托特、今治毛巾、牛仔小物（金額為估算）</span>
+        <span class="twd" data-jpy-range="30000,50000"></span>
+      </div>
+      <div class="plan">
+        <span class="name">B 一顆經典包</span>
+        <span class="yen">¥288,200</span>
+        <span class="what">以 LV Neverfull MM 日本官方含稅價為例</span>
+        <span class="twd" data-jpy="288200"></span>
+      </div>
+      <div class="plan total">
+        <span class="name">A＋B 卡片額度</span>
+        <span class="yen">¥318,200–338,200</span>
+        <span class="what">含稅全額，退稅之後才會退回</span>
+        <span class="twd" data-jpy-range="318200,338200"></span>
+      </div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table class="compare">
+        <caption class="sub" style="text-align:left; caption-side:top; margin-bottom:.3rem;">同款比價：LV Neverfull MM</caption>
+        <tr><th>日本官方含稅價</th><td>¥288,200</td></tr>
+        <tr><th>台灣官方售價</th><td>NT$67,500</td></tr>
+        <tr><th>日本退稅後試算（來源試算）</th><td>約 NT$53,450，約便宜 21%</td></tr>
+        <tr><th>退稅後（本頁目前匯率，手續費以 1.55% 假設）</th><td id="netCalc">—</td></tr>
+      </table>
+    </div>
+    <p class="note">其他整理：LV、Gucci 在日本通常比台灣便宜約 8%～18%；但有消費者反映個別款式退稅後反而更貴。看中特定款，先查台灣官網價，再用當天匯率算。</p>
+    <p class="note">皮夾、Tiffany 飾品等小件的日本價格目前沒有查到可靠資料。</p>
+  </section>
+
+  <section id="checkout">
+    <h2>結帳與海關</h2>
+    <p class="sub">買精品時照這個順序。</p>
+    <ol class="steps">
+      <li><b>先在台灣查好想買那款的台灣官網價</b>確認日本價換算後真的比較便宜。</li>
+      <li><b>結帳出示護照，說要免稅</b><span class="phrase">說：<span lang="ja">免税でお願いします</span></span></li>
+      <li><b>刷卡選日圓計價</b>避開海外刷卡的台幣計價（DCC）手續費。<span class="phrase">說：<span lang="ja">円でお願いします</span></span></li>
+      <li><b>退款方式選「退到信用卡」</b>回程岡山機場不在現金退款參考名單內。</li>
+      <li><b>回程在岡山機場託運前，用機台完成海關確認</b>岡山只能用機台辦，請提早到；詳細流程看主頁「退稅」分頁。</li>
+      <li><b>回台灣入境：超過 NT$35,000 走紅線申報</b>超過部分要繳稅，主動申報。</li>
+    </ol>
+  </section>
+
+  <section id="sources">
+    <h2>資料來源</h2>
+    <ul class="sources">
+      <li>Hermès 中四國閉店：日本經濟新聞〈「エルメス」が中四国ゼロに 岡山高島屋店24年2月閉店〉</li>
+      <li>LV 門市清單：Louis Vuitton 官網 Store Locator（岡山高島屋、福屋八丁堀、伊予鐵高島屋、高松三越）</li>
+      <li>福屋品牌與營業時間：DIVE! HIROSHIMA（dive-hiroshima.com）、Fashion Press 店舗頁</li>
+      <li>高松三越營業時間與品牌：Walkerplus（2026 年 5 月資料）</li>
+      <li>伊織 道後湯之町店：まっぷるトラベルガイド（mapple.net）、るるぶ&amp;more</li>
+      <li>倉敷帆布、倉敷牛仔街：岡山觀光 WEB（okayama-kanko.jp）、まっぷる</li>
+      <li>Neverfull MM 日台比價：Threads @fattsai〈2026 日本精品必買〉（網友試算，非官方）</li>
+      <li>LV、Gucci 價差區間：hotelclub.com.tw〈日本買什麼精品便宜〉</li>
+      <li>退稅後反而較貴的案例：新浪財經（對中國大陸價格比較）</li>
+    </ul>
+  </section>
+
+</div>
+</main>
+
+<footer>資料整理於 2026/11/10，品牌櫃位與營業時間可能異動，以現場為準。</footer>
+
+<script>
+  // 匯率：沿用主頁抓到的匯率（存在本機），沒有就用 0.20 參考值
+  (function(){
+    var rate = 0.20, stamp = null;
+    try {
+      var v = JSON.parse(localStorage.getItem('tour_fx_last'));
+      if (v && v.rate > 0) { rate = Number(v.rate); stamp = v.time ? new Date(v.time) : null; }
+    } catch (e) {}
+    function nt(n){ return 'NT$' + Math.round(n).toLocaleString(); }
+    var note = document.getElementById('rateNote');
+    if (note) {
+      note.textContent = stamp
+        ? '台幣依主頁上次抓到的匯率 1 日圓＝' + rate.toFixed(4) + ' 台幣換算（' + (stamp.getMonth()+1) + '/' + stamp.getDate() + ' 更新）'
+        : '台幣暫用參考匯率 1 日圓＝0.20 台幣換算；先開一次主頁就會改用即時匯率';
+    }
+    document.querySelectorAll('[data-jpy]').forEach(function(el){
+      el.textContent = '約 ' + nt(Number(el.getAttribute('data-jpy')) * rate);
+    });
+    document.querySelectorAll('[data-jpy-range]').forEach(function(el){
+      var p = el.getAttribute('data-jpy-range').split(',').map(Number);
+      el.textContent = '約 ' + nt(p[0] * rate) + '–' + Math.round(p[1] * rate).toLocaleString();
+    });
+    // Neverfull MM 退稅後：含稅價 − 消費稅（含稅價 ÷ 11）＋ 手續費（含稅價 × 1.55%）
+    var price = 288200, tax = price / 11, fee = price * 0.0155;
+    var net = price - tax + fee;
+    var cell = document.getElementById('netCalc');
+    if (cell) cell.textContent = '¥' + Math.round(net).toLocaleString() + '，約 ' + nt(net * rate);
+  })();
+</script>
+</body>
+</html>
