@@ -491,7 +491,7 @@
         <tr><th>日本官方含稅價</th><td>¥288,200</td></tr>
         <tr><th>台灣官方售價</th><td>NT$67,500</td></tr>
         <tr class="hi"><th>日本退稅後（來源試算）</th><td>約 NT$53,450，約便宜 21%</td></tr>
-        <tr><th>退稅後（本頁匯率，手續費以 1.55% 假設）</th><td id="netCalc">—</td></tr>
+        <tr><th>退稅後（本頁匯率，手續費以未稅價 × 1.55% 假設）</th><td id="netCalc">—</td></tr>
       </table>
     </div>
     <p class="fine">另有整理指出 LV、Gucci 在日本通常比台灣便宜約 8%～18%；但也有消費者反映個別款式退稅後反而更貴。看中特定款，先查台灣官網價再用當天匯率換算。</p>
@@ -611,7 +611,8 @@
       var p = el.getAttribute('data-jpy-range').split(',').map(Number);
       el.textContent = '約 ' + nt(p[0] * rate) + '–' + Math.round(p[1] * rate).toLocaleString();
     });
-    var price = 288200, tax = price / 11, fee = price * 0.0155;
+    // 手續費以未稅價計算
+    var price = 288200, tax = price / 11, fee = (price - tax) * 0.0155;
     var net = price - tax + fee;
     var cell = document.getElementById('netCalc');
     if (cell) cell.textContent = '¥' + Math.round(net).toLocaleString() + '，約 ' + nt(net * rate);
