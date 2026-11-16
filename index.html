@@ -787,6 +787,58 @@
       <span><i style="background:#14213B;"></i> 機場／交通</span>
       <span><i style="background:#7A5C8E;"></i> 當晚住宿</span>
     </div>
+    <form class="gm-search" id="gmSearch" role="search" aria-label="用 Google 地圖搜尋">
+      <style>
+        .gm-search{ margin:1rem 0 .4rem; padding:1rem; border:1px solid var(--paper-line); border-radius:14px; background:var(--washi-warm); }
+        .gm-search .gm-h{ font-family:'Noto Serif TC',serif; font-weight:700; font-size:1rem; margin:0 0 .6rem; }
+        .gm-row{ display:flex; gap:.5rem; }
+        .gm-row input{ flex:1; min-width:0; min-height:44px; padding:0 .9rem; font-size:16px; border-radius:10px; border:1px solid var(--paper-line); background:var(--washi); color:var(--ink); }
+        .gm-row button{ min-height:44px; padding:0 1rem; border-radius:10px; border:none; background:var(--ai-deep); color:#F3EDE0; font-size:.92rem; cursor:pointer; white-space:nowrap; }
+        .gm-where{ display:flex; flex-wrap:wrap; gap:.4rem .9rem; margin:.65rem 0 .2rem; font-size:.88rem; }
+        .gm-where label{ display:inline-flex; align-items:center; gap:.35rem; min-height:36px; cursor:pointer; }
+        .gm-chips{ display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.5rem; }
+        .gm-chips button{ min-height:36px; padding:0 .8rem; border-radius:999px; border:1px solid var(--paper-line); background:var(--washi); color:var(--ink); font-size:.85rem; cursor:pointer; }
+        .gm-note{ margin:.6rem 0 0; font-size:.8rem; opacity:.7; }
+      </style>
+      <p class="gm-h">🔍 用 Google 地圖搜尋</p>
+      <div class="gm-row">
+        <input type="search" id="gmQuery" placeholder="例如：7-11、一蘭、藥妝、高松駅" enterkeyhint="search" autocomplete="off" aria-label="要搜尋的地點或店名">
+        <button type="submit">搜尋</button>
+      </div>
+      <div class="gm-where" role="radiogroup" aria-label="搜尋範圍">
+        <label><input type="radio" name="gmWhere" value="me" checked> 📍 我現在附近</label>
+        <label><input type="radio" name="gmWhere" value="map"> 🗺️ 上方地圖目前畫面附近</label>
+      </div>
+      <div class="gm-chips" aria-label="常用搜尋">
+        <button type="button" data-q="コンビニ">🏪 超商</button><button type="button" data-q="ドラッグストア">💊 藥妝</button><button type="button" data-q="ラーメン">🍜 拉麵</button><button type="button" data-q="ATM">🏧 ATM</button><button type="button" data-q="トイレ">🚻 廁所</button>
+      </div>
+      <p class="gm-note">會開啟 Google 地圖 App（沒有 App 時開網頁版），看完切回來即可。「我現在附近」需允許 Google 地圖使用定位；選「地圖目前畫面」時，先把上方地圖移到想找的區域再搜尋。</p>
+    </form>
+    <script>
+    // 用 Google 地圖搜尋：獨立於地圖程式，地圖載入失敗時仍可用「我現在附近」
+    (function(){
+      var form = document.getElementById('gmSearch');
+      if (!form) return;
+      var input = document.getElementById('gmQuery');
+      function go(q){
+        q = (q || '').trim();
+        if (!q) { input.focus(); return; }
+        var w = form.querySelector('input[name="gmWhere"]:checked');
+        var m = window.__tourMap, url;
+        if (w && w.value === 'map' && m && m.getCenter) {
+          var c = m.getCenter();
+          url = 'https://www.google.com/maps/search/' + encodeURIComponent(q) + '/@' + c.lat.toFixed(5) + ',' + c.lng.toFixed(5) + ',16z';
+        } else {
+          url = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
+        }
+        window.open(url, '_blank', 'noopener');
+      }
+      form.addEventListener('submit', function(e){ e.preventDefault(); go(input.value); });
+      form.querySelectorAll('.gm-chips button').forEach(function(b){
+        b.addEventListener('click', function(){ go(b.getAttribute('data-q')); });
+      });
+    })();
+    </script>
     <div class="day-transit" id="dayTransit"></div>
     <div class="ds-list" id="dayStops" aria-live="polite"></div>
   </div>
@@ -2251,6 +2303,7 @@
 
   // ---------- MAP INIT ----------
   const map = L.map('leaflet-map', { scrollWheelZoom:false });
+  window.__tourMap = map; // 給「用 Google 地圖搜尋」取地圖中心
   map.setView([34.4, 133.4], 8);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
@@ -2396,6 +2449,7 @@
   });
 
   renderDay(0);
+
 
   // ---------- 飯店周邊地圖 ----------
   // cat: conv 超商／eat 居酒屋餐廳／shop 購物／walk 可逛。h = 營業時間（Google 資料，依入住當晚的星期）
